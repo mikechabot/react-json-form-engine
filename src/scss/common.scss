@@ -1,0 +1,37 @@
+@import '../../node_modules/react-widgets/dist/css/react-widgets.css';
+@import url('https://fonts.googleapis.com/css?family=Titillium+Web:300,400,600,700');
+
+$font-stack: 'Titillium Web', 'Segoe UI', 'Arial', sans-serif;
+
+/* Common Mixins */
+@mixin flex {
+    display: flex;
+}
+
+@mixin flex-column {
+    flex-direction: column;
+}
+
+@mixin margin($margin) {
+    margin: $margin;
+}
+
+@mixin height($height) {
+    height: $height;
+}
+
+@mixin width($width) {
+    width: $width;
+}
+
+@mixin full-height {
+    @include height(100%);
+}
+
+@mixin full-width {
+    @include width(100%);
+}
+
+@mixin border($color) {
+    border: 1px solid $color;
+}

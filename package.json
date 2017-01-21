@@ -1,0 +1,55 @@
+{
+  "name": "react-form-engine",
+  "version": "0.0.0",
+  "description": "Build complex web forms from JSON",
+  "scripts": {
+    "start": "npm run dev",
+    "dev": "npm run build && npm run server",
+    "build": "webpack --progress --colors",
+    "server": "node server.js",
+    "lint": "eslint src -f html --ext .jsx --ext .js -o lint-report.html"
+  },
+  "author": "Mike Chabot",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mikechabot/react-form-engine.git"
+  },
+  "bugs": {
+    "url": "https://github.com/mikechabot/react-form-engine/issues"
+  },
+  "peerDependencies": {
+    "react-dom": "^15.0.0",
+    "react": "^15.0.0"
+  },
+  "devDependencies": {
+    "autoprefixer": "^6.6.1",
+    "babel-core": "^6.22.1",
+    "babel-loader": "^6.2.10",
+    "babel-polyfill": "^6.22.0",
+    "babel-preset-es2015": "^6.22.0",
+    "babel-preset-react": "^6.22.0",
+    "babel-preset-stage-1": "^6.22.0",
+    "css-loader": "^0.26.1",
+    "del": "^2.2.2",
+    "extract-text-webpack-plugin": "^1.0.1",
+    "file-loader": "^0.9.0",
+    "html-webpack-plugin": "^2.26.0",
+    "json-loader": "^0.5.4",
+    "lodash": "^4.17.4",
+    "moment": "^2.17.1",
+    "node-sass": "^4.3.0",
+    "postcss-loader": "^1.2.2",
+    "react": "^15.4.2",
+    "react-bootstrap": "^0.30.7",
+    "react-dom": "^15.4.2",
+    "react-hot-loader": "^3.0.0-beta.6",
+    "react-widgets": "^3.4.5",
+    "sass-loader": "^4.1.1",
+    "style-loader": "^0.13.1",
+    "svg-react-loader": "^0.3.7",
+    "url-loader": "^0.5.7",
+    "webpack": "^1.14.0",
+    "webpack-dev-server": "^1.16.2"
+  }
+}
