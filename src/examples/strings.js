@@ -56,10 +56,10 @@ export default {
             }
         },
         str3: {
-            hint: 'Store the id of the selected option'
+            hint: 'Stores the id of the selected option'
         },
         str4: {
-            hint     : 'Store the id of the selected option',
+            hint     : 'Stores the id of the selected option',
             component: {
                 type: 'radio'
             }

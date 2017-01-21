@@ -1,4 +1,5 @@
 @import 'common';
+@import 'bootrap-custom';
 
 body, html {
     @include full-height;
@@ -19,16 +20,30 @@ body, html {
     @include full-width;
 }
 
-.paper-1 {
-    box-shadow: 0 2px 5px 0 rgba(0,0,0,0.16), 0 2px 10px 0 rgba(0,0,0,0.12);
+ol.simple-list {
+    list-style-type: none;
+    margin: 0;
+    margin-left: 1em;
+    padding: 0;
+}
+ol.simple-list > li{
+    position: relative;
+    margin-bottom: 20px;
+    padding-left: .75em;
+    min-height: 3em;
+    border-left: 3px solid #5ab4d2;
 }
 
-.paper-2 {
-    box-shadow: 0 8px 17px 0 rgba(0,0,0,0.2), 0 6px 20px 0 rgba(0,0,0,0.19);
-}
-
-.paper-3 {
-    box-shadow: 0 12px 15px 0 rgba(0,0,0,0.24), 0 17px 50px 0 rgba(0,0,0,0.19);
+ol.simple-list > li:before {
+    position: absolute;
+    top: 0;
+    left: -1em;
+    width: 0.8em;
+    font-size: 22px;
+    line-height: 1;
+    font-weight: bold;
+    text-align: right;
+    color: #5ab4d2;
 }
 
 pre {

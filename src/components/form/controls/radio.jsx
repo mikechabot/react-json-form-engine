@@ -6,7 +6,7 @@ import { __hasValue } from '../../../common/common';
 class Radio extends React.Component {
 
     isChecked (option, value, isEven) {
-        if (!__hasValue(value)) return;
+        if (!__hasValue(value)) return false;
         if (option.id) {
             return option.id === value;
         }

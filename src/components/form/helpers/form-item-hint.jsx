@@ -4,7 +4,9 @@ import HelpBlock from 'react-bootstrap/lib/HelpBlock';
 export default function FormItemHint ({
     hint
 }) {
-    return hint
-        ? <HelpBlock>{hint}</HelpBlock>
-        : <span />;
+    return <HelpBlock>{hint}</HelpBlock>
 }
+
+FormItemHint.propTypes = {
+    hint: React.PropTypes.string.isRequired
+};

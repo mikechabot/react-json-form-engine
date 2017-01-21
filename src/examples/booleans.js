@@ -31,7 +31,7 @@ export default {
     },
     uiSchema: {
         bool2: {
-            hint: 'Labels ("Yes"/"No") are configurable, but the value is always boolean!'
+            hint: 'Labels are configurable ("Yes" / "No"), but the stored value is always boolean!'
         }
     },
     calcExpressionMap     : {},

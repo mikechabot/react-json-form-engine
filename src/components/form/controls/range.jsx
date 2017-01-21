@@ -17,8 +17,8 @@ const Range = ({
                 <input
                     name={tag}
                     id={tag}
-                    type='range'
-                    value={value}
+                    type="range"
+                    value={value || ''}
                     max={field.max}
                     min={field.min}
                     onChange={onUpdate}

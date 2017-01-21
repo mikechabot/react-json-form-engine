@@ -1,7 +1,6 @@
 import React from 'react';
 import Tabs from 'react-bootstrap/lib/Tabs';
 import Tab from 'react-bootstrap/lib/Tab';
-import Panel from 'react-bootstrap/lib/Panel';
 import Form from './form/form';
 import { CodePanel, Flex } from './common';
 import FormInstanceFactory from '../form/form-instance-factory';
@@ -50,39 +49,21 @@ class FormTester extends React.Component {
 
     _initInstance (key) {
         const form = forms[key];
-
-        const { id } = form;
         const { instances } = this.state;
 
-        let promise = new Promise((resolve, reject) => {
-            let instance = instances[id];
-            if (instance) {
-                resolve(instance);
-            } else {
-                FormInstanceFactory(form, {}, null, true)
-                    .then(instance => {
-                        instances[id] = instance;
-                        resolve(instance);
-                    })
-                    .catch(error => {
-                        reject(error);
-                    });
-            }
-        });
+        let instance = instances[form.id];
+        if (!instance) {
+            instance = FormInstanceFactory(form, {}, null, true);
+            instances[form.id] = instance;
+        }
 
-        promise
-            .then(instance => {
-                this.setState({
-                    key,
-                    form,
-                    instance,
-                    instances,
-                    changeEvent: {}
-                });
-            })
-            .catch(error => {
-                console.error(error);
-            });
+        this.setState({
+            key,
+            form,
+            instance,
+            instances,
+            changeEvent: {}
+        });
     }
 
     _renderTabs (instance) {
@@ -100,7 +81,7 @@ class FormTester extends React.Component {
         if (this.state.key === index) {
             return (
                 <Flex padding={10}>
-                    <Flex style={{minWidth: 800}}>
+                    <Flex style={{minWidth: 700}}>
                         <Form
                             instance={instance}
                             onUpdate={this._onFormUpdate.bind(this)}

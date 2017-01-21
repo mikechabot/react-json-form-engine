@@ -5,18 +5,18 @@ import ValidationService from './validation/form-validation-service';
 import FormValidator from './validation/form-validator';
 import VALIDATION_CONST from './validation/validation-const';
 import { __hasValue, __blank } from '../common/common';
-import { FORM_COMPONENT_KEYS, FIELD_TYPE_KEYS } from './config/form-const';
+import { FIELD_TYPE_KEYS } from './config/form-const';
 import _ from 'lodash';
 
 class Form {
-    constructor (definition, model) {
+    constructor (definition, model, validator) {
         // Check for valid definition
         if (!__hasValue(definition) || _.isEmpty(definition)) {
             throw new Error('Form definition cannot be null/undefined/empty');
         }
 
         this.definition = definition;   // Form definition
-        this.model = model;        // Map of form responses keyed by tag
+        this.model = model;             // Map of form responses keyed by tag
 
         // Check for valid schemas
         const { schema } = definition;
@@ -25,10 +25,12 @@ class Form {
         }
 
         // Instance data
-        this.sections = [];           // List of form sections. Holds subsections and fields.
-        this.fields = {};           // Map of fields keyed by tag. Entry contains field metadata
-        this.validationResults = {};           // Class that holds form validation results
-        this.validator = {};           // Form validator service
+        this.sections = [];             // List of form sections. Holds subsections and fields.
+        this.fields = {};               // Map of fields keyed by tag. Entry contains field metadata
+        this.validationResults = {};    // Class that holds form validation results
+        this.validator = {};            // Form validator service
+
+        this.__initInstance(validator);
     }
 
     /**
@@ -36,42 +38,19 @@ class Form {
      * @param validator
      * @private
      */
-    __initInstance (validator, isOffline) {
+    __initInstance (validator) {
         const instance = this;
 
-        return this.__initPrerequisiteData(isOffline)
-            .then(() => {
-                // Register field info with the form instance
-                instance.initFields();
+        // Register field info with the form instance
+        instance.__initFields();
 
-                // Register validation services
-                // TODO: Combine validators
-                instance.validator = validator || FormValidator;
-                instance.validationResults = new ValidationResults();
+        // Register validation services
+        instance.validator = validator || FormValidator;
+        instance.validationResults = new ValidationResults();
 
-                // Validate
-                instance.validate();
-                console.debug(instance);
-
-            })
-            .catch(error => {
-                console.error('Error initializing form instance: ', error);
-            });
-    }
-
-    /**
-     * Preload data needed by the form instance
-     * @returns {Promise}
-     * @private
-     */
-    __initPrerequisiteData (isOffline) {
-        if (isOffline) return Promise.resolve();
-        return new Promise((resolve, reject) => {
-            Promise
-                .all([ ])
-                .then(() => resolve())
-                .catch(err => reject(err));
-        });
+        // Validate
+        instance.validate();
+        console.debug(instance);
     }
 
     /**
@@ -80,7 +59,7 @@ class Form {
      * in the uiSchema.
      * @private
      */
-    initFields () {
+    __initFields () {
         /**
          * Don't modify the original form definition
          *
@@ -103,9 +82,9 @@ class Form {
         });
     }
     __decorateField (field, tag, formComponentKey) {
-        if (!field.type) {
-            console.debug(field);
-        }
+        if (this.fields[tag]) throw new Error(`Field with tag "${tag}" already exists. Tag must be unique.`);
+        if (!field.type) throw new Error('field must contain a valid "type" property');
+
         // Obtain uiField definition
         field.uiField = formComponentKey
             ? this.__addComponentToUiSchemaAndReturnUiField(tag, formComponentKey)
@@ -115,12 +94,11 @@ class Form {
         field.componentType = FormConfig.getComponentType(field, field.uiField);
 
         // Set the form component
-        field.component = FormConfig.getFieldTypeComponent(field.type, field.componentType);
+        field.component = FormConfig.getComponent(field.type, field.componentType);
 
         // Add RegExp if specified
-        if (field.pattern) {
-            const pattern = new String(field.pattern);
-            field.pattern = new RegExp(pattern);
+        if (_.isString(field.pattern)) {
+            field.pattern = new RegExp(field.pattern);
         }
 
         // Build field children
@@ -132,19 +110,10 @@ class Form {
         if (field.options) {
             _.forEach(field.options, option => {
                 option.parent = field;
-                option.fields = {
-                    ...this.__decorateChildren(option, option.fields),
-                    ...this.__buildFieldsFromMetadata('goals', this.__buildGoals.bind(this), option, field, tag),
-                    ...this.__buildFieldsFromMetadata('tasks', this.__buildTasks.bind(this), option, field, tag)
-                };
-                if (_.isEmpty(option.fields)) {
-                    delete option.fields;
+                if (option.fields) {
+                    option.fields = this.__decorateChildren(option, option.fields);
                 }
             });
-        }
-
-        if (this.fields[tag]) {
-            console.debug('ALREADY EXISTS?', this.fields[tag], field);
         }
 
         this.fields[tag] = field;
@@ -157,151 +126,6 @@ class Form {
             childFields[tag] = child;
         });
         return childFields;
-    }
-    __buildFieldsFromMetadata (property, build, option, field, tag) {
-        const newFields = {};
-        _.forEach(option[property], (metadata, metadataTag) => {
-            const newField = build(metadata, metadataTag, option, field, tag);
-            this.__decorateField(newField, metadataTag, FORM_COMPONENT_KEYS.CHECKBOXGROUP);
-            newFields[metadataTag] = newField;
-        });
-        return newFields;
-    }
-    __getComparisonCondition (type, value, tag) {
-        return {
-            type,
-            expression1: { type: 'CONST', value },
-            expression2: { type: 'FORM_RESPONSE', tag }
-        };
-    }
-    __buildGoals (goals, tag, parentOption, parentField, parentTag) {
-        const { list } = goals;
-
-        const field = {
-            icon                  : 'fa fa-crosshairs',
-            tag                   : tag,
-            type                  : FIELD_TYPE_KEYS.ARRAY,
-            showCondition         : goals.showCondition,
-            parent                : parentField,
-            options               : [],
-            defaultValueConditions: _.some(list, goal => goal.auto) ? [] : undefined
-        };
-
-        _.forEach(list, (goal, index) => {
-            const goalObj = DefinitionService.getCachedGoalById(goal.id);
-            if (goalObj) {
-                // Create option
-                const option = {
-                    id    : goalObj._id,
-                    title : goalObj.label,
-                    fields: {}
-                };
-
-                if (goal.interventions) {
-                    const intTag = `${tag}Intervention`;
-                    option.fields = {
-                        [intTag]: this.__buildGoalInterventions(goal, intTag, option, field, tag)
-                    };
-                    this.__addComponentToUiSchemaAndReturnUiField(intTag, FORM_COMPONENT_KEYS.CHECKBOXGROUP);
-                }
-
-                // Generate default value condition
-                if (goal.auto) {
-                    this.__addDefaultValueCondition(
-                        field, tag, option.id,
-                        parentField.type, parentOption.id, parentTag
-                    );
-                }
-
-                // Add option to options
-                field.options.push(option);
-            } else {
-                console.warn(`Missing goal object with id: "${goal.id}". A re-translation may be required.`);
-            }
-        });
-
-        return field;
-    }
-
-    __buildGoalInterventions (goalRef, tag, parentOption, parentField, parentTag) {
-        const { interventions } = goalRef;
-        const { list } = interventions;
-
-        const field = {
-            icon                  : 'fa fa-tasks',
-            tag                   : tag,
-            type                  : FIELD_TYPE_KEYS.ARRAY,
-            options               : [],
-            parent                : parentField,
-            showCondition         : interventions.showCondition,
-            defaultValueConditions: _.some(list, intervention => intervention.auto) ? [] : undefined
-        };
-
-        _.forEach(list, intervention => {
-            const interventionObj = DefinitionService.getCachedInterventionById(intervention.id);
-            if (interventionObj) {
-                // Create option
-                const option = {
-                    id   : interventionObj._id,
-                    title: interventionObj.label
-                };
-
-                // Add option to options
-                field.options.push(option);
-
-                // Generate default value condition
-                if (intervention.auto) {
-                    this.__addDefaultValueCondition(
-                        field, tag, option.id,
-                        parentField.type, parentOption.id, parentTag
-                    );
-                }
-            } else {
-                console.warn(`Missing intervention object with id: "${intervention.id}". A re-translation may be required.`);
-            }
-        });
-
-        return field;
-    }
-    __buildTasks (tasks, tag, parentOption, parentField, parentTag) {
-        const { list } = tasks;
-
-        const field = {
-            icon                  : 'fa fa-tasks',
-            tag                   : tag,
-            type                  : FIELD_TYPE_KEYS.ARRAY,
-            parent                : parentField,
-            options               : [],
-            showCondition         : tasks.showCondition,
-            defaultValueConditions: _.some(list, task => task.auto) ? [] : undefined
-        };
-
-        _.forEach(list, task => {
-            // Get cached intervention
-            const interventionObj = DefinitionService.getCachedInterventionById(task.id);
-            if (interventionObj) {
-                // Create option
-                const option = {
-                    id   : interventionObj._id,
-                    title: interventionObj.label
-                };
-
-                // Add option to options
-                field.options.push(option);
-
-                // Generate default value condition
-                if (task.auto) {
-                    this.__addDefaultValueCondition(
-                        field, tag, option.id,
-                        parentField.type, parentOption.id, parentTag
-                    );
-                }
-            } else {
-                console.warn(`Missing task (intervention) object with id: "${task.id}". A re-translation may be required.`);
-            }
-        });
-
-        return field;
     }
     /**
      * Add the field to the UI schema.
@@ -325,36 +149,6 @@ class Form {
         }
         uiField.component = { type };
         return uiField;
-    }
-    __addDefaultValueCondition (field, tag, defaultValue, parentFieldType, conditionValue, conditionTag) {
-        const conditionType = parentFieldType === FIELD_TYPE_KEYS.ARRAY ? 'CONTAINS' : 'EQUAL';
-        field.defaultValueConditions.push({
-            condition : this.__getComparisonCondition(conditionType, conditionValue, conditionTag),
-            expression: {
-                type : 'CONST',
-                value: defaultValue
-            }
-        });
-        this.__addDefaultValueTriggerTag(conditionTag, tag);
-    }
-    __addDefaultValueTriggerTag (triggerTag, tagToEvaluate) {
-        // Create the trigger map
-        let defaultValueTriggerMap = this.getDefaultValueTriggerMap();
-        if (!defaultValueTriggerMap) {
-            defaultValueTriggerMap = {};
-            this.definition.defaultValueTriggerMap = defaultValueTriggerMap;
-        }
-
-        // Add trigger tags
-        let tagsToEvaluate = defaultValueTriggerMap[triggerTag];
-        if (!tagsToEvaluate) {
-            tagsToEvaluate = [];
-            this.definition.defaultValueTriggerMap[triggerTag] = tagsToEvaluate;
-        }
-        // Don't duplicate tags, otherwise we'll run the conditions/expressions multiple times
-        if (!tagsToEvaluate.includes(tagToEvaluate)) {
-            tagsToEvaluate.push(tagToEvaluate);
-        }
     }
     __clearOptionChildren (options, value) {
         _.forEach(options, option => {
@@ -397,9 +191,9 @@ class Form {
             field.dirty = false;
         } else {
             const modelValue = {
-                value : value
-            }
-            if(field.definition) {
+                value: value
+            };
+            if (field.definition) {
                 modelValue.fieldType = field.definition.type;
                 modelValue.definitionId = field.definition.definitionId;
             }
@@ -415,48 +209,50 @@ class Form {
         // Clear child fields
         if (field.fields) {
             switch (field.type) {
-            case FIELD_TYPE_KEYS.BOOLEAN: {
-                if (value === false) {
-                    this.__clearFields(field.fields);
+                case FIELD_TYPE_KEYS.BOOLEAN: {
+                    if (value === false) {
+                        this.__clearFields(field.fields);
+                    }
+                    break;
                 }
-                break;
-            }
-            case FIELD_TYPE_KEYS.NUMBER: {
-                if (Number.isNaN(value)) {
-                    this.__clearFields(field.fields);
+                case FIELD_TYPE_KEYS.NUMBER: {
+                    if (Number.isNaN(value)) {
+                        this.__clearFields(field.fields);
+                    }
+                    break;
                 }
-                break;
-            }
-            case FIELD_TYPE_KEYS.ARRAY: {
-                if (_.isEmpty(value)) {
-                    this.__clearFields(field.fields);
+                case FIELD_TYPE_KEYS.ARRAY: {
+                    if (_.isEmpty(value)) {
+                        this.__clearFields(field.fields);
+                    }
+                    break;
                 }
-                break;
-            }
-            case FIELD_TYPE_KEYS.DATE:
-            case FIELD_TYPE_KEYS.STRING:
-            default: {
-                if (__blank(value)) {
-                    this.__clearFields(field.fields);
+                case FIELD_TYPE_KEYS.DATE:
+                case FIELD_TYPE_KEYS.STRING:
+                default: {
+                    if (__blank(value)) {
+                        this.__clearFields(field.fields);
+                    }
+                    break;
                 }
-                break;
-            }
             }
         }
     }
     calculateFields (field) {
-        // Recalculate list of tags
-        // TODO: Why do we need id here? Use tag?
-        const tagList = this.getCalcTriggerMap()[field.id];
-        _.forEach(tagList, tag => {
-            // Get a list of expressions to evaluate that will determine the value of tag
-            const expression = this.getCalcExpressionByTag(tag);
-            if (expression) {
-                const value = ExpressionService.evalExpression(expression, this);
-                this.setModelValue(tag, value, this.getField(tag));
-                this.triggerDefaultValueEvaluation(tag);
-            }
-        });
+        if (field.calc) {
+            // Recalculate list of tags
+            // TODO: Why do we need id here? Use tag?
+            const tagList = this.getCalcTriggerMap()[field.id];
+            _.forEach(tagList, tag => {
+                // Get a list of expressions to evaluate that will determine the value of tag
+                const expression = this.getCalcExpressionByTag(tag);
+                if (expression) {
+                    const value = ExpressionService.evalExpression(expression, this);
+                    this.setModelValue(tag, value, this.getField(tag));
+                    this.triggerDefaultValueEvaluation(tag);
+                }
+            });
+        }
     }
     // Evaluate default values
     triggerDefaultValueEvaluation (tag) {
@@ -582,11 +378,6 @@ class Form {
             return this.getCalcExpressionMap()[tag];
         }
     }
-    getDefaultValueConditionsByTag (tag) {
-        if (this.getDefaultValueTriggerMap()) {
-            return this.getDefaultValueTriggerMap()[tag];
-        }
-    }
     getSections () {
         return this.sections;
     }
@@ -645,28 +436,8 @@ class Form {
     }
 }
 
-function newInstance (definition, model, validator, isOffline) {
-    return new Promise((resolve, reject) => {
-        let instance = new Form(definition, model);
-        instance.__initInstance(validator, isOffline)
-            .then(() => {
-                resolve(instance);
-            })
-            .catch(error => {
-                reject(error);
-            });
-    });
+function FormInstanceFactory (definition, model, validator) {
+    return new Form(definition, model, validator);
 }
 
-export default (
-    definition,
-    model,
-    validator,
-    isOffline
-) =>
-new newInstance(
-    definition,
-    model,
-    validator,
-    isOffline
-);
+export default FormInstanceFactory;

@@ -19,6 +19,7 @@
     "url": "https://github.com/mikechabot/react-form-engine/issues"
   },
   "peerDependencies": {
+    "react-bootstrap": "^0.30.0",
     "react-dom": "^15.0.0",
     "react": "^15.0.0"
   },

@@ -41,6 +41,12 @@ class FormConfig {
 
         this.fieldTypes = {};
     }
+
+    /**
+     * Return a Field Type object, which is a map of React components keyed by component type
+     * @param type
+     * @returns {*}
+     */
     getFieldType (type) {
         if (!type) throw new Error('Type cannot be null/undefined');
         if (this.fieldTypes[type]) {
@@ -48,15 +54,25 @@ class FormConfig {
         }
         console.warn(`Unmapped field type: ${type}`);
     }
-    getFieldTypeComponents (type) {
+
+    /**
+     * Given a field type, Return a map of React components keyed by component type
+     * @param type
+     * @returns {TResult|_.Dictionary<any>|Object|*}
+     */
+    getComponentsByType (type) {
         const fieldType = this.getFieldType(type);
+        if (fieldType) return this.getComponentsByFieldType(fieldType);
+        console.warn(`Unmapped field type components: ${type}`);
+    }
+    getComponentsByFieldType (fieldType) {
         if (fieldType && fieldType.components) {
             return fieldType.components;
         }
-        console.warn(`Unmapped field type components: ${type}`);
+        console.warn(`Unmapped field type: ${fieldType}`);
     }
-    getFieldTypeComponent (type, componentType) {
-        const components = this.getFieldTypeComponents(type);
+    getComponent (type, componentType) {
+        const components = this.getComponentsByType(type);
         if (components && components[componentType]) {
             return components[componentType];
         }
@@ -64,35 +80,35 @@ class FormConfig {
     }
     getComponentType (field, uiField) {
         const { component } = uiField;
-        if (component) {
-            return component.type;  // User-defined in uiSchema
-        }
+
+        // User-defined in uiSchema
+        if (component) return component.type;
 
         if (field) {
             switch (field.type) {
-            case FIELD_TYPE_KEYS.BOOLEAN: {
-                return !field.options
+                case FIELD_TYPE_KEYS.BOOLEAN: {
+                    return !field.options
                         ? FORM_COMPONENT_KEYS.CHECKBOX
                         : FORM_COMPONENT_KEYS.RADIO;
-            }
-            case FIELD_TYPE_KEYS.STRING: {
-                return field.options
+                }
+                case FIELD_TYPE_KEYS.STRING: {
+                    return field.options
                         ? FORM_COMPONENT_KEYS.SELECT
                         : FORM_COMPONENT_KEYS.TEXT;
-            }
-            case FIELD_TYPE_KEYS.NUMBER: {
-                return FORM_COMPONENT_KEYS.NUMBER;
-            }
-            case FIELD_TYPE_KEYS.DATE: {
-                return FORM_COMPONENT_KEYS.DATE;
-            }
-            case FIELD_TYPE_KEYS.ARRAY: {
-                return FORM_COMPONENT_KEYS.SELECT;
-            }
-            default: {
-                console.warn(`No mapped components with field type: "${field.type}"`);
-                break;
-            }
+                }
+                case FIELD_TYPE_KEYS.NUMBER: {
+                    return FORM_COMPONENT_KEYS.NUMBER;
+                }
+                case FIELD_TYPE_KEYS.DATE: {
+                    return FORM_COMPONENT_KEYS.DATE;
+                }
+                case FIELD_TYPE_KEYS.ARRAY: {
+                    return FORM_COMPONENT_KEYS.SELECT;
+                }
+                default: {
+                    console.warn(`Unmapped field type: "${field.type}"`);
+                    break;
+                }
             }
         }
     }

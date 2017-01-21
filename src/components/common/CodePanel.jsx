@@ -8,10 +8,10 @@ export default function CodePanel ({
 }) {
     return (
         <Panel
-            style={{width: 450, margin: 5}}
+            style={{width: 425, margin: 2.5}}
             header={title}
             bsStyle="primary">
-            <CodeBlock code={content} />
+            <CodeBlock content={content} />
         </Panel>
     );
 }

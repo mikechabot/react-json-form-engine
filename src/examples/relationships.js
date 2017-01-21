@@ -8,7 +8,7 @@ export default {
                 subsections: [
                     {
                         title   : 'Simple',
-                        subtitle: 'Example of simple parent/child fields',
+                        subtitle: 'Simple parent/child fields',
                         fields  : {
                             str1: {
                                 tag   : 'str1',
@@ -181,7 +181,7 @@ export default {
                 subsections: [
                     {
                         title   : 'Simple',
-                        subtitle: 'Simple example of conditionally showing/hiding fields based on model data',
+                        subtitle: 'Conditionally show or hide fields based on model data',
                         fields  : {
                             bool5: {
                                 tag    : 'bool5',
@@ -429,8 +429,8 @@ export default {
                                 type  : 'number',
                                 title : 'Less than (<)',
                                 fields: {
-                                    str19: {
-                                        tag          : 'str19',
+                                    str21: {
+                                        tag          : 'str21',
                                         type         : 'string',
                                         title        : 'Conditional field',
                                         showCondition: {

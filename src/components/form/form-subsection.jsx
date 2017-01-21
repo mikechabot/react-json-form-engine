@@ -2,18 +2,18 @@ import React from 'react';
 import FormField from './form-field';
 import FormSubsectionTitle from './helpers/form-subsection-title';
 import Subtitle from './helpers/subtitle';
+import { Flex } from '../common';
 import _ from 'lodash';
 
 class FormSubsection extends React.Component {
 
     render () {
         const { title, hideTitle, subsection, instance, onUpdate, validationStatus } = this.props;
-        subsection.fields = _.orderBy(subsection.fields, 'sortOrder');
         return (
-            <div style={{overflowY: 'auto', height: '100%'}}>
+            <Flex column={true}>
                 <FormSubsectionTitle title={title} status={validationStatus} hide={hideTitle} />
                 <Subtitle text={subsection.subtitle} />
-                <ol className='simple-list'>
+                <ol className="simple-list">
                     {
                         _.map(subsection.fields, (field) => {
                             const tag = field.tag;
@@ -33,7 +33,7 @@ class FormSubsection extends React.Component {
                         })
                     }
                 </ol>
-            </div>
+            </Flex>
         );
     }
 }

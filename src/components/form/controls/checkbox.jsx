@@ -1,5 +1,5 @@
 import React from 'react';
-import BSCheckbox from 'react-bootstrap/lib/Checkbox';
+import { Flex } from '../../common';
 
 const Checkbox = ({
     tag,
@@ -7,9 +7,20 @@ const Checkbox = ({
     value,
     onUpdate
 }) => (
-    <BSCheckbox id={tag} onChange={onUpdate} value={true} checked={value}>
-        <span className='control-label'>{ field.title }</span>
-    </BSCheckbox>
+    <Flex vAlignCenter={true}>
+        <label className="control-label" htmlFor={tag}>
+        <input
+            id={tag}
+            onChange={onUpdate}
+            className="checkbox"
+            type="checkbox"
+            value={true}
+            style={{display: 'inline'}}
+            checked={value || ''} />
+            &nbsp;&nbsp;
+            { field.title }
+        </label>
+    </Flex>
 );
 
 Checkbox.propTypes = {

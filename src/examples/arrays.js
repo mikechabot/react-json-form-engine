@@ -7,7 +7,7 @@ export default {
                 title      : 'Arrays',
                 subsections: [
                     {
-                        title   : 'Stores [tag]:[value:Arrays]',
+                        title   : 'Stores [tag]:[value:Array]',
                         subtitle: 'Store the ids of the selected options',
                         fields  : {
                             array1: {

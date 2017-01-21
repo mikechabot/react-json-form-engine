@@ -75,18 +75,6 @@ export default {
                                 title: 'Checkbox field'
                             }
                         }
-                    },
-                    {
-                        title : 'Subsection 3.4',
-                        fields: {
-                            num2: {
-                                tag  : 'num2',
-                                type : 'number',
-                                title: 'Range slider',
-                                min  : 0,
-                                max  : 10
-                            }
-                        }
                     }
                 ]
             }
@@ -96,11 +84,6 @@ export default {
         str2: {
             component: {
                 type: 'textarea'
-            }
-        },
-        num2: {
-            component: {
-                type: 'range'
             }
         }
     },

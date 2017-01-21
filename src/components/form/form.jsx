@@ -1,14 +1,13 @@
 import React from 'react';
 import FormSection from './form-section';
-import Asterisk from '../common/Asterisk';
-import { Button, TabContainer, Nav, NavItem, TabContent, TabPane } from 'react-bootstrap';
+import { Flex, Asterisk } from '../common';
+import { TabContainer, Nav, NavItem, TabContent, TabPane } from 'react-bootstrap';
 
 export default class Form extends React.Component {
 
     constructor (props) {
         super(props);
         this.onUpdate = this.onUpdate.bind(this);
-        this.onSign = this.onSign.bind(this);
     }
 
     componentDidMount () {
@@ -25,173 +24,113 @@ export default class Form extends React.Component {
         const { component } = field;
         const value = component.onUpdate(event, field, instance.getModelValue(tag));
 
-        instance.setModelValue(tag, value, field);
-        instance.validate();
+        instance.setModelValue(tag, value, field);     // Set model value
+        instance.calculateFields(field);               // Calculate fields if necessary
+        instance.triggerDefaultValueEvaluation(tag);   // Trigger default value evaluation
+        instance.validate();                           // Validate the form
 
-        onUpdate({ tag, value });
-
-        // Recalculate if necessary
-        if (field.calc) {
-            instance.calculateFields(field);
-        }
-
-        // Evaluate default value conditions
-        instance.triggerDefaultValueEvaluation(tag);
-    }
-
-    onSign () {
-        const { instance, onSign } = this.props;
-        instance.validate();
-        onSign();
+        onUpdate({ tag, value });                      // Notify parent
     }
 
     render () {
-        const { instance, logo } = this.props;
+        const { instance } = this.props;
         if (!instance) {
             return (
-                <em className='text-danger'>
+                <em className="text-danger">
                     No form instance
                 </em>
             );
         }
 
         const sections = instance.getSections();
-        const renderTabs = sections.length > 1;
-
         if (_.isEmpty(sections)) {
             return (
-                <em className='text-danger'>
+                <em className="text-danger">
                     No sections
                 </em>
             );
         }
 
         return (
-            <div style={style.container}>
-                <div className={'text-center'}>
-                    <h4 style={{margin: 'auto'}}>{ instance.definition.title }</h4>
-                    <div className={'text-right'}>
-                        <div style={{display: 'flex', justifyContent: 'flex-end'}}>
-                            { this._renderSignButton() }
-                            { logo }
-                        </div>
-
-                    </div>
-                </div>
-
-                {
-                    !renderTabs
-                        ? this._renderSection(_.head(sections))
-                        : this._renderTabs(sections)
-                }
-                <div className={'text-center'} style={{margin: '0 auto'}}>
-                    { this._renderSignButton('left') }
-                </div>
-            </div>
+            <Flex column={true} flex={1}>
+                { this._renderForm(sections) }
+            </Flex>
         );
     }
 
-    _renderSignButton (float) {
-        const { onSign } = this.props;
-        if (onSign) {
-            return (
-                <Button style={{margin: 10, float: float || 'none'}} bsStyle='primary' onClick={(event) => this.onSign(event)}>
-                    <i className='fa fa-pencil' aria-hidden='true'></i>&nbsp;&nbsp;
-                    Sign
-                </Button>
-
-            );
-        }
+    _renderForm (sections) {
+        return sections.length > 1
+            ? this._renderTabs(sections)
+            : this._renderSection(_.head(sections));
     }
 
     _renderTabs (sections) {
         return (
-            <TabContainer id='form-tabs' style={{display: 'flex', flexDirection: 'row', height: '100%', overflowY: 'auto'}} defaultActiveKey={0}>
-                <div style={style.flex}>
-                    <div style={{display: 'flex', flexDirection: 'row', height: '100%', overflowY: 'auto'}}>
-                        {
-                            this._renderSectionMenu(sections)
-                        }
-                    </div>
-                    <div style={style.tabContent}>
-                        {
-                            this._renderSectionContent(sections)
-                        }
-                    </div>
-                </div>
+            <TabContainer id="form-tabs" defaultActiveKey={0}>
+                <Flex>
+                    <aside style={{width: 150}}>
+                        { this._renderSectionMenu(sections) }
+                    </aside>
+                    <Flex flex={1}>
+                        { this._renderSectionContent(sections) }
+                    </Flex>
+                </Flex>
             </TabContainer>
         );
     }
 
     _renderSectionMenu (sections) {
+        return (
+            <Nav bsStyle="pills" stacked>
+                { this._renderMenuItems(sections) }
+            </Nav>
+        );
+    }
+
+    _renderMenuItems (sections) {
+        return sections.map(this._renderMenuItem.bind(this));
+    }
+
+    _renderMenuItem (section, index) {
         const { instance } = this.props;
         return (
-            <Nav bsStyle='pills' stacked>
+            <NavItem key={index} eventKey={index}>
                 {
-                    sections.map((section, index) => {
-                        return (
-                            <NavItem key={index} eventKey={index}>
-                                {
-                                    instance.isError(instance.getSectionStatus(section))
-                                        ? <span>{section.title}&nbsp;<Asterisk/></span>
-                                        : section.title
-                                }
-                            </NavItem>
-                        );
-                    })
+                    instance.isError(instance.getSectionStatus(section))
+                        ? <span>{section.title}&nbsp;<Asterisk/></span>
+                        : section.title
                 }
-            </Nav>
+            </NavItem>
         );
     }
 
     _renderSectionContent (sections) {
         return (
-                <TabContent className='full-height' animation={false} >
-                    {
-                        sections.map((section, index) => {
-                            return (
-                                <TabPane style={{height: '100%'}} key={index} eventKey={index}>
-                                    {
-                                        this._renderSection(section)
-                                    }
-                                </TabPane>
-                            );
-                        })
-                    }
-                </TabContent>
+            <TabContent style={{width: '100%'}} animation={false} >
+                { sections.map(this._renderTabPane.bind(this)) }
+            </TabContent>
+        );
+    }
+
+    _renderTabPane (section, index) {
+        return (
+            <TabPane key={index} eventKey={index}>
+                { this._renderSection(section) }
+            </TabPane>
         );
     }
 
     _renderSection (section) {
         return (
-            <div style={{marginY: 5, height: '100%', display: 'flex'}}>
+            <Flex>
                 <FormSection
                     section={section}
                     instance={this.props.instance}
                     onUpdate={this.onUpdate} />
-            </div>
+            </Flex>
         );
     }
 }
-
-const style = {
-    flex: {
-        display: 'flex'
-    },
-    container: {
-        width        : '100%',
-        height       : '100%',
-        display      : 'flex',
-        flexDirection: 'column',
-        padding      : 5,
-        overflowY    : 'auto',
-        flex         : 1
-    },
-    tabContent: {
-        flexGrow: 2,
-        margin  : 5
-    }
-};
 
 Form.propTypes = {
     onUpdate: React.PropTypes.func.isRequired,

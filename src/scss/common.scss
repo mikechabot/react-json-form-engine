@@ -1,7 +1,7 @@
+@import url("https://maxcdn.bootstrapcdn.com/font-awesome/4.7.0/css/font-awesome.min.css");
 @import '../../node_modules/react-widgets/dist/css/react-widgets.css';
-@import url('https://fonts.googleapis.com/css?family=Titillium+Web:300,400,600,700');
 
-$font-stack: 'Titillium Web', 'Segoe UI', 'Arial', sans-serif;
+$font-stack: 'Ubuntu', 'Segoe UI', 'Arial', sans-serif;
 
 /* Common Mixins */
 @mixin flex {

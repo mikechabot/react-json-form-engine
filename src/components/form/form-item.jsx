@@ -17,10 +17,9 @@ class FormItem extends React.Component {
      * between the prop trees, but that seems excessive right now.
      *
      * @param nextProps
-     * @param nextState
      * @returns {boolean} true if the component should call render()
      */
-    shouldComponentUpdate (nextProps, nextState) {
+    shouldComponentUpdate (nextProps) {
         if (!this.hasChildren(nextProps.field)) {
             return !_.isEqual(nextProps, this.props);
         }
@@ -46,7 +45,7 @@ class FormItem extends React.Component {
             return <ErrorBlock tag={tag} id={field.id} />;
         }
 
-        // Assign to uppercase so the JSX compiler deems it a custom component
+        // Assign to uppercase for the JSX compiler
         const Control = component.control;
 
         return (
@@ -60,9 +59,15 @@ class FormItem extends React.Component {
                     onUpdate={onUpdate}
                     instance={instance}
                 />
-                <FormItemHint hint={uiField.hint} />
+                { this._maybeRenderHint(uiField) }
             </FormGroup>
         );
+    }
+
+    _maybeRenderHint(uiField) {
+        if (uiField.hint) {
+            return <FormItemHint hint={uiField.hint} />;
+        }
     }
 }
 
