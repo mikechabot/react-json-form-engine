@@ -1,136 +1,141 @@
-import {
-    FIELD_TYPE_KEYS,
-    FORM_COMPONENT_DECORATORS,
-    FORM_COMPONENT_KEYS
-} from './form-const';
-import {
-    FIELD_TYPE_OPERATIONS,
-    FORM_CONTROL_OPERATIONS,
-    OPERATION_TYPES
-} from './form-operations';
+import _ from 'lodash';
+import Maybe from 'maybe-baby';
+import { DATA_TYPE, COMPONENT_DECORATORS, COMPONENT_TYPE } from './form-const';
+import { DATA_TYPE_OPERATIONS, COMPONENT_OPERATIONS, OPERATION_TYPES } from './form-operations';
 
+const COMPONENT_CONFIGS = 'componentConfigs';
+
+/**
+ * The FormEngine is capable of storing various data types in the instance model (e.g. string, number, date).
+ * And for each given data type, there is a set form controls available to the UI. For instance, if a field is
+ * of type "array" it can be rendered as a checkbox group, or select dropdown. A "number" type can be displayed
+ * as a standard number input, or a range slider.
+ *
+ */
 class FormConfig {
     constructor () {
-        /**
-         * fieldTypes is a map keyed by field type ('string', 'array', etc).
-         * Each entry is a map of React components keyed by component type ('text', 'select', etc).
-         *
-         * Within the form instance, the value of a given form component input
-         * is stored in the model according to its field type.
-         *
-         * For instance, the Radio form component is utilized in both the 'string' and
-         * 'boolean' field types. However, only true/false will be stored in
-         * the model when a Radio of type 'boolean' is instantiated, whereas the
-         * 'id' of the radio option will be stored when instantiated as a 'string' field
-         * type.
-         *
-         * Example:
-         *   {
-         *      'string': {
-         *          'text'          : Text,
-         *          'textarea'      : Textarea,
-         *          'radio'         : Radio         // Stores [tag]:[value:STRING]
-         *      },
-         *      'boolean': {
-         *          'checkbox'      : Checkbox,
-         *          'radio'         : Radio         // Stores [tag]:[true/false:BOOLEAN]
-         *      }
-         *   }
-         *
-         */
-
-        this.fieldTypes = {};
+        this.typeConfigs = {};
+        this.__registerDataType(DATA_TYPE.STRING, {
+            [COMPONENT_TYPE.TEXT]    : require('../../components/form/controls/text').default,
+            [COMPONENT_TYPE.TEXTAREA]: require('../../components/form/controls/textarea').default,
+            [COMPONENT_TYPE.SELECT]  : require('../../components/form/controls/select').default,
+            [COMPONENT_TYPE.RADIO]   : require('../../components/form/controls/radio').default,
+            [COMPONENT_TYPE.LABEL]   : require('../../components/form/controls/label').default
+        });
+        this.__registerDataType(DATA_TYPE.BOOLEAN, {
+            [COMPONENT_TYPE.CHECKBOX]: require('../../components/form/controls/checkbox').default,
+            [COMPONENT_TYPE.RADIO]   : require('../../components/form/controls/radio').default
+        });
+        this.__registerDataType(DATA_TYPE.NUMBER, {
+            [COMPONENT_TYPE.NUMBER]: require('../../components/form/controls/number').default,
+            [COMPONENT_TYPE.RANGE] : require('../../components/form/controls/range').default
+        });
+        this.__registerDataType(DATA_TYPE.DATE, {
+            [COMPONENT_TYPE.DATE]: require('../../components/form/controls/datetime').default
+        });
+        this.__registerDataType(DATA_TYPE.ARRAY, {
+            [COMPONENT_TYPE.SELECT]       : require('../../components/form/controls/select').default,
+            [COMPONENT_TYPE.CHECKBOXGROUP]: require('../../components/form/controls/checkbox-group').default
+        });
     }
-
+    __registerDataType (type, components) {
+        this.typeConfigs[type] = {
+            type,
+            [COMPONENT_CONFIGS]: _.zipObject(
+                _.keys(components),
+                _.map(components, (component, key) => {
+                    const config = {
+                        dataType : type,
+                        component: {
+                            type   : key,
+                            element: component
+                        },
+                        actions: {
+                            onUpdate: this._getOperation(type, key, OPERATION_TYPES.ON_UPDATE)
+                        }
+                    };
+                    if (this._hasDecorators(key)) {
+                        config.decorators = this._getDefaultDecorators(key);
+                    }
+                    return config;
+                })
+            )
+        };
+    }
     /**
-     * Return a Field Type object, which is a map of React components keyed by component type
+     * Return a typeConfig, which is a map of React components and metadata keyed by component type
      * @param type
      * @returns {*}
      */
-    getFieldType (type) {
+    getTypeConfig (type) {
         if (!type) throw new Error('Type cannot be null/undefined');
-        if (this.fieldTypes[type]) {
-            return this.fieldTypes[type];
+        if (this.typeConfigs[type]) {
+            return this.typeConfigs[type];
         }
-        console.warn(`Unmapped field type: ${type}`);
+        console.warn(`Unmapped data type: ${type}`);
     }
-
     /**
-     * Given a field type, Return a map of React components keyed by component type
-     * @param type
+     * Given a data type, Return a map of React components keyed by component type
+     * @param dataType
      * @returns {TResult|_.Dictionary<any>|Object|*}
      */
-    getComponentsByType (type) {
-        const fieldType = this.getFieldType(type);
-        if (fieldType) return this.getComponentsByFieldType(fieldType);
-        console.warn(`Unmapped field type components: ${type}`);
+    getComponentConfigsByDataType (dataType) {
+        const typeConfig = this.getTypeConfig(dataType);
+        if (typeConfig) return this.getComponentConfigsByTypeConfig(typeConfig);
+        console.warn(`Unmapped data type: ${dataType}`);
     }
-    getComponentsByFieldType (fieldType) {
-        if (fieldType && fieldType.components) {
-            return fieldType.components;
+    getComponentConfigsByTypeConfig (typeConfig) {
+        if (typeConfig && typeConfig[COMPONENT_CONFIGS]) {
+            return typeConfig[COMPONENT_CONFIGS];
         }
-        console.warn(`Unmapped field type: ${fieldType}`);
+        console.warn(`Unmapped type config: ${typeConfig}`);
     }
-    getComponent (type, componentType) {
-        const components = this.getComponentsByType(type);
+    getComponentConfig (dataType, componentType) {
+        const components = this.getComponentConfigsByDataType(dataType);
         if (components && components[componentType]) {
             return components[componentType];
         }
-        console.warn(`Unmapped component type "${componentType}" for field type: "${type}"`);
+        console.warn(`Unmapped component type "${componentType}" for data type: "${dataType}"`);
     }
-    getComponentType (field, uiField) {
-        const { component } = uiField;
-
-        // User-defined in uiSchema
-        if (component) return component.type;
-
-        if (field) {
-            switch (field.type) {
-                case FIELD_TYPE_KEYS.BOOLEAN: {
-                    return !field.options
-                        ? FORM_COMPONENT_KEYS.CHECKBOX
-                        : FORM_COMPONENT_KEYS.RADIO;
-                }
-                case FIELD_TYPE_KEYS.STRING: {
-                    return field.options
-                        ? FORM_COMPONENT_KEYS.SELECT
-                        : FORM_COMPONENT_KEYS.TEXT;
-                }
-                case FIELD_TYPE_KEYS.NUMBER: {
-                    return FORM_COMPONENT_KEYS.NUMBER;
-                }
-                case FIELD_TYPE_KEYS.DATE: {
-                    return FORM_COMPONENT_KEYS.DATE;
-                }
-                case FIELD_TYPE_KEYS.ARRAY: {
-                    return FORM_COMPONENT_KEYS.SELECT;
-                }
-                default: {
-                    console.warn(`Unmapped field type: "${field.type}"`);
-                    break;
-                }
+    getComponentTypeByField (field) {
+        if (!field) throw new Error('field is required');
+        if (this.hasComponentDecorator(field)) {
+            return this.getComponentDecorator(field);
+        }
+        return this.getDefaultComponentTypeByDataType(field);
+    }
+    getDefaultComponentTypeByDataType (field) {
+        if (!field) throw new Error('field is required');
+        switch (field.type) {
+            case DATA_TYPE.BOOLEAN: return this.hasOptions(field) ? COMPONENT_TYPE.RADIO : COMPONENT_TYPE.CHECKBOX;
+            case DATA_TYPE.STRING: return this.hasOptions(field) ? COMPONENT_TYPE.SELECT : COMPONENT_TYPE.TEXT;
+            case DATA_TYPE.NUMBER: return COMPONENT_TYPE.NUMBER;
+            case DATA_TYPE.DATE: return COMPONENT_TYPE.DATE;
+            case DATA_TYPE.ARRAY: return COMPONENT_TYPE.SELECT;
+            default: {
+                console.warn(`Unmapped data type: "${field.type}"`);
+                return;
             }
         }
     }
-    registerFieldType (type, formComponents) {
-        const fieldType = { type };
-        fieldType.components = _.zipObject(
-            _.keys(formComponents),
-            _.map(formComponents, (formComponent, key) => {
-                // Create component definition
-                const component = {};
-                component.control = formComponent;
-                component.onUpdate = this._getOperation(type, key, OPERATION_TYPES.ON_UPDATE);
-
-                // Assign decorators
-                if (this._hasDecorators(key)) {
-                    component.decorators = this._getDecorators(key);
-                }
-
-                return component;
-            })
-        );
-        this.fieldTypes[type] = fieldType;
+    hasComponentDecorator (field) {
+        return Maybe.of(field)
+            .prop('uiDecorator')
+            .prop('component')
+            .prop('type')
+            .isJust();
+    }
+    getComponentDecorator (field) {
+        return Maybe.of(field)
+            .prop('uiDecorator')
+            .prop('component')
+            .prop('type')
+            .join();
+    }
+    hasOptions (field) {
+        return Maybe.of(field)
+            .prop('options')
+            .isJust();
     }
     _getOperation (fieldType, componentType, operation) {
         const { field, component } = this._getOperations(fieldType, componentType);
@@ -143,45 +148,16 @@ class FormConfig {
     }
     _getOperations (fieldType, componentType) {
         return {
-            field    : FIELD_TYPE_OPERATIONS[fieldType],
-            component: FORM_CONTROL_OPERATIONS[componentType]
+            field    : DATA_TYPE_OPERATIONS[fieldType],
+            component: COMPONENT_OPERATIONS[componentType]
         };
     }
     _hasDecorators (componentType) {
-        return !!this._getDecorators(componentType);
+        return !!this._getDefaultDecorators(componentType);
     }
-    _getDecorators (componentType) {
-        return FORM_COMPONENT_DECORATORS[componentType];
+    _getDefaultDecorators (componentType) {
+        return COMPONENT_DECORATORS[componentType];
     }
 }
 
-const formConfig = new FormConfig();
-
-formConfig.registerFieldType(FIELD_TYPE_KEYS.STRING, {
-    [FORM_COMPONENT_KEYS.TEXT]    : require('../../components/form/controls/text').default,
-    [FORM_COMPONENT_KEYS.TEXTAREA]: require('../../components/form/controls/textarea').default,
-    [FORM_COMPONENT_KEYS.SELECT]  : require('../../components/form/controls/select').default,
-    [FORM_COMPONENT_KEYS.RADIO]   : require('../../components/form/controls/radio').default,
-    [FORM_COMPONENT_KEYS.LABEL]   : require('../../components/form/controls/label').default
-});
-
-formConfig.registerFieldType(FIELD_TYPE_KEYS.BOOLEAN, {
-    [FORM_COMPONENT_KEYS.CHECKBOX]: require('../../components/form/controls/checkbox').default,
-    [FORM_COMPONENT_KEYS.RADIO]   : require('../../components/form/controls/radio').default
-});
-
-formConfig.registerFieldType(FIELD_TYPE_KEYS.NUMBER, {
-    [FORM_COMPONENT_KEYS.NUMBER]: require('../../components/form/controls/number').default,
-    [FORM_COMPONENT_KEYS.RANGE] : require('../../components/form/controls/range').default
-});
-
-formConfig.registerFieldType(FIELD_TYPE_KEYS.DATE, {
-    [FORM_COMPONENT_KEYS.DATE]: require('../../components/form/controls/datetime').default
-});
-
-formConfig.registerFieldType(FIELD_TYPE_KEYS.ARRAY, {
-    [FORM_COMPONENT_KEYS.SELECT]       : require('../../components/form/controls/select').default,
-    [FORM_COMPONENT_KEYS.CHECKBOXGROUP]: require('../../components/form/controls/checkbox-group').default
-});
-
-export default formConfig;
+export default new FormConfig();

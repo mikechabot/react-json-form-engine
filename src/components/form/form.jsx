@@ -1,6 +1,7 @@
 import React from 'react';
 import FormSection from './form-section';
-import { Flex, Asterisk } from '../common';
+import _ from 'lodash';
+import { Flex, Asterisk, APICheckError } from '../common';
 import { TabContainer, Nav, NavItem, TabContent, TabPane } from 'react-bootstrap';
 
 export default class Form extends React.Component {
@@ -11,35 +12,23 @@ export default class Form extends React.Component {
     }
 
     componentDidMount () {
-        const { instance } = this.props;
-        instance.validate();
-    }
-
-    onUpdate (event, tag) {
-        const { instance, onUpdate } = this.props;
-
-        tag = tag || event.target.id;
-        const field = instance.getField(tag);
-
-        const { component } = field;
-        const value = component.onUpdate(event, field, instance.getModelValue(tag));
-
-        instance.setModelValue(tag, value, field);     // Set model value
-        instance.calculateFields(field);               // Calculate fields if necessary
-        instance.triggerDefaultValueEvaluation(tag);   // Trigger default value evaluation
-        instance.validate();                           // Validate the form
-
-        onUpdate({ tag, value });                      // Notify parent
+        // const { instance } = this.props;
+        // instance.validate();
     }
 
     render () {
         const { instance } = this.props;
-        if (!instance) {
+
+        if (!instance || _.isEmpty(instance)) {
             return (
                 <em className="text-danger">
                     No form instance
                 </em>
             );
+        }
+
+        if (!instance.isValid()) {
+            return <APICheckError error={instance.error} />;
         }
 
         const sections = instance.getSections();
@@ -130,15 +119,26 @@ export default class Form extends React.Component {
             </Flex>
         );
     }
+
+    onUpdate (event, tag) {
+        const { instance, onUpdate } = this.props;
+
+        tag = tag || event.target.id;
+        const field = instance.getField(tag);
+
+        const { component } = field;
+        const value = component.onUpdate(event, field, instance.getModelValue(tag));
+
+        instance.setModelValue(tag, value, field);     // Set model value
+        instance.calculateFields(field);               // Calculate fields if necessary
+        instance.triggerDefaultValueEvaluation(tag);   // Trigger default value evaluation
+        instance.validate();                           // Validate the form
+
+        onUpdate({ tag, value });                      // Notify parent
+    }
 }
 
 Form.propTypes = {
     onUpdate: React.PropTypes.func.isRequired,
-    instance: React.PropTypes.shape({
-        definition       : React.PropTypes.object.isRequired,
-        model            : React.PropTypes.object.isRequired,
-        sections         : React.PropTypes.array.isRequired,
-        fields           : React.PropTypes.object.isRequired,
-        validationResults: React.PropTypes.object.isRequired
-    }).isRequired
+    instance: React.PropTypes.object.isRequired
 };

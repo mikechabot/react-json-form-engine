@@ -1,6 +1,6 @@
-import { FIELD_TYPE_KEYS } from '../config/form-const';
+import { DATA_TYPE } from '../config/form-const';
 import validators from './form-validators';
-import { __hasValue } from '../../common/common';
+import { hasValue } from '../../common/common';
 import _ from 'lodash';
 
 export default {
@@ -15,7 +15,7 @@ export default {
                 isVisible = instance.evaluateShowCondition(field, tag);
             }
 
-            if (__hasValue(value) || isVisible) {
+            if (hasValue(value) || isVisible) {
                 // Check required status
                 if (field.required) {
                     const requiredStatus = validators.checkRequired(field, value);
@@ -25,7 +25,7 @@ export default {
                 }
 
                 // Check numeric validation
-                if (field.type === FIELD_TYPE_KEYS.NUMBER) {
+                if (field.type === DATA_TYPE.NUMBER) {
                     const numericStatus = validators.checkNumeric(field, value);
                     if (instance.isError(numericStatus)) {
                         validationResults.addInvalidValue(tag, 'Invalid numeric value', 'SUBMIT');

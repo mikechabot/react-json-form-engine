@@ -1,17 +1,17 @@
 import FormConfig from './config/form-config';
 import ExpressionService from './services/expression-service';
 import ValidationResults from './validation/validation-results';
-import ValidationService from './validation/form-validation-service';
+import ValidationService from './service/validation-service';
 import FormValidator from './validation/form-validator';
 import VALIDATION_CONST from './validation/validation-const';
-import { __hasValue, __blank } from '../common/common';
-import { FIELD_TYPE_KEYS } from './config/form-const';
+import { hasValue, __blank } from '../common/common';
+import { DATA_TYPE } from './config/form-const';
 import _ from 'lodash';
 
 class Form {
     constructor (definition, model, validator) {
         // Check for valid definition
-        if (!__hasValue(definition) || _.isEmpty(definition)) {
+        if (!hasValue(definition) || _.isEmpty(definition)) {
             throw new Error('Form definition cannot be null/undefined/empty');
         }
 
@@ -20,7 +20,7 @@ class Form {
 
         // Check for valid schemas
         const { schema } = definition;
-        if (!__hasValue(schema) || _.isEmpty(schema)) {
+        if (!hasValue(schema) || _.isEmpty(schema)) {
             throw new Error('Schema cannot cannot be null/undefined/empty');
         }
 
@@ -50,7 +50,7 @@ class Form {
 
         // Validate
         instance.validate();
-        console.debug(instance);
+        console.log(instance);
     }
 
     /**
@@ -91,10 +91,10 @@ class Form {
             : this.getUiSchemaField(tag) || {};
 
         // Obtain field component type
-        field.componentType = FormConfig.getComponentType(field, field.uiField);
+        field.componentType = FormConfig.getComponentTypeByField(field, field.uiField);
 
         // Set the form component
-        field.component = FormConfig.getComponent(field.type, field.componentType);
+        field.component = FormConfig.getComponentConfig(field.type, field.componentType);
 
         // Add RegExp if specified
         if (_.isString(field.pattern)) {
@@ -159,7 +159,7 @@ class Form {
     }
     __clearFields (fields) {
         _.forEach(fields, (field, tag) => {
-            if (__hasValue(this.getModelValue(tag))) {
+            if (hasValue(this.getModelValue(tag))) {
                 this.setModelValue(tag, undefined, field);
             }
         });
@@ -209,26 +209,26 @@ class Form {
         // Clear child fields
         if (field.fields) {
             switch (field.type) {
-                case FIELD_TYPE_KEYS.BOOLEAN: {
+                case DATA_TYPE.BOOLEAN: {
                     if (value === false) {
                         this.__clearFields(field.fields);
                     }
                     break;
                 }
-                case FIELD_TYPE_KEYS.NUMBER: {
+                case DATA_TYPE.NUMBER: {
                     if (Number.isNaN(value)) {
                         this.__clearFields(field.fields);
                     }
                     break;
                 }
-                case FIELD_TYPE_KEYS.ARRAY: {
+                case DATA_TYPE.ARRAY: {
                     if (_.isEmpty(value)) {
                         this.__clearFields(field.fields);
                     }
                     break;
                 }
-                case FIELD_TYPE_KEYS.DATE:
-                case FIELD_TYPE_KEYS.STRING:
+                case DATA_TYPE.DATE:
+                case DATA_TYPE.STRING:
                 default: {
                     if (__blank(value)) {
                         this.__clearFields(field.fields);
@@ -276,7 +276,7 @@ class Form {
                     // Evaluate the expression to obtain the default value
                     let defaultValue = ExpressionService.evalExpression(conditionalExpression.expression, this);
 
-                    if (field.type === FIELD_TYPE_KEYS.ARRAY) {
+                    if (field.type === DATA_TYPE.ARRAY) {
                         // Pass the value through the applicable "onUpdate" method to
                         // mimic an update from the UI. This is important since it will
                         // concatenate or pop array values for checkbox groups and selects
@@ -385,7 +385,7 @@ class Form {
         return this.getUiSchema()[tag];
     }
     hasValidator () {
-        return __hasValue(this.validator);
+        return hasValue(this.validator);
     }
     validate () {
         if (this.hasValidator()) {

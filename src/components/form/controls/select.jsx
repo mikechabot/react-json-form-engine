@@ -1,6 +1,6 @@
 import React from 'react';
 import FormControl from 'react-bootstrap/lib/FormControl';
-import { FIELD_TYPE_KEYS } from '../../../form/config/form-const';
+import { DATA_TYPE } from '../../../form/config/form-const';
 
 class Select extends React.Component {
     render () {
@@ -48,7 +48,7 @@ class Select extends React.Component {
 }
 
 function isMultiselect (field) {
-    return field.type === FIELD_TYPE_KEYS.ARRAY;
+    return field.type === DATA_TYPE.ARRAY;
 }
 
 Select.propTypes = {

@@ -1,4 +1,4 @@
-import { __hasValue, __blank } from '../../common/common';
+import { hasValue, __blank } from '../../common/common';
 import _ from 'lodash';
 
 function _getConstComparisonCondition (type, val1, val2, orEqualTo) {
@@ -42,7 +42,7 @@ const conditionEvaluators = {
         const val2 = service.evalExpression(condition.expression2, instance);
 
         let conditionMet = false;
-        if (__hasValue(val1) && __hasValue(val2)) {
+        if (hasValue(val1) && hasValue(val2)) {
             conditionMet = _.includes(val2, val1);
         }
 
@@ -58,7 +58,7 @@ const conditionEvaluators = {
         const val2 = service.evalExpression(condition.expression2, instance);
 
         let conditionMet = false;
-        if (__hasValue(val1) && __hasValue(val2)) {
+        if (hasValue(val1) && hasValue(val2)) {
             conditionMet = val1 == val2;
         }
 
@@ -67,7 +67,7 @@ const conditionEvaluators = {
     // TODO: Create a GREATER_THAN_OR_EQUAL_TO expression?
     GREATER_THAN: (service, condition, instance) => {
         const diff = evalNumberCondition(service, condition, instance);
-        if (__hasValue(diff)) {
+        if (hasValue(diff)) {
             return condition.orEqualTo
                 ? diff <= 0
                 : diff < 0;
@@ -76,7 +76,7 @@ const conditionEvaluators = {
     // TODO: Create a LESS_THAN_OR_EQUAL_TO expression?
     LESS_THAN: (service, condition, instance) => {
         const diff = evalNumberCondition(service, condition, instance);
-        if (__hasValue(diff)) {
+        if (hasValue(diff)) {
             return condition.orEqualTo
                 ? diff >= 0
                 : diff > 0;
@@ -146,7 +146,7 @@ const ExpressionService = {
         }
 
         let conditionMet = evaluator(this, condition, instance);
-        if (__hasValue(conditionMet) && condition.not) {
+        if (hasValue(conditionMet) && condition.not) {
             conditionMet = !conditionMet;
         }
 

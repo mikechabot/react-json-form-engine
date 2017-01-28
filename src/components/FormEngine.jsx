@@ -3,7 +3,7 @@ import Tabs from 'react-bootstrap/lib/Tabs';
 import Tab from 'react-bootstrap/lib/Tab';
 import Form from './form/form';
 import { CodePanel, Flex } from './common';
-import FormInstanceFactory from '../form/form-instance-factory';
+import FormEngine from '../form/form-engine';
 import forms from '../examples/forms';
 import _ from 'lodash';
 
@@ -15,7 +15,7 @@ class FormTester extends React.Component {
             key        : 0,
             form       : {},
             model      : {},
-            instance   : {},
+            instance   : null,
             instances  : {},
             changeEvent: {}
         };
@@ -29,10 +29,6 @@ class FormTester extends React.Component {
 
     render () {
         const { instance } = this.state;
-        if (!instance.model) {
-            return <span />;
-        }
-
         return (
             <Flex flex={1} column={true} padding={5}>
                 <h1>react-form-engine</h1>
@@ -53,7 +49,7 @@ class FormTester extends React.Component {
 
         let instance = instances[form.id];
         if (!instance) {
-            instance = FormInstanceFactory(form, {}, null, true);
+            instance = new FormEngine(form, {}, null, true);
             instances[form.id] = instance;
         }
 
@@ -78,7 +74,7 @@ class FormTester extends React.Component {
     }
 
     _renderTabContent (form, index, instance) {
-        if (this.state.key === index) {
+        if (this.state.key === index && instance) {
             return (
                 <Flex padding={10}>
                     <Flex style={{minWidth: 700}}>
@@ -89,12 +85,12 @@ class FormTester extends React.Component {
                         />
                     </Flex>
                     <aside>
-                        <Flex style={{flexWrap: 'wrap'}}>
-                            <CodePanel title="Schema" content={form.schema} />
-                            <CodePanel title="UI Schema" content={form.uiSchema} />
-                            <CodePanel title="Model" content={instance.getModel()} />
-                            <CodePanel title="Change Event" content={this.state.changeEvent} />
-                        </Flex>
+                        {/*<Flex style={{flexWrap: 'wrap'}}>*/}
+                            {/*<CodePanel title="Schema" content={form.schema} />*/}
+                            {/*<CodePanel title="UI Schema" content={form.uiSchema} />*/}
+                            {/*<CodePanel title="Model" content={instance.getModel()} />*/}
+                            {/*<CodePanel title="Change Event" content={this.state.changeEvent} />*/}
+                        {/*</Flex>*/}
                     </aside>
                 </Flex>
             );

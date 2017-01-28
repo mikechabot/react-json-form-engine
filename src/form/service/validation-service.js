@@ -1,9 +1,11 @@
-import VALIDATION_CONST from './validation-const';
+'use strict';
+
 import _ from 'lodash';
+import VALIDATION_CONST from '../config/form-const';
 
 const ranks = VALIDATION_CONST.STATUS_RANKS;
 
-const validationService = {
+const ValidationService = {
     /**
      * Return the most severe status given a list of validation
      * messages.
@@ -31,4 +33,4 @@ const validationService = {
     }
 };
 
-export default validationService;
+export default ValidationService;

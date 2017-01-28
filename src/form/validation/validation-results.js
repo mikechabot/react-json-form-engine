@@ -1,5 +1,5 @@
 import VALIDATION_CONST from './validation-const';
-import ValidationService from './form-validation-service';
+import ValidationService from '../service/validation-service';
 import _ from 'lodash';
 
 class ValidationResults {

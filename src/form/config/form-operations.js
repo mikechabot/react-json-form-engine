@@ -1,45 +1,42 @@
-import {
-    FIELD_TYPE_KEYS,
-    FORM_COMPONENT_KEYS
-} from './form-const';
 import _ from 'lodash';
+import { DATA_TYPE, COMPONENT_TYPE } from './form-const';
 
 export const OPERATION_TYPES = {
     ON_UPDATE: 'onUpdate'
 };
 
-const _COMMON_OPERATIONS = {
+const common = {
     onUpdate: (event) => {
         const { target } = event;
         return target.value;
     }
 };
 
-export const FIELD_TYPE_OPERATIONS = {
-    'string': {
-        onUpdate: _COMMON_OPERATIONS.onUpdate
+export const DATA_TYPE_OPERATIONS = {
+    [DATA_TYPE.STRING]: {
+        onUpdate: common.onUpdate
     },
-    'boolean': {
+    [DATA_TYPE.BOOLEAN]: {
         onUpdate: (event) => {
             const { target } = event;
             return target.checked;
         }
     },
-    'number': {
+    [DATA_TYPE.NUMBER]: {
         onUpdate: (event) => {
             const { target } = event;
             return target.valueAsNumber;
         }
     },
-    'date': {
+    [DATA_TYPE.DATE]: {
         onUpdate: (event) => {
             return event;
         }
     },
-    'array': {
+    [DATA_TYPE.ARRAY]: {
         onUpdate: (event, fieldInfo, existingModelValue, newValue) => {
             const { target } = event;
-            if (fieldInfo.componentType === FORM_COMPONENT_KEYS.SELECT) {
+            if (fieldInfo.componentType === COMPONENT_TYPE.SELECT) {
                 return _.filter(target.options, (option) => option.selected)
                     .map(option => option.value);
             } else {
@@ -53,13 +50,13 @@ export const FIELD_TYPE_OPERATIONS = {
     }
 };
 
-export const FORM_CONTROL_OPERATIONS = {
-    'radio': {
+export const COMPONENT_OPERATIONS = {
+    [COMPONENT_TYPE.RADIO]: {
         onUpdate: (event, fieldInfo) => {
-            if (fieldInfo.type === FIELD_TYPE_KEYS.STRING) {
-                return _COMMON_OPERATIONS.onUpdate(event);
+            if (fieldInfo.type === DATA_TYPE.STRING) {
+                return common.onUpdate(event);
             } else {
-                return _COMMON_OPERATIONS.onUpdate(event) === 'true';
+                return common.onUpdate(event) === 'true';
             }
         }
     }

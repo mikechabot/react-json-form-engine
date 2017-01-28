@@ -7,8 +7,14 @@ module.exports = {
         if (!obj) return;
         return JSON.parse(JSON.stringify(obj));
     },
-    __hasValue: function (val) {
+    hasValue: function (val) {
         return val !== undefined && val !== null;
+    },
+    isString: function(val) {
+        return typeof val === 'string';
+    },
+    isNumber: function (val) {
+        return typeof val === 'number' && Number.isFinite(val);
     },
     __blank: function (val) {
         if (typeof val === 'object' && Array.isArray(val)) {

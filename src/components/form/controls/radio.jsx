@@ -1,12 +1,12 @@
 import React from 'react';
 import BSRadio from 'react-bootstrap/lib/Radio';
 import FormField from '../form-field';
-import { __hasValue } from '../../../common/common';
+import { hasValue } from '../../../common/common';
 
 class Radio extends React.Component {
 
     isChecked (option, value, isEven) {
-        if (!__hasValue(value)) return false;
+        if (!hasValue(value)) return false;
         if (option.id) {
             return option.id === value;
         }
