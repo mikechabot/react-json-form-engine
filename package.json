@@ -65,8 +65,8 @@
   "dependencies": {
     "api-check": "^7.5.5",
     "lodash": "^4.17.4",
-    "maybe-baby": "0.0.6",
+    "maybe-baby": "^0.0.6",
     "moment": "^2.17.1",
-    "sortable-map": "0.0.9"
+    "sortable-map": "^0.0.10"
   }
 }

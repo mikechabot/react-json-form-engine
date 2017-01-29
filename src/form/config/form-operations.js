@@ -34,17 +34,17 @@ export const DATA_TYPE_OPERATIONS = {
         }
     },
     [DATA_TYPE.ARRAY]: {
-        onUpdate: (event, fieldInfo, existingModelValue, newValue) => {
+        onUpdate: (event, field, oldValue, newValue) => {
             const { target } = event;
-            if (fieldInfo.componentType === COMPONENT_TYPE.SELECT) {
+            if (field.component.type === COMPONENT_TYPE.SELECT) {
                 return _.filter(target.options, (option) => option.selected)
                     .map(option => option.value);
             } else {
                 const val = newValue || target.value;
-                if (!existingModelValue) return [val];
-                return !_.includes(existingModelValue, val)
-                    ? [...existingModelValue, ...[val]]
-                    : [..._.remove(existingModelValue, eachVal => eachVal !== val)];
+                if (!oldValue) return [val];
+                return !_.includes(oldValue, val)
+                    ? [...oldValue, ...[val]]
+                    : [..._.remove(oldValue, eachVal => eachVal !== val)];
             }
         }
     }

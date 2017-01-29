@@ -102,12 +102,7 @@ function evalNumberCondition (service, condition, instance) {
 
 const expressionEvaluators = {
     FORM_RESPONSE: (service, expression, instance) => {
-        let value;
-        const data = instance.getModel();
-        if (data) {
-            value = data[expression.tag] ? data[expression.tag].value : data[expression.tag];
-        }
-        return value;
+        return instance.getModelValue(expression.id);
     },
     CONST: (service, expression, instance) => {
         return expression.value;
@@ -117,7 +112,7 @@ const expressionEvaluators = {
 
         _.forEach(expression.expressions, exp => {
             // TODO: Maybe this becomes FORM_RESPONSE_VALUE?
-            const field = instance.getField(exp.tag);
+            const field = instance.getField(exp.id);
             const formResponses = service.evalExpression(exp, instance);
 
             if (!_.isEmpty(formResponses)) {

@@ -16,26 +16,26 @@ class FormConfig {
     constructor () {
         this.typeConfigs = {};
         this.__registerDataType(DATA_TYPE.STRING, {
-            [COMPONENT_TYPE.TEXT]    : require('../../components/form/controls/text').default,
-            [COMPONENT_TYPE.TEXTAREA]: require('../../components/form/controls/textarea').default,
-            [COMPONENT_TYPE.SELECT]  : require('../../components/form/controls/select').default,
-            [COMPONENT_TYPE.RADIO]   : require('../../components/form/controls/radio').default,
+            [COMPONENT_TYPE.TEXT]    : require('../../components/form/controls/Text').default,
+            [COMPONENT_TYPE.TEXTAREA]: require('../../components/form/controls/Textarea').default,
+            [COMPONENT_TYPE.SELECT]  : require('../../components/form/controls/Select').default,
+            [COMPONENT_TYPE.RADIO]   : require('../../components/form/controls/Radio').default,
             [COMPONENT_TYPE.LABEL]   : require('../../components/form/controls/label').default
         });
         this.__registerDataType(DATA_TYPE.BOOLEAN, {
-            [COMPONENT_TYPE.CHECKBOX]: require('../../components/form/controls/checkbox').default,
-            [COMPONENT_TYPE.RADIO]   : require('../../components/form/controls/radio').default
+            [COMPONENT_TYPE.CHECKBOX]: require('../../components/form/controls/Checkbox').default,
+            [COMPONENT_TYPE.RADIO]   : require('../../components/form/controls/Radio').default
         });
         this.__registerDataType(DATA_TYPE.NUMBER, {
-            [COMPONENT_TYPE.NUMBER]: require('../../components/form/controls/number').default,
-            [COMPONENT_TYPE.RANGE] : require('../../components/form/controls/range').default
+            [COMPONENT_TYPE.NUMBER]: require('../../components/form/controls/Number').default,
+            [COMPONENT_TYPE.RANGE] : require('../../components/form/controls/Range').default
         });
         this.__registerDataType(DATA_TYPE.DATE, {
-            [COMPONENT_TYPE.DATE]: require('../../components/form/controls/datetime').default
+            [COMPONENT_TYPE.DATE]: require('../../components/form/controls/DateTime').default
         });
         this.__registerDataType(DATA_TYPE.ARRAY, {
-            [COMPONENT_TYPE.SELECT]       : require('../../components/form/controls/select').default,
-            [COMPONENT_TYPE.CHECKBOXGROUP]: require('../../components/form/controls/checkbox-group').default
+            [COMPONENT_TYPE.SELECT]       : require('../../components/form/controls/Select').default,
+            [COMPONENT_TYPE.CHECKBOXGROUP]: require('../../components/form/controls/CheckboxGroup').default
         });
     }
     __registerDataType (type, components) {
@@ -120,14 +120,14 @@ class FormConfig {
     }
     hasComponentDecorator (field) {
         return Maybe.of(field)
-            .prop('uiDecorator')
+            .prop('uiDecorators')
             .prop('component')
             .prop('type')
             .isJust();
     }
     getComponentDecorator (field) {
         return Maybe.of(field)
-            .prop('uiDecorator')
+            .prop('uiDecorators')
             .prop('component')
             .prop('type')
             .join();

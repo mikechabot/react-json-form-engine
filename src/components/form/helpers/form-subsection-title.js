@@ -4,14 +4,11 @@ import VALIDATION_CONST from '../../../form/validation/validation-const';
 
 export default function FormSubsectionTitle ({
     title,
-    hide,
     status
 }) {
-    if (hide || !title) {
-        return <span />;
-    }
+    if (!title) return <span />;
     return (
-        <h4>
+        <h4 style={{marginBottom: 5}}>
             { title }&nbsp;
             { showAsterisk(status) ? <Asterisk /> : <span />}
         </h4>

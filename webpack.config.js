@@ -64,20 +64,8 @@ module.exports = {
                 loader: 'url?limit=10000&name=[name]-[hash].[ext]'
             },
             {
-                test  : /\.eot(\?v=\d+\.\d+\.\d+)?$/,
-                loader: 'file?name=./fonts/[name]-[hash].[ext]'
-            },
-            {
-                test  : /\.woff(\?v=\d+\.\d+\.\d+)?$/,
-                loader: 'url?limit=10000&mimetype=application/font-woff&name=./fonts/[name]-[hash].[ext]'
-            },
-            {
-                test  : /\.woff2(\?v=\d+\.\d+\.\d+)?$/,
-                loader: 'url?limit=10000&mimetype=application/font-woff&name=./fonts/[name]-[hash].[ext]'
-            },
-            {
-                test  : /\.ttf(\?v=\d+\.\d+\.\d+)?$/,
-                loader: 'url?limit=10000&mimetype=application/octet-stream&name=./fonts/[name]-[hash].[ext]'
+                test  : /\.woff($|\?)|\.woff2($|\?)|\.ttf($|\?)|\.eot($|\?)|\.svg($|\?)/,
+                loader: 'url-loader'
             },
             {
                 test   : /\.json$/,

@@ -1,0 +1,39 @@
+@import '../../node_modules/react-widgets/dist/css/react-widgets.css';
+@import 'third-party/bootstrap/css/bootstrap.min.css';
+@import 'third-party/font-awesome/css/font-awesome.min.css';
+@import 'bootstrap-override';
+
+$font-stack: 'Ubuntu', 'Segoe UI', 'Arial', sans-serif;
+
+/* Common Mixins */
+@mixin flex {
+    display: flex;
+}
+
+@mixin flex-column {
+    flex-direction: column;
+}
+
+@mixin margin($margin) {
+    margin: $margin;
+}
+
+@mixin height($height) {
+    height: $height;
+}
+
+@mixin width($width) {
+    width: $width;
+}
+
+@mixin full-height {
+    @include height(100%);
+}
+
+@mixin full-width {
+    @include width(100%);
+}
+
+@mixin border($color) {
+    border: 1px solid $color;
+}

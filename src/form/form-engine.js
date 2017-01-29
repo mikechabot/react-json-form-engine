@@ -3,9 +3,10 @@ import SortableMap from 'sortable-map';
 import FormConfig from '../form/config/form-config';
 import FormValidator from '../form/validation/form-validator';
 import ValidationResults from '../form/validation/validation-results';
+import ExpressionService from '../form/service/expression-service';
 import Maybe from 'maybe-baby';
 import ValidationService from '../form/service/validation-service';
-import { __clone } from '../common/common';
+import { __clone, __blank } from '../common/common';
 const apiCheck = require('api-check')({output: { prefix: 'FormEngine:' }});
 
 export default class FormEngine {
@@ -21,7 +22,7 @@ export default class FormEngine {
 
         this.definition = definition;                       // Form definition
         this.decorators = definition.decorators || {};      // UI decorators
-        this.model = model;                                 // Map of form responses keyed by field id
+        this.model = new SortableMap();                     // Map of form responses keyed by field id
 
         this.validator = FormValidator;                     // Form validator class
         this.validationResults = new ValidationResults();   // Stores validation results
@@ -97,11 +98,15 @@ export default class FormEngine {
         _validateField(field);
 
         field.parent = parent;
-        field.uiDecorator = this.getUIDecorator(field.id) || {};
 
-        const { actions, component } = FormConfig.getComponentConfig(
+        field.uiDecorators = this.getUIDecorator(field.id);
+        const { actions, component, decorators } = FormConfig.getComponentConfig(
             field.type, FormConfig.getComponentTypeByField(field)
         );
+
+        if (decorators) {
+            field.uiDecorators = {...field.uiDecorators, ...decorators};
+        }
 
         field.actions = actions;
         field.component = component;
@@ -122,16 +127,87 @@ export default class FormEngine {
     isValid () {
         return this.__isValid;
     }
+    /**
+     * Get form error
+     * @returns {*}
+     */
     getError () {
         return this.error;
     }
     /**
-     * Get the form definition
+     * Get form definition
      * @returns {*}
      */
     getDefinition () {
         return this.definition;
     }
+    /**
+     * Get form model
+     * @returns {SortableMap}
+     */
+    getModel () {
+        return this.model;
+    }
+    /**
+     * Get form model values
+     * @returns {*}
+     */
+    getModelValues () {
+        return this.model.findAll();
+    }
+    /**
+     * Get single model value (e.g. form response)
+     * @param id
+     */
+    getModelValue (id) {
+        return this.model.find(id);
+    }
+    /**
+     * Determine if the model contains a key
+     * @param id
+     * @returns {LoDashExplicitWrapper<boolean>|boolean|Assertion}
+     */
+    hasModelValue (id) {
+        return this.model.has(id);
+    }
+    /**
+     * Set a model value
+     * @param id
+     * @param value
+     * @param field
+     */
+    setModelValue (id, value, field) {
+        if (value === undefined) {
+            this.resetField(field, id);
+        } else {
+            field.dirty = true;
+            this.model.add(id, value);
+        }
+    }
+    /**
+     * Recursively clear children and option fields
+     * @param fields
+     */
+    resetFields (fields) {
+        _.forEach(fields, field => {
+            if (this.hasModelValue(field.id)) {
+                this.resetField(field, field.id);
+            }
+        });
+    }
+    /**
+     * Reset dirty flag, and clear model value
+     * @param field
+     * @param id
+     */
+    resetField (field, id) {
+        field.dirty = false;
+        this.model.delete(id);
+    }
+    /**
+     * Get form decorators
+     * @returns {*|decorators|{str2, str3, str4}|{}}
+     */
     getDecorators () {
         return this.decorators;
     }
@@ -151,11 +227,66 @@ export default class FormEngine {
         return this.getDefinition().sections;
     }
     /**
-     *
+     * Get form sections
      * @returns {SortableMap|*}
      */
     getSections () {
         return this.sections;
+    }
+    /**
+     * Get single form section
+     * @param id
+     * @returns {*}
+     */
+    getSection (id) {
+        return this.getSections().find(id);
+    }
+    /**
+     * Get form subsections
+     * @returns {SortableMap|*}
+     */
+    getSubsections () {
+        return this.subsections;
+    }
+    /**
+     * Get single form subsection
+     * @param id
+     * @returns {*}
+     */
+    getSubsection (id) {
+        return this.getSubsections().find(id);
+    }
+    /**
+     * Get form fields
+     * @returns {SortableMap|*}
+     */
+    getFields () {
+        return this.fields;
+    }
+    /**
+     * Get single form field
+     * @param id
+     * @returns {*}
+     */
+    getField (id) {
+        return this.getFields().find(id);
+    }
+    /**
+     * Evaluate the show condition of the field
+     * @param field
+     * @param tag
+     * @returns {*}
+     */
+    evaluateShowCondition (field) {
+        if (!field.showCondition) return true;
+        const showField = ExpressionService.evalCondition(field.showCondition, this);
+        if (!showField) {
+            // Clear conditionally hidden fields
+            if (this.hasModelValue(field.id)) {
+                this.setModelValue(field.id, undefined, field);
+            }
+        }
+        return showField;
     }
 }
 
@@ -175,16 +306,16 @@ function _validateField (field) {
 function _validateDefinition (definition) {
     apiCheck.throw([
         apiCheck.shape({
-            id      : apiCheck.oneOfType([apiCheck.string, apiCheck.number]),
+            id      : apiCheck.string,
             title   : apiCheck.string,
             subtitle: apiCheck.string.optional,
             sections: apiCheck.arrayOf(apiCheck.shape({
-                id         : apiCheck.oneOfType([apiCheck.string, apiCheck.number]),
+                id         : apiCheck.string,
                 title      : apiCheck.string,
                 subtitle   : apiCheck.string.optional,
                 sortOrder  : apiCheck.number.optional,
                 subsections: apiCheck.arrayOf(apiCheck.shape({
-                    id       : apiCheck.oneOfType([apiCheck.string, apiCheck.number]),
+                    id       : apiCheck.string,
                     title    : apiCheck.string,
                     subtitle : apiCheck.string.optional,
                     sortOrder: apiCheck.number.optional,
@@ -200,6 +331,6 @@ function _validateDefinition (definition) {
 
         }).strict
     ], arguments, {
-        prefix: `[Definition: "${Maybe.of(definition).prop('title').orElse('[No Title]').join()}"]`
+        prefix: `[Definition: "${Maybe.of(definition).prop('id').orElse('[No Id]').join()}"]`
     });
 }

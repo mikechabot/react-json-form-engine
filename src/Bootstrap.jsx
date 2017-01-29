@@ -4,7 +4,7 @@ import { AppContainer } from 'react-hot-loader';
 import App from './App';
 
 // Require globals
-import './scss/style.scss';
+import './style/style.scss';
 import 'babel-polyfill';
 import 'lodash';
 

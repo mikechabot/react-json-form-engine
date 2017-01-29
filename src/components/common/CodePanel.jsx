@@ -8,7 +8,12 @@ export default function CodePanel ({
 }) {
     return (
         <Panel
-            style={{width: 425, margin: 2.5}}
+            style={{
+                height  : 400,
+                width   : '100%',
+                minWidth: 425,
+                margin  : 2.5
+            }}
             header={title}
             bsStyle="primary">
             <CodeBlock content={content} />

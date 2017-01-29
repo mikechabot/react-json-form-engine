@@ -3,10 +3,12 @@ export default {
     title   : 'Strings',
     sections: [
         {
+            id         : 'Section-1',
             title      : 'Strings',
             sortOrder  : 0,
             subsections: [
                 {
+                    id       : 'Subsection-1',
                     title    : 'Stores [tag]:[value:String]',
                     sortOrder: 0,
                     fields   : [
@@ -18,17 +20,17 @@ export default {
                             sortOrder  : 0
                         },
                         {
-                            tag        : 'str2',
+                            id         : 'str2',
                             type       : 'string',
                             title      : 'Textarea field',
                             placeholder: 'Placeholder!',
                             sortOrder  : 1
                         },
                         {
-                            tag        : 'str3',
+                            id         : 'str3',
                             type       : 'string',
                             title      : 'Select field',
-                            placeholder: '-- select an option --',
+                            placeholder: '-- select option --',
                             options    : [
                                 {id: 0, title: 'Option 1'},
                                 {id: 1, title: 'Option 2'},
@@ -37,7 +39,7 @@ export default {
                             sortOrder: 2
                         },
                         {
-                            tag    : 'str4',
+                            id     : 'str4',
                             type   : 'string',
                             title  : 'Radio field',
                             options: [
