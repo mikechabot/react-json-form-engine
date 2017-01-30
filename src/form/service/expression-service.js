@@ -134,6 +134,10 @@ const expressionEvaluators = {
 };
 
 const ExpressionService = {
+    isFormResponseExpression (expression) {
+        if (!expression || !expression.type) return false;
+        return expression.type === 'FORM_RESPONSE';
+    },
     evalCondition (condition, instance) {
         const evaluator = conditionEvaluators[condition.type];
         if (!evaluator) {

@@ -1,5 +1,6 @@
 import arrays from './arrays';
 import booleans from './booleans';
+import conditions from './conditions';
 import datetime from './date-time';
 import layout from './layout';
 import numbers from './numbers';
@@ -13,5 +14,6 @@ export default [
     numbers,
     datetime,
     layout,
-    relationships
+    relationships,
+    conditions
 ];

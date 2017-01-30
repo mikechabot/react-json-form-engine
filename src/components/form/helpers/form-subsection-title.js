@@ -8,7 +8,7 @@ export default function FormSubsectionTitle ({
 }) {
     if (!title) return <span />;
     return (
-        <h4 style={{marginBottom: 5}}>
+        <h4 style={{marginBottom: 5, marginLeft: 5}}>
             { title }&nbsp;
             { showAsterisk(status) ? <Asterisk /> : <span />}
         </h4>

@@ -9,7 +9,7 @@ class CheckboxGroup extends React.Component {
         children = _.orderBy(children, 'sortOrder');
         return _.map(children, (child) => {
             const id = child.id;
-            if (instance.evaluateShowCondition(child, id)) {
+            if (instance.evaluateFieldShowCondition(child, id)) {
                 return (
                     <ul style={{listStyle: 'none'}} key={id}>
                         <li>

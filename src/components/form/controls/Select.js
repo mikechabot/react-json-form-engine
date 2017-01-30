@@ -16,7 +16,7 @@ export default function Select ({
     }
 
     if (!field.options) {
-        console.warn(`${field.type} is missing required "options" (tag: ${id}`);
+        console.warn(`${field.type} is missing required "options" (tag: ${id})`);
         return <span />;
     }
 

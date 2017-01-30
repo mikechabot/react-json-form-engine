@@ -10,7 +10,7 @@ module.exports = {
     hasValue: function (val) {
         return val !== undefined && val !== null;
     },
-    isString: function(val) {
+    isString: function (val) {
         return typeof val === 'string';
     },
     isNumber: function (val) {

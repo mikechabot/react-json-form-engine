@@ -12,7 +12,7 @@ export default {
 
             let isVisible = false;
             if (field.showCondition) {
-                isVisible = instance.evaluateShowCondition(field, tag);
+                isVisible = instance.evaluateFieldShowCondition(field, tag);
             }
 
             if (hasValue(value) || isVisible) {

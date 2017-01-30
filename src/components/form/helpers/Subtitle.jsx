@@ -7,10 +7,9 @@ export default function Subtitle ({
         return <span />;
     }
     return (
-        <p>
-            <small className="text-info">
-                { text }
-            </small>
-        </p>
+        <small className="text-info">
+            <i className="fa fa-info-circle" />
+            &nbsp;{ text }
+        </small>
     );
 }

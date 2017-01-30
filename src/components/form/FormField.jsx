@@ -24,7 +24,7 @@ class FormField extends React.Component {
                 <ol style={{listStyle: 'none'}}>
                     {
                         _.map(field.fields, (child) => {
-                            if (instance.evaluateShowCondition(child)) {
+                            if (instance.evaluateFieldShowCondition(child)) {
                                 return (
                                     <li key={child.id}>
                                         <FormField

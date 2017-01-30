@@ -15,7 +15,9 @@ function _renderLine (line, index) {
 
 function __parseContent (content) {
     if (!content) return [];
-    return JSON.stringify(content, null, 2).split('\n');
+    return JSON
+        .stringify(content, (a, b) => Number.isNaN(b) ? 'NaN' : b, 2)
+        .split('\n');
 }
 
 CodeBlock.propTypes = {

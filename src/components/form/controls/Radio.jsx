@@ -16,7 +16,7 @@ class Radio extends React.Component {
     renderChildren (children) {
         const { instance, onUpdate } = this.props;
         return _.map(children, (child) => {
-            if (instance.evaluateShowCondition(child)) {
+            if (instance.evaluateFieldShowCondition(child)) {
                 return (
                     <ul key={child.id}
                         style={{listStyle: 'none'}}>
@@ -38,7 +38,7 @@ class Radio extends React.Component {
     render () {
         const { id, value, field, onUpdate } = this.props;
         if (!field.options) {
-            console.warn(`${field.type} is missing required "options" (id: ${id}`);
+            console.warn(`${field.type} is missing required "options" (id: ${id})`);
             return <span />;
         }
 
@@ -47,9 +47,6 @@ class Radio extends React.Component {
                 {
                     field.options.map((option, index) => {
                         const isEven = index % 2 === 0;
-
-
-
                         return (
                                 <div key={index} style={field.inline ? {display: 'inline', marginRight: 10} : {} }>
                                     <BSRadio

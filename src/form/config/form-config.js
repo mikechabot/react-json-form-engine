@@ -55,7 +55,7 @@ class FormConfig {
                         }
                     };
                     if (this._hasDecorators(key)) {
-                        config.decorators = this._getDefaultDecorators(key);
+                        config.defaultDecorators = this._getDefaultDecorators(key);
                     }
                     return config;
                 })

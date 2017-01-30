@@ -16,10 +16,10 @@ export default {
                             type   : 'array',
                             title  : 'Multiselect',
                             options: [
-                                { id: 0, title: 'Option 1' },
-                                { id: 1, title: 'Option 2' },
-                                { id: 2, title: 'Option 3' },
-                                { id: 3, title: 'Option 4' }
+                                { id: 'op1', title: 'Option 1' },
+                                { id: 'op2', title: 'Option 2' },
+                                { id: 'op3', title: 'Option 3' },
+                                { id: 'op4', title: 'Option 4' }
                             ]
                         },
                         {
@@ -27,10 +27,10 @@ export default {
                             type   : 'array',
                             title  : 'Checkbox group',
                             options: [
-                                { id: 0, title: 'Option 1' },
-                                { id: 1, title: 'Option 2' },
-                                { id: 2, title: 'Option 3' },
-                                { id: 3, title: 'Option 4' }
+                                { id: 'op1', title: 'Option 1' },
+                                { id: 'op2', title: 'Option 2' },
+                                { id: 'op3', title: 'Option 3' },
+                                { id: 'op4', title: 'Option 4' }
                             ]
                         }
                     ]

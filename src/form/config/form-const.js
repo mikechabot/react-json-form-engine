@@ -33,9 +33,58 @@ export const COMPONENT_DECORATORS = {
     }
 };
 
+const COMMON_PROPERTY = {
+    ID        : 'id',
+    TITLE     : 'title',
+    SUBTITLE  : 'subtitle',
+    TYPE      : 'type',
+    SORT_ORDER: 'sortOrder'
+};
+
+export const NO_VALUE = undefined;
+
+export const PROPERTY = {
+    CALCULATIONS: {
+        EXPRESSION_MAP: 'expressionMap',
+        TRIGGER_MAP   : 'triggerMap'
+    },
+    FIELD: {
+        ...COMMON_PROPERTY,
+        PARENT        : 'parent',
+        ACTIONS       : 'actions',
+        UI_DECORATORS : 'uiDecorators',
+        COMPONENT     : 'component',
+        FIELDS        : 'fields',
+        OPTIONS       : 'options',
+        MIN           : 'min',
+        MAX           : 'max',
+        REQUIRED      : 'required',
+        PLACEHOLDER   : 'placeholder',
+        SHOW_CONDITION: 'showCondition',
+        PATTERN       : 'pattern'
+    },
+    SUBSECTION: {
+        ...COMMON_PROPERTY,
+        FIELDS: 'fields'
+    },
+    SECTION: {
+        ...COMMON_PROPERTY,
+        SUBSECTIONS: 'subsections'
+    },
+    DEFINITION: {
+        ...COMMON_PROPERTY,
+        SECTIONS              : 'sections',
+        DECORATORS            : 'decorators',
+        CALCULATIONS          : 'calculations',
+        DEFAULT_VALUE_TRIGGERS: 'defaultValueTriggers'
+    }
+};
+
 export default {
     DATA_TYPE,
     COMPONENT_TYPE,
     COMPONENT_DECORATORS,
-    FORM_STATE
+    FORM_STATE,
+    PROPERTY,
+    NO_VALUE
 };

@@ -6,13 +6,16 @@ import ValidationResults from '../form/validation/validation-results';
 import ExpressionService from '../form/service/expression-service';
 import Maybe from 'maybe-baby';
 import ValidationService from '../form/service/validation-service';
-import { __clone, __blank } from '../common/common';
+import { __clone, __blank, hasValue } from '../common/common';
+import { NO_VALUE, PROPERTY, DATA_TYPE } from './config/form-const';
 const apiCheck = require('api-check')({output: { prefix: 'FormEngine:' }});
+
+const { FIELD, SECTION, SUBSECTION, DEFINITION, CALCULATIONS } = PROPERTY;
 
 export default class FormEngine {
     constructor (definition, model) {
         try {
-            _validateDefinition(definition);                // Throw error on misshapen definition
+            this._validateDefinition(definition);           // Throw error on misshapen definition
             this.__isValid = true;
         } catch (error) {
             this.__isValid = false;
@@ -23,6 +26,8 @@ export default class FormEngine {
         this.definition = definition;                       // Form definition
         this.decorators = definition.decorators || {};      // UI decorators
         this.model = new SortableMap();                     // Map of form responses keyed by field id
+
+        this.showConditionTriggerMap = new SortableMap();   // Map of field ids keyed by trigger id
 
         this.validator = FormValidator;                     // Form validator class
         this.validationResults = new ValidationResults();   // Stores validation results
@@ -95,31 +100,104 @@ export default class FormEngine {
      * @private
      */
     __decorateField (field, parent) {
-        _validateField(field);
+        this._validateField(field);
 
-        field.parent = parent;
+        field[FIELD.PARENT] = parent;
+        field[FIELD.UI_DECORATORS] = this.getCustomUIDecorators(field[FIELD.ID]);
 
-        field.uiDecorators = this.getUIDecorator(field.id);
-        const { actions, component, decorators } = FormConfig.getComponentConfig(
-            field.type, FormConfig.getComponentTypeByField(field)
+        const { actions, component, defaultDecorators } = FormConfig.getComponentConfig(
+            field[FIELD.TYPE], FormConfig.getComponentTypeByField(field)
         );
 
-        if (decorators) {
-            field.uiDecorators = {...field.uiDecorators, ...decorators};
+        field[FIELD.ACTIONS] = actions;
+        field[FIELD.COMPONENT] = component;
+
+        // Apply any default decorators
+        if (defaultDecorators) {
+            field[FIELD.UI_DECORATORS] = {
+                ...field[FIELD.UI_DECORATORS],
+                ...defaultDecorators
+            };
         }
 
-        field.actions = actions;
-        field.component = component;
+        // Convert string pattern to RegEx if specified
+        if (_.isString(field[FIELD.PATTERN])) {
+            field[FIELD.PATTERN] = new RegExp(field[FIELD.PATTERN]);
+        }
 
-        // Add RegExp if specified
-        if (_.isString(field.pattern)) {
-            field.pattern = new RegExp(field.pattern);
+        // Register a show condition if specified
+        if (field[FIELD.SHOW_CONDITION]) {
+            this.__registerShowCondition(field);
         }
 
         // Add the field to fields
-        this.fields.add(field.id, field);
+        this.fields.add(field[FIELD.ID], field);
     }
+    /**
+     * Register a field's showCondition with the instance. For any
+     * form response expressions within the condition, add the form
+     * response id (the trigger) to the map, along with the show
+     * condition. When given model value is updated in setModelValue(),
+     * we check the trigger map and evaluate any available show conditions.
+     * If the condition evaluates to false, the field is cleared.
+     * @param field
+     */
+    __registerShowCondition (field) {
+        const { expression, expression1, expression2 } = field.showCondition;
+        [expression, expression1, expression2].forEach(_expression => {
+            if (ExpressionService.isFormResponseExpression(_expression)) {
+                let list = this.showConditionTriggerMap.find(_expression.id);
+                if (!list) {
+                    list = [];
+                    this.showConditionTriggerMap.add(_expression.id, list);
+                }
+                list.push(field[FIELD.ID]);
+            }
+        });
+    }
+    _validateField (field) {
+        apiCheck.throw([
+            apiCheck.shape({
+                [FIELD.ID]      : apiCheck.oneOfType([apiCheck.string, apiCheck.number]),
+                [FIELD.TYPE]    : apiCheck.string,
+                [FIELD.TITLE]   : apiCheck.string,
+                [FIELD.SUBTITLE]: apiCheck.string.optional
+            })
+        ], arguments, {
+            prefix: `[Field: ${_getObjectIdDisplay(field)}]`
+        });
+    }
+    _validateDefinition (definition) {
+        apiCheck.throw([
+            apiCheck.shape({
+                [DEFINITION.ID]      : apiCheck.string,
+                [DEFINITION.TITLE]   : apiCheck.string,
+                [DEFINITION.SUBTITLE]: apiCheck.string.optional,
+                [DEFINITION.SECTIONS]: apiCheck.arrayOf(apiCheck.shape({
+                    [SECTION.ID]         : apiCheck.string,
+                    [SECTION.TITLE]      : apiCheck.string,
+                    [SECTION.SUBTITLE]   : apiCheck.string.optional,
+                    [SECTION.SORT_ORDER] : apiCheck.number.optional,
+                    [SECTION.SUBSECTIONS]: apiCheck.arrayOf(apiCheck.shape({
+                        [SUBSECTION.ID]        : apiCheck.string,
+                        [SUBSECTION.TITLE]     : apiCheck.string,
+                        [SUBSECTION.SUBTITLE]  : apiCheck.string.optional,
+                        [SUBSECTION.SORT_ORDER]: apiCheck.number.optional,
+                        [SUBSECTION.FIELDS]    : apiCheck.arrayOf(apiCheck.object)
+                    }).strict)
+                }).strict),
+                [DEFINITION.DECORATORS]  : apiCheck.object.optional,
+                [DEFINITION.CALCULATIONS]: apiCheck.shape({
+                    [CALCULATIONS.EXPRESSION_MAP]: apiCheck.object.optional,
+                    [CALCULATIONS.TRIGGER_MAP]   : apiCheck.object.optional
+                }).optional,
+                [DEFINITION.DEFAULT_VALUE_TRIGGERS]: apiCheck.object.optional
 
+            }).strict
+        ], arguments, {
+            prefix: `[Definition: "${_getObjectIdDisplay(definition)}"]`
+        });
+    }
     /**
      * Return whether the form is valid
      * @returns {boolean}
@@ -171,40 +249,6 @@ export default class FormEngine {
         return this.model.has(id);
     }
     /**
-     * Set a model value
-     * @param id
-     * @param value
-     * @param field
-     */
-    setModelValue (id, value, field) {
-        if (value === undefined) {
-            this.resetField(field, id);
-        } else {
-            field.dirty = true;
-            this.model.add(id, value);
-        }
-    }
-    /**
-     * Recursively clear children and option fields
-     * @param fields
-     */
-    resetFields (fields) {
-        _.forEach(fields, field => {
-            if (this.hasModelValue(field.id)) {
-                this.resetField(field, field.id);
-            }
-        });
-    }
-    /**
-     * Reset dirty flag, and clear model value
-     * @param field
-     * @param id
-     */
-    resetField (field, id) {
-        field.dirty = false;
-        this.model.delete(id);
-    }
-    /**
      * Get form decorators
      * @returns {*|decorators|{str2, str3, str4}|{}}
      */
@@ -216,7 +260,7 @@ export default class FormEngine {
      * @param id
      * @returns {*}
      */
-    getUIDecorator (id) {
+    getCustomUIDecorators (id) {
         return this.getDecorators()[id];
     }
     /**
@@ -272,65 +316,97 @@ export default class FormEngine {
         return this.getFields().find(id);
     }
     /**
+     * Set a model value
+     * @param id
+     * @param value
+     * @param field
+     */
+    setModelValue (id, value, field) {
+        // Set or reset the model value
+        if (value === NO_VALUE) {
+            field.dirty = false;
+            this.model.delete(id);
+        } else {
+            field.dirty = true;
+            this.model.add(id, value);
+        }
+
+        // Reset children if necessary
+        if (this.doResetChildren(field, value)) {
+            this.resetFields(field[FIELD.FIELDS]);
+        }
+        // Reset the children of any option fields if the option is not selected
+        _.forEach(field[FIELD.OPTIONS], option => {
+            if (option[FIELD.FIELDS] && !_.includes(value, option[FIELD.ID])) {
+                this.resetFields(option[FIELD.FIELDS]);
+            }
+        });
+
+        // Evaluate the show condition of dependent fields if this field is a trigger
+        if (this.showConditionTriggerMap.has(id)) {
+            this.showConditionTriggerMap.find(id).forEach(fieldId => {
+                if (this.hasModelValue(fieldId) && !this.evaluateFieldShowCondition(this.getField(fieldId))) {
+                    this.setModelValue(fieldId, NO_VALUE, this.getField(fieldId));
+                }
+            });
+        }
+    }
+    /**
+     * Reset a specific list of fields, if they contain a model value
+     * @param fields
+     */
+    resetFields (fields) {
+        _.forEach(fields, field => {
+            if (this.hasModelValue(field[FIELD.ID])) {
+                this.setModelValue(field[FIELD.ID], NO_VALUE, field);
+            }
+        });
+    }
+    /**
+     * Determine whether to clear the children of a given field
+     * based on its value
+     * @param field
+     * @param value
+     * @returns {*}
+     */
+    doResetChildren (field, value) {
+        if (!field[FIELD.FIELDS]) return false;
+        switch (field[FIELD.TYPE]) {
+            case DATA_TYPE.DATE : return !hasValue(value);
+            case DATA_TYPE.NUMBER: return Number.isNaN(value);
+            case DATA_TYPE.BOOLEAN: return value === false;
+            case DATA_TYPE.STRING: return __blank(value);
+            case DATA_TYPE.ARRAY: return _.isEmpty(value);
+            default: {
+                console.warn(`Unmapped field type: ${field[FIELD.TYPE]} (id: ${field[FIELD.ID]})`);
+                return false;
+            }
+        }
+    }
+    /**
      * Evaluate the show condition of the field
      * @param field
      * @param tag
      * @returns {*}
      */
-    evaluateShowCondition (field) {
+    evaluateFieldShowCondition (field) {
         if (!field.showCondition) return true;
-        const showField = ExpressionService.evalCondition(field.showCondition, this);
-        if (!showField) {
-            // Clear conditionally hidden fields
-            if (this.hasModelValue(field.id)) {
-                this.setModelValue(field.id, undefined, field);
-            }
-        }
-        return showField;
+        return this.evaluateCondition(field.showCondition);
+    }
+    /**
+     * Evaluate a condition
+     * @param condition
+     * @returns {*}
+     */
+    evaluateCondition (condition) {
+        if (!condition) return false;
+        return ExpressionService.evalCondition(condition, this);
     }
 }
 
-function _validateField (field) {
-    apiCheck.throw([
-        apiCheck.shape({
-            id      : apiCheck.oneOfType([apiCheck.string, apiCheck.number]),
-            type    : apiCheck.string,
-            title   : apiCheck.string,
-            subtitle: apiCheck.string.optional
-        })
-    ], arguments, {
-        prefix: 'field'
-    });
-}
-
-function _validateDefinition (definition) {
-    apiCheck.throw([
-        apiCheck.shape({
-            id      : apiCheck.string,
-            title   : apiCheck.string,
-            subtitle: apiCheck.string.optional,
-            sections: apiCheck.arrayOf(apiCheck.shape({
-                id         : apiCheck.string,
-                title      : apiCheck.string,
-                subtitle   : apiCheck.string.optional,
-                sortOrder  : apiCheck.number.optional,
-                subsections: apiCheck.arrayOf(apiCheck.shape({
-                    id       : apiCheck.string,
-                    title    : apiCheck.string,
-                    subtitle : apiCheck.string.optional,
-                    sortOrder: apiCheck.number.optional,
-                    fields   : apiCheck.arrayOf(apiCheck.object)
-                }).strict)
-            }).strict),
-            decorators: apiCheck.object.optional,
-            calcs     : apiCheck.shape({
-                expressionMap: apiCheck.object.optional,
-                triggerMap   : apiCheck.object.optional
-            }).optional,
-            defaultValueTriggers: apiCheck.object.optional
-
-        }).strict
-    ], arguments, {
-        prefix: `[Definition: "${Maybe.of(definition).prop('id').orElse('[No Id]').join()}"]`
-    });
+function _getObjectIdDisplay (field) {
+    return Maybe.of(field)
+        .prop(FIELD.ID)
+        .orElse('[No Id]')
+        .join();
 }

@@ -21,9 +21,9 @@ class FormItem extends React.Component {
      * @returns {boolean} true if the component should call render()
      */
     shouldComponentUpdate (nextProps) {
-        if (!this.hasChildren(nextProps.field)) {
-            return !_.isEqual(nextProps, this.props);
-        }
+        // if (!this.hasChildren(nextProps.field)) {
+        //     return !_.isEqual(nextProps, this.props);
+        // }
         return true;
     }
 

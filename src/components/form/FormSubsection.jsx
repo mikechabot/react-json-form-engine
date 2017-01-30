@@ -17,7 +17,7 @@ class FormSubsection extends React.Component {
                     {
                         _.map(subsection.fields, (fieldDef, index) => {
                             const field = instance.getField(fieldDef.id);
-                            if (instance.evaluateShowCondition(field)) {
+                            if (instance.evaluateFieldShowCondition(field)) {
                                 return (
                                     <li key={index} style={{marginTop: 10}}>
                                         <FormField
@@ -48,9 +48,15 @@ class FormSubsection extends React.Component {
 
     _maybeRenderSubsectionSubtitle (subtitle, hideTitle) {
         if (subtitle) {
-            return !hideTitle
-                ? <Subtitle text={subtitle} />
-                : <div style={{marginTop: 10}}><Subtitle text={subtitle} /></div>
+            return (
+                <div
+                    className="RFE-subsection-subtitle"
+                    style={{
+                        marginLeft: '1em',
+                        ...hideTitle ? { marginTop: 10 } : {}}}>
+                    <Subtitle text={subtitle} />
+                </div>
+            );
         }
     }
 
