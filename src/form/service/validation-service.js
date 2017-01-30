@@ -1,9 +1,9 @@
 'use strict';
 
 import _ from 'lodash';
-import VALIDATION_CONST from '../config/form-const';
+import { VALIDATION_CONST } from '../config/form-const';
 
-const ranks = VALIDATION_CONST.STATUS_RANKS;
+const RANKS = VALIDATION_CONST.STATUS_RANKS;
 
 const ValidationService = {
     /**
@@ -26,7 +26,7 @@ const ValidationService = {
      * @returns {boolean}
      */
     isMoreSevereStatus (status, overallStatus) {
-        return ranks[status] < ranks[overallStatus];
+        return RANKS[status] < RANKS[overallStatus];
     },
     isError (status) {
         return status === VALIDATION_CONST.STATUS.ERROR;

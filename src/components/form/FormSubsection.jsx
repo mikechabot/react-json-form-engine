@@ -11,7 +11,7 @@ class FormSubsection extends React.Component {
         const { hideTitle, subsection, instance, onUpdate } = this.props;
         return (
             <Flex column={true}>
-                { this._maybeRenderSubsectionTitle(hideTitle) }
+                { this._maybeRenderSubsectionTitle(subsection, instance, hideTitle) }
                 { this._maybeRenderSubsectionSubtitle(subsection.subtitle, hideTitle)}
                 <ol className="simple-list">
                     {
@@ -37,11 +37,11 @@ class FormSubsection extends React.Component {
         );
     }
 
-    _maybeRenderSubsectionTitle (hideTitle) {
+    _maybeRenderSubsectionTitle (subsection, instance, hideTitle) {
         if (!hideTitle) {
             return <FormSubsectionTitle
-                title={this.props.subsection.title}
-                status={this.props.validationStatus}
+                subsection={subsection}
+                instance={instance}
             />;
         }
     }

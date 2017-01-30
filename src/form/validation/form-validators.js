@@ -1,6 +1,5 @@
-import VALIDATION_CONST from './validation-const';
 import { hasValue, __blank } from '../../common/common';
-import { DATA_TYPE } from '../config/form-const';
+import { DATA_TYPE, VALIDATION_CONST } from '../config/form-const';
 import _ from 'lodash';
 
 function _getStatus (errorCondition) {

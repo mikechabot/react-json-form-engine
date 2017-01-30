@@ -6,6 +6,7 @@ import layout from './layout';
 import numbers from './numbers';
 import relationships from './relationships';
 import strings from './strings';
+import validation from './validation';
 
 export default [
     strings,
@@ -15,5 +16,6 @@ export default [
     datetime,
     layout,
     relationships,
-    conditions
+    conditions,
+    validation
 ];

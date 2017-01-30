@@ -76,12 +76,11 @@ export default class Form extends React.Component {
         const { instance } = this.props;
         return (
             <NavItem key={index} eventKey={index}>
-                {/*{*/}
-                    {/*instance.isError(instance.getSectionStatus(section))*/}
-                        {/*? <span>{section.title}&nbsp;<Asterisk/></span>*/}
-                        {/*: section.title*/}
-                {/*}*/}
-                { section.title }
+                {
+                    instance.sectionHasError(section)
+                        ? <span>{section.title}&nbsp;<Asterisk/></span>
+                        : section.title
+                }
             </NavItem>
         );
     }
@@ -122,7 +121,7 @@ export default class Form extends React.Component {
         instance.setModelValue(id, value, field);     // Set model value
         // instance.calculateFields(field);               // Calculate fields if necessary
         // instance.triggerDefaultValueEvaluation(tag);   // Trigger default value evaluation
-        // instance.validate();                           // Validate the form
+        instance.validate();                           // Validate the form
 
         onUpdate({ id, value });                      // Notify parent
     }

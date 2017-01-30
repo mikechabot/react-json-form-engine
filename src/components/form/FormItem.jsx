@@ -21,21 +21,10 @@ class FormItem extends React.Component {
      * @returns {boolean} true if the component should call render()
      */
     shouldComponentUpdate (nextProps) {
-        // if (!this.hasChildren(nextProps.field)) {
-        //     return !_.isEqual(nextProps, this.props);
-        // }
+        if (!this._hasFieldChildren(nextProps.field)) {
+            return !_.isEqual(nextProps, this.props);
+        }
         return true;
-    }
-
-    /**
-     * Check the field for children, otherwise
-     * check the options field for children
-     *
-     * @param field
-     * @returns {boolean}
-     */
-    hasChildren (field) {
-        return field.fields || _.some(field.options, option => option.fields);
     }
 
     render () {
@@ -69,6 +58,15 @@ class FormItem extends React.Component {
         if (Maybe.of(uiDecorators).prop('hint').isJust()) {
             return <FormItemHint hint={uiDecorators.hint} />;
         }
+    }
+
+    /**
+     * Check for child fields, or option fields with children
+     * @param field
+     * @returns {boolean}
+     */
+    _hasFieldChildren (field) {
+        return field.fields || _.some(field.options, option => option.fields);
     }
 }
 

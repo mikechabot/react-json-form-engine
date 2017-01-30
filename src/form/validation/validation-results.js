@@ -1,4 +1,4 @@
-import VALIDATION_CONST from './validation-const';
+import { VALIDATION_CONST } from '../config/form-const';
 import ValidationService from '../service/validation-service';
 import _ from 'lodash';
 

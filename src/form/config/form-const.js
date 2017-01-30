@@ -80,11 +80,29 @@ export const PROPERTY = {
     }
 };
 
+export const VALIDATION_CONST = {
+    TYPE: {
+        REQUIRED     : '__MissingRequired',
+        INVALID_VALUE: '__InvalidValue'
+    },
+    STATUS: {
+        OK     : 'OK',
+        WARNING: 'WARNING',
+        ERROR  : 'ERROR'
+    },
+    STATUS_RANKS: {
+        ERROR  : 100,
+        WARNING: 200,
+        OK     : 300
+    }
+};
+
 export default {
     DATA_TYPE,
     COMPONENT_TYPE,
     COMPONENT_DECORATORS,
     FORM_STATE,
     PROPERTY,
-    NO_VALUE
+    NO_VALUE,
+    VALIDATION_CONST
 };

@@ -1,42 +1,49 @@
-import { DATA_TYPE } from '../config/form-const';
+import { PROPERTY, DATA_TYPE } from '../config/form-const';
+import ValidationService from '../service/validation-service';
 import validators from './form-validators';
 import { hasValue } from '../../common/common';
-import _ from 'lodash';
+
+const { FIELD } = PROPERTY;
+
+function __isError(status) {
+    return ValidationService.isError(status);
+}
 
 export default {
     validate (instance, validationResults) {
-        const { fields } = instance;
-        _.forEach(fields, (field, tag) => {
+        instance.getFields().forEachValue(field => {
+            const id = field[FIELD.ID];
+
             // Get model value
-            const value = instance.getModelValue(tag);
+            const value = instance.getModelValue(id);
 
             let isVisible = false;
-            if (field.showCondition) {
-                isVisible = instance.evaluateFieldShowCondition(field, tag);
+            if (field[FIELD.SHOW_CONDITION]) {
+                isVisible = instance.evaluateFieldShowCondition(field);
             }
 
             if (hasValue(value) || isVisible) {
                 // Check required status
-                if (field.required) {
+                if (field[FIELD.REQUIRED]) {
                     const requiredStatus = validators.checkRequired(field, value);
-                    if (instance.isError(requiredStatus)) {
-                        validationResults.addMissingRequired(tag, 'Missing required value', 'SUBMIT');
+                    if (__isError(requiredStatus)) {
+                        validationResults.addMissingRequired(id, 'Missing required value', 'SUBMIT');
                     }
                 }
 
                 // Check numeric validation
-                if (field.type === DATA_TYPE.NUMBER) {
+                if (field[FIELD.TYPE] === DATA_TYPE.NUMBER) {
                     const numericStatus = validators.checkNumeric(field, value);
-                    if (instance.isError(numericStatus)) {
-                        validationResults.addInvalidValue(tag, 'Invalid numeric value', 'SUBMIT');
+                    if (__isError(numericStatus)) {
+                        validationResults.addInvalidValue(id, 'Invalid numeric value', 'SUBMIT');
                     }
                 }
 
                 // Check regex pattern
-                if (field.pattern) {
+                if (field[FIELD.PATTERN]) {
                     const conditionMet = validators.checkPattern(field, value);
                     if (!conditionMet) {
-                        validationResults.addInvalidValue(tag, 'Value doesn\'t match the supplied pattern', 'SUBMIT');
+                        validationResults.addInvalidValue(id, 'Value doesn\'t match the supplied pattern', 'SUBMIT');
                     }
                 }
             }

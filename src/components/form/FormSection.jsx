@@ -27,14 +27,13 @@ class FormSection extends React.Component {
         return (
             <Tabs animation={false} defaultActiveKey={0} id="subsection-tabs">
                 {
-                    subsections.map((subsectionDef, index) => {
-                        const subsection = instance.getSubsection(subsectionDef.id);
+                    subsections.map((subsection, index) => {
                         return (
                             <Tab
                                 key={index}
                                 eventKey={index}
-                                title={<FormSubsectionTabTitle status={status} title={subsection.title} />} >
-                                { this._renderSubsection(subsection, status, true) }
+                                title={<FormSubsectionTabTitle subsection={subsection} instance={instance} />} >
+                                { this._renderSubsection(subsection, true) }
                             </Tab>
                         );
                     })
@@ -44,16 +43,13 @@ class FormSection extends React.Component {
     }
 
     _renderSingleSubsection (subsectionDef) {
-        return this._renderSubsection(
-            this.props.instance.getSubsection(subsectionDef.id)
-        );
+        return this._renderSubsection(subsectionDef);
     }
 
-    _renderSubsection (subsection, status, hideTitle) {
+    _renderSubsection (subsection, hideTitle) {
         const { instance, onUpdate } = this.props;
         return (
             <FormSubsection
-                validationStatus={status}
                 hideTitle={hideTitle}
                 title={subsection.title}
                 subsection={subsection}

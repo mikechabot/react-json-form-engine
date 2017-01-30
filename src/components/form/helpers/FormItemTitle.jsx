@@ -10,11 +10,10 @@ export default function FormItemTitle ({
     if (__blank(field.title) || Maybe.of(decorators).prop('hideControlLabel').isJust()) {
         return <span />;
     }
-
     return (
         <ControlLabel>
             { field.title }&nbsp;
-            {/* { instance.hasError(id) ? <Asterisk /> : ''} */}
+            { instance.fieldHasError(id) ? <Asterisk /> : ''}
         </ControlLabel>
     );
 }

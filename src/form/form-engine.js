@@ -7,7 +7,7 @@ import ExpressionService from '../form/service/expression-service';
 import Maybe from 'maybe-baby';
 import ValidationService from '../form/service/validation-service';
 import { __clone, __blank, hasValue } from '../common/common';
-import { NO_VALUE, PROPERTY, DATA_TYPE } from './config/form-const';
+import { NO_VALUE, PROPERTY, DATA_TYPE, VALIDATION_CONST } from './config/form-const';
 const apiCheck = require('api-check')({output: { prefix: 'FormEngine:' }});
 
 const { FIELD, SECTION, SUBSECTION, DEFINITION, CALCULATIONS } = PROPERTY;
@@ -401,6 +401,58 @@ export default class FormEngine {
     evaluateCondition (condition) {
         if (!condition) return false;
         return ExpressionService.evalCondition(condition, this);
+    }
+    validate () {
+        this.validationResults.clear();
+        this.validator.validate(this, this.validationResults);
+        this.validationResults.postProcess();
+    }
+    getValidationResults () {
+        return this.validationResults;
+    }
+    getValidationResultByTag (id) {
+        return this.validationResults.getResults(id);
+    }
+    getValidationStatusByTag (id) {
+        return this.getValidationResultByTag(id).status;
+    }
+    findStatus (list, getStatus, useId) {
+        let status = VALIDATION_CONST.STATUS.OK;
+        _.forEach(list, (entry) => {
+            const newStatus = getStatus(useId ? entry[FIELD.ID] : entry);
+            if (ValidationService.isMoreSevereStatus(newStatus, status)) {
+                status = newStatus;
+            }
+        });
+        return status;
+    }
+    getSubsectionStatus (subsection) {
+        return this.findStatus(
+            subsection.fields,
+            this.getValidationStatusByTag.bind(this),
+            true
+        );
+    }
+    getSectionStatus (section) {
+        return this.findStatus(
+            section.subsections,
+            this.getSubsectionStatus.bind(this)
+        );
+    }
+    fieldHasError (id) {
+        return ValidationService.isError(
+            this.getValidationStatusByTag(id)
+        );
+    }
+    subsectionHasError (subsection) {
+        return ValidationService.isError(
+            this.getSubsectionStatus(subsection)
+        );
+    }
+    sectionHasError (section) {
+        return ValidationService.isError(
+            this.getSectionStatus(section)
+        );
     }
 }
 
