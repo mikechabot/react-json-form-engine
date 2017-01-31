@@ -9,7 +9,7 @@ export default {
                 {
                     id      : 'Required-Subsection',
                     title   : 'Make any field required',
-                    subtitle: 'By default, only display the error notification once field is "dirty".',
+                    subtitle: 'Only display the error notification once the field is dirty',
                     fields  : [
                         {
                             id      : 'str1',
@@ -61,13 +61,13 @@ export default {
             title      : 'Regex',
             subsections: [{
                 id    : 'Regex-Subsection',
-                title : 'Add a regex pattern to any field',
+                title : 'Add a regex pattern to any String field',
                 fields: [
                     {
                         id     : 'str2',
                         type   : 'string',
-                        title  : 'Using regex pattern: "^Regex!$"',
-                        pattern: '^Regex!$'
+                        title  : 'Using regex pattern: "^foobar!$"',
+                        pattern: '^foobar!$'
                     }
                 ]
             }]
@@ -86,7 +86,7 @@ export default {
             hint: 'Min: 0, Max: 5. Try entering a value outside the range.'
         },
         str2: {
-            hint: 'Satisfy the condition by entering "Regex!"'
+            hint: 'Satisfy the condition by entering "foobar!"'
         }
     }
 };

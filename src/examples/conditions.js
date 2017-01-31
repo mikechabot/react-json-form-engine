@@ -3,12 +3,12 @@ export default {
     title   : 'Conditions',
     sections: [
         {
-            id         : 'Simple-Condition-Section',
-            title      : 'Simple',
+            id         : 'Condition-Section',
+            title      : 'Conditions',
             subsections: [
                 {
-                    id      : 'Simple-Condition-Subsection',
-                    title   : 'Simple',
+                    id      : 'Condition-Subsection',
+                    title   : 'Conditions',
                     subtitle: 'Conditionally show or hide fields based on form response',
                     fields  : [
                         {
@@ -22,8 +22,50 @@ export default {
                                     type   : 'array',
                                     title  : 'Checkbox group',
                                     options: [
-                                        { id: 'op1', title: 'Option 1' },
-                                        { id: 'op2', title: 'Option 2' },
+                                        {
+                                            id    : 'op1',
+                                            title : 'Option 1',
+                                            fields: [
+                                                {
+                                                    id           : 'str20',
+                                                    type         : 'string',
+                                                    title        : 'Yet another field!',
+                                                    showCondition: {
+                                                        type       : 'CONTAINS',
+                                                        expression1: {
+                                                            type : 'CONST',
+                                                            value: 'op1'
+                                                        },
+                                                        expression2: {
+                                                            type: 'FORM_RESPONSE',
+                                                            id  : 'arr6'
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        },
+                                        {
+                                            id    : 'op2',
+                                            title : 'Option 2',
+                                            fields: [
+                                                {
+                                                    id           : 'num10',
+                                                    type         : 'number',
+                                                    title        : 'And more!',
+                                                    showCondition: {
+                                                        type       : 'CONTAINS',
+                                                        expression1: {
+                                                            type : 'CONST',
+                                                            value: 'op2'
+                                                        },
+                                                        expression2: {
+                                                            type: 'FORM_RESPONSE',
+                                                            id  : 'arr6'
+                                                        }
+                                                    }
+                                                }
+                                            ]
+                                        },
                                         { id: 'op3', title: 'Option 3' },
                                         { id: 'op4', title: 'Option 4' }
                                     ],
@@ -124,13 +166,13 @@ export default {
             subsections: [
                 {
                     id      : 'Array-Condition-Subsection',
-                    title   : 'Arrays',
+                    title   : 'Array Conditions',
                     subtitle: 'Display children under option fields.',
                     fields  : [
                         {
                             id     : 'arr3',
                             type   : 'array',
-                            title  : 'Click the options to display the children!',
+                            title  : 'Click the options to display the children',
                             options: [
                                 {
                                     id    : 'op1',
@@ -345,6 +387,7 @@ export default {
             }
         },
         arr6: {
+            hint     : 'My first two options also have children',
             component: {
                 type: 'checkboxgroup'
             }
@@ -374,6 +417,11 @@ export default {
             hint: 'Show field if < 5'
         },
         num9: {
+            component: {
+                type: 'range'
+            }
+        },
+        num10: {
             component: {
                 type: 'range'
             }

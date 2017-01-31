@@ -5,7 +5,7 @@ export default function ErrorBlock ({
 }) {
     return (
         <span className="text-danger">
-            <i className="fa fa-exclamation-circle" aria-hidden="true"></i>
+            <i className="fa fa-exclamation-circle" aria-hidden="true" />
             &nbsp;Error rendering field id: "{ id }"
         </span>
     );

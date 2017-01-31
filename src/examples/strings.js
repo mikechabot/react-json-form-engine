@@ -16,21 +16,21 @@ export default {
                             id         : 'str1',
                             type       : 'string',
                             title      : 'Text field',
-                            placeholder: 'Placeholder!',
+                            placeholder: 'Placeholder',
                             sortOrder  : 0
                         },
                         {
                             id         : 'str2',
                             type       : 'string',
                             title      : 'Textarea field',
-                            placeholder: 'Placeholder!',
+                            placeholder: 'Placeholder',
                             sortOrder  : 1
                         },
                         {
                             id         : 'str3',
                             type       : 'string',
                             title      : 'Select field',
-                            placeholder: '-- select option --',
+                            placeholder: '-- placeholder --',
                             options    : [
                                 {id: 0, title: 'Option 1'},
                                 {id: 1, title: 'Option 2'},

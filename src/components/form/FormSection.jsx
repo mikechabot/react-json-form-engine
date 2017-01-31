@@ -1,8 +1,9 @@
 import React from 'react';
 import FormSubsection from './FormSubsection';
-import FormSubsectionTabTitle from './helpers/form-subsection-tab-title';
+import FormSubsectionTitle from './helpers/FormSubsectionTitle';
 import Tabs from 'react-bootstrap/lib/Tabs';
 import Tab from 'react-bootstrap/lib/Tab';
+import { Flex } from '../common';
 
 class FormSection extends React.Component {
 
@@ -12,13 +13,13 @@ class FormSection extends React.Component {
         const renderTabs = subsections.length > 1;
 
         return (
-            <div id={section.id} style={{flex: 1, display: 'flex', flexDirection: 'column', height: '100%'}}>
+            <Flex id={section.id} width="100%">
                 {
                     !renderTabs
                         ? this._renderSingleSubsection(subsections[0])
                         : this._renderTabs(subsections)
                 }
-            </div>
+            </Flex>
         );
     }
 
@@ -32,7 +33,7 @@ class FormSection extends React.Component {
                             <Tab
                                 key={index}
                                 eventKey={index}
-                                title={<FormSubsectionTabTitle subsection={subsection} instance={instance} />} >
+                                title={<FormSubsectionTitle subsection={subsection} instance={instance} isTab={true} />} >
                                 { this._renderSubsection(subsection, true) }
                             </Tab>
                         );

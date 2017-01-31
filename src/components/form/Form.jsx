@@ -2,7 +2,7 @@ import React from 'react';
 import FormSection from './FormSection';
 import _ from 'lodash';
 import { Flex, Asterisk, APICheckError } from '../common';
-import { TabContainer, Nav, NavItem, TabContent, TabPane } from 'react-bootstrap';
+import { Button, TabContainer, Nav, NavItem, TabContent, TabPane } from 'react-bootstrap';
 
 export default class Form extends React.Component {
 
@@ -12,29 +12,36 @@ export default class Form extends React.Component {
     }
 
     componentDidMount () {
-        // const { instance } = this.props;
-        // instance.validate();
+        const { instance } = this.props;
+        instance.validate();
     }
 
     render () {
         const { instance } = this.props;
-
+        // No instance
         if (!instance || _.isEmpty(instance)) {
             return <em className="text-danger">No form instance</em>;
         }
-
+        // Invalid definition
         if (!instance.isValid()) {
             return <APICheckError error={instance.error} />;
         }
-
-        const sections = instance.getSections();
-        if (sections.isEmpty()) {
+        // No sections
+        if (instance.getSections().isEmpty()) {
             return <em className="text-danger">No sections</em>;
         }
-
         return (
-            <Flex column={true} flex={1}>
-                { this._renderForm(sections) }
+            <Flex
+                id={instance.getId()}
+                column={true}
+                hAlignCenter={true}
+                flex={1}>
+                { this._renderForm(instance.getSections()) }
+                <div>
+                    <Button bsStyle="primary" onClick={this.props.onSubmit}>
+                        { this.props.submitButtonLabel || 'Submit' }
+                    </Button>
+                </div>
             </Flex>
         );
     }
@@ -42,14 +49,14 @@ export default class Form extends React.Component {
     _renderForm (sections) {
         return sections.count() > 1
             ? this._renderTabs(sections)
-            : this._renderSection(_.head(sections.values()));
+            : this._renderSection(sections.values()[0]);
     }
 
     _renderTabs (sections) {
         return (
-            <TabContainer id="form-tabs" defaultActiveKey={0}>
-                <Flex>
-                    <aside style={{width: 150}}>
+            <TabContainer id={`form-tabs-${this.props.instance.getId()}`} defaultActiveKey={0}>
+                <Flex width="100%">
+                    <aside style={{width: this.props.sectionMenuWidth || 150}}>
                         { this._renderSectionMenu(sections) }
                     </aside>
                     <Flex flex={1}>
@@ -76,11 +83,8 @@ export default class Form extends React.Component {
         const { instance } = this.props;
         return (
             <NavItem key={index} eventKey={index}>
-                {
-                    instance.sectionHasError(section)
-                        ? <span>{section.title}&nbsp;<Asterisk/></span>
-                        : section.title
-                }
+                { section.title }&nbsp;
+                { instance.sectionHasError(section) ? <Asterisk/> : '' }
             </NavItem>
         );
     }
@@ -121,13 +125,20 @@ export default class Form extends React.Component {
         instance.setModelValue(id, value, field);     // Set model value
         // instance.calculateFields(field);               // Calculate fields if necessary
         // instance.triggerDefaultValueEvaluation(tag);   // Trigger default value evaluation
-        instance.validate();                           // Validate the form
-
+        if (instance.isLiveValidation()) {
+            instance.validate();                        // Validate the form
+        }
         onUpdate({ id, value });                      // Notify parent
     }
 }
 
 Form.propTypes = {
-    onUpdate: React.PropTypes.func.isRequired,
-    instance: React.PropTypes.object.isRequired
+    onUpdate        : React.PropTypes.func,
+    onSubmit        : React.PropTypes.func.isRequired,
+    instance        : React.PropTypes.object.isRequired,
+    sectionMenuWidth: React.PropTypes.oneOfType([
+        React.PropTypes.number,
+        React.PropTypes.string
+    ]),
+    submitButtonLabel: React.PropTypes.string
 };

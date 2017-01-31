@@ -1,6 +1,6 @@
 import React from 'react';
 import FormField from './FormField';
-import FormSubsectionTitle from './helpers/form-subsection-title';
+import FormSubsectionTitle from './helpers/FormSubsectionTitle';
 import Subtitle from './helpers/Subtitle';
 import { Flex } from '../common';
 import _ from 'lodash';
@@ -10,7 +10,7 @@ class FormSubsection extends React.Component {
     render () {
         const { hideTitle, subsection, instance, onUpdate } = this.props;
         return (
-            <Flex column={true}>
+            <Flex column={true} flex={1}>
                 { this._maybeRenderSubsectionTitle(subsection, instance, hideTitle) }
                 { this._maybeRenderSubsectionSubtitle(subsection.subtitle, hideTitle)}
                 <ol className="simple-list">

@@ -1,7 +1,7 @@
 import React from 'react';
 import FormGroup from 'react-bootstrap/lib/FormGroup';
 import FormItemTitle from './helpers/FormItemTitle';
-import FormItemHint from './helpers/form-item-hint';
+import FormItemHint from './helpers/FormItemHint';
 import ErrorBlock from './helpers/FieldError';
 import Maybe from 'maybe-baby';
 import _ from 'lodash';
@@ -40,7 +40,7 @@ class FormItem extends React.Component {
 
         return (
             <FormGroup>
-                <FormItemTitle id={id} field={field} decorators={uiDecorators} instance={instance} />
+                <FormItemTitle field={field} decorators={uiDecorators} instance={instance} />
                 <Control
                     id={id}
                     value={value}

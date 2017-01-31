@@ -13,37 +13,61 @@ const apiCheck = require('api-check')({output: { prefix: 'FormEngine:' }});
 const { FIELD, SECTION, SUBSECTION, DEFINITION, CALCULATIONS } = PROPERTY;
 
 export default class FormEngine {
-    constructor (definition, model) {
+    constructor (definition, model, options) {
         try {
             this._validateDefinition(definition);           // Throw error on misshapen definition
-            this.__isValid = true;
+            this.__isDefinitionValid = true;
         } catch (error) {
-            this.__isValid = false;
+            this.__isDefinitionValid = false;
             this.error = error;
             return;
         }
 
         this.definition = definition;                       // Form definition
         this.decorators = definition.decorators || {};      // UI decorators
-        this.model = new SortableMap();                     // Map of form responses keyed by field id
 
         this.showConditionTriggerMap = new SortableMap();   // Map of field ids keyed by trigger id
 
         this.validator = FormValidator;                     // Form validator class
         this.validationResults = new ValidationResults();   // Stores validation results
 
+        this.model = this.__hydrateModel(model);            // Map of form responses keyed by field id
+
         this.sections = new SortableMap();                  // Map of form sections keyed by id
         this.subsections = new SortableMap();               // Map of form subsections keyed by id
         this.fields = new SortableMap();                    // Map of form fields keyed by ids
 
-        this.__initInstance();
+        this.__initInstance(options);
     }
 
+    /**
+     * Hydrate the instance mode with existing data
+     * @param model
+     * @private
+     */
+    __hydrateModel (model) {
+        let hydratedModel = new SortableMap();
+        _.forEach(model, (value, key) => {
+            hydratedModel.add(key, value);
+        });
+        return hydratedModel;
+    }
+
+    /**
+     * Parse and apply form options
+     * @param options
+     * @private
+     */
+    __parseOptions (options) {
+        if (!options) return;
+        this.__liveValidation = options.liveValidation || false;
+    }
     /**
      * Initialize the form instance
      * @private
      */
-    __initInstance () {
+    __initInstance (options) {
+        this.__parseOptions(options);
         this.__cloneSections();
         this.__initFieldMetadata();
     }
@@ -203,7 +227,7 @@ export default class FormEngine {
      * @returns {boolean}
      */
     isValid () {
-        return this.__isValid;
+        return this.__isDefinitionValid;
     }
     /**
      * Get form error
@@ -218,6 +242,12 @@ export default class FormEngine {
      */
     getDefinition () {
         return this.definition;
+    }
+    /**
+     * Get the form definition id
+     */
+    getId () {
+        return this.getDefinition()[DEFINITION.ID];
     }
     /**
      * Get form model
@@ -401,6 +431,9 @@ export default class FormEngine {
     evaluateCondition (condition) {
         if (!condition) return false;
         return ExpressionService.evalCondition(condition, this);
+    }
+    isLiveValidation () {
+        return this.__liveValidation;
     }
     validate () {
         this.validationResults.clear();

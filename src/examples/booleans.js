@@ -7,9 +7,10 @@ export default {
             title      : 'Booleans',
             subsections: [
                 {
-                    id    : 'Subsection-1',
-                    title : 'Stores [tag]:[value:Boolean]',
-                    fields: [
+                    id      : 'Subsection-1',
+                    title   : 'Stores [tag]:[value:Boolean]',
+                    subtitle: 'Single checkbox, or double radio',
+                    fields  : [
                         {
                             id   : 'bool1',
                             type : 'boolean',
@@ -19,9 +20,18 @@ export default {
                             id     : 'bool2',
                             type   : 'boolean',
                             title  : 'Radio field',
-                            inline : true,
+                            inline : false,
                             options: [
                                 { title: 'Yes' }, { title: 'No' }
+                            ]
+                        },
+                        {
+                            id     : 'bool3',
+                            type   : 'boolean',
+                            title  : 'Radio field (inline)',
+                            inline : true,
+                            options: [
+                                { title: 'Maybe' }, { title: 'Perhaps' }
                             ]
                         }
                     ]
@@ -31,7 +41,7 @@ export default {
     ],
     decorators: {
         bool2: {
-            hint: 'Labels are configurable ("Yes" / "No"), but the stored value is always boolean!'
+            hint: 'Option titles are configurable, but the stored value is always boolean'
         }
     }
 };
