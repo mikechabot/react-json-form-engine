@@ -48,11 +48,11 @@ export default class Form extends React.Component {
 
     _renderForm (sections) {
         return sections.count() > 1
-            ? this._renderTabs(sections)
-            : this._renderSection(sections.values()[0]);
+            ? this._renderTabbedSections(sections)
+            : this._renderSingleSection(sections.values()[0]);
     }
 
-    _renderTabs (sections) {
+    _renderTabbedSections (sections) {
         return (
             <TabContainer id={`form-tabs-${this.props.instance.getId()}`} defaultActiveKey={0}>
                 <Flex width="100%">
@@ -70,13 +70,9 @@ export default class Form extends React.Component {
     _renderSectionMenu (sections) {
         return (
             <Nav bsStyle="pills" stacked>
-                { this._renderMenuItems(sections) }
+                { sections.values().map(this._renderMenuItem.bind(this)) }
             </Nav>
         );
-    }
-
-    _renderMenuItems (sections) {
-        return sections.values().map(this._renderMenuItem.bind(this));
     }
 
     _renderMenuItem (section, index) {
@@ -92,20 +88,20 @@ export default class Form extends React.Component {
     _renderSectionContent (sections) {
         return (
             <TabContent style={{width: '100%'}} animation={false} >
-                { sections.values().map(this._renderTabPane.bind(this)) }
+                { sections.values().map(this._renderSectionTabPane.bind(this)) }
             </TabContent>
         );
     }
 
-    _renderTabPane (section, index) {
+    _renderSectionTabPane (section, index) {
         return (
             <TabPane key={index} eventKey={index}>
-                { this._renderSection(section) }
+                { this._renderSingleSection(section) }
             </TabPane>
         );
     }
 
-    _renderSection (section) {
+    _renderSingleSection (section) {
         return (
             <FormSection
                 section={section}

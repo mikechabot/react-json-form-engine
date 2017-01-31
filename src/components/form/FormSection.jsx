@@ -10,44 +10,44 @@ class FormSection extends React.Component {
     render () {
         const { section } = this.props;
         const { subsections } = section;
-        const renderTabs = subsections.length > 1;
 
         return (
             <Flex id={section.id} width="100%">
-                {
-                    !renderTabs
-                        ? this._renderSingleSubsection(subsections[0])
-                        : this._renderTabs(subsections)
-                }
+                { this._renderSubsections(section, subsections)}
             </Flex>
         );
     }
 
-    _renderTabs (subsections) {
-        const { instance } = this.props;
+    _renderSubsections (section, subsections) {
+        return subsections.length === 1
+            ? this._renderSingleSubsection(subsections[0])
+            : this._renderTabs(section, subsections);
+    }
+
+    _renderTabs (section, subsections) {
         return (
-            <Tabs animation={false} defaultActiveKey={0} id="subsection-tabs">
-                {
-                    subsections.map((subsection, index) => {
-                        return (
-                            <Tab
-                                key={index}
-                                eventKey={index}
-                                title={<FormSubsectionTitle subsection={subsection} instance={instance} isTab={true} />} >
-                                { this._renderSubsection(subsection, true) }
-                            </Tab>
-                        );
-                    })
-                }
+            <Tabs
+                id={`${section.id}-subsection-tabs`}
+                defaultActiveKey={0}
+                animation={false}
+                style={{width: '100%'}}>
+                { subsections.map(this._renderSubsectionTab.bind(this, this.props.instance)) }
             </Tabs>
         );
     }
 
-    _renderSingleSubsection (subsectionDef) {
-        return this._renderSubsection(subsectionDef);
+    _renderSubsectionTab (instance, subsection, index) {
+        return (
+            <Tab
+                key={index}
+                eventKey={index}
+                title={<FormSubsectionTitle subsection={subsection} instance={instance} isTab={true} />}>
+                { this._renderSingleSubsection(subsection, true) }
+            </Tab>
+        );
     }
 
-    _renderSubsection (subsection, hideTitle) {
+    _renderSingleSubsection (subsection, hideTitle) {
         const { instance, onUpdate } = this.props;
         return (
             <FormSubsection
