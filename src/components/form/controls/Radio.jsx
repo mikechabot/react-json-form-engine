@@ -5,6 +5,43 @@ import { hasValue } from '../../../common/common';
 
 class Radio extends React.Component {
 
+    render () {
+        const { id, value, field, onUpdate } = this.props;
+        if (!field.options) {
+            console.warn(`${field.type} is missing required "options" (id: ${id})`);
+            return <span />;
+        }
+
+        return (
+            <div id={id}>
+                {
+                    field.options.map((option, index) => {
+                        const isEven = index % 2 === 0;
+                        return (
+                            <div key={index} style={field.inline ? {display: 'inline', marginRight: 10} : {} }>
+                                <BSRadio
+                                    id={id}
+                                    disabled={field.disabled}
+                                    style={!field.inline ? {margin: '5px 0px'} : {}}
+                                    inline={field.inline}
+                                    onChange={onUpdate}
+                                    value={option.id || isEven}
+                                    checked={this.isChecked(option, value, isEven)}>
+                                    <span style={{fontWeight: 300}}>{ option.title || option }</span>
+                                </BSRadio>
+                                {
+                                    option.fields
+                                        ? this.renderChildren(option.fields)
+                                        : ''
+                                }
+                            </div>
+                        );
+                    })
+                }
+            </div>
+        );
+    }
+
     isChecked (option, value, isEven) {
         if (!hasValue(value)) return false;
         if (option.id) {
@@ -35,42 +72,6 @@ class Radio extends React.Component {
         });
     }
 
-    render () {
-        const { id, value, field, onUpdate } = this.props;
-        if (!field.options) {
-            console.warn(`${field.type} is missing required "options" (id: ${id})`);
-            return <span />;
-        }
-
-        return (
-            <div id={id}>
-                {
-                    field.options.map((option, index) => {
-                        const isEven = index % 2 === 0;
-                        return (
-                                <div key={index} style={field.inline ? {display: 'inline', marginRight: 10} : {} }>
-                                    <BSRadio
-                                        id={id}
-                                        disabled={field.disabled}
-                                        style={!field.inline ? {margin: '5px 0px'} : {}}
-                                        inline={field.inline}
-                                        onChange={onUpdate}
-                                        value={option.id || isEven}
-                                        checked={this.isChecked(option, value, isEven)}>
-                                        <span style={{fontWeight: 300}}>{ option.title || option }</span>
-                                    </BSRadio>
-                                    {
-                                        option.fields
-                                            ? this.renderChildren(option.fields)
-                                            : ''
-                                    }
-                                </div>
-                        );
-                    })
-                }
-            </div>
-        );
-    }
 }
 
 Radio.propTypes = {

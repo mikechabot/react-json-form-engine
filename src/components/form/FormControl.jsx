@@ -6,7 +6,7 @@ import ErrorBlock from './helpers/FieldError';
 import Maybe from 'maybe-baby';
 import _ from 'lodash';
 
-class FormItem extends React.Component {
+class FormControl extends React.Component {
 
     /**
      * Determine if the component should call render() to update itself.
@@ -70,7 +70,7 @@ class FormItem extends React.Component {
     }
 }
 
-FormItem.propTypes = {
+FormControl.propTypes = {
     id      : React.PropTypes.string.isRequired,
     field   : React.PropTypes.object.isRequired,
     onUpdate: React.PropTypes.func.isRequired,
@@ -84,4 +84,4 @@ FormItem.propTypes = {
     instance: React.PropTypes.object.isRequired
 };
 
-export default FormItem;
+export default FormControl;

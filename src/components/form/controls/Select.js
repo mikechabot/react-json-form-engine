@@ -8,18 +8,10 @@ export default function Select ({
     field,
     onUpdate
 }) {
-    let defaultValue = value;
-    if (!defaultValue) {
-        defaultValue = __isTypeArray(field)
-            ? []
-            : (field.placeholder || '-- select option --');
-    }
-
     if (!field.options) {
-        console.warn(`${field.type} is missing required "options" (tag: ${id})`);
+        console.warn(`${field.type} is missing required "options" (id: ${id})`);
         return <span />;
     }
-
     return (
         <div style={{ marginRight: 40 }}>
             <FormControl
@@ -29,21 +21,34 @@ export default function Select ({
                 onChange={onUpdate}
                 multiple={__isTypeArray(field)}
                 componentClass="select">
-                {
-                    !value && !__isTypeArray(field)
-                        ? <option style={{fontWeight: 300}} value="">{field.placeholder || '-- select value --'}</option>
-                        : undefined
-                }
-                {
-                    field.options.map((option, index) => (
-                        <option style={{fontWeight: 300}} key={index} value={option.id}>
-                            { option.title }
-                        </option>
-                    ))
-                }
+                { _maybeRenderPlaceholder(field, value) }
+                { _renderOptions(field)}
             </FormControl>
         </div>
     );
+}
+
+function _maybeRenderPlaceholder (field, value) {
+    if (!value && !__isTypeArray(field)) {
+        return (
+            <option
+                style={{fontWeight: 300}}
+                value="">
+                {field.placeholder || '-- select value --'}
+            </option>
+        );
+    }
+}
+
+function _renderOptions (field) {
+    return field.options.map((option, index) => (
+        <option
+            key={index}
+            value={option.id}
+            style={{fontWeight: 300}}>
+            { option.title }
+        </option>
+    ));
 }
 
 function __isTypeArray (field) {

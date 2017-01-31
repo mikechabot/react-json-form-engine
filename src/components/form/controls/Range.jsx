@@ -4,15 +4,14 @@ const Range = ({
     id,
     field,
     value,
-    onUpdate,
-    validationState
+    onUpdate
 }) => (
     <div style={{ marginRight: 40 }}>
         <div style={style.valueContainer}>
-            <span style={{...style.value, ...getValidationStyle(validationState)}}>{value || 'N/A'}</span>
+            <span style={style.value}>{value || 'N/A'}</span>
         </div>
         <div style={style.container}>
-            <div style={{...style.minMax, ...getValidationStyle(validationState)}}>{field.min}</div>
+            <div style={style.minMax}>{field.min}</div>
             <div style={style.range}>
                 <input
                     name={id}
@@ -24,26 +23,12 @@ const Range = ({
                     onChange={onUpdate}
                 />
             </div>
-            <div style={{...style.minMax, ...getValidationStyle(validationState)}}>{field.max}</div>
+            <div style={style.minMax}>{field.max}</div>
         </div>
     </div>
 );
 
-function getValidationStyle (validationState) {
-    if (validationState === 'success') {
-        return style.success;
-    } else if (validationState === 'error') {
-        return style.error;
-    }
-}
-
 const style = {
-    success: {
-        color: '#18bc9c'
-    },
-    error: {
-        color: '#e74c3c'
-    },
     valueContainer: {
         textAlign   : 'center',
         marginBottom: 5
@@ -73,8 +58,7 @@ Range.propTypes = {
     id             : React.PropTypes.string.isRequired,
     field          : React.PropTypes.object.isRequired,
     onUpdate       : React.PropTypes.func.isRequired,
-    value          : React.PropTypes.number,
-    validationState: React.PropTypes.object
+    value          : React.PropTypes.number
 };
 
 export default Range;

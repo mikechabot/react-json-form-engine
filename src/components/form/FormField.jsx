@@ -1,47 +1,16 @@
 import React from 'react';
-import FormItem from './FormItem';
-import _ from 'lodash';
+import FormControl from './FormControl';
+import FormChildren from './FormChildren';
+import { Flex } from '../common';
 
 class FormField extends React.Component {
-
     render () {
         return (
-            <div style={{height: '100%'}}>
-                <FormItem {...this.props} />
-                { this.renderChildren(this.props.field) }
-            </div>
+            <Flex column={true}>
+                <FormControl {...this.props} />
+                <FormChildren {...this.props} />
+            </Flex>
         );
-    }
-
-    hasChildren (field) {
-        return field.fields || _.some(field.options, option => option.fields);
-    }
-
-    renderChildren (field) {
-        if (this.hasChildren(field)) {
-            const { instance, onUpdate } = this.props;
-            return (
-                <ol style={{listStyle: 'none'}}>
-                    {
-                        _.map(field.fields, (child) => {
-                            if (instance.evaluateFieldShowCondition(child)) {
-                                return (
-                                    <li key={child.id}>
-                                        <FormField
-                                            id={child.id}
-                                            field={child}
-                                            value={instance.getModelValue(child.id)}
-                                            instance={instance}
-                                            onUpdate={onUpdate}
-                                        />
-                                    </li>
-                                );
-                            }
-                        })
-                    }
-                </ol>
-            );
-        }
     }
 }
 

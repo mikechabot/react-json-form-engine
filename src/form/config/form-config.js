@@ -19,8 +19,7 @@ class FormConfig {
             [COMPONENT_TYPE.TEXT]    : require('../../components/form/controls/Text').default,
             [COMPONENT_TYPE.TEXTAREA]: require('../../components/form/controls/Textarea').default,
             [COMPONENT_TYPE.SELECT]  : require('../../components/form/controls/Select').default,
-            [COMPONENT_TYPE.RADIO]   : require('../../components/form/controls/Radio').default,
-            [COMPONENT_TYPE.LABEL]   : require('../../components/form/controls/label').default
+            [COMPONENT_TYPE.RADIO]   : require('../../components/form/controls/Radio').default
         });
         this.__registerDataType(DATA_TYPE.BOOLEAN, {
             [COMPONENT_TYPE.CHECKBOX]: require('../../components/form/controls/Checkbox').default,

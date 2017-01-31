@@ -15,26 +15,32 @@ class FormSubsection extends React.Component {
                 { this._maybeRenderSubsectionSubtitle(subsection.subtitle, hideTitle)}
                 <ol className="simple-list">
                     {
-                        _.map(subsection.fields, (fieldDef, index) => {
-                            const field = instance.getField(fieldDef.id);
-                            if (instance.evaluateFieldShowCondition(field)) {
-                                return (
-                                    <li key={index} style={{marginTop: 10}}>
-                                        <FormField
-                                            id={field.id}
-                                            field={field}
-                                            onUpdate={onUpdate}
-                                            instance={instance}
-                                            value={instance.getModelValue(field.id)}
-                                        />
-                                    </li>
-                                );
-                            }
-                        })
+                        _.map(
+                            subsection.fields,
+                            this._renderSubsectionField.bind(this, instance, onUpdate)
+                        )
                     }
                 </ol>
             </Flex>
         );
+    }
+
+    _renderSubsectionField (instance, onUpdate, fieldDef, index) {
+        const field = instance.getField(fieldDef.id);
+        if (instance.evaluateFieldShowCondition(field)) {
+            return (
+                <li key={index}
+                    style={{marginTop: 10}}>
+                    <FormField
+                        id={field.id}
+                        field={field}
+                        onUpdate={onUpdate}
+                        instance={instance}
+                        value={instance.getModelValue(field.id)}
+                    />
+                </li>
+            );
+        }
     }
 
     _maybeRenderSubsectionTitle (subsection, instance, hideTitle) {
@@ -50,7 +56,6 @@ class FormSubsection extends React.Component {
         if (subtitle) {
             return (
                 <div
-                    className="RFE-subsection-subtitle"
                     style={{
                         marginLeft: '1em',
                         ...hideTitle ? { marginTop: 10 } : {}}}>
