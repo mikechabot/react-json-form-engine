@@ -31,7 +31,28 @@ class FormTester extends React.Component {
         const { instance } = this.state;
         return (
             <Flex flex={1} column={true} padding={5}>
-                <h1>react-form-engine <small style={{fontSize: '.40em'}}>Build conditional web forms from JSON</small></h1>
+                <Flex vAlignCenter={true} style={{justifyContent: 'space-between'}}>
+                    <div>
+                        <h1>
+                            react-form-engine
+                            <small style={{fontSize: '.40em'}}>Build conditional web forms from JSON</small>
+                        </h1>
+                    </div>
+                    <div>
+                        <a href="https://travis-ci.org/mikechabot/react-form-engine">
+                            <img src="https://travis-ci.org/mikechabot/react-form-engine.svg?branch=master" alt="Build Status" />
+                        </a>&nbsp;
+                        <a href="https://coveralls.io/github/mikechabot/react-form-engine?branch=master">
+                            <img src="https://coveralls.io/repos/github/mikechabot/react-form-engine/badge.svg?branch=master" alt="Coverage Status" />
+                        </a>&nbsp;
+                        <a href="https://coveralls.io/github/mikechabot/react-form-engine?branch=master">
+                            <img src="https://david-dm.org/mikechabot/sortable-map.svg" alt="Dependency Status" />
+                        </a>&nbsp;
+                        <a href="https://david-dm.org/mikechabot/sortable-map.svg">
+                            <img src="(https://david-dm.org/mikechabot/sortable-map/dev-status.svg" alt="devDependencies Status" />
+                        </a>
+                    </div>
+                </Flex>
                 <Tabs
                     id="form-selection-tabs"
                     animation={false}
