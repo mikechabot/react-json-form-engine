@@ -45,11 +45,14 @@ class FormTester extends React.Component {
                         <a href="https://coveralls.io/github/mikechabot/react-form-engine?branch=master">
                             <img src="https://coveralls.io/repos/github/mikechabot/react-form-engine/badge.svg?branch=master" alt="Coverage Status" />
                         </a>&nbsp;
-                        <a href="https://coveralls.io/github/mikechabot/react-form-engine?branch=master">
-                            <img src="https://david-dm.org/mikechabot/sortable-map.svg" alt="Dependency Status" />
+                        <a href="https://david-dm.org/mikechabot/react-form-engine" title="dependencies status">
+                            <img src="https://david-dm.org/mikechabot/react-form-engine/status.svg"/>
                         </a>&nbsp;
-                        <a href="https://david-dm.org/mikechabot/sortable-map.svg">
-                            <img src="(https://david-dm.org/mikechabot/sortable-map/dev-status.svg" alt="devDependencies Status" />
+                        <a href="https://david-dm.org/mikechabot/react-form-engine?type=dev" title="devDependencies status">
+                            <img src="https://david-dm.org/mikechabot/react-form-engine/dev-status.svg"/>
+                        </a>&nbsp;
+                        <a href="https://david-dm.org/mikechabot/react-form-engine?type=peer" title="peerDependencies status">
+                            <img src="https://david-dm.org/mikechabot/react-form-engine/peer-status.svg"/>
                         </a>
                     </div>
                 </Flex>
