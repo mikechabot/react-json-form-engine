@@ -7,7 +7,7 @@
     "dev": "cross-env NODE_ENV=development npm run build && npm run server",
     "build": "webpack --progress --colors",
     "server": "node server.js",
-    "test": "mocha \"test/unit/**/*.js\"",
+    "test": "istanbul cover ./node_modules/mocha/bin/_mocha --report lcovonly -- -R spec && cat ./coverage/lcov.info | ./node_modules/coveralls/bin/coveralls.js && rm -rf ./coverage",
     "coverage": "istanbul cover node_modules/mocha/bin/_mocha \"test/unit/**/*.js\"",
     "lint": "eslint src -f html --ext .jsx --ext .js -o lint-report.html"
   },
