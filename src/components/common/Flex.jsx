@@ -15,12 +15,14 @@ export default function Flex ({
     padding,
     backgroundColor,
     onMouseOver,
+    onClick,
     children
 }) {
     return (
         <div
             id={id}
             className={className}
+            onClick={onClick}
             onMouseOver={onMouseOver}
             style={{
                 ...{ display: 'flex', ...column ? { flexDirection: 'column' } : {} },
@@ -48,6 +50,7 @@ Flex.propTypes = {
     margin         : React.PropTypes.oneOfType([React.PropTypes.string, React.PropTypes.number]),
     padding        : React.PropTypes.oneOfType([React.PropTypes.string, React.PropTypes.number]),
     backgroundColor: React.PropTypes.string,
+    onClick        : React.PropTypes.func,
     onMouseOver    : React.PropTypes.func,
     children       : React.PropTypes.node
 };

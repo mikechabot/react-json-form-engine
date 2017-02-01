@@ -8,7 +8,7 @@ export default {
             subsections: [
                 {
                     id      : 'Subsection-1',
-                    title   : 'Stores [tag]:[value:Boolean]',
+                    title   : 'Stores [id]:[value:Boolean]',
                     subtitle: 'Single checkbox, or double radio',
                     fields  : [
                         {

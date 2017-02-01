@@ -23,10 +23,10 @@ export default {
                             title   : 'Multiselect',
                             required: true,
                             options : [
-                                { id: 0, title: 'Option 1' },
-                                { id: 1, title: 'Option 2' },
-                                { id: 2, title: 'Option 3' },
-                                { id: 3, title: 'Option 4' }
+                                { id: 'op1', title: 'Option 1' },
+                                { id: 'op2', title: 'Option 2' },
+                                { id: 'op3', title: 'Option 3' },
+                                { id: 'op4', title: 'Option 4' }
                             ]
                         },
                         {
@@ -78,9 +78,13 @@ export default {
             hint: 'Enter some text, then delete it.'
         },
         array1: {
+            hint: 'Select, then deselect an option.',
             component: {
                 type: 'checkboxgroup'
             }
+        },
+        num1: {
+            hint: 'Try entering some text'
         },
         num2: {
             hint: 'Min: 0, Max: 5. Try entering a value outside the range.'

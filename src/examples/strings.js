@@ -9,7 +9,7 @@ export default {
             subsections: [
                 {
                     id       : 'Subsection-1',
-                    title    : 'Stores [tag]:[value:String]',
+                    title    : 'Stores [id]:[value:String]',
                     sortOrder: 0,
                     fields   : [
                         {
@@ -45,7 +45,7 @@ export default {
                             options: [
                                 { title: 'Male', id: 'M' },
                                 { title: 'Female', id: 'F' },
-                                { title: 'Decline', id: 'N/A' }
+                                { title: 'Other', id: 'Other' }
                             ],
                             sortOrder: 3
                         }

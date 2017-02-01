@@ -16,7 +16,6 @@ class DateTime extends React.Component {
         return (
             <DateTimePicker
                 id={id}
-                style={{ marginRight: 40 }}
                 calendar={!decorators.prop('hideCalendar').isJust()}
                 time={!decorators.prop('hideTime').isJust()}
                 value={value}

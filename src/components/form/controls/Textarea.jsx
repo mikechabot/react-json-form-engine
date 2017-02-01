@@ -7,16 +7,14 @@ const Textarea = ({
     value,
     onUpdate
 }) => (
-    <div style={{ marginRight: 40 }} >
-        <FormControl
-            name={id}
-            id={id}
-            componentClass="textarea"
-            value={value || ''}
-            onChange={onUpdate}
-            placeholder={field.placeholder}
-        />
-    </div>
+    <FormControl
+        name={id}
+        id={id}
+        componentClass="textarea"
+        value={value || ''}
+        onChange={onUpdate}
+        placeholder={field.placeholder}
+    />
 );
 
 Textarea.propTypes = {

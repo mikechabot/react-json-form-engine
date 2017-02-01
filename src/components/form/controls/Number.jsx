@@ -8,19 +8,17 @@ export default function Number ({
     onUpdate
 }) {
     return (
-        <div style={{ marginRight: 40 }}>
-            <FormControl
-                disabled={field.disabled}
-                name={id}
-                id={id}
-                type="number"
-                value={value || ''}
-                max={field.max}
-                min={field.min}
-                onChange={onUpdate}
-                placeholder={field.placeholder}
-            />
-        </div>
+        <FormControl
+            disabled={field.disabled}
+            name={id}
+            id={id}
+            type="number"
+            value={value || ''}
+            max={field.max}
+            min={field.min}
+            onChange={onUpdate}
+            placeholder={field.placeholder}
+        />
     );
 }
 

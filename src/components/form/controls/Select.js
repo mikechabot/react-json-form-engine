@@ -13,18 +13,16 @@ export default function Select ({
         return <span />;
     }
     return (
-        <div style={{ marginRight: 40 }}>
-            <FormControl
-                value={value}
-                id={id}
-                name={id}
-                onChange={onUpdate}
-                multiple={__isTypeArray(field)}
-                componentClass="select">
-                { _maybeRenderPlaceholder(field, value) }
-                { _renderOptions(field)}
-            </FormControl>
-        </div>
+        <FormControl
+            value={value}
+            id={id}
+            name={id}
+            onChange={onUpdate}
+            multiple={__isTypeArray(field)}
+            componentClass="select">
+            { _maybeRenderPlaceholder(field, value) }
+            { _renderOptions(field)}
+        </FormControl>
     );
 }
 

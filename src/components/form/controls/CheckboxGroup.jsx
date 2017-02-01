@@ -1,31 +1,9 @@
 import React from 'react';
-import BSCheckbox from 'react-bootstrap/lib/Checkbox';
-import _ from 'lodash';
-import FormField from '../FormField';
+import Checkbox from './Checkbox';
+import FormChildren from '../FormChildren';
+import { Flex } from '../../common';
 
 class CheckboxGroup extends React.Component {
-    renderChildren (children) {
-        const { instance, onUpdate } = this.props;
-        children = _.orderBy(children, 'sortOrder');
-        return _.map(children, (child) => {
-            const id = child.id;
-            if (instance.evaluateFieldShowCondition(child, id)) {
-                return (
-                    <ul style={{listStyle: 'none'}} key={id}>
-                        <li>
-                            <FormField
-                                id={id}
-                                field={child}
-                                value={instance.getModelValue(id)}
-                                instance={instance}
-                                onUpdate={onUpdate}
-                            />
-                        </li>
-                    </ul>
-                );
-            }
-        });
-    }
     render () {
         const { id, field, value, onUpdate } = this.props;
         if (!field.options) {
@@ -33,37 +11,24 @@ class CheckboxGroup extends React.Component {
             return <span />;
         }
         return (
-            <div>
-                {
-                    _.map(field.options, (option, index) => {
-                        return (
-                            <div key={index}>
-                                <BSCheckbox
-                                    style={{margin: '5px 0px'}}
-                                    id={id}
-                                    onChange={onUpdate}
-                                    value={option.id}
-                                    checked={_.includes(value, option.id.toString())}>
-                                    <span style={{fontWeight: 300}}>{ option.title }</span>{this._renderIcon(option)}
-                                </BSCheckbox>
-                                {
-                                    option.fields
-                                        ? this.renderChildren(option.fields)
-                                        : ''
-                                }
-                            </div>
-                        );
-                    })
-                }
-
-            </div>
+            <Flex column={true}>
+                { _.map(field.options, this._renderOption.bind(this, id, value, onUpdate)) }
+            </Flex>
         );
     }
-
-    _renderIcon (option) {
-        if (option && option.parent && option.parent.icon) {
-            return <i style={{marginLeft: 5}} className={option.parent.icon} />;
-        }
+    _renderOption (id, value, onUpdate, option, index) {
+        return (
+            <Flex column={true} key={index}>
+                <Checkbox
+                    style={{marginBottom: 5}}
+                    id={option.id}
+                    option={option}
+                    onUpdate={() => onUpdate(option.id, id)}
+                    value={_.includes(value, option.id.toString())}
+                />
+                <FormChildren field={option} onUpdate={onUpdate} instance={this.props.instance} />
+            </Flex>
+        );
     }
 }
 

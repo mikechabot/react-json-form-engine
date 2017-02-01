@@ -12,28 +12,29 @@ export default class FormChildren extends React.Component {
         const { instance, onUpdate } = this.props;
         return (
             <ol style={{listStyle: 'none'}}>
-                {
-                    _.map(fields, (childField) => {
-                        if (instance.evaluateFieldShowCondition(childField)) {
-                            return (
-                                <li key={childField.id}>
-                                    <FormField
-                                        id={childField.id}
-                                        field={childField}
-                                        value={instance.getModelValue(childField.id)}
-                                        instance={instance}
-                                        onUpdate={onUpdate}
-                                    />
-                                </li>
-                            );
-                        }
-                    })
-                }
+                { fields.map(this._renderField.bind(this, instance, onUpdate)) }
             </ol>
         );
+    }
+    _renderField (instance, onUpdate, child, index) {
+        if (instance.evaluateFieldShowCondition(child)) {
+            return (
+                <li key={index}>
+                    <FormField
+                        id={child.id}
+                        field={child}
+                        value={instance.getModelValue(child.id)}
+                        instance={instance}
+                        onUpdate={onUpdate}
+                    />
+                </li>
+            );
+        }
     }
 }
 
 FormChildren.propTypes = {
-    field: React.PropTypes.object.isRequired
+    field   : React.PropTypes.object.isRequired,
+    instance: React.PropTypes.object.isRequired,
+    onUpdate: React.PropTypes.func.isRequired
 };

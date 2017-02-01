@@ -31,7 +31,7 @@ class FormTester extends React.Component {
         const { instance } = this.state;
         return (
             <Flex flex={1} column={true} padding={5}>
-                <h1>react-form-engine <small style={{fontSize: '.40em'}}>Build conditional Web forms from JSON</small></h1>
+                <h1>react-form-engine <small style={{fontSize: '.40em'}}>Build conditional web forms from JSON</small></h1>
                 <Tabs
                     id="form-selection-tabs"
                     animation={false}

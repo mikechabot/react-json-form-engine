@@ -1,2 +1,2 @@
 # react-form-engine
-Build complex web forms from JSON
+Build conditional web forms from JSON

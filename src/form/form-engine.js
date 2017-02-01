@@ -346,6 +346,14 @@ export default class FormEngine {
         return this.getFields().find(id);
     }
     /**
+     * Detemrine if the field is a boolen data type
+     * @param field
+     * @returns {boolean}
+     */
+    isBooleanField(field) {
+        return field[FIELD.TYPE] === DATA_TYPE.BOOLEAN;
+    }
+    /**
      * Set a model value
      * @param id
      * @param value
@@ -353,6 +361,9 @@ export default class FormEngine {
      */
     setModelValue (id, value, field) {
         // Set or reset the model value
+
+        if (value === this.getModelValue(id)) return;
+
         if (value === NO_VALUE) {
             field.dirty = false;
             this.model.delete(id);
@@ -361,13 +372,17 @@ export default class FormEngine {
             this.model.add(id, value);
         }
 
+        console.log(field.type, id, value);
+
         // Reset children if necessary
         if (this.doResetChildren(field, value)) {
+            console.log('do trdry')
             this.resetFields(field[FIELD.FIELDS]);
         }
         // Reset the children of any option fields if the option is not selected
         _.forEach(field[FIELD.OPTIONS], option => {
-            if (option[FIELD.FIELDS] && !_.includes(value, option[FIELD.ID])) {
+            if (option[FIELD.FIELDS] && ((this.isBooleanField(field) && !value) || !_.includes(value, option[FIELD.ID]))) {
+                console.log(id);
                 this.resetFields(option[FIELD.FIELDS]);
             }
         });

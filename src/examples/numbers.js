@@ -8,7 +8,7 @@ export default {
             subsections: [
                 {
                     id    : 'Subsection-1',
-                    title : 'Stores [tag]:[value:Number]',
+                    title : 'Stores [id]:[value:Number]',
                     fields: [
                         {
                             id         : 'num1',

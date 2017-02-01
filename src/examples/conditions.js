@@ -15,91 +15,97 @@ export default {
                             id     : 'bool5',
                             type   : 'boolean',
                             title  : 'Show my two child fields?',
-                            options: [{ title: 'Yes' }, { title: 'No' }],
-                            fields : [
+                            options: [
                                 {
-                                    id     : 'arr6',
-                                    type   : 'array',
-                                    title  : 'Checkbox group',
-                                    options: [
+                                    title : 'Yes',
+                                    fields: [
                                         {
-                                            id    : 'op1',
-                                            title : 'Option 1',
-                                            fields: [
+                                            id     : 'arr6',
+                                            type   : 'array',
+                                            title  : 'My first two options have children',
+                                            options: [
                                                 {
-                                                    id           : 'str20',
-                                                    type         : 'string',
-                                                    title        : 'Yet another field!',
-                                                    showCondition: {
-                                                        type       : 'CONTAINS',
-                                                        expression1: {
-                                                            type : 'CONST',
-                                                            value: 'op1'
-                                                        },
-                                                        expression2: {
-                                                            type: 'FORM_RESPONSE',
-                                                            id  : 'arr6'
+                                                    id    : 'op1',
+                                                    title : 'Option 1',
+                                                    fields: [
+                                                        {
+                                                            id           : 'str20',
+                                                            type         : 'string',
+                                                            title        : 'Yet another field',
+                                                            showCondition: {
+                                                                type       : 'CONTAINS',
+                                                                expression1: {
+                                                                    type : 'CONST',
+                                                                    value: 'op1'
+                                                                },
+                                                                expression2: {
+                                                                    type: 'FORM_RESPONSE',
+                                                                    id  : 'arr6'
+                                                                }
+                                                            }
                                                         }
-                                                    }
+                                                    ]
+                                                },
+                                                {
+                                                    id    : 'op2',
+                                                    title : 'Option 2',
+                                                    fields: [
+                                                        {
+                                                            id           : 'num10',
+                                                            type         : 'number',
+                                                            title        : 'And more',
+                                                            showCondition: {
+                                                                type       : 'CONTAINS',
+                                                                expression1: {
+                                                                    type : 'CONST',
+                                                                    value: 'op2'
+                                                                },
+                                                                expression2: {
+                                                                    type: 'FORM_RESPONSE',
+                                                                    id  : 'arr6'
+                                                                }
+                                                            }
+                                                        }
+                                                    ]
+                                                },
+                                                { id: 'op3', title: 'Option 3' },
+                                                { id: 'op4', title: 'Option 4' }
+                                            ],
+                                            showCondition: {
+                                                type       : 'EQUAL',
+                                                expression1: {
+                                                    type : 'CONST',
+                                                    value: true
+                                                },
+                                                expression2: {
+                                                    type: 'FORM_RESPONSE',
+                                                    id  : 'bool5'
                                                 }
-                                            ]
+                                            }
                                         },
                                         {
-                                            id    : 'op2',
-                                            title : 'Option 2',
-                                            fields: [
-                                                {
-                                                    id           : 'num10',
-                                                    type         : 'number',
-                                                    title        : 'And more!',
-                                                    showCondition: {
-                                                        type       : 'CONTAINS',
-                                                        expression1: {
-                                                            type : 'CONST',
-                                                            value: 'op2'
-                                                        },
-                                                        expression2: {
-                                                            type: 'FORM_RESPONSE',
-                                                            id  : 'arr6'
-                                                        }
-                                                    }
+                                            id           : 'num9',
+                                            type         : 'number',
+                                            title        : 'Conditional field',
+                                            min          : 0,
+                                            max          : 10,
+                                            showCondition: {
+                                                type       : 'EQUAL',
+                                                expression1: {
+                                                    type : 'CONST',
+                                                    value: true
+                                                },
+                                                expression2: {
+                                                    type: 'FORM_RESPONSE',
+                                                    id  : 'bool5'
                                                 }
-                                            ]
-                                        },
-                                        { id: 'op3', title: 'Option 3' },
-                                        { id: 'op4', title: 'Option 4' }
-                                    ],
-                                    showCondition: {
-                                        type       : 'EQUAL',
-                                        expression1: {
-                                            type : 'CONST',
-                                            value: true
-                                        },
-                                        expression2: {
-                                            type: 'FORM_RESPONSE',
-                                            id  : 'bool5'
+                                            }
                                         }
-                                    }
+                                    ]
                                 },
-                                {
-                                    id           : 'num9',
-                                    type         : 'number',
-                                    title        : 'Conditional field',
-                                    min          : 0,
-                                    max          : 10,
-                                    showCondition: {
-                                        type       : 'EQUAL',
-                                        expression1: {
-                                            type : 'CONST',
-                                            value: true
-                                        },
-                                        expression2: {
-                                            type: 'FORM_RESPONSE',
-                                            id  : 'bool5'
-                                        }
-                                    }
-                                }
+                                { title: 'No' }
                             ]
+
                         },
                         {
                             id           : 'str17',
@@ -142,7 +148,7 @@ export default {
                             title : 'Select a date',
                             fields: [
                                 {
-                                    id           : 'str20',
+                                    id           : 'str22',
                                     type         : 'string',
                                     title        : 'Conditional field',
                                     showCondition: {
@@ -387,7 +393,6 @@ export default {
             }
         },
         arr6: {
-            hint     : 'My first two options also have children',
             component: {
                 type: 'checkboxgroup'
             }

@@ -1,75 +1,65 @@
 import React from 'react';
-import BSRadio from 'react-bootstrap/lib/Radio';
-import FormField from '../FormField';
+import Maybe from 'maybe-baby';
+import { Flex } from '../../common';
 import { hasValue } from '../../../common/common';
+import FormChildren from '../FormChildren';
 
 class Radio extends React.Component {
 
     render () {
-        const { id, value, field, onUpdate } = this.props;
+        const { id, value, field } = this.props;
         if (!field.options) {
             console.warn(`${field.type} is missing required "options" (id: ${id})`);
             return <span />;
         }
-
         return (
-            <div id={id}>
-                {
-                    field.options.map((option, index) => {
-                        const isEven = index % 2 === 0;
-                        return (
-                            <div key={index} style={field.inline ? {display: 'inline', marginRight: 10} : {} }>
-                                <BSRadio
-                                    id={id}
-                                    disabled={field.disabled}
-                                    style={!field.inline ? {margin: '5px 0px'} : {}}
-                                    inline={field.inline}
-                                    onChange={onUpdate}
-                                    value={option.id || isEven}
-                                    checked={this.isChecked(option, value, isEven)}>
-                                    <span style={{fontWeight: 300}}>{ option.title || option }</span>
-                                </BSRadio>
-                                {
-                                    option.fields
-                                        ? this.renderChildren(option.fields)
-                                        : ''
-                                }
-                            </div>
-                        );
-                    })
-                }
-            </div>
+            <Flex column={!field.inline} id={id} style={this._hasHint(field) ? { marginBottom: 10 } : {} }>
+                { field.options.map(this._renderOption.bind(this, field, value)) }
+            </Flex>
         );
     }
 
-    isChecked (option, value, isEven) {
-        if (!hasValue(value)) return false;
-        if (option.id) {
-            return option.id === value;
-        }
-        return isEven ? value : !value;
+    _renderOption (field, value, option, index) {
+        const isEven = index % 2 === 0;
+        return (
+           <Flex
+               key={index}
+               margin={5}
+               column={true}
+               vAlignCenter={true}>
+               <Flex
+                   vAlignCenter={true}
+                   className="pointer"
+                   onClick={this._handleOnClick.bind(this, field, option, isEven)}>
+                   { this._renderOptionIcon(option, value, isEven) }&nbsp;
+                   <div style={{fontSize: 14, fontWeight: 300}}>{option.title}</div>
+               </Flex>
+               <FormChildren field={option} instance={this.props.instance} onUpdate={this.props.onUpdate} />
+           </Flex>
+        );
     }
 
-    renderChildren (children) {
-        const { instance, onUpdate } = this.props;
-        return _.map(children, (child) => {
-            if (instance.evaluateFieldShowCondition(child)) {
-                return (
-                    <ul key={child.id}
-                        style={{listStyle: 'none'}}>
-                        <li>
-                            <FormField
-                                id={child.id}
-                                field={child}
-                                value={instance.getModelValue(child.id)}
-                                instance={instance}
-                                onUpdate={onUpdate}
-                            />
-                        </li>
-                    </ul>
-                );
-            }
-        });
+    _renderOptionIcon (option, value, isEven) {
+        return this._isChecked(option, value, isEven)
+            ? <i className="fa fa-dot-circle-o" />
+            : <i className="fa fa-circle-o" />;
+    }
+
+    _handleOnClick (field, option, isEven) {
+        this.props.onUpdate(option.id || isEven, field.id);
+    }
+
+    _hasHint (field) {
+        return Maybe.of(field)
+            .prop('uiDecorators')
+            .prop('hint')
+            .isJust();
+    }
+
+    _isChecked (option, value, isEven) {
+        if (!hasValue(value)) return false;
+        if (option.id) return option.id === value;
+        return isEven ? value : !value;
     }
 
 }

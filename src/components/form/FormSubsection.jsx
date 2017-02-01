@@ -14,12 +14,7 @@ class FormSubsection extends React.Component {
                 { this._maybeRenderSubsectionTitle(subsection, instance, hideTitle) }
                 { this._maybeRenderSubsectionSubtitle(subsection.subtitle, hideTitle)}
                 <ol className="simple-list">
-                    {
-                        _.map(
-                            subsection.fields,
-                            this._renderSubsectionField.bind(this, instance, onUpdate)
-                        )
-                    }
+                    { _.map(subsection.fields, this._renderSubsectionField.bind(this, instance, onUpdate)) }
                 </ol>
             </Flex>
         );

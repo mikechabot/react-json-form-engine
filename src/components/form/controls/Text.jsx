@@ -7,17 +7,15 @@ const Text = ({
     value,
     onUpdate
 }) => (
-    <div style={{ marginRight: 40 }}>
-        <FormControl
-            name={id}
-            id={id}
-            disabled={field.disabled}
-            type="text"
-            value={value || ''}
-            onChange={onUpdate}
-            placeholder={field.placeholder}
-        />
-    </div>
+    <FormControl
+        name={id}
+        id={id}
+        disabled={field.disabled}
+        type="text"
+        value={value || ''}
+        onChange={onUpdate}
+        placeholder={field.placeholder}
+    />
 );
 
 Text.propTypes = {

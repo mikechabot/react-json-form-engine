@@ -17,10 +17,7 @@ export const DATA_TYPE_OPERATIONS = {
         onUpdate: common.onUpdate
     },
     [DATA_TYPE.BOOLEAN]: {
-        onUpdate: (event) => {
-            const { target } = event;
-            return target.checked;
-        }
+        onUpdate: value => value
     },
     [DATA_TYPE.NUMBER]: {
         onUpdate: (event) => {
@@ -34,13 +31,12 @@ export const DATA_TYPE_OPERATIONS = {
         }
     },
     [DATA_TYPE.ARRAY]: {
-        onUpdate: (event, field, oldValue, newValue) => {
-            const { target } = event;
+        onUpdate: (eventOrValue, field, oldValue, newValue) => {
             if (field.component.type === COMPONENT_TYPE.SELECT) {
-                return _.filter(target.options, (option) => option.selected)
+                return _.filter(eventOrValue.target.options, (option) => option.selected)
                     .map(option => option.value);
             } else {
-                const val = newValue || target.value;
+                const val = newValue || eventOrValue;
                 if (!oldValue) return [val];
                 return !_.includes(oldValue, val)
                     ? [...oldValue, ...[val]]
@@ -52,12 +48,6 @@ export const DATA_TYPE_OPERATIONS = {
 
 export const COMPONENT_OPERATIONS = {
     [COMPONENT_TYPE.RADIO]: {
-        onUpdate: (event, fieldInfo) => {
-            if (fieldInfo.type === DATA_TYPE.STRING) {
-                return common.onUpdate(event);
-            } else {
-                return common.onUpdate(event) === 'true';
-            }
-        }
+        onUpdate: value => value
     }
 };
