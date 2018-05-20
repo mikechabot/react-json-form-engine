@@ -1,0 +1,33 @@
+// Normalize CSS
+@import '../../node_modules/normalize.css/normalize.css';
+
+// Bulma Initialization
+@import "../../node_modules/bulma/sass/utilities/initial-variables";
+@import "../../node_modules/bulma/sass/utilities/functions";
+
+// Bulma overrides
+$card-background-color: $grey-darker;
+$card-color: $grey-lighter;
+
+// Bulma import
+@import "../../node_modules/bulma/bulma";
+
+@mixin height($height) {
+  height: $height;
+}
+
+@mixin width($width) {
+  width: $width;
+}
+
+@mixin full-height {
+  @include height(100%);
+}
+
+@mixin full-width {
+  @include width(100%);
+}
+
+@mixin margin($margin) {
+  margin: $margin;
+}

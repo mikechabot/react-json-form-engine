@@ -1,28 +1,25 @@
+import PropTypes from 'prop-types';
 import React from 'react';
-import Panel from 'react-bootstrap/lib/Panel';
 import CodeBlock from './CodeBlock';
 
-export default function CodePanel ({
-    title,
-    content
-}) {
+export default function CodePanel({ title, content }) {
     return (
-        <Panel
+        <div
             style={{
-                height  : 400,
-                width   : '100%',
+                height: 400,
+                width: '100%',
                 minWidth: 425,
-                margin  : 2.5
+                margin: 2.5
             }}
             header={title}
-            bsStyle="primary">
+        >
             <CodeBlock content={content} />
-        </Panel>
+        </div>
     );
 }
 
 CodePanel.propTypes = {
-    title  : React.PropTypes.string,
-    content: React.PropTypes.object,
-    style  : React.PropTypes.object
+    title: PropTypes.string,
+    content: PropTypes.object,
+    style: PropTypes.object
 };

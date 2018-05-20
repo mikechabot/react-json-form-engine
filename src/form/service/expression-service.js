@@ -1,5 +1,9 @@
-import { hasValue, __blank } from '../../common/common';
-import _ from 'lodash';
+import { __hasValue, __blank } from '../../common/common';
+import _isArray from 'lodash/isArray';
+import _isEmpty from 'lodash/isEmpty';
+import _includes from 'lodash/includes';
+import _filter from 'lodash/filter';
+import _forEach from 'lodash/forEach';
 
 function _getConstComparisonCondition (type, val1, val2, orEqualTo) {
     return {
@@ -22,7 +26,7 @@ const conditionEvaluators = {
         const val2 = service.evalExpression(condition.expression2, instance);
 
         let conditionMet = false;
-        if (_.isArray(val2) && val2.length === 2) {
+        if (_isArray(val2) && val2.length === 2) {
             const isGreaterThan = service.evalCondition(_getConstComparisonCondition('GREATER_THAN', val1, val2[0], true), instance);
             const isLessThan = service.evalCondition(_getConstComparisonCondition('LESS_THAN', val1, val2[1], true), instance);
             if (isGreaterThan && isLessThan) {
@@ -42,15 +46,15 @@ const conditionEvaluators = {
         const val2 = service.evalExpression(condition.expression2, instance);
 
         let conditionMet = false;
-        if (hasValue(val1) && hasValue(val2)) {
-            conditionMet = _.includes(val2, val1);
+        if (__hasValue(val1) && __hasValue(val2)) {
+            conditionMet = _includes(val2, val1);
         }
 
         return conditionMet;
     },
     EMPTY: (service, condition, instance) => {
         const val = service.evalExpression(condition.expression, instance);
-        const conditionMet = _.isEmpty(val);
+        const conditionMet = _isEmpty(val);
         return conditionMet;
     },
     EQUAL: (service, condition, instance) => {
@@ -58,7 +62,7 @@ const conditionEvaluators = {
         const val2 = service.evalExpression(condition.expression2, instance);
 
         let conditionMet = false;
-        if (hasValue(val1) && hasValue(val2)) {
+        if (__hasValue(val1) && __hasValue(val2)) {
             conditionMet = val1 == val2;
         }
 
@@ -67,7 +71,7 @@ const conditionEvaluators = {
     // TODO: Create a GREATER_THAN_OR_EQUAL_TO expression?
     GREATER_THAN: (service, condition, instance) => {
         const diff = evalNumberCondition(service, condition, instance);
-        if (hasValue(diff)) {
+        if (__hasValue(diff)) {
             return condition.orEqualTo
                 ? diff <= 0
                 : diff < 0;
@@ -76,7 +80,7 @@ const conditionEvaluators = {
     // TODO: Create a LESS_THAN_OR_EQUAL_TO expression?
     LESS_THAN: (service, condition, instance) => {
         const diff = evalNumberCondition(service, condition, instance);
-        if (hasValue(diff)) {
+        if (__hasValue(diff)) {
             return condition.orEqualTo
                 ? diff >= 0
                 : diff > 0;
@@ -110,16 +114,16 @@ const expressionEvaluators = {
     ADD: (service, expression, instance) => {
         let sum = 0;
 
-        _.forEach(expression.expressions, exp => {
+        _forEach(expression.expressions, exp => {
             // TODO: Maybe this becomes FORM_RESPONSE_VALUE?
             const field = instance.getField(exp.id);
             const formResponses = service.evalExpression(exp, instance);
 
-            if (!_.isEmpty(formResponses)) {
-                const selections = _.filter(field.options, option => {
-                    return _.includes(formResponses, option.id);
+            if (!_isEmpty(formResponses)) {
+                const selections = _filter(field.options, option => {
+                    return _includes(formResponses, option.id);
                 });
-                _.forEach(selections, selection => {
+                _forEach(selections, selection => {
                     const valueToAdd = parseInt(selection.value);
                     if (!sum) {
                         sum = valueToAdd;
@@ -145,7 +149,7 @@ const ExpressionService = {
         }
 
         let conditionMet = evaluator(this, condition, instance);
-        if (hasValue(conditionMet) && condition.not) {
+        if (__hasValue(conditionMet) && condition.not) {
             conditionMet = !conditionMet;
         }
 

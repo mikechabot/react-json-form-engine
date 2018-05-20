@@ -1,21 +1,25 @@
-import _ from 'lodash';
 import SortableMap from 'sortable-map';
+import _forEach from 'lodash/forEach';
+import _isString from 'lodash/isString';
+import _includes from 'lodash/includes';
+import _isEmpty from 'lodash/isEmpty';
+
 import FormConfig from '../form/config/form-config';
 import FormValidator from '../form/validation/form-validator';
 import ValidationResults from '../form/validation/validation-results';
 import ExpressionService from '../form/service/expression-service';
 import Maybe from 'maybe-baby';
 import ValidationService from '../form/service/validation-service';
-import { __clone, __blank, hasValue } from '../common/common';
+import { __clone, __blank, __hasValue } from '../common/common';
 import { NO_VALUE, PROPERTY, DATA_TYPE, VALIDATION_CONST } from './config/form-const';
-const apiCheck = require('api-check')({output: { prefix: 'FormEngine:' }});
+const apiCheck = require('api-check')({ output: { prefix: 'FormEngine:' } });
 
 const { FIELD, SECTION, SUBSECTION, DEFINITION, CALCULATIONS } = PROPERTY;
 
 export default class FormEngine {
-    constructor (definition, model, options) {
+    constructor(definition, model, options) {
         try {
-            this._validateDefinition(definition);           // Throw error on misshapen definition
+            this._validateDefinition(definition); // Throw error on misshapen definition
             this.__isDefinitionValid = true;
         } catch (error) {
             this.__isDefinitionValid = false;
@@ -23,19 +27,20 @@ export default class FormEngine {
             return;
         }
 
-        this.definition = definition;                       // Form definition
-        this.decorators = definition.decorators || {};      // UI decorators
+        this.definition = definition; // Form definition
+        this.title = definition.title; // Form title
+        this.decorators = definition.decorators || {}; // UI decorators
 
-        this.showConditionTriggerMap = new SortableMap();   // Map of field ids keyed by trigger id
+        this.showConditionTriggerMap = new SortableMap(); // Map of field ids keyed by trigger id
 
-        this.validator = FormValidator;                     // Form validator class
-        this.validationResults = new ValidationResults();   // Stores validation results
+        this.validator = FormValidator; // Form validator class
+        this.validationResults = new ValidationResults(); // Stores validation results
 
-        this.model = this.__hydrateModel(model);            // Map of form responses keyed by field id
+        this.model = this.__hydrateModel(model); // Map of form responses keyed by field id
 
-        this.sections = new SortableMap();                  // Map of form sections keyed by id
-        this.subsections = new SortableMap();               // Map of form subsections keyed by id
-        this.fields = new SortableMap();                    // Map of form fields keyed by ids
+        this.sections = new SortableMap(); // Map of form sections keyed by id
+        this.subsections = new SortableMap(); // Map of form subsections keyed by id
+        this.fields = new SortableMap(); // Map of form fields keyed by ids
 
         this.__initInstance(options);
     }
@@ -45,9 +50,9 @@ export default class FormEngine {
      * @param model
      * @private
      */
-    __hydrateModel (model) {
+    __hydrateModel(model) {
         let hydratedModel = new SortableMap();
-        _.forEach(model, (value, key) => {
+        _forEach(model, (value, key) => {
             hydratedModel.add(key, value);
         });
         return hydratedModel;
@@ -58,7 +63,7 @@ export default class FormEngine {
      * @param options
      * @private
      */
-    __parseOptions (options) {
+    __parseOptions(options) {
         if (!options) return;
         this.__liveValidation = options.liveValidation || false;
     }
@@ -66,7 +71,7 @@ export default class FormEngine {
      * Initialize the form instance
      * @private
      */
-    __initInstance (options) {
+    __initInstance(options) {
         this.__parseOptions(options);
         this.__cloneSections();
         this.__initFieldMetadata();
@@ -77,7 +82,7 @@ export default class FormEngine {
      * applied from these cloned sections, such as validation errors, etc.
      * @private
      */
-    __cloneSections () {
+    __cloneSections() {
         this.getDefinitionSections().forEach(section => {
             this.sections.add(section.id, __clone(section));
         });
@@ -86,7 +91,7 @@ export default class FormEngine {
      * Add each cloned subsection a sortable map
      * @private
      */
-    __initFieldMetadata () {
+    __initFieldMetadata() {
         this.sections.forEachValue(section => {
             section.subsections.forEach(subsection => {
                 subsection.section = section;
@@ -100,13 +105,13 @@ export default class FormEngine {
      * @param fields
      * @private
      */
-    __decorateFields (fields, parent) {
-        _.forEach(fields, field => {
+    __decorateFields(fields, parent) {
+        _forEach(fields, field => {
             this.__decorateField(field, parent);
             if (field.fields) {
                 this.__decorateFields(field.fields, field);
             }
-            _.forEach(field.options, option => {
+            _forEach(field.options, option => {
                 option.parent = field;
                 if (option.fields) {
                     this.__decorateFields(option.fields, option);
@@ -123,14 +128,15 @@ export default class FormEngine {
      * @param field
      * @private
      */
-    __decorateField (field, parent) {
+    __decorateField(field, parent) {
         this._validateField(field);
 
         field[FIELD.PARENT] = parent;
         field[FIELD.UI_DECORATORS] = this.getCustomUIDecorators(field[FIELD.ID]);
 
         const { actions, component, defaultDecorators } = FormConfig.getComponentConfig(
-            field[FIELD.TYPE], FormConfig.getComponentTypeByField(field)
+            field[FIELD.TYPE],
+            FormConfig.getComponentTypeByField(field)
         );
 
         field[FIELD.ACTIONS] = actions;
@@ -145,7 +151,7 @@ export default class FormEngine {
         }
 
         // Convert string pattern to RegEx if specified
-        if (_.isString(field[FIELD.PATTERN])) {
+        if (_isString(field[FIELD.PATTERN])) {
             field[FIELD.PATTERN] = new RegExp(field[FIELD.PATTERN]);
         }
 
@@ -166,7 +172,7 @@ export default class FormEngine {
      * If the condition evaluates to false, the field is cleared.
      * @param field
      */
-    __registerShowCondition (field) {
+    __registerShowCondition(field) {
         const { expression, expression1, expression2 } = field.showCondition;
         [expression, expression1, expression2].forEach(_expression => {
             if (ExpressionService.isFormResponseExpression(_expression)) {
@@ -179,95 +185,109 @@ export default class FormEngine {
             }
         });
     }
-    _validateField (field) {
-        apiCheck.throw([
-            apiCheck.shape({
-                [FIELD.ID]      : apiCheck.oneOfType([apiCheck.string, apiCheck.number]),
-                [FIELD.TYPE]    : apiCheck.string,
-                [FIELD.TITLE]   : apiCheck.string,
-                [FIELD.SUBTITLE]: apiCheck.string.optional
-            })
-        ], arguments, {
-            prefix: `[Field: ${_getObjectIdDisplay(field)}]`
-        });
+    _validateField(field) {
+        apiCheck.throw(
+            [
+                apiCheck.shape({
+                    [FIELD.ID]: apiCheck.oneOfType([apiCheck.string, apiCheck.number]),
+                    [FIELD.TYPE]: apiCheck.string,
+                    [FIELD.TITLE]: apiCheck.string,
+                    [FIELD.SUBTITLE]: apiCheck.string.optional
+                })
+            ],
+            arguments,
+            {
+                prefix: `[Field: ${_getObjectIdDisplay(field)}]`
+            }
+        );
     }
-    _validateDefinition (definition) {
-        apiCheck.throw([
-            apiCheck.shape({
-                [DEFINITION.ID]      : apiCheck.string,
-                [DEFINITION.TITLE]   : apiCheck.string,
-                [DEFINITION.SUBTITLE]: apiCheck.string.optional,
-                [DEFINITION.SECTIONS]: apiCheck.arrayOf(apiCheck.shape({
-                    [SECTION.ID]         : apiCheck.string,
-                    [SECTION.TITLE]      : apiCheck.string,
-                    [SECTION.SUBTITLE]   : apiCheck.string.optional,
-                    [SECTION.SORT_ORDER] : apiCheck.number.optional,
-                    [SECTION.SUBSECTIONS]: apiCheck.arrayOf(apiCheck.shape({
-                        [SUBSECTION.ID]        : apiCheck.string,
-                        [SUBSECTION.TITLE]     : apiCheck.string,
-                        [SUBSECTION.SUBTITLE]  : apiCheck.string.optional,
-                        [SUBSECTION.SORT_ORDER]: apiCheck.number.optional,
-                        [SUBSECTION.FIELDS]    : apiCheck.arrayOf(apiCheck.object)
-                    }).strict)
-                }).strict),
-                [DEFINITION.DECORATORS]  : apiCheck.object.optional,
-                [DEFINITION.CALCULATIONS]: apiCheck.shape({
-                    [CALCULATIONS.EXPRESSION_MAP]: apiCheck.object.optional,
-                    [CALCULATIONS.TRIGGER_MAP]   : apiCheck.object.optional
-                }).optional,
-                [DEFINITION.DEFAULT_VALUE_TRIGGERS]: apiCheck.object.optional
-
-            }).strict
-        ], arguments, {
-            prefix: `[Definition: "${_getObjectIdDisplay(definition)}"]`
-        });
+    _validateDefinition(definition) {
+        apiCheck.throw(
+            [
+                apiCheck.shape({
+                    [DEFINITION.ID]: apiCheck.string,
+                    [DEFINITION.TITLE]: apiCheck.string,
+                    [DEFINITION.SUBTITLE]: apiCheck.string.optional,
+                    [DEFINITION.SECTIONS]: apiCheck.arrayOf(
+                        apiCheck.shape({
+                            [SECTION.ID]: apiCheck.string,
+                            [SECTION.TITLE]: apiCheck.string,
+                            [SECTION.SUBTITLE]: apiCheck.string.optional,
+                            [SECTION.SORT_ORDER]: apiCheck.number.optional,
+                            [SECTION.SUBSECTIONS]: apiCheck.arrayOf(
+                                apiCheck.shape({
+                                    [SUBSECTION.ID]: apiCheck.string,
+                                    [SUBSECTION.TITLE]: apiCheck.string,
+                                    [SUBSECTION.SUBTITLE]: apiCheck.string.optional,
+                                    [SUBSECTION.SORT_ORDER]: apiCheck.number.optional,
+                                    [SUBSECTION.FIELDS]: apiCheck.arrayOf(apiCheck.object)
+                                }).strict
+                            )
+                        }).strict
+                    ),
+                    [DEFINITION.DECORATORS]: apiCheck.object.optional,
+                    [DEFINITION.CALCULATIONS]: apiCheck.shape({
+                        [CALCULATIONS.EXPRESSION_MAP]: apiCheck.object.optional,
+                        [CALCULATIONS.TRIGGER_MAP]: apiCheck.object.optional
+                    }).optional,
+                    [DEFINITION.DEFAULT_VALUE_TRIGGERS]: apiCheck.object.optional
+                }).strict
+            ],
+            arguments,
+            {
+                prefix: `[Definition: "${_getObjectIdDisplay(definition)}"]`
+            }
+        );
+    }
+    getTitle() {
+        return this.title;
     }
     /**
      * Return whether the form is valid
      * @returns {boolean}
      */
-    isValid () {
+    isValid() {
         return this.__isDefinitionValid;
     }
     /**
      * Get form error
      * @returns {*}
      */
-    getError () {
+    getError() {
         return this.error;
     }
     /**
      * Get form definition
      * @returns {*}
      */
-    getDefinition () {
+    getDefinition() {
         return this.definition;
     }
     /**
      * Get the form definition id
      */
-    getId () {
+    getId() {
         return this.getDefinition()[DEFINITION.ID];
     }
     /**
      * Get form model
      * @returns {SortableMap}
      */
-    getModel () {
+    getModel() {
         return this.model;
     }
     /**
      * Get form model values
      * @returns {*}
      */
-    getModelValues () {
+    getModelValues() {
         return this.model.findAll();
     }
     /**
      * Get single model value (e.g. form response)
      * @param id
      */
-    getModelValue (id) {
+    getModelValue(id) {
         return this.model.find(id);
     }
     /**
@@ -275,14 +295,14 @@ export default class FormEngine {
      * @param id
      * @returns {LoDashExplicitWrapper<boolean>|boolean|Assertion}
      */
-    hasModelValue (id) {
+    hasModelValue(id) {
         return this.model.has(id);
     }
     /**
      * Get form decorators
      * @returns {*|decorators|{str2, str3, str4}|{}}
      */
-    getDecorators () {
+    getDecorators() {
         return this.decorators;
     }
     /**
@@ -290,21 +310,21 @@ export default class FormEngine {
      * @param id
      * @returns {*}
      */
-    getCustomUIDecorators (id) {
+    getCustomUIDecorators(id) {
         return this.getDecorators()[id];
     }
     /**
      * Get sections from the definition
      * @returns {*|Array|sections|{id, title, subtitle, sortOrder, subsections}}
      */
-    getDefinitionSections () {
+    getDefinitionSections() {
         return this.getDefinition().sections;
     }
     /**
      * Get form sections
      * @returns {SortableMap|*}
      */
-    getSections () {
+    getSections() {
         return this.sections;
     }
     /**
@@ -312,14 +332,14 @@ export default class FormEngine {
      * @param id
      * @returns {*}
      */
-    getSection (id) {
+    getSection(id) {
         return this.getSections().find(id);
     }
     /**
      * Get form subsections
      * @returns {SortableMap|*}
      */
-    getSubsections () {
+    getSubsections() {
         return this.subsections;
     }
     /**
@@ -327,14 +347,14 @@ export default class FormEngine {
      * @param id
      * @returns {*}
      */
-    getSubsection (id) {
+    getSubsection(id) {
         return this.getSubsections().find(id);
     }
     /**
      * Get form fields
      * @returns {SortableMap|*}
      */
-    getFields () {
+    getFields() {
         return this.fields;
     }
     /**
@@ -342,7 +362,7 @@ export default class FormEngine {
      * @param id
      * @returns {*}
      */
-    getField (id) {
+    getField(id) {
         return this.getFields().find(id);
     }
     /**
@@ -359,7 +379,7 @@ export default class FormEngine {
      * @param value
      * @param field
      */
-    setModelValue (id, value, field) {
+    setModelValue(id, value, field) {
         // Set or reset the model value
 
         if (value === this.getModelValue(id)) return;
@@ -376,12 +396,15 @@ export default class FormEngine {
 
         // Reset children if necessary
         if (this.doResetChildren(field, value)) {
-            console.log('do trdry')
+            console.log('do trdry');
             this.resetFields(field[FIELD.FIELDS]);
         }
         // Reset the children of any option fields if the option is not selected
-        _.forEach(field[FIELD.OPTIONS], option => {
-            if (option[FIELD.FIELDS] && ((this.isBooleanField(field) && !value) || !_.includes(value, option[FIELD.ID]))) {
+        _forEach(field[FIELD.OPTIONS], option => {
+            if (
+                option[FIELD.FIELDS] &&
+                ((this.isBooleanField(field) && !value) || !_includes(value, option[FIELD.ID]))
+            ) {
                 console.log(id);
                 this.resetFields(option[FIELD.FIELDS]);
             }
@@ -390,7 +413,10 @@ export default class FormEngine {
         // Evaluate the show condition of dependent fields if this field is a trigger
         if (this.showConditionTriggerMap.has(id)) {
             this.showConditionTriggerMap.find(id).forEach(fieldId => {
-                if (this.hasModelValue(fieldId) && !this.evaluateFieldShowCondition(this.getField(fieldId))) {
+                if (
+                    this.hasModelValue(fieldId) &&
+                    !this.evaluateFieldShowCondition(this.getField(fieldId))
+                ) {
                     this.setModelValue(fieldId, NO_VALUE, this.getField(fieldId));
                 }
             });
@@ -400,8 +426,8 @@ export default class FormEngine {
      * Reset a specific list of fields, if they contain a model value
      * @param fields
      */
-    resetFields (fields) {
-        _.forEach(fields, field => {
+    resetFields(fields) {
+        _forEach(fields, field => {
             if (this.hasModelValue(field[FIELD.ID])) {
                 this.setModelValue(field[FIELD.ID], NO_VALUE, field);
             }
@@ -414,14 +440,19 @@ export default class FormEngine {
      * @param value
      * @returns {*}
      */
-    doResetChildren (field, value) {
+    doResetChildren(field, value) {
         if (!field[FIELD.FIELDS]) return false;
         switch (field[FIELD.TYPE]) {
-            case DATA_TYPE.DATE : return !hasValue(value);
-            case DATA_TYPE.NUMBER: return Number.isNaN(value);
-            case DATA_TYPE.BOOLEAN: return value === false;
-            case DATA_TYPE.STRING: return __blank(value);
-            case DATA_TYPE.ARRAY: return _.isEmpty(value);
+            case DATA_TYPE.DATE:
+                return !__hasValue(value);
+            case DATA_TYPE.NUMBER:
+                return Number.isNaN(value);
+            case DATA_TYPE.BOOLEAN:
+                return value === false;
+            case DATA_TYPE.STRING:
+                return __blank(value);
+            case DATA_TYPE.ARRAY:
+                return _isEmpty(value);
             default: {
                 console.warn(`Unmapped field type: ${field[FIELD.TYPE]} (id: ${field[FIELD.ID]})`);
                 return false;
@@ -434,7 +465,7 @@ export default class FormEngine {
      * @param tag
      * @returns {*}
      */
-    evaluateFieldShowCondition (field) {
+    evaluateFieldShowCondition(field) {
         if (!field.showCondition) return true;
         return this.evaluateCondition(field.showCondition);
     }
@@ -443,30 +474,30 @@ export default class FormEngine {
      * @param condition
      * @returns {*}
      */
-    evaluateCondition (condition) {
+    evaluateCondition(condition) {
         if (!condition) return false;
         return ExpressionService.evalCondition(condition, this);
     }
-    isLiveValidation () {
+    isLiveValidation() {
         return this.__liveValidation;
     }
-    validate () {
+    validate() {
         this.validationResults.clear();
         this.validator.validate(this, this.validationResults);
         this.validationResults.postProcess();
     }
-    getValidationResults () {
+    getValidationResults() {
         return this.validationResults;
     }
-    getValidationResultByTag (id) {
+    getValidationResultByTag(id) {
         return this.validationResults.getResults(id);
     }
-    getValidationStatusByTag (id) {
+    getValidationStatusByTag(id) {
         return this.getValidationResultByTag(id).status;
     }
-    findStatus (list, getStatus, useId) {
+    findStatus(list, getStatus, useId) {
         let status = VALIDATION_CONST.STATUS.OK;
-        _.forEach(list, (entry) => {
+        _forEach(list, entry => {
             const newStatus = getStatus(useId ? entry[FIELD.ID] : entry);
             if (ValidationService.isMoreSevereStatus(newStatus, status)) {
                 status = newStatus;
@@ -474,37 +505,24 @@ export default class FormEngine {
         });
         return status;
     }
-    getSubsectionStatus (subsection) {
-        return this.findStatus(
-            subsection.fields,
-            this.getValidationStatusByTag.bind(this),
-            true
-        );
+    getSubsectionStatus(subsection) {
+        return this.findStatus(subsection.fields, this.getValidationStatusByTag.bind(this), true);
     }
-    getSectionStatus (section) {
-        return this.findStatus(
-            section.subsections,
-            this.getSubsectionStatus.bind(this)
-        );
+    getSectionStatus(section) {
+        return this.findStatus(section.subsections, this.getSubsectionStatus.bind(this));
     }
-    fieldHasError (id) {
-        return ValidationService.isError(
-            this.getValidationStatusByTag(id)
-        );
+    fieldHasError(id) {
+        return ValidationService.isError(this.getValidationStatusByTag(id));
     }
-    subsectionHasError (subsection) {
-        return ValidationService.isError(
-            this.getSubsectionStatus(subsection)
-        );
+    subsectionHasError(subsection) {
+        return ValidationService.isError(this.getSubsectionStatus(subsection));
     }
-    sectionHasError (section) {
-        return ValidationService.isError(
-            this.getSectionStatus(section)
-        );
+    sectionHasError(section) {
+        return ValidationService.isError(this.getSectionStatus(section));
     }
 }
 
-function _getObjectIdDisplay (field) {
+function _getObjectIdDisplay(field) {
     return Maybe.of(field)
         .prop(FIELD.ID)
         .orElse('[No Id]')

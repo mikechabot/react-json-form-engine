@@ -1,47 +1,48 @@
 export default {
-    id      : 'STRINGS',
-    title   : 'Strings',
+    id: 'STRINGS',
+    title: 'Strings',
     sections: [
         {
-            id         : 'Section-1',
-            title      : 'Strings',
-            sortOrder  : 0,
+            id: 'Section-1',
+            title: 'Strings',
+            sortOrder: 0,
             subsections: [
                 {
-                    id       : 'Subsection-1',
-                    title    : 'Stores [id]:[value:String]',
+                    id: 'Subsection-1',
+                    title: 'Store String Values',
+                    subtitle: 'Persisted as "[id]:[value:String]" in the Model',
                     sortOrder: 0,
-                    fields   : [
+                    fields: [
                         {
-                            id         : 'str1',
-                            type       : 'string',
-                            title      : 'Text field',
+                            id: 'str1',
+                            type: 'string',
+                            title: 'Text field',
                             placeholder: 'Placeholder',
-                            sortOrder  : 0
+                            sortOrder: 0
                         },
                         {
-                            id         : 'str2',
-                            type       : 'string',
-                            title      : 'Textarea field',
+                            id: 'str2',
+                            type: 'string',
+                            title: 'Textarea field',
                             placeholder: 'Placeholder',
-                            sortOrder  : 1
+                            sortOrder: 1
                         },
                         {
-                            id         : 'str3',
-                            type       : 'string',
-                            title      : 'Select field',
+                            id: 'str3',
+                            type: 'string',
+                            title: 'Select field',
                             placeholder: '-- placeholder --',
-                            options    : [
-                                {id: 0, title: 'Option 1'},
-                                {id: 1, title: 'Option 2'},
-                                {id: 2, title: 'Option 3'}
+                            options: [
+                                { id: 0, title: 'Option 1' },
+                                { id: 1, title: 'Option 2' },
+                                { id: 2, title: 'Option 3' }
                             ],
                             sortOrder: 2
                         },
                         {
-                            id     : 'str4',
-                            type   : 'string',
-                            title  : 'Radio field',
+                            id: 'str4',
+                            type: 'string',
+                            title: 'Radio field',
                             options: [
                                 { title: 'Male', id: 'M' },
                                 { title: 'Female', id: 'F' },
@@ -56,7 +57,7 @@ export default {
     ],
     decorators: {
         str2: {
-            hint     : 'This is some hint text',
+            hint: 'This is some hint text',
             component: {
                 type: 'textarea'
             }
@@ -65,7 +66,7 @@ export default {
             hint: 'Stores the id of the selected option'
         },
         str4: {
-            hint     : 'Stores the id of the selected option',
+            hint: 'Stores the id of the selected option',
             component: {
                 type: 'radio'
             }

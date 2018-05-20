@@ -1,8 +1,8 @@
 'use strict';
 
-import _ from 'lodash';
+import _head from 'lodash/head';
+import _sortBy from 'lodash/sortBy';
 import { VALIDATION_CONST } from '../config/form-const';
-
 const RANKS = VALIDATION_CONST.STATUS_RANKS;
 
 const ValidationService = {
@@ -12,10 +12,8 @@ const ValidationService = {
      * @param messages
      * @returns {*}
      */
-    getMostSevereStatus (messages) {
-        const message = _.head(
-            _.sortBy(messages, message => message.rank)
-        );
+    getMostSevereStatus(messages) {
+        const message = _head(_sortBy(messages, message => message.rank));
         if (message) return message.status;
     },
     /**
@@ -25,10 +23,10 @@ const ValidationService = {
      * @param overallStatus
      * @returns {boolean}
      */
-    isMoreSevereStatus (status, overallStatus) {
+    isMoreSevereStatus(status, overallStatus) {
         return RANKS[status] < RANKS[overallStatus];
     },
-    isError (status) {
+    isError(status) {
         return status === VALIDATION_CONST.STATUS.ERROR;
     }
 };

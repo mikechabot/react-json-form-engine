@@ -1,6 +1,6 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import Maybe from 'maybe-baby';
-import DateTimePicker from 'react-widgets/lib/DateTimePicker';
 
 class DateTime extends React.Component {
     constructor (props) {
@@ -14,22 +14,16 @@ class DateTime extends React.Component {
         const { id, value, field } = this.props;
         const decorators = Maybe.of(field).prop('uiDecorators');
         return (
-            <DateTimePicker
-                id={id}
-                calendar={!decorators.prop('hideCalendar').isJust()}
-                time={!decorators.prop('hideTime').isJust()}
-                value={value}
-                onChange={this.onUpdate}
-            />
+            <div>Date/Time Component!</div>
         );
     }
 }
 
 DateTime.propTypes = {
-    id      : React.PropTypes.string.isRequired,
-    field   : React.PropTypes.object.isRequired,
-    onUpdate: React.PropTypes.func.isRequired,
-    value   : React.PropTypes.object
+    id      : PropTypes.string.isRequired,
+    field   : PropTypes.object.isRequired,
+    onUpdate: PropTypes.func.isRequired,
+    value   : PropTypes.object
 };
 
 export default DateTime;

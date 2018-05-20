@@ -1,31 +1,34 @@
+import PropTypes from 'prop-types';
 import React from 'react';
+import _map from 'lodash/map';
+
 import FormField from './FormField';
 import FormSubsectionTitle from './helpers/FormSubsectionTitle';
-import Subtitle from './helpers/Subtitle';
 import { Flex } from '../common';
-import _ from 'lodash';
 
 class FormSubsection extends React.Component {
-
-    render () {
+    render() {
         const { hideTitle, subsection, instance, onUpdate } = this.props;
         return (
-            <Flex column={true} flex={1}>
-                { this._maybeRenderSubsectionTitle(subsection, instance, hideTitle) }
-                { this._maybeRenderSubsectionSubtitle(subsection.subtitle, hideTitle)}
-                <ol className="simple-list">
-                    { _.map(subsection.fields, this._renderSubsectionField.bind(this, instance, onUpdate)) }
-                </ol>
+            <Flex column={true} flex={1} className="panel">
+                {this._maybeRenderSubsectionTitle(subsection, instance, hideTitle)}
+                <div className="panel-block">
+                    <ol className="field-list" style={{maxWidth: this.props.maxWidth ? this.props.maxWidth: 500}}>
+                        {_map(
+                            subsection.fields,
+                            this._renderSubsectionField.bind(this, instance, onUpdate)
+                        )}
+                    </ol>
+                </div>
             </Flex>
         );
     }
 
-    _renderSubsectionField (instance, onUpdate, fieldDef, index) {
+    _renderSubsectionField(instance, onUpdate, fieldDef, index) {
         const field = instance.getField(fieldDef.id);
         if (instance.evaluateFieldShowCondition(field)) {
             return (
-                <li key={index}
-                    style={{marginTop: 10}}>
+                <li key={index} style={{ marginTop: 10 }}>
                     <FormField
                         id={field.id}
                         field={field}
@@ -38,35 +41,22 @@ class FormSubsection extends React.Component {
         }
     }
 
-    _maybeRenderSubsectionTitle (subsection, instance, hideTitle) {
+    _maybeRenderSubsectionTitle(subsection, instance, hideTitle) {
         if (!hideTitle) {
-            return <FormSubsectionTitle
-                subsection={subsection}
-                instance={instance}
-            />;
-        }
-    }
-
-    _maybeRenderSubsectionSubtitle (subtitle, hideTitle) {
-        if (subtitle) {
             return (
-                <div
-                    style={{
-                        marginLeft: '1em',
-                        ...hideTitle ? { marginTop: 10 } : {}}}>
-                    <Subtitle text={subtitle} />
-                </div>
+                <p className="panel-heading">
+                    <FormSubsectionTitle subsection={subsection} instance={instance} />
+                </p>
             );
         }
     }
-
 }
 
 FormSubsection.propTypes = {
-    title     : React.PropTypes.string,
-    subsection: React.PropTypes.object.isRequired,
-    onUpdate  : React.PropTypes.func.isRequired,
-    instance  : React.PropTypes.object.isRequired
+    title: PropTypes.string,
+    subsection: PropTypes.object.isRequired,
+    onUpdate: PropTypes.func.isRequired,
+    instance: PropTypes.object.isRequired
 };
 
 export default FormSubsection;

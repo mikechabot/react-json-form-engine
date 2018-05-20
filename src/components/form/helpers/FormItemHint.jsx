@@ -1,12 +1,10 @@
+import PropTypes from 'prop-types';
 import React from 'react';
-import HelpBlock from 'react-bootstrap/lib/HelpBlock';
 
-export default function FormItemHint ({
-    hint
-}) {
-    return <HelpBlock style={{color: '#9E9E9E'}}>{hint}</HelpBlock>;
+export default function FormItemHint({ hint }) {
+    return <p className="help">{hint}</p>;
 }
 
 FormItemHint.propTypes = {
-    hint: React.PropTypes.string.isRequired
+    hint: PropTypes.string.isRequired
 };

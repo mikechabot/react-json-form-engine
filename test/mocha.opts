@@ -1,4 +1,0 @@
---require babel-register
---reporter nyan
---recursive
---colors

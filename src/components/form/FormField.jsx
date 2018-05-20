@@ -1,12 +1,13 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import FormControl from './FormControl';
 import FormChildren from './FormChildren';
 import { Flex } from '../common';
 
 class FormField extends React.Component {
-    render () {
+    render() {
         return (
-            <Flex column={true}>
+            <Flex column className="field">
                 <FormControl {...this.props} />
                 <FormChildren {...this.props} />
             </Flex>
@@ -15,17 +16,17 @@ class FormField extends React.Component {
 }
 
 FormField.propTypes = {
-    id      : React.PropTypes.string.isRequired,
-    field   : React.PropTypes.object.isRequired,
-    onUpdate: React.PropTypes.func.isRequired,
-    value   : React.PropTypes.oneOfType([
-        React.PropTypes.string,
-        React.PropTypes.number,
-        React.PropTypes.bool,
-        React.PropTypes.array,
-        React.PropTypes.object
+    id: PropTypes.string.isRequired,
+    field: PropTypes.object.isRequired,
+    onUpdate: PropTypes.func.isRequired,
+    value: PropTypes.oneOfType([
+        PropTypes.string,
+        PropTypes.number,
+        PropTypes.bool,
+        PropTypes.array,
+        PropTypes.object
     ]),
-    instance: React.PropTypes.object.isRequired
+    instance: PropTypes.object.isRequired
 };
 
 export default FormField;

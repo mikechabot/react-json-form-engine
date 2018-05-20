@@ -1,13 +1,13 @@
+import PropTypes from 'prop-types';
 import React from 'react';
-import FormGroup from 'react-bootstrap/lib/FormGroup';
+import _isEqual from 'lodash/isEqual';
+import _some from 'lodash/some';
 import FormItemTitle from './helpers/FormItemTitle';
 import FormItemHint from './helpers/FormItemHint';
 import ErrorBlock from './helpers/FieldError';
 import Maybe from 'maybe-baby';
-import _ from 'lodash';
 
 class FormControl extends React.Component {
-
     /**
      * Determine if the component should call render() to update itself.
      *
@@ -20,14 +20,14 @@ class FormControl extends React.Component {
      * @param nextProps
      * @returns {boolean} true if the component should call render()
      */
-    shouldComponentUpdate (nextProps) {
+    shouldComponentUpdate(nextProps) {
         if (!this._hasFieldChildren(nextProps.field)) {
-            return !_.isEqual(nextProps, this.props);
+            return !_isEqual(nextProps, this.props);
         }
         return true;
     }
 
-    render () {
+    render() {
         const { id, value, field, instance, onUpdate } = this.props;
         const { component, uiDecorators } = field;
 
@@ -39,23 +39,29 @@ class FormControl extends React.Component {
         const Control = component.element;
 
         return (
-            <FormGroup>
+            <div>
                 <FormItemTitle field={field} decorators={uiDecorators} instance={instance} />
-                <Control
-                    id={id}
-                    value={value}
-                    field={field}
-                    uiDecorators={uiDecorators}
-                    onUpdate={onUpdate}
-                    instance={instance}
-                />
-                { this._maybeRenderHint(uiDecorators) }
-            </FormGroup>
+                <div className="control">
+                    <Control
+                        id={id}
+                        value={value}
+                        field={field}
+                        uiDecorators={uiDecorators}
+                        onUpdate={onUpdate}
+                        instance={instance}
+                    />
+                </div>
+                {this._maybeRenderHint(uiDecorators)}
+            </div>
         );
     }
 
-    _maybeRenderHint (uiDecorators) {
-        if (Maybe.of(uiDecorators).prop('hint').isJust()) {
+    _maybeRenderHint(uiDecorators) {
+        if (
+            Maybe.of(uiDecorators)
+                .prop('hint')
+                .isJust()
+        ) {
             return <FormItemHint hint={uiDecorators.hint} />;
         }
     }
@@ -65,23 +71,23 @@ class FormControl extends React.Component {
      * @param field
      * @returns {boolean}
      */
-    _hasFieldChildren (field) {
-        return field.fields || _.some(field.options, option => option.fields);
+    _hasFieldChildren(field) {
+        return field.fields || _some(field.options, option => option.fields);
     }
 }
 
 FormControl.propTypes = {
-    id      : React.PropTypes.string.isRequired,
-    field   : React.PropTypes.object.isRequired,
-    onUpdate: React.PropTypes.func.isRequired,
-    value   : React.PropTypes.oneOfType([
-        React.PropTypes.string,
-        React.PropTypes.number,
-        React.PropTypes.bool,
-        React.PropTypes.array,
-        React.PropTypes.object
+    id: PropTypes.string.isRequired,
+    field: PropTypes.object.isRequired,
+    onUpdate: PropTypes.func.isRequired,
+    value: PropTypes.oneOfType([
+        PropTypes.string,
+        PropTypes.number,
+        PropTypes.bool,
+        PropTypes.array,
+        PropTypes.object
     ]),
-    instance: React.PropTypes.object.isRequired
+    instance: PropTypes.object.isRequired
 };
 
 export default FormControl;

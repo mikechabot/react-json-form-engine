@@ -1,5 +1,5 @@
+import PropTypes from 'prop-types';
 import React from 'react';
-import FormControl from 'react-bootstrap/lib/FormControl';
 
 export default function Number ({
     id,
@@ -8,7 +8,7 @@ export default function Number ({
     onUpdate
 }) {
     return (
-        <FormControl
+        <input
             disabled={field.disabled}
             name={id}
             id={id}
@@ -23,9 +23,9 @@ export default function Number ({
 }
 
 Number.propTypes = {
-    id      : React.PropTypes.string.isRequired,
-    field   : React.PropTypes.object.isRequired,
-    onUpdate: React.PropTypes.func.isRequired,
-    value   : React.PropTypes.number
+    id      : PropTypes.string.isRequired,
+    field   : PropTypes.object.isRequired,
+    onUpdate: PropTypes.func.isRequired,
+    value   : PropTypes.number
 };
 

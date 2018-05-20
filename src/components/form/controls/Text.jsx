@@ -1,5 +1,5 @@
+import PropTypes from 'prop-types';
 import React from 'react';
-import FormControl from 'react-bootstrap/lib/FormControl';
 
 const Text = ({
     id,
@@ -7,10 +7,11 @@ const Text = ({
     value,
     onUpdate
 }) => (
-    <FormControl
+    <input
         name={id}
         id={id}
         disabled={field.disabled}
+        className="input"
         type="text"
         value={value || ''}
         onChange={onUpdate}
@@ -19,10 +20,10 @@ const Text = ({
 );
 
 Text.propTypes = {
-    id      : React.PropTypes.string.isRequired,
-    field   : React.PropTypes.object.isRequired,
-    onUpdate: React.PropTypes.func.isRequired,
-    value   : React.PropTypes.string
+    id      : PropTypes.string.isRequired,
+    field   : PropTypes.object.isRequired,
+    onUpdate: PropTypes.func.isRequired,
+    value   : PropTypes.string
 };
 
 export default Text;

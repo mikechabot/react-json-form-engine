@@ -1,16 +1,12 @@
+import PropTypes from 'prop-types';
 import React from 'react';
-import FormControl from 'react-bootstrap/lib/FormControl';
 
-const Textarea = ({
-    id,
-    field,
-    value,
-    onUpdate
-}) => (
-    <FormControl
+const Textarea = ({ id, field, value, onUpdate }) => (
+    <textarea
         name={id}
         id={id}
-        componentClass="textarea"
+        className="textarea"
+        type="textarea"
         value={value || ''}
         onChange={onUpdate}
         placeholder={field.placeholder}
@@ -18,10 +14,10 @@ const Textarea = ({
 );
 
 Textarea.propTypes = {
-    id      : React.PropTypes.string.isRequired,
-    field   : React.PropTypes.object.isRequired,
-    onUpdate: React.PropTypes.func.isRequired,
-    value   : React.PropTypes.string
+    id: PropTypes.string.isRequired,
+    field: PropTypes.object.isRequired,
+    onUpdate: PropTypes.func.isRequired,
+    value: PropTypes.string
 };
 
 export default Textarea;

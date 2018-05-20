@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 
 const regex = /^(.+)(.*\n)*(You passed:)((.*\n)*)(With the types:)((.*\n)*)(The API calls for:)((.*\n)*.)/g;
@@ -63,8 +64,8 @@ function __parseAPICheckErrorMessage (error) {
 }
 
 APICheckError.propTypes = {
-    error: React.PropTypes.oneOfType([
-        React.PropTypes.string,
-        React.PropTypes.object
+    error: PropTypes.oneOfType([
+        PropTypes.string,
+        PropTypes.object
     ]).isRequired
 };

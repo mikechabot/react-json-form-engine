@@ -1,6 +1,7 @@
 import { VALIDATION_CONST } from '../config/form-const';
 import ValidationService from '../service/validation-service';
-import _ from 'lodash';
+import _isArray from 'lodash/isArray';
+import _forEach from 'lodash/forEach';
 
 class ValidationResults {
     constructor () {
@@ -51,7 +52,7 @@ class ValidationResults {
         // Handle actions
         if (actions) {
             // Force to array if single value
-            if (!_.isArray(actions)) {
+            if (!_isArray(actions)) {
                 actions = [actions];
             }
 
@@ -59,7 +60,7 @@ class ValidationResults {
             validationMessage.actions = actions;
 
             // Update the actions with the most severe error
-            _.forEach(actions, action => {
+            _forEach(actions, action => {
                 const currentStatus = this.actionMap[action] || VALIDATION_CONST.STATUS.OK;
                 if (ValidationService.isMoreSevereStatus(status, currentStatus)) {
                     this.actionMap[action] = status;
@@ -88,7 +89,7 @@ class ValidationResults {
      */
     postProcess () {
         let overallStatus = VALIDATION_CONST.STATUS.OK;
-        _.forEach(this.validationMap, (messages, tag) => {
+        _forEach(this.validationMap, (messages, tag) => {
             // Get most severe status for tag
             const status = ValidationService.getMostSevereStatus(messages);
             this.validationStateMap[tag] = status;

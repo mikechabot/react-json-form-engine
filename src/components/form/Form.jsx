@@ -1,25 +1,27 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 import FormSection from './FormSection';
-import _ from 'lodash';
-import { Flex, Asterisk, APICheckError } from '../common';
-import { Button, TabContainer, Nav, NavItem, TabContent, TabPane } from 'react-bootstrap';
+import _isEmpty from 'lodash/isEmpty';
+import { Tabs, Tab } from '../common/tabs';
+import { Flex, APICheckError } from '../common';
+import Asterisk from '../common/Asterisk';
+import Navbar from '../common/bulma/Navbar';
 
 export default class Form extends React.Component {
-
-    constructor (props) {
+    constructor(props) {
         super(props);
         this.onUpdate = this.onUpdate.bind(this);
     }
 
-    componentDidMount () {
+    componentDidMount() {
         const { instance } = this.props;
         instance.validate();
     }
 
-    render () {
+    render() {
         const { instance } = this.props;
         // No instance
-        if (!instance || _.isEmpty(instance)) {
+        if (!instance || _isEmpty(instance)) {
             return <em className="text-danger">No form instance</em>;
         }
         // Invalid definition
@@ -31,86 +33,62 @@ export default class Form extends React.Component {
             return <em className="text-danger">No sections</em>;
         }
         return (
-            <Flex
-                id={instance.getId()}
-                column={true}
-                hAlignCenter={true}
-                flex={1}>
-                { this._renderForm(instance.getSections()) }
+            <Flex id={instance.getId()} column flex={1}>
+                <Navbar
+                    brand={{
+                        icon: 'cloud',
+                        label: instance.getTitle()
+                    }}
+                />
+                {this._renderForm(instance.getSections())}
                 <div>
-                    <Button bsStyle="primary" onClick={this.props.onSubmit}>
-                        { this.props.submitButtonLabel || 'Submit' }
-                    </Button>
+                    <button className="button" onClick={this.props.onSubmit}>
+                        {this.props.submitButtonLabel || 'Submit'}
+                    </button>
                 </div>
             </Flex>
         );
     }
 
-    _renderForm (sections) {
+    _renderForm(sections) {
         return sections.count() > 1
             ? this._renderTabbedSections(sections)
             : this._renderSingleSection(sections.values()[0]);
     }
 
-    _renderTabbedSections (sections) {
+    _renderTabbedSections(sections) {
         return (
-            <TabContainer id={`form-tabs-${this.props.instance.getId()}`} defaultActiveKey={0}>
-                <Flex width="100%">
-                    <aside style={{width: this.props.sectionMenuWidth || 150}}>
-                        { this._renderSectionMenu(sections) }
-                    </aside>
-                    <Flex flex={1}>
-                        { this._renderSectionContent(sections) }
-                    </Flex>
-                </Flex>
-            </TabContainer>
+            <Tabs id="tabs" defaultActiveKey={0}>
+                {this._renderSectionContent(sections)}
+            </Tabs>
         );
     }
 
-    _renderSectionMenu (sections) {
+    _renderSectionContent(sections) {
+        return sections.values().map(this._renderSectionTabPane.bind(this));
+    }
+
+    _renderSectionTabPane(section, index) {
+        let label = section.title;
+        if (this.props.instance.sectionHasError(section)) {
+            label = (
+                <span>
+                    {label} <Asterisk />
+                </span>
+            );
+        }
         return (
-            <Nav bsStyle="pills" stacked>
-                { sections.values().map(this._renderMenuItem.bind(this)) }
-            </Nav>
+            <Tab key={index} eventKey={index} label={label}>
+                {this._renderSingleSection(section)}
+            </Tab>
         );
     }
 
-    _renderMenuItem (section, index) {
-        const { instance } = this.props;
-        return (
-            <NavItem key={index} eventKey={index}>
-                { section.title }&nbsp;
-                { instance.sectionHasError(section) ? <Asterisk/> : '' }
-            </NavItem>
-        );
+    _renderSingleSection(section) {
+        return <FormSection section={section} instance={this.props.instance} onUpdate={this.onUpdate} />;
     }
 
-    _renderSectionContent (sections) {
-        return (
-            <TabContent style={{width: '100%'}} animation={false} >
-                { sections.values().map(this._renderSectionTabPane.bind(this)) }
-            </TabContent>
-        );
-    }
-
-    _renderSectionTabPane (section, index) {
-        return (
-            <TabPane key={index} eventKey={index}>
-                { this._renderSingleSection(section) }
-            </TabPane>
-        );
-    }
-
-    _renderSingleSection (section) {
-        return (
-            <FormSection
-                section={section}
-                instance={this.props.instance}
-                onUpdate={this.onUpdate} />
-        );
-    }
-
-    onUpdate (event, id) {
+    onUpdate(event, id) {
         const { instance, onUpdate } = this.props;
 
         id = id || event.target.id;
@@ -118,23 +96,20 @@ export default class Form extends React.Component {
 
         const value = field.actions.onUpdate(event, field, instance.getModelValue(id));
 
-        instance.setModelValue(id, value, field);     // Set model value
+        instance.setModelValue(id, value, field); // Set model value
         // instance.calculateFields(field);               // Calculate fields if necessary
         // instance.triggerDefaultValueEvaluation(tag);   // Trigger default value evaluation
         if (instance.isLiveValidation()) {
-            instance.validate();                        // Validate the form
+            instance.validate(); // Validate the form
         }
-        onUpdate({ id, value });                      // Notify parent
+        onUpdate({ id, value }); // Notify parent
     }
 }
 
 Form.propTypes = {
-    onUpdate        : React.PropTypes.func,
-    onSubmit        : React.PropTypes.func.isRequired,
-    instance        : React.PropTypes.object.isRequired,
-    sectionMenuWidth: React.PropTypes.oneOfType([
-        React.PropTypes.number,
-        React.PropTypes.string
-    ]),
-    submitButtonLabel: React.PropTypes.string
+    onUpdate: PropTypes.func,
+    onSubmit: PropTypes.func.isRequired,
+    instance: PropTypes.object.isRequired,
+    sectionMenuWidth: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+    submitButtonLabel: PropTypes.string
 };

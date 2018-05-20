@@ -1,4 +1,6 @@
-import _ from 'lodash';
+import _zipObject from 'lodash/zipObject';
+import _keys from 'lodash/keys';
+import _map from 'lodash/map';
 import Maybe from 'maybe-baby';
 import { DATA_TYPE, COMPONENT_DECORATORS, COMPONENT_TYPE } from './form-const';
 import { DATA_TYPE_OPERATIONS, COMPONENT_OPERATIONS, OPERATION_TYPES } from './form-operations';
@@ -13,40 +15,41 @@ const COMPONENT_CONFIGS = 'componentConfigs';
  *
  */
 class FormConfig {
-    constructor () {
+    constructor() {
         this.typeConfigs = {};
         this.__registerDataType(DATA_TYPE.STRING, {
-            [COMPONENT_TYPE.TEXT]    : require('../../components/form/controls/Text').default,
+            [COMPONENT_TYPE.TEXT]: require('../../components/form/controls/Text').default,
             [COMPONENT_TYPE.TEXTAREA]: require('../../components/form/controls/Textarea').default,
-            [COMPONENT_TYPE.SELECT]  : require('../../components/form/controls/Select').default,
-            [COMPONENT_TYPE.RADIO]   : require('../../components/form/controls/Radio').default
+            [COMPONENT_TYPE.SELECT]: require('../../components/form/controls/Select').default,
+            [COMPONENT_TYPE.RADIO]: require('../../components/form/controls/Radio').default
         });
         this.__registerDataType(DATA_TYPE.BOOLEAN, {
             [COMPONENT_TYPE.CHECKBOX]: require('../../components/form/controls/Checkbox').default,
-            [COMPONENT_TYPE.RADIO]   : require('../../components/form/controls/Radio').default
+            [COMPONENT_TYPE.RADIO]: require('../../components/form/controls/Radio').default
         });
         this.__registerDataType(DATA_TYPE.NUMBER, {
             [COMPONENT_TYPE.NUMBER]: require('../../components/form/controls/Number').default,
-            [COMPONENT_TYPE.RANGE] : require('../../components/form/controls/Range').default
+            [COMPONENT_TYPE.RANGE]: require('../../components/form/controls/Range').default
         });
         this.__registerDataType(DATA_TYPE.DATE, {
             [COMPONENT_TYPE.DATE]: require('../../components/form/controls/DateTime').default
         });
         this.__registerDataType(DATA_TYPE.ARRAY, {
-            [COMPONENT_TYPE.SELECT]       : require('../../components/form/controls/Select').default,
-            [COMPONENT_TYPE.CHECKBOXGROUP]: require('../../components/form/controls/CheckboxGroup').default
+            [COMPONENT_TYPE.SELECT]: require('../../components/form/controls/Select').default,
+            [COMPONENT_TYPE.CHECKBOXGROUP]: require('../../components/form/controls/CheckboxGroup')
+                .default
         });
     }
-    __registerDataType (type, components) {
+    __registerDataType(type, components) {
         this.typeConfigs[type] = {
             type,
-            [COMPONENT_CONFIGS]: _.zipObject(
-                _.keys(components),
-                _.map(components, (component, key) => {
+            [COMPONENT_CONFIGS]: _zipObject(
+                _keys(components),
+                _map(components, (component, key) => {
                     const config = {
-                        dataType : type,
+                        dataType: type,
                         component: {
-                            type   : key,
+                            type: key,
                             element: component
                         },
                         actions: {
@@ -66,7 +69,7 @@ class FormConfig {
      * @param type
      * @returns {*}
      */
-    getTypeConfig (type) {
+    getTypeConfig(type) {
         if (!type) throw new Error('Type cannot be null/undefined');
         if (this.typeConfigs[type]) {
             return this.typeConfigs[type];
@@ -78,65 +81,69 @@ class FormConfig {
      * @param dataType
      * @returns {TResult|_.Dictionary<any>|Object|*}
      */
-    getComponentConfigsByDataType (dataType) {
+    getComponentConfigsByDataType(dataType) {
         const typeConfig = this.getTypeConfig(dataType);
         if (typeConfig) return this.getComponentConfigsByTypeConfig(typeConfig);
         console.warn(`Unmapped data type: ${dataType}`);
     }
-    getComponentConfigsByTypeConfig (typeConfig) {
+    getComponentConfigsByTypeConfig(typeConfig) {
         if (typeConfig && typeConfig[COMPONENT_CONFIGS]) {
             return typeConfig[COMPONENT_CONFIGS];
         }
         console.warn(`Unmapped type config: ${typeConfig}`);
     }
-    getComponentConfig (dataType, componentType) {
+    getComponentConfig(dataType, componentType) {
         const components = this.getComponentConfigsByDataType(dataType);
         if (components && components[componentType]) {
             return components[componentType];
         }
         console.warn(`Unmapped component type "${componentType}" for data type: "${dataType}"`);
     }
-    getComponentTypeByField (field) {
+    getComponentTypeByField(field) {
         if (!field) throw new Error('field is required');
         if (this.hasComponentDecorator(field)) {
             return this.getComponentDecorator(field);
         }
         return this.getDefaultComponentTypeByDataType(field);
     }
-    getDefaultComponentTypeByDataType (field) {
+    getDefaultComponentTypeByDataType(field) {
         if (!field) throw new Error('field is required');
         switch (field.type) {
-            case DATA_TYPE.BOOLEAN: return this.hasOptions(field) ? COMPONENT_TYPE.RADIO : COMPONENT_TYPE.CHECKBOX;
-            case DATA_TYPE.STRING: return this.hasOptions(field) ? COMPONENT_TYPE.SELECT : COMPONENT_TYPE.TEXT;
-            case DATA_TYPE.NUMBER: return COMPONENT_TYPE.NUMBER;
-            case DATA_TYPE.DATE: return COMPONENT_TYPE.DATE;
-            case DATA_TYPE.ARRAY: return COMPONENT_TYPE.SELECT;
+            case DATA_TYPE.BOOLEAN:
+                return this.hasOptions(field) ? COMPONENT_TYPE.RADIO : COMPONENT_TYPE.CHECKBOX;
+            case DATA_TYPE.STRING:
+                return this.hasOptions(field) ? COMPONENT_TYPE.SELECT : COMPONENT_TYPE.TEXT;
+            case DATA_TYPE.NUMBER:
+                return COMPONENT_TYPE.NUMBER;
+            case DATA_TYPE.DATE:
+                return COMPONENT_TYPE.DATE;
+            case DATA_TYPE.ARRAY:
+                return COMPONENT_TYPE.SELECT;
             default: {
                 console.warn(`Unmapped data type: "${field.type}"`);
-                return;
             }
         }
     }
-    hasComponentDecorator (field) {
+    hasComponentDecorator(field) {
         return Maybe.of(field)
             .prop('uiDecorators')
             .prop('component')
             .prop('type')
             .isJust();
     }
-    getComponentDecorator (field) {
+    getComponentDecorator(field) {
         return Maybe.of(field)
             .prop('uiDecorators')
             .prop('component')
             .prop('type')
             .join();
     }
-    hasOptions (field) {
+    hasOptions(field) {
         return Maybe.of(field)
             .prop('options')
             .isJust();
     }
-    _getOperation (fieldType, componentType, operation) {
+    _getOperation(fieldType, componentType, operation) {
         const { field, component } = this._getOperations(fieldType, componentType);
         if (component && component[operation]) {
             return component[operation];
@@ -145,16 +152,16 @@ class FormConfig {
         }
         console.warn(`Unmapped operations for field/component type: ${fieldType}/${componentType}`);
     }
-    _getOperations (fieldType, componentType) {
+    _getOperations(fieldType, componentType) {
         return {
-            field    : DATA_TYPE_OPERATIONS[fieldType],
+            field: DATA_TYPE_OPERATIONS[fieldType],
             component: COMPONENT_OPERATIONS[componentType]
         };
     }
-    _hasDecorators (componentType) {
+    _hasDecorators(componentType) {
         return !!this._getDefaultDecorators(componentType);
     }
-    _getDefaultDecorators (componentType) {
+    _getDefaultDecorators(componentType) {
         return COMPONENT_DECORATORS[componentType];
     }
 }

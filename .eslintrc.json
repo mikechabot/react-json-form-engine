@@ -1,34 +1,25 @@
 {
   "env": {
     "browser": true,
-    "mocha": true,
     "node": true,
     "es6": true
-  },
-  "globals": {
-    "_": true
   },
   "ecmaFeatures": {
     "jsx": true,
     "modules": true,
     "experimentalObjectRestSpread": true
   },
-  "plugins": [ "react"],
-  "extends": [ "eslint:recommended", "standard", "plugin:react/recommended" ],
+  "plugins": [ "react", "prettier"],
+  "extends": [ "eslint:recommended", "standard", "plugin:react/recommended", "prettier" ],
   "rules": {
-    "camelcase": ["error", { "properties": "never"}],
     "eqeqeq": [2, "always"],
     "indent": [2, 4, { "SwitchCase": 1 }],
     "jsx-quotes": [2, "prefer-double"],
-    "key-spacing": ["error", { "align": {
-      "beforeColon": false,
-      "afterColon": true,
-      "on": "colon"
-    }, "multiLine": { } }],
     "no-console": ["error", { "allow": ["log", "warn", "error"]}],
     "no-debugger": 2,
     "no-extend-native": 0,
     "no-var": 1,
+    "prettier/prettier": "error",
     "quotes": [2, "single"],
     "react/prop-types": 1,
     "react/no-find-dom-node": 0,

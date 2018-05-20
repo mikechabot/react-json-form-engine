@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import FormField from './FormField';
 import { PROPERTY } from '../../form/config/form-const';
@@ -34,7 +35,7 @@ export default class FormChildren extends React.Component {
 }
 
 FormChildren.propTypes = {
-    field   : React.PropTypes.object.isRequired,
-    instance: React.PropTypes.object.isRequired,
-    onUpdate: React.PropTypes.func.isRequired
+    field   : PropTypes.object.isRequired,
+    instance: PropTypes.object.isRequired,
+    onUpdate: PropTypes.func.isRequired
 };

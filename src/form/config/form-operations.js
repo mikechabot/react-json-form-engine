@@ -1,4 +1,6 @@
-import _ from 'lodash';
+import _filter from 'lodash/filter';
+import _remove from 'lodash/remove';
+import _includes from 'lodash/includes';
 import { DATA_TYPE, COMPONENT_TYPE } from './form-const';
 
 export const OPERATION_TYPES = {
@@ -6,7 +8,7 @@ export const OPERATION_TYPES = {
 };
 
 const common = {
-    onUpdate: (event) => {
+    onUpdate: event => {
         const { target } = event;
         return target.value;
     }
@@ -20,27 +22,28 @@ export const DATA_TYPE_OPERATIONS = {
         onUpdate: value => value
     },
     [DATA_TYPE.NUMBER]: {
-        onUpdate: (event) => {
+        onUpdate: event => {
             const { target } = event;
             return target.valueAsNumber;
         }
     },
     [DATA_TYPE.DATE]: {
-        onUpdate: (event) => {
+        onUpdate: event => {
             return event;
         }
     },
     [DATA_TYPE.ARRAY]: {
         onUpdate: (eventOrValue, field, oldValue, newValue) => {
             if (field.component.type === COMPONENT_TYPE.SELECT) {
-                return _.filter(eventOrValue.target.options, (option) => option.selected)
-                    .map(option => option.value);
+                return _filter(eventOrValue.target.options, option => option.selected).map(
+                    option => option.value
+                );
             } else {
                 const val = newValue || eventOrValue;
                 if (!oldValue) return [val];
-                return !_.includes(oldValue, val)
+                return !_includes(oldValue, val)
                     ? [...oldValue, ...[val]]
-                    : [..._.remove(oldValue, eachVal => eachVal !== val)];
+                    : [..._remove(oldValue, eachVal => eachVal !== val)];
             }
         }
     }

@@ -1,34 +1,32 @@
+import PropTypes from 'prop-types';
 import React from 'react';
-import ControlLabel from 'react-bootstrap/lib/ControlLabel';
 import Maybe from 'maybe-baby';
 import Asterisk from '../../common/Asterisk';
 
-export default function FormItemTitle ({
-    field, decorators, instance
-}) {
+export default function FormItemTitle({ field, decorators, instance }) {
     if (__noTitle(decorators)) return <span />;
     return (
-        <ControlLabel htmlFor={field.id}>
-            { field.title }&nbsp;
-            { __maybeRenderError(field, instance) }
-        </ControlLabel>
+        <div className="label is-small" htmlFor={field.id}>
+            {field.title}&nbsp;
+            {__maybeRenderError(field, instance)}
+        </div>
     );
 }
 
-function __maybeRenderError (field, instance) {
+function __maybeRenderError(field, instance) {
     if (instance.fieldHasError(field.id)) {
-        return <Asterisk/>;
+        return <Asterisk />;
     }
 }
 
-function __noTitle (decorators) {
+function __noTitle(decorators) {
     return Maybe.of(decorators)
         .prop('hideControlLabel')
         .isJust();
 }
 
 FormItemTitle.propTypes = {
-    field     : React.PropTypes.object.isRequired,
-    instance  : React.PropTypes.object.isRequired,
-    decorators: React.PropTypes.object
+    field: PropTypes.object.isRequired,
+    instance: PropTypes.object.isRequired,
+    decorators: PropTypes.object
 };

@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 
 export default function CodeBlock ({
@@ -21,5 +22,5 @@ function __parseContent (content) {
 }
 
 CodeBlock.propTypes = {
-    content: React.PropTypes.object.isRequired
+    content: PropTypes.object.isRequired
 };

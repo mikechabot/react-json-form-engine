@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import { Flex } from '../../common';
 
@@ -27,11 +28,11 @@ function _getTitle (option, field) {
 }
 
 Checkbox.propTypes = {
-    id      : React.PropTypes.string.isRequired,
-    field   : React.PropTypes.object,
-    option  : React.PropTypes.object,
-    onUpdate: React.PropTypes.func.isRequired,
-    value   : React.PropTypes.bool
+    id      : PropTypes.string.isRequired,
+    field   : PropTypes.object,
+    option  : PropTypes.object,
+    onUpdate: PropTypes.func.isRequired,
+    value   : PropTypes.bool
 };
 
 export default Checkbox;

@@ -1,7 +1,7 @@
 import { PROPERTY, DATA_TYPE } from '../config/form-const';
 import ValidationService from '../service/validation-service';
 import validators from './form-validators';
-import { hasValue } from '../../common/common';
+import { __hasValue } from '../../common/common';
 
 const { FIELD } = PROPERTY;
 
@@ -22,7 +22,7 @@ export default {
                 isVisible = instance.evaluateFieldShowCondition(field);
             }
 
-            if (hasValue(value) || isVisible) {
+            if (__hasValue(value) || isVisible) {
                 // Check required status
                 if (field[FIELD.REQUIRED]) {
                     const requiredStatus = validators.checkRequired(field, value);

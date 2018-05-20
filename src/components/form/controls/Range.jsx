@@ -1,3 +1,4 @@
+import PropTypes from 'prop-types';
 import React from 'react';
 import { Flex } from '../../common';
 
@@ -48,10 +49,10 @@ const style = {
 };
 
 Range.propTypes = {
-    id      : React.PropTypes.string.isRequired,
-    field   : React.PropTypes.object.isRequired,
-    onUpdate: React.PropTypes.func.isRequired,
-    value   : React.PropTypes.number
+    id      : PropTypes.string.isRequired,
+    field   : PropTypes.object.isRequired,
+    onUpdate: PropTypes.func.isRequired,
+    value   : PropTypes.number
 };
 
 export default Range;

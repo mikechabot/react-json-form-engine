@@ -1,6 +1,6 @@
-import { hasValue, __blank } from '../../common/common';
+import { __hasValue, __blank } from '../../common/common';
 import { DATA_TYPE, VALIDATION_CONST } from '../config/form-const';
-import _ from 'lodash';
+import _isEmpty from 'lodash/isEmpty';
 
 function _getStatus (errorCondition) {
     return errorCondition
@@ -15,7 +15,7 @@ function _getStatus (errorCondition) {
  */
 const validators = {
     REQUIRED: {
-        [DATA_TYPE.ARRAY]  : (field, value) => _getStatus(_.isEmpty(value)),
+        [DATA_TYPE.ARRAY]  : (field, value) => _getStatus(_isEmpty(value)),
         [DATA_TYPE.BOOLEAN]: () => VALIDATION_CONST.STATUS.OK,
         [DATA_TYPE.DATE]   : (field, value) => _getStatus(__blank(value)),
         [DATA_TYPE.NUMBER] : (field, value) => _getStatus(Number.isNaN(value)),
@@ -23,8 +23,8 @@ const validators = {
     },
     NUMERIC: {
         [DATA_TYPE.NUMBER]: (field, value) => {
-            if (hasValue(field.min) && value < field.min) return VALIDATION_CONST.STATUS.ERROR;
-            if (hasValue(field.max) && value > field.max) return VALIDATION_CONST.STATUS.ERROR;
+            if (__hasValue(field.min) && value < field.min) return VALIDATION_CONST.STATUS.ERROR;
+            if (__hasValue(field.max) && value > field.max) return VALIDATION_CONST.STATUS.ERROR;
         }
     }
 };
