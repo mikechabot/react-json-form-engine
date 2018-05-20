@@ -1,5 +1,6 @@
-import PropTypes from 'prop-types';
 import React from 'react';
+import PropTypes from 'prop-types';
+
 import FormControl from './FormControl';
 import FormChildren from './FormChildren';
 import { Flex } from '../common';

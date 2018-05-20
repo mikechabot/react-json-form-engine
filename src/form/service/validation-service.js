@@ -1,5 +1,3 @@
-'use strict';
-
 import _head from 'lodash/head';
 import _sortBy from 'lodash/sortBy';
 import { VALIDATION_CONST } from '../config/form-const';

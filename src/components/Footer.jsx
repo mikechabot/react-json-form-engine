@@ -60,21 +60,21 @@ function Footer() {
     );
 }
 
-function GithubButton({ label, icon, href, ariaLabel }) {
-    return (
-        <div style={{ margin: 5 }}>
-            <a
-                className="github-button"
-                href={`https://github.com/${href}`}
-                data-icon={icon}
-                data-size="large"
-                data-show-count={true}
-                aria-label={ariaLabel}
-            >
-                {label}
-            </a>
-        </div>
-    );
-}
+// function GithubButton({ label, icon, href, ariaLabel }) {
+//     return (
+//         <div style={{ margin: 5 }}>
+//             <a
+//                 className="github-button"
+//                 href={`https://github.com/${href}`}
+//                 data-icon={icon}
+//                 data-size="large"
+//                 data-show-count={true}
+//                 aria-label={ariaLabel}
+//             >
+//                 {label}
+//             </a>
+//         </div>
+//     );
+// }
 
 export default Footer;

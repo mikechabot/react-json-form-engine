@@ -1,7 +1,8 @@
-import PropTypes from 'prop-types';
 import React from 'react';
-import FormSubsection from './FormSubsection';
+import PropTypes from 'prop-types';
+
 import FormSubsectionTitle from './helpers/FormSubsectionTitle';
+import FormSubsection from './FormSubsection';
 import { Tabs, Tab } from '../common/tabs';
 import { Flex } from '../common';
 

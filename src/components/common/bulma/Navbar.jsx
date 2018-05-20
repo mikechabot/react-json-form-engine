@@ -1,12 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+
 import Icon from '../Icon';
 
 const className = 'navbar-item is-size-4-desktop is-size-5-tablet is-size-6-mobile';
 
 function Navbar({ icon, label, url }) {
     return (
-        <nav className="navbar is-dark" role="navigation" aria-label="main navigation">
+        <nav className="navbar is-dark" aria-label="main navigation">
             <div className="navbar-brand">{_renderBrand(icon, label, url)}</div>
         </nav>
     );

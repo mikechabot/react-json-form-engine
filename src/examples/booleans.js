@@ -9,7 +9,7 @@ export default {
                 {
                     id: 'subsection_0',
                     title: 'Store Boolean Values',
-                    subtitle: 'Persists as [id]:[value:Boolean] in the Model',
+                    subtitle: 'Persists as "[id]:[value:Boolean]" in the Model',
                     fields: [
                         {
                             id: 'bool1',

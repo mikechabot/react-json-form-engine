@@ -1,4 +1,4 @@
-import { __hasValue, __blank } from '../../common/common';
+import { __hasValue, __blank } from '../../common';
 import { DATA_TYPE, VALIDATION_CONST } from '../config/form-const';
 import _isEmpty from 'lodash/isEmpty';
 

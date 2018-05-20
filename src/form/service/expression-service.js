@@ -1,20 +1,20 @@
-import { __hasValue, __blank } from '../../common/common';
+import { __hasValue, __blank } from '../../common';
 import _isArray from 'lodash/isArray';
 import _isEmpty from 'lodash/isEmpty';
 import _includes from 'lodash/includes';
 import _filter from 'lodash/filter';
 import _forEach from 'lodash/forEach';
 
-function _getConstComparisonCondition (type, val1, val2, orEqualTo) {
+function _getConstComparisonCondition(type, val1, val2, orEqualTo) {
     return {
-        type       : type,
+        type: type,
         orEqualTo,
         expression1: {
-            type : 'CONST',
+            type: 'CONST',
             value: val1
         },
         expression2: {
-            type : 'CONST',
+            type: 'CONST',
             value: val2
         }
     };
@@ -27,8 +27,14 @@ const conditionEvaluators = {
 
         let conditionMet = false;
         if (_isArray(val2) && val2.length === 2) {
-            const isGreaterThan = service.evalCondition(_getConstComparisonCondition('GREATER_THAN', val1, val2[0], true), instance);
-            const isLessThan = service.evalCondition(_getConstComparisonCondition('LESS_THAN', val1, val2[1], true), instance);
+            const isGreaterThan = service.evalCondition(
+                _getConstComparisonCondition('GREATER_THAN', val1, val2[0], true),
+                instance
+            );
+            const isLessThan = service.evalCondition(
+                _getConstComparisonCondition('LESS_THAN', val1, val2[1], true),
+                instance
+            );
             if (isGreaterThan && isLessThan) {
                 conditionMet = true;
             }
@@ -72,23 +78,19 @@ const conditionEvaluators = {
     GREATER_THAN: (service, condition, instance) => {
         const diff = evalNumberCondition(service, condition, instance);
         if (__hasValue(diff)) {
-            return condition.orEqualTo
-                ? diff <= 0
-                : diff < 0;
+            return condition.orEqualTo ? diff <= 0 : diff < 0;
         }
     },
     // TODO: Create a LESS_THAN_OR_EQUAL_TO expression?
     LESS_THAN: (service, condition, instance) => {
         const diff = evalNumberCondition(service, condition, instance);
         if (__hasValue(diff)) {
-            return condition.orEqualTo
-                ? diff >= 0
-                : diff > 0;
+            return condition.orEqualTo ? diff >= 0 : diff > 0;
         }
     }
 };
 
-function evalNumberCondition (service, condition, instance) {
+function evalNumberCondition(service, condition, instance) {
     let diff;
     const val1 = service.evalExpression(condition.expression1, instance);
     const val2 = service.evalExpression(condition.expression2, instance);
@@ -138,11 +140,11 @@ const expressionEvaluators = {
 };
 
 const ExpressionService = {
-    isFormResponseExpression (expression) {
+    isFormResponseExpression(expression) {
         if (!expression || !expression.type) return false;
         return expression.type === 'FORM_RESPONSE';
     },
-    evalCondition (condition, instance) {
+    evalCondition(condition, instance) {
         const evaluator = conditionEvaluators[condition.type];
         if (!evaluator) {
             throw new Error(`Unmapped condition evaluator: ${condition.type}`);
@@ -155,7 +157,7 @@ const ExpressionService = {
 
         return conditionMet;
     },
-    evalExpression (expression, instance) {
+    evalExpression(expression, instance) {
         const evaluator = expressionEvaluators[expression.type];
         if (!evaluator) {
             throw new Error(`Unmapped expression evaluator: ${expression.type}`);

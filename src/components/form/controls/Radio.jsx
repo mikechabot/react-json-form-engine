@@ -1,9 +1,9 @@
-import PropTypes from 'prop-types';
 import React from 'react';
-import { Flex, Icon } from '../../common';
+import PropTypes from 'prop-types';
 
-import { __hasValue } from '../../../common/common';
 import FormChildren from '../FormChildren';
+import { Flex, Icon } from '../../common';
+import { __hasValue } from '../../../common';
 
 const Radio = ({ id, value, field, instance, onUpdate }) => {
     if (!field.options) {
@@ -58,11 +58,11 @@ const _isChecked = (option, value, isEven) => {
 
 Radio.propTypes = {
     id: PropTypes.string.isRequired,
-    value: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
-    instance: PropTypes.object,
     field: PropTypes.object.isRequired,
-    uiField: PropTypes.object,
-    onUpdate: PropTypes.func.isRequired
+    value: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
+    onUpdate: PropTypes.func.isRequired,
+    instance: PropTypes.object.isRequired,
+    uiField: PropTypes.object
 };
 
 export default Radio;

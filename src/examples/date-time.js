@@ -1,28 +1,29 @@
 export default {
-    id      : 'DATETIME',
-    title   : 'Date/Time',
+    id: 'DATETIME',
+    title: 'Date/Time',
     sections: [
         {
-            id         : 'Section-1',
-            title      : 'Date/Time',
+            id: 'section_0',
+            title: 'Date/Time',
             subsections: [
                 {
-                    id    : 'Subsection-1',
-                    title : 'Stores [id]:[value:Date]',
+                    id: 'subsection)',
+                    title: 'Store Date/Time Values',
+                    subtitle: 'Persists as [id]:[value:Date] in the Model',
                     fields: [
                         {
-                            id   : 'date1',
-                            type : 'date',
+                            id: 'date1',
+                            type: 'date',
                             title: 'Date/Time field'
                         },
                         {
-                            id   : 'date2',
-                            type : 'date',
+                            id: 'date2',
+                            type: 'date',
                             title: 'Time field'
                         },
                         {
-                            id   : 'date3',
-                            type : 'date',
+                            id: 'date3',
+                            type: 'date',
                             title: 'Date field'
                         }
                     ]

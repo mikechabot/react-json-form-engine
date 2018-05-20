@@ -1,7 +1,7 @@
 import { PROPERTY, DATA_TYPE } from '../config/form-const';
 import ValidationService from '../service/validation-service';
 import validators from './form-validators';
-import { __hasValue } from '../../common/common';
+import { __hasValue } from '../../common';
 
 const { FIELD } = PROPERTY;
 

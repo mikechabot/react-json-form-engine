@@ -1,7 +1,8 @@
-import PropTypes from 'prop-types';
 import React from 'react';
+import PropTypes from 'prop-types';
 import Maybe from 'maybe-baby';
-import Asterisk from '../../common/Asterisk';
+
+import { Asterisk } from '../../common';
 
 export default function FormItemTitle({ field, decorators, instance }) {
     if (__noTitle(decorators)) return null;

@@ -9,7 +9,7 @@ export default {
                 {
                     id: 'subsection_0',
                     title: 'Store Numeric Values',
-                    subtitle: 'Persisted as [id]:[value:Number] in the Model',
+                    subtitle: 'Persists as "[id]:[value:Number]" in the Model',
                     fields: [
                         {
                             id: 'num1',
@@ -22,7 +22,7 @@ export default {
                             type: 'number',
                             title: 'Range slider',
                             min: 0,
-                            max: 50
+                            max: 100
                         }
                     ]
                 }

@@ -2,8 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import Icon from './Icon';
-import Flex from './glamorous/Flex';
 import CodeBlock from './CodeBlock';
+import Flex from './glamorous/Flex';
 
 const CodePanel = ({ title, icon, content }) => {
     return (

@@ -1,13 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import FormSection from './FormSection';
 import _isEmpty from 'lodash/isEmpty';
-import { Tabs, Tab } from '../common/tabs';
-import { Flex, APICheckError } from '../common';
+
 import Asterisk from '../common/Asterisk';
 import Navbar from '../common/bulma/Navbar';
+import FormSection from './FormSection';
+import { Tabs, Tab } from '../common/tabs';
+import { Flex, APICheckError } from '../common';
 
-export default class Form extends React.Component {
+class Form extends React.Component {
     constructor(props) {
         super(props);
         this.onUpdate = this.onUpdate.bind(this);
@@ -112,3 +113,5 @@ Form.propTypes = {
     sectionMenuWidth: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
     submitButtonLabel: PropTypes.string
 };
+
+export default Form;

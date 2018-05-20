@@ -10,7 +10,7 @@ import ValidationResults from '../form/validation/validation-results';
 import ExpressionService from '../form/service/expression-service';
 import Maybe from 'maybe-baby';
 import ValidationService from '../form/service/validation-service';
-import { __clone, __blank, __hasValue } from '../common/common';
+import { __clone, __blank, __hasValue } from '../common';
 import { NO_VALUE, PROPERTY, DATA_TYPE, VALIDATION_CONST } from './config/form-const';
 const apiCheck = require('api-check')({ output: { prefix: 'FormEngine:' } });
 
@@ -19,7 +19,7 @@ const { FIELD, SECTION, SUBSECTION, DEFINITION, CALCULATIONS } = PROPERTY;
 export default class FormEngine {
     constructor(definition, model, options) {
         try {
-            this._validateDefinition(definition); // Throw error on misshapen definition
+            this.__validateDefinitionShape(definition); // Throw error on misshapen definition
             this.__isDefinitionValid = true;
         } catch (error) {
             this.__isDefinitionValid = false;
@@ -129,7 +129,7 @@ export default class FormEngine {
      * @private
      */
     __decorateField(field, parent) {
-        this._validateField(field);
+        this.__validateFieldShape(field);
 
         field[FIELD.PARENT] = parent;
         field[FIELD.UI_DECORATORS] = this.getCustomUIDecorators(field[FIELD.ID]);
@@ -185,7 +185,7 @@ export default class FormEngine {
             }
         });
     }
-    _validateField(field) {
+    __validateFieldShape(field) {
         apiCheck.throw(
             [
                 apiCheck.shape({
@@ -201,7 +201,7 @@ export default class FormEngine {
             }
         );
     }
-    _validateDefinition(definition) {
+    __validateDefinitionShape(definition) {
         apiCheck.throw(
             [
                 apiCheck.shape({
@@ -394,7 +394,6 @@ export default class FormEngine {
 
         // Reset children if necessary
         if (this.doResetChildren(field, value)) {
-            console.log('do trdry');
             this.resetFields(field[FIELD.FIELDS]);
         }
         // Reset the children of any option fields if the option is not selected

@@ -1,11 +1,12 @@
-import PropTypes from 'prop-types';
 import React from 'react';
+import PropTypes from 'prop-types';
+import Maybe from 'maybe-baby';
+import _isEmpty from 'lodash/isEmpty';
 import _isEqual from 'lodash/isEqual';
-import _some from 'lodash/some';
+
 import FormItemTitle from './helpers/FormItemTitle';
 import FormItemHint from './helpers/FormItemHint';
-import ErrorBlock from './helpers/FieldError';
-import Maybe from 'maybe-baby';
+import ErrorBlock from './validation/FieldError';
 
 class FormControl extends React.Component {
     /**
@@ -72,7 +73,13 @@ class FormControl extends React.Component {
      * @returns {boolean}
      */
     _hasFieldChildren(field) {
-        return field.fields || _some(field.options, option => option.fields);
+        if (!_isEmpty(field.fields)) {
+            return true;
+        }
+        if (!_isEmpty(field.options)) {
+            return field.options.some(option => !_isEmpty(option.fields));
+        }
+        return false;
     }
 }
 

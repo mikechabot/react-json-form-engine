@@ -1,5 +1,6 @@
-import PropTypes from 'prop-types';
 import React from 'react';
+import PropTypes from 'prop-types';
+
 import { DATA_TYPE } from '../../../form/config/form-const';
 
 const Select = ({ id, value, field, onUpdate }) => {
@@ -38,10 +39,11 @@ const __isFieldTypeArray = field => {
 
 Select.propTypes = {
     id: PropTypes.string.isRequired,
-    value: PropTypes.oneOfType([PropTypes.array, PropTypes.string]),
     field: PropTypes.object.isRequired,
-    uiField: PropTypes.object,
-    onUpdate: PropTypes.func.isRequired
+    value: PropTypes.oneOfType([PropTypes.array, PropTypes.string]),
+    onUpdate: PropTypes.func.isRequired,
+    instance: PropTypes.object.isRequired,
+    uiField: PropTypes.object
 };
 
 export default Select;

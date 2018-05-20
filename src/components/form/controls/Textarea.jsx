@@ -1,5 +1,5 @@
-import PropTypes from 'prop-types';
 import React from 'react';
+import PropTypes from 'prop-types';
 
 const Textarea = ({ id, field, value, onUpdate }) => (
     <textarea
@@ -16,8 +16,9 @@ const Textarea = ({ id, field, value, onUpdate }) => (
 Textarea.propTypes = {
     id: PropTypes.string.isRequired,
     field: PropTypes.object.isRequired,
+    value: PropTypes.string,
     onUpdate: PropTypes.func.isRequired,
-    value: PropTypes.string
+    instance: PropTypes.object.isRequired
 };
 
 export default Textarea;

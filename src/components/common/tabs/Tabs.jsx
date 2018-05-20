@@ -2,8 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Tab from './Tab';
 
-import { __hasValue } from '../../../common/common';
 import Flex from '../glamorous/Flex';
+import { __hasValue } from '../../../common';
 
 class Tabs extends React.Component {
     constructor(props) {
@@ -22,7 +22,7 @@ class Tabs extends React.Component {
     }
 
     render() {
-        const { id, children, stacked } = this.props;
+        const { id, children } = this.props;
 
         const tabs = __getTabs(children);
 
@@ -65,11 +65,13 @@ class Tabs extends React.Component {
     }
 
     _renderTabContent(tabs) {
-        return tabs.map((tab, key) => {
-            if (tab.props.eventKey === this._getActiveKey()) {
-                return React.cloneElement(tab, { stacked: this._isStacked(), key });
-            }
-        });
+        return tabs
+            .map((tab, key) => {
+                return tab.props.eventKey === this._getActiveKey()
+                    ? React.cloneElement(tab, { stacked: this._isStacked(), key })
+                    : null;
+            })
+            .filter(tab => tab);
     }
 
     _handleTabSelect(eventKey) {

@@ -1,68 +1,68 @@
 export default {
-    id      : 'Conditions-Section',
-    title   : 'Conditions',
+    id: 'Conditions-Section',
+    title: 'Conditions',
     sections: [
         {
-            id         : 'Condition-Section',
-            title      : 'Conditions',
+            id: 'section_condition',
+            title: 'Conditions',
             subsections: [
                 {
-                    id      : 'Condition-Subsection',
-                    title   : 'Conditions',
-                    subtitle: 'Conditionally show or hide fields based on form response',
-                    fields  : [
+                    id: 'subsection_condition',
+                    title: 'Conditions',
+                    subtitle: 'Conditionally hide/show fields based on the state of the Model',
+                    fields: [
                         {
-                            id     : 'bool5',
-                            type   : 'boolean',
-                            title  : 'Show my two child fields?',
+                            id: 'bool5',
+                            type: 'boolean',
+                            title: 'Show children?',
                             options: [
                                 {
-                                    title : 'Yes',
+                                    title: 'Yes',
                                     fields: [
                                         {
-                                            id     : 'arr6',
-                                            type   : 'array',
-                                            title  : 'My first two options have children',
+                                            id: 'arr6',
+                                            type: 'array',
+                                            title: 'Child 1',
                                             options: [
                                                 {
-                                                    id    : 'op1',
-                                                    title : 'Option 1',
+                                                    id: 'op1',
+                                                    title: 'Option 1',
                                                     fields: [
                                                         {
-                                                            id           : 'str20',
-                                                            type         : 'string',
-                                                            title        : 'Yet another field',
+                                                            id: 'str20',
+                                                            type: 'string',
+                                                            title: 'Yet another field',
                                                             showCondition: {
-                                                                type       : 'CONTAINS',
+                                                                type: 'CONTAINS',
                                                                 expression1: {
-                                                                    type : 'CONST',
+                                                                    type: 'CONST',
                                                                     value: 'op1'
                                                                 },
                                                                 expression2: {
                                                                     type: 'FORM_RESPONSE',
-                                                                    id  : 'arr6'
+                                                                    id: 'arr6'
                                                                 }
                                                             }
                                                         }
                                                     ]
                                                 },
                                                 {
-                                                    id    : 'op2',
-                                                    title : 'Option 2',
+                                                    id: 'op2',
+                                                    title: 'Option 2',
                                                     fields: [
                                                         {
-                                                            id           : 'num10',
-                                                            type         : 'number',
-                                                            title        : 'And more',
+                                                            id: 'num10',
+                                                            type: 'number',
+                                                            title: 'And more',
                                                             showCondition: {
-                                                                type       : 'CONTAINS',
+                                                                type: 'CONTAINS',
                                                                 expression1: {
-                                                                    type : 'CONST',
+                                                                    type: 'CONST',
                                                                     value: 'op2'
                                                                 },
                                                                 expression2: {
                                                                     type: 'FORM_RESPONSE',
-                                                                    id  : 'arr6'
+                                                                    id: 'arr6'
                                                                 }
                                                             }
                                                         }
@@ -72,32 +72,32 @@ export default {
                                                 { id: 'op4', title: 'Option 4' }
                                             ],
                                             showCondition: {
-                                                type       : 'EQUAL',
+                                                type: 'EQUAL',
                                                 expression1: {
-                                                    type : 'CONST',
+                                                    type: 'CONST',
                                                     value: true
                                                 },
                                                 expression2: {
                                                     type: 'FORM_RESPONSE',
-                                                    id  : 'bool5'
+                                                    id: 'bool5'
                                                 }
                                             }
                                         },
                                         {
-                                            id           : 'num9',
-                                            type         : 'number',
-                                            title        : 'Conditional field',
-                                            min          : 0,
-                                            max          : 10,
+                                            id: 'num9',
+                                            type: 'number',
+                                            title: 'Child 2',
+                                            min: 0,
+                                            max: 10,
                                             showCondition: {
-                                                type       : 'EQUAL',
+                                                type: 'EQUAL',
                                                 expression1: {
-                                                    type : 'CONST',
+                                                    type: 'CONST',
                                                     value: true
                                                 },
                                                 expression2: {
                                                     type: 'FORM_RESPONSE',
-                                                    id  : 'bool5'
+                                                    id: 'bool5'
                                                 }
                                             }
                                         }
@@ -105,58 +105,57 @@ export default {
                                 },
                                 { title: 'No' }
                             ]
-
                         },
                         {
-                            id           : 'str17',
-                            type         : 'string',
-                            title        : 'I will be hidden if "Yes" is selected above!',
-                            placeholder  : 'Enter some text to show child',
+                            id: 'str17',
+                            type: 'string',
+                            title: 'Conditional Field',
+                            placeholder: 'Enter some text to show child',
                             showCondition: {
-                                type       : 'EQUAL',
-                                not        : true,
+                                type: 'EQUAL',
+                                not: true,
                                 expression1: {
-                                    type : 'CONST',
+                                    type: 'CONST',
                                     value: true
                                 },
                                 expression2: {
                                     type: 'FORM_RESPONSE',
-                                    id  : 'bool5'
+                                    id: 'bool5'
                                 }
                             },
                             fields: [
                                 {
-                                    id           : 'bool6',
-                                    type         : 'boolean',
-                                    title        : 'Conditional field',
-                                    options      : [{ title: 'True' }, { title: 'False' }],
-                                    inline       : true,
+                                    id: 'bool6',
+                                    type: 'boolean',
+                                    title: 'Conditional field',
+                                    options: [{ title: 'True' }, { title: 'False' }],
+                                    inline: true,
                                     showCondition: {
-                                        type      : 'BLANK',
-                                        not       : true,
+                                        type: 'BLANK',
+                                        not: true,
                                         expression: {
                                             type: 'FORM_RESPONSE',
-                                            id  : 'str17'
+                                            id: 'str17'
                                         }
                                     }
                                 }
                             ]
                         },
                         {
-                            id    : 'date1',
-                            type  : 'date',
-                            title : 'Select a date',
+                            id: 'date1',
+                            type: 'date',
+                            title: 'Select a date',
                             fields: [
                                 {
-                                    id           : 'str22',
-                                    type         : 'string',
-                                    title        : 'Conditional field',
+                                    id: 'str22',
+                                    type: 'string',
+                                    title: 'Conditional field',
                                     showCondition: {
-                                        type      : 'BLANK',
-                                        not       : true,
+                                        type: 'BLANK',
+                                        not: true,
                                         expression: {
                                             type: 'FORM_RESPONSE',
-                                            id  : 'date1'
+                                            id: 'date1'
                                         }
                                     }
                                 }
@@ -167,82 +166,82 @@ export default {
             ]
         },
         {
-            id         : 'Array-Condition-Section',
-            title      : 'Arrays',
+            id: 'section_condition_array',
+            title: 'Arrays',
             subsections: [
                 {
-                    id      : 'Array-Condition-Subsection',
-                    title   : 'Array Conditions',
+                    id: 'subsection_condition_array',
+                    title: 'Array Conditions',
                     subtitle: 'Display children under option fields.',
-                    fields  : [
+                    fields: [
                         {
-                            id     : 'arr3',
-                            type   : 'array',
-                            title  : 'Click the options to display the children',
+                            id: 'arr3',
+                            type: 'array',
+                            title: 'Click the options to display the children',
                             options: [
                                 {
-                                    id    : 'op1',
-                                    title : 'Option 1',
+                                    id: 'op1',
+                                    title: 'Option 1',
                                     fields: [
                                         {
-                                            id           : 'num4',
-                                            type         : 'number',
-                                            title        : 'Conditional field',
+                                            id: 'num4',
+                                            type: 'number',
+                                            title: 'Conditional field',
                                             showCondition: {
-                                                type       : 'CONTAINS',
+                                                type: 'CONTAINS',
                                                 expression1: {
-                                                    type : 'CONST',
+                                                    type: 'CONST',
                                                     value: 'op1'
                                                 },
                                                 expression2: {
                                                     type: 'FORM_RESPONSE',
-                                                    id  : 'arr3'
+                                                    id: 'arr3'
                                                 }
                                             }
                                         }
                                     ]
                                 },
                                 {
-                                    id    : 'op2',
-                                    title : 'Option 2',
+                                    id: 'op2',
+                                    title: 'Option 2',
                                     fields: [
                                         {
-                                            id     : 'arr7',
-                                            type   : 'array',
-                                            title  : 'Conditional field',
+                                            id: 'arr7',
+                                            type: 'array',
+                                            title: 'Conditional field',
                                             options: [
                                                 {
-                                                    id   : 'op1',
+                                                    id: 'op1',
                                                     title: 'Option 1'
                                                 },
                                                 {
-                                                    id   : 'op2',
+                                                    id: 'op2',
                                                     title: 'Option 2'
                                                 }
                                             ],
                                             showCondition: {
-                                                type       : 'CONTAINS',
+                                                type: 'CONTAINS',
                                                 expression1: {
-                                                    type : 'CONST',
+                                                    type: 'CONST',
                                                     value: 'op2'
                                                 },
                                                 expression2: {
                                                     type: 'FORM_RESPONSE',
-                                                    id  : 'arr3'
+                                                    id: 'arr3'
                                                 }
                                             }
                                         }
                                     ]
                                 },
                                 {
-                                    id    : 'op3',
-                                    title : 'Option 3',
+                                    id: 'op3',
+                                    title: 'Option 3',
                                     fields: [
                                         {
-                                            id     : 'bool7',
-                                            type   : 'boolean',
-                                            title  : 'Conditional field',
-                                            inline : true,
+                                            id: 'bool7',
+                                            type: 'boolean',
+                                            title: 'Conditional field',
+                                            inline: true,
                                             options: [
                                                 {
                                                     title: 'Option 1'
@@ -252,42 +251,42 @@ export default {
                                                 }
                                             ],
                                             showCondition: {
-                                                type       : 'CONTAINS',
+                                                type: 'CONTAINS',
                                                 expression1: {
-                                                    type : 'CONST',
+                                                    type: 'CONST',
                                                     value: 'op3'
                                                 },
                                                 expression2: {
                                                     type: 'FORM_RESPONSE',
-                                                    id  : 'arr3'
+                                                    id: 'arr3'
                                                 }
                                             }
                                         }
                                     ]
                                 },
                                 {
-                                    id    : 'op4',
-                                    title : 'Option 4',
+                                    id: 'op4',
+                                    title: 'Option 4',
                                     fields: [
                                         {
-                                            id     : 'arr4',
-                                            type   : 'array',
-                                            title  : 'Conditional field',
+                                            id: 'arr4',
+                                            type: 'array',
+                                            title: 'Conditional field',
                                             options: [
-                                                {id: 'op1', title: 'Option 1'},
-                                                {id: 'op2', title: 'Option 2'},
-                                                {id: 'op3', title: 'Option 3'},
-                                                {id: 'op4', title: 'Option 4'}
+                                                { id: 'op1', title: 'Option 1' },
+                                                { id: 'op2', title: 'Option 2' },
+                                                { id: 'op3', title: 'Option 3' },
+                                                { id: 'op4', title: 'Option 4' }
                                             ],
                                             showCondition: {
-                                                type       : 'CONTAINS',
+                                                type: 'CONTAINS',
                                                 expression1: {
-                                                    type : 'CONST',
+                                                    type: 'CONST',
                                                     value: 'op4'
                                                 },
                                                 expression2: {
                                                     type: 'FORM_RESPONSE',
-                                                    id  : 'arr3'
+                                                    id: 'arr3'
                                                 }
                                             }
                                         }
@@ -296,9 +295,9 @@ export default {
                             ]
                         },
                         {
-                            id     : 'arr5',
-                            type   : 'array',
-                            title  : 'Show a child regardless of the option(s) selected',
+                            id: 'arr5',
+                            type: 'array',
+                            title: 'Show a child regardless of the option(s) selected',
                             options: [
                                 { id: 'op1', title: 'Option 1' },
                                 { id: 'op2', title: 'Option 2' },
@@ -306,15 +305,15 @@ export default {
                             ],
                             fields: [
                                 {
-                                    id           : 'num7',
-                                    type         : 'number',
-                                    title        : 'Conditional field',
+                                    id: 'num7',
+                                    type: 'number',
+                                    title: 'Conditional field',
                                     showCondition: {
-                                        type      : 'EMPTY',
-                                        not       : true,
+                                        type: 'EMPTY',
+                                        not: true,
                                         expression: {
                                             type: 'FORM_RESPONSE',
-                                            id  : 'arr5'
+                                            id: 'arr5'
                                         }
                                     }
                                 }
@@ -325,33 +324,33 @@ export default {
             ]
         },
         {
-            id         : 'Numeric-Condition-Subsection',
-            title      : 'Numeric',
+            id: 'subsection_condition_numeric',
+            title: 'Numeric',
             subsections: [
                 {
-                    id      : 'Numeric-Condition-Subsection',
-                    title   : 'Numeric',
+                    id: 'Numeric-Condition-Subsection',
+                    title: 'Numeric',
                     subtitle: 'Simple numeric expressions supported!',
-                    fields  : [
+                    fields: [
                         {
-                            id    : 'num5',
-                            type  : 'number',
-                            title : 'Greater than (>)',
-                            min   : 0,
-                            max   : 10,
+                            id: 'num5',
+                            type: 'number',
+                            title: 'Greater than (>)',
+                            min: 0,
+                            max: 10,
                             fields: [
                                 {
-                                    id           : 'str19',
-                                    type         : 'string',
-                                    title        : 'Conditional field',
+                                    id: 'str19',
+                                    type: 'string',
+                                    title: 'Conditional field',
                                     showCondition: {
-                                        type       : 'GREATER_THAN',
+                                        type: 'GREATER_THAN',
                                         expression1: {
                                             type: 'FORM_RESPONSE',
-                                            id  : 'num5'
+                                            id: 'num5'
                                         },
                                         expression2: {
-                                            type : 'CONST',
+                                            type: 'CONST',
                                             value: 5
                                         }
                                     }
@@ -359,22 +358,22 @@ export default {
                             ]
                         },
                         {
-                            id    : 'num8',
-                            type  : 'number',
-                            title : 'Less than (<)',
+                            id: 'num8',
+                            type: 'number',
+                            title: 'Less than (<)',
                             fields: [
                                 {
-                                    id           : 'str21',
-                                    type         : 'string',
-                                    title        : 'Conditional field',
+                                    id: 'str21',
+                                    type: 'string',
+                                    title: 'Conditional field',
                                     showCondition: {
-                                        type       : 'LESS_THAN',
+                                        type: 'LESS_THAN',
                                         expression1: {
                                             type: 'FORM_RESPONSE',
-                                            id  : 'num8'
+                                            id: 'num8'
                                         },
                                         expression2: {
-                                            type : 'CONST',
+                                            type: 'CONST',
                                             value: 5
                                         }
                                     }
@@ -407,13 +406,16 @@ export default {
                 type: 'radio'
             }
         },
+        str17: {
+            hint: 'This will be hidden if "Yes" is selected above!'
+        },
         num4: {
             component: {
                 type: 'range'
             }
         },
         num5: {
-            hint     : 'Show field if > 5',
+            hint: 'Show field if > 5',
             component: {
                 type: 'range'
             }

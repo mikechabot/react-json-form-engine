@@ -1,5 +1,5 @@
-import PropTypes from 'prop-types';
 import React from 'react';
+import PropTypes from 'prop-types';
 
 const Number = ({ id, field, value, onUpdate }) => {
     return (
@@ -20,8 +20,9 @@ const Number = ({ id, field, value, onUpdate }) => {
 Number.propTypes = {
     id: PropTypes.string.isRequired,
     field: PropTypes.object.isRequired,
+    value: PropTypes.number,
     onUpdate: PropTypes.func.isRequired,
-    value: PropTypes.number
+    instance: PropTypes.object.isRequired
 };
 
 export default Number;

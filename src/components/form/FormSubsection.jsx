@@ -1,6 +1,5 @@
-import PropTypes from 'prop-types';
 import React from 'react';
-import _map from 'lodash/map';
+import PropTypes from 'prop-types';
 
 import FormField from './FormField';
 import FormSubsectionTitle from './helpers/FormSubsectionTitle';
@@ -13,17 +12,18 @@ class FormSubsection extends React.Component {
             <Flex column={true} flex={1} className="panel" flexShrink={0}>
                 {this._maybeRenderSubsectionTitle(subsection, instance, hideTitle)}
                 <div className="panel-block">
-                    <ol
-                        className="field-list"
-                        style={{ maxWidth: this.props.maxWidth ? this.props.maxWidth : 500 }}
-                    >
-                        {_map(
-                            subsection.fields,
-                            this._renderSubsectionField.bind(this, instance, onUpdate)
-                        )}
-                    </ol>
+                    {this._renderSubsectionContent(subsection, instance, onUpdate)}
                 </div>
             </Flex>
+        );
+    }
+
+    _renderSubsectionContent(subsection, instance, onUpdate) {
+        const style = { maxWidth: this.props.maxWidth || 500 };
+        return (
+            <ol className="field-list" style={style}>
+                {subsection.fields.map(this._renderSubsectionField.bind(this, instance, onUpdate))}
+            </ol>
         );
     }
 

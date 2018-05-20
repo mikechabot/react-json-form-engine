@@ -1,4 +1,3 @@
-'use strict';
 import _isEmpty from 'lodash/isEmpty';
 
 const EMPTY_STRING = '';

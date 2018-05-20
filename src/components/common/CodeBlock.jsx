@@ -1,11 +1,15 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import _isEmpty from 'lodash/isEmpty';
 
 const CodeBlock = ({ content }) => {
     const lines = __parseContent(content);
-    return lines.length === 0 ? (
-        <span>Missing or malformed content</span>
-    ) : (
+
+    if (_isEmpty(lines)) {
+        return <span className="has-text-danger">Missing or malformed content</span>;
+    }
+
+    return (
         <div className="full-height full-width">
             <pre>{lines.map(_renderLine)}</pre>
         </div>

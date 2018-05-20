@@ -1,11 +1,14 @@
-import PropTypes from 'prop-types';
 import React from 'react';
-import { Flex, Icon } from '../../common';
+import PropTypes from 'prop-types';
 
-const Checkbox = ({ id, field, option, value, onUpdate, style }) => (
-    <div className="checkbox" onClick={() => onUpdate(!value, id)}>
-        <Icon prefix="far" icon={`${value ? 'check-' : ''}square`} />
-        <span className="m-left--x-small">{_getTitle(option, field)}</span>
+import { Icon } from '../../common';
+
+const Checkbox = ({ id, field, option, value, onUpdate }) => (
+    <div id={id} className="control">
+        <div className="checkbox" onClick={() => onUpdate(!value, id)}>
+            <Icon prefix="far" icon={`${value ? 'check-' : ''}square`} />
+            <span className="m-left--x-small">{_getTitle(option, field)}</span>
+        </div>
     </div>
 );
 
@@ -18,8 +21,8 @@ Checkbox.propTypes = {
     id: PropTypes.string.isRequired,
     field: PropTypes.object,
     option: PropTypes.object,
-    onUpdate: PropTypes.func.isRequired,
-    value: PropTypes.bool
+    value: PropTypes.bool,
+    onUpdate: PropTypes.func.isRequired
 };
 
 export default Checkbox;
