@@ -24,7 +24,7 @@ class Tabs extends React.Component {
         );
 
         return (
-            <Flex column flex={1} className="overflow-hidden">
+            <Flex id={id} column flex={1} className="overflow-hidden">
                 <Flex className="tabs" flexShrink={0}>
                     {this._renderTabLinks(tabs)}
                 </Flex>
@@ -44,7 +44,7 @@ class Tabs extends React.Component {
         const isActive = eventKey === this._getActiveKey();
         return (
             <li
-                id={`tab-item-${eventKey}`}
+                id={`${this.props.id}-tab-item-${eventKey}`}
                 key={index}
                 className={isActive ? 'is-active' : ''}
                 onClick={this._handleTabSelect.bind(this, eventKey)}

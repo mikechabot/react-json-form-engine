@@ -1,14 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-function Icon({ icon, prefix, className }) {
+const Icon = ({ icon, prefix, title, className }) => {
     let iconPrefix = prefix || 'fa';
     return (
-        <span>
+        <span title={title}>
             <i className={`${iconPrefix} fa-${icon} ${className || ''}`} />
         </span>
     );
-}
+};
 
 Icon.propTypes = {
     icon: PropTypes.string.isRequired,

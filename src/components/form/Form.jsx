@@ -33,21 +33,20 @@ export default class Form extends React.Component {
             return <em className="text-danger">No sections</em>;
         }
         return (
-            <Flex id={instance.getId()} column flex={1}>
-                <Navbar
-                    brand={{
-                        icon: 'cloud',
-                        label: instance.getTitle()
-                    }}
-                />
+            <Flex id={instance.getId()} column flex={1} overflowY="auto">
+                {this._renderFormTitle(instance)}
                 {this._renderForm(instance.getSections())}
-                <div>
+                <Flex className="panel-block" flexShrink={0}>
                     <button className="button" onClick={this.props.onSubmit}>
                         {this.props.submitButtonLabel || 'Submit'}
                     </button>
-                </div>
+                </Flex>
             </Flex>
         );
+    }
+
+    _renderFormTitle(instance) {
+        return <Navbar icon="cloud" label={instance.getTitle()} />;
     }
 
     _renderForm(sections) {

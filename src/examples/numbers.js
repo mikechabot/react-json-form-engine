@@ -1,27 +1,28 @@
 export default {
-    id      : 'NUMBERS',
-    title   : 'Numbers',
+    id: 'NUMBERS',
+    title: 'Numbers',
     sections: [
         {
-            id         : 'Section-1',
-            title      : 'Numbers',
+            id: 'section_0',
+            title: 'Numbers',
             subsections: [
                 {
-                    id    : 'Subsection-1',
-                    title : 'Stores [id]:[value:Number]',
+                    id: 'subsection_0',
+                    title: 'Store Numeric Values',
+                    subtitle: 'Persisted as [id]:[value:Number] in the Model',
                     fields: [
                         {
-                            id         : 'num1',
-                            type       : 'number',
-                            title      : 'Number field',
-                            placeholder: 'Enter a value!'
+                            id: 'num1',
+                            type: 'number',
+                            title: 'Number field',
+                            placeholder: 'Enter a value'
                         },
                         {
-                            id   : 'num2',
-                            type : 'number',
+                            id: 'num2',
+                            type: 'number',
                             title: 'Range slider',
-                            min  : 0,
-                            max  : 20
+                            min: 0,
+                            max: 50
                         }
                     ]
                 }
@@ -29,8 +30,11 @@ export default {
         }
     ],
     decorators: {
+        num1: {
+            hint: 'Numbers only!'
+        },
         num2: {
-            hint     : 'Range sliders are cool!',
+            hint: 'Range sliders are cool!',
             component: {
                 type: 'range'
             }

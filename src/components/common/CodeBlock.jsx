@@ -1,26 +1,32 @@
-import PropTypes from 'prop-types';
 import React from 'react';
+import PropTypes from 'prop-types';
 
-export default function CodeBlock ({
-    content
-}) {
+const CodeBlock = ({ content }) => {
     const lines = __parseContent(content);
-    return lines.length === 0
-        ? <span>Missing or malformed content</span>
-        : <pre style={{height: 335, overflow: 'auto'}}>{lines.map(_renderLine) }</pre>;
+    return lines.length === 0 ? (
+        <span>Missing or malformed content</span>
+    ) : (
+        <div className="full-height full-width">
+            <pre>{lines.map(_renderLine)}</pre>
+        </div>
+    );
+};
+
+function _renderLine(line, index) {
+    return (
+        <div className="line" key={index}>
+            {line}
+        </div>
+    );
 }
 
-function _renderLine (line, index) {
-    return <div key={index} className="line">{ line }</div>;
-}
-
-function __parseContent (content) {
+function __parseContent(content) {
     if (!content) return [];
-    return JSON
-        .stringify(content, (a, b) => Number.isNaN(b) ? 'NaN' : b, 2)
-        .split('\n');
+    return JSON.stringify(content, (a, b) => (Number.isNaN(b) ? 'NaN' : b), 2).split('\n');
 }
 
 CodeBlock.propTypes = {
     content: PropTypes.object.isRequired
 };
+
+export default CodeBlock;

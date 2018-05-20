@@ -4,7 +4,7 @@ import FormField from './FormField';
 import { PROPERTY } from '../../form/config/form-const';
 
 export default class FormChildren extends React.Component {
-    render () {
+    render() {
         const { field } = this.props;
         if (!field || !field[PROPERTY.FIELD.FIELDS]) {
             return <span />;
@@ -12,15 +12,15 @@ export default class FormChildren extends React.Component {
         const { fields } = field;
         const { instance, onUpdate } = this.props;
         return (
-            <ol style={{listStyle: 'none'}}>
-                { fields.map(this._renderField.bind(this, instance, onUpdate)) }
+            <ol className="child-list">
+                {fields.map(this._renderField.bind(this, instance, onUpdate))}
             </ol>
         );
     }
-    _renderField (instance, onUpdate, child, index) {
+    _renderField(instance, onUpdate, child) {
         if (instance.evaluateFieldShowCondition(child)) {
             return (
-                <li key={index}>
+                <li key={child.id}>
                     <FormField
                         id={child.id}
                         field={child}
@@ -35,7 +35,7 @@ export default class FormChildren extends React.Component {
 }
 
 FormChildren.propTypes = {
-    field   : PropTypes.object.isRequired,
+    field: PropTypes.object.isRequired,
     instance: PropTypes.object.isRequired,
     onUpdate: PropTypes.func.isRequired
 };

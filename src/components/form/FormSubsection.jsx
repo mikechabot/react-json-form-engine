@@ -10,10 +10,13 @@ class FormSubsection extends React.Component {
     render() {
         const { hideTitle, subsection, instance, onUpdate } = this.props;
         return (
-            <Flex column={true} flex={1} className="panel">
+            <Flex column={true} flex={1} className="panel" flexShrink={0}>
                 {this._maybeRenderSubsectionTitle(subsection, instance, hideTitle)}
                 <div className="panel-block">
-                    <ol className="field-list" style={{maxWidth: this.props.maxWidth ? this.props.maxWidth: 500}}>
+                    <ol
+                        className="field-list"
+                        style={{ maxWidth: this.props.maxWidth ? this.props.maxWidth : 500 }}
+                    >
                         {_map(
                             subsection.fields,
                             this._renderSubsectionField.bind(this, instance, onUpdate)
@@ -44,9 +47,9 @@ class FormSubsection extends React.Component {
     _maybeRenderSubsectionTitle(subsection, instance, hideTitle) {
         if (!hideTitle) {
             return (
-                <p className="panel-heading">
+                <div className="panel-heading">
                     <FormSubsectionTitle subsection={subsection} instance={instance} />
-                </p>
+                </div>
             );
         }
     }

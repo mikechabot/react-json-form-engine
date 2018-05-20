@@ -9,8 +9,8 @@ function Footer() {
                 <div className="content has-text-centered">
                     <p>
                         <strong className="has-text-grey-light">
-                            <Icon icon="cloud" />
-                            &nbsp;react-boilerplate
+                            <Icon icon="cube" />
+                            &nbsp;react-form-engine
                         </strong>{' '}
                         by{' '}
                         <a
@@ -35,24 +35,24 @@ function Footer() {
                         </a>.
                     </p>
                     <Flex hAlignCenter>
-                        <GithubButton
-                            label="Star"
-                            icon="octicon-star"
-                            href="mikechabot/react-form-engine"
-                            ariaLabel="Star mikechabot/react-boilerplate on GitHub"
-                        />
-                        <GithubButton
-                            label="Fork"
-                            icon="octicon-repo-forked"
-                            href="mikechabot/react-form-engine/fork"
-                            ariaLabel="Fork mikechabot/react-form-engine on GitHub"
-                        />
-                        <GithubButton
-                            label="Watch"
-                            icon="octicon-eye"
-                            href="mikechabot/react-form-engine/subscription"
-                            ariaLabel="Watch mikechabot/react-form-engine on GitHub"
-                        />
+                        {/*<GithubButton*/}
+                            {/*label="Star"*/}
+                            {/*icon="octicon-star"*/}
+                            {/*href="mikechabot/react-form-engine"*/}
+                            {/*ariaLabel="Star mikechabot/react-boilerplate on GitHub"*/}
+                        {/*/>*/}
+                        {/*<GithubButton*/}
+                            {/*label="Fork"*/}
+                            {/*icon="octicon-repo-forked"*/}
+                            {/*href="mikechabot/react-form-engine/fork"*/}
+                            {/*ariaLabel="Fork mikechabot/react-form-engine on GitHub"*/}
+                        {/*/>*/}
+                        {/*<GithubButton*/}
+                            {/*label="Watch"*/}
+                            {/*icon="octicon-eye"*/}
+                            {/*href="mikechabot/react-form-engine/subscription"*/}
+                            {/*ariaLabel="Watch mikechabot/react-form-engine on GitHub"*/}
+                        {/*/>*/}
                     </Flex>
                 </div>
             </div>

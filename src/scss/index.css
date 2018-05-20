@@ -1,4 +1,5 @@
 @import url(../../node_modules/normalize.css/normalize.css);
+@import url("https://fonts.googleapis.com/css?family=Roboto+Mono:400,500,700");
 /*! bulma.io v0.7.1 | MIT License | github.com/jgthms/bulma */
 @keyframes spinAround {
   from {
@@ -2641,7 +2642,7 @@ a.box:active {
   color: #363636;
   display: block;
   font-size: 1rem;
-  font-weight: 700; }
+  font-weight: 500; }
   .label:not(:last-child) {
     margin-bottom: 0.5em; }
   .label.is-small {
@@ -6420,6 +6421,9 @@ label.panel-block {
   background-color: #fafafa;
   padding: 3rem 1.5rem 6rem; }
 
+.panel-heading > span > h1 {
+  margin: 0; }
+
 body,
 html {
   height: 100%;
@@ -6449,33 +6453,31 @@ html {
 
 ol.field-list {
   width: 100%;
-  list-style-type: none;
-  margin: 0;
-  margin-left: 1em;
-  padding: 0; }
+  list-style-type: none; }
 
 ol.field-list > li {
-  position: relative;
-  margin-bottom: 20px;
+  margin-bottom: 1em;
   padding-left: .75em;
-  min-height: 3em;
   border-left: 1px solid #3273DC; }
 
-ol.field-list > li:before {
-  position: absolute;
-  top: 0;
-  left: -1em;
-  width: 0.8em;
-  font-size: 22px;
-  line-height: 1;
-  font-weight: bold;
-  text-align: right;
-  color: #5ab4d2; }
+ol.child-list {
+  width: 100%;
+  list-style-type: none; }
+
+ol.child-list > li {
+  padding: .25em .75em;
+  border-left: 1px solid #C0C0C0; }
+
+ol.child-list > li:first-child {
+  margin: .5em 0 0 0; }
+
+ol.child-list > li:last-child {
+  padding-bottom: 0; }
 
 pre {
-  font-size: 75%;
+  font-size: .70rem;
   counter-reset: line-numbering;
-  font-family: Consolas, Menlo, Monaco, monospace;
+  font-family: "Roboto Mono", Menlo, Monaco, monospace;
   padding: 5px;
   color: #757575;
   border-radius: 3px;
@@ -6489,6 +6491,143 @@ pre .line::before {
   /* space after numbers */
   width: 1.5em;
   text-align: right;
-  font-weight: 600;
-  font-size: 12px;
-  color: #616161; }
+  font-weight: 700;
+  color: #5ab4d2; }
+
+.m-top--x-small {
+  margin-top: 0.5rem; }
+
+.m-right--x-small {
+  margin-right: 0.5rem; }
+
+.m-bottom--x-small {
+  margin-bottom: 0.5rem; }
+
+.m-left--x-small {
+  margin-left: 0.5rem; }
+
+.m-around--x-small {
+  margin: 0.5rem; }
+
+.m-top--xxx-small {
+  margin-top: 0.125rem; }
+
+.m-right--xxx-small {
+  margin-right: 0.125rem; }
+
+.m-bottom--xxx-small {
+  margin-bottom: 0.125rem; }
+
+.m-left--xxx-small {
+  margin-left: 0.125rem; }
+
+.m-around--xxx-small {
+  margin: 0.125rem; }
+
+.m-top--xx-small {
+  margin-top: 0.25rem; }
+
+.m-right--xx-small {
+  margin-right: 0.25rem; }
+
+.m-bottom--xx-small {
+  margin-bottom: 0.25rem; }
+
+.m-left--xx-small {
+  margin-left: 0.25rem; }
+
+.m-around--xx-small {
+  margin: 0.25rem; }
+
+.m-top--small {
+  margin-top: 0.75rem; }
+
+.m-right--small {
+  margin-right: 0.75rem; }
+
+.m-bottom--small {
+  margin-bottom: 0.75rem; }
+
+.m-left--small {
+  margin-left: 0.75rem; }
+
+.m-around--small {
+  margin: 0.75rem; }
+
+.m-top--medium {
+  margin-top: 1rem; }
+
+.m-right--medium {
+  margin-right: 1rem; }
+
+.m-bottom--medium {
+  margin-bottom: 1rem; }
+
+.m-left--medium {
+  margin-left: 1rem; }
+
+.m-around--medium {
+  margin: 1rem; }
+
+.m-top--none {
+  margin-top: 0 !important; }
+
+.m-right--none {
+  margin-right: 0 !important; }
+
+.m-bottom--none {
+  margin-bottom: 0 !important; }
+
+.m-left--none {
+  margin-left: 0 !important; }
+
+.m-around--none {
+  margin: 0; }
+
+.m-top--x-large {
+  margin-top: 2rem; }
+
+.m-right--x-large {
+  margin-right: 2rem; }
+
+.m-bottom--x-large {
+  margin-bottom: 2rem; }
+
+.m-left--x-large {
+  margin-left: 2rem; }
+
+.m-around--x-large {
+  margin: 2rem; }
+
+.m-top--xx-large {
+  margin-top: 3rem; }
+
+.m-right--xx-large {
+  margin-right: 3rem; }
+
+.m-bottom--xx-large {
+  margin-bottom: 3rem; }
+
+.m-left--xx-large {
+  margin-left: 3rem; }
+
+.m-around--xx-large {
+  margin: 3rem; }
+
+.m-top--large {
+  margin-top: 1.5rem; }
+
+.m-right--large {
+  margin-right: 1.5rem; }
+
+.m-bottom--large {
+  margin-bottom: 1.5rem; }
+
+.m-left--large {
+  margin-left: 1.5rem; }
+
+.m-around--large {
+  margin: 1.5rem; }
+
+.m-bottom--none {
+  margin-bottom: 0; }

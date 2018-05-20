@@ -10,7 +10,11 @@ class FormSection extends React.Component {
         const { section } = this.props;
         const { subsections } = section;
 
-        return <Flex id={section.id}>{this._renderSubsections(section, subsections)}</Flex>;
+        return (
+            <Flex id={section.id} flexShrink={0}>
+                {this._renderSubsections(section, subsections)}
+            </Flex>
+        );
     }
 
     _renderSubsections(section, subsections) {

@@ -1,20 +1,20 @@
 export default {
-    id      : 'ARRAYS',
-    title   : 'Arrays',
+    id: 'ARRAYS',
+    title: 'Arrays',
     sections: [
         {
-            id         : 'Section-1',
-            title      : 'Arrays',
+            id: 'section_0',
+            title: 'Arrays',
             subsections: [
                 {
-                    id      : 'Subsection-1',
-                    title   : 'Stores [id]:[value:Array]',
-                    subtitle: 'Store the ids of the selected options',
-                    fields  : [
+                    id: 'subsection_0',
+                    title: 'Store Array Values',
+                    subtitle: 'Persists as "[id]:[value:Array]" in the Model',
+                    fields: [
                         {
-                            id     : 'array1',
-                            type   : 'array',
-                            title  : 'Multiselect',
+                            id: 'array1',
+                            type: 'array',
+                            title: 'Multiselect',
                             options: [
                                 { id: 'op1', title: 'Option 1' },
                                 { id: 'op2', title: 'Option 2' },
@@ -23,9 +23,9 @@ export default {
                             ]
                         },
                         {
-                            id     : 'array2',
-                            type   : 'array',
-                            title  : 'Checkbox group',
+                            id: 'array2',
+                            type: 'array',
+                            title: 'Checkbox group',
                             options: [
                                 { id: 'op1', title: 'Option 1' },
                                 { id: 'op2', title: 'Option 2' },
@@ -39,6 +39,9 @@ export default {
         }
     ],
     decorators: {
+        array1: {
+            hint: 'Select a whole bunch.'
+        },
         array2: {
             component: {
                 type: 'checkboxgroup'

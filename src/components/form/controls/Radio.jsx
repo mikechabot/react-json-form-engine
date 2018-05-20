@@ -1,75 +1,60 @@
 import PropTypes from 'prop-types';
 import React from 'react';
-import Maybe from 'maybe-baby';
 import { Flex, Icon } from '../../common';
 
 import { __hasValue } from '../../../common/common';
 import FormChildren from '../FormChildren';
 
-class Radio extends React.Component {
-    render() {
-        const { id, value, field } = this.props;
-        if (!field.options) {
-            console.warn(`${field.type} is missing required "options" (id: ${id})`);
-            return <span />;
-        }
-        return (
+const Radio = ({ id, value, field, instance, onUpdate }) => {
+    if (!field.options) {
+        console.warn(`${field.type} is missing required "options" (id: ${id})`);
+        return <span />;
+    }
+    return (
+        <Flex column={!field.inline} id={id}>
+            {_renderOptions(field, value, instance, onUpdate)}
+        </Flex>
+    );
+};
+
+const _renderOptions = (field, value, instance, onUpdate) => {
+    return field.options.map(_renderOption.bind(null, field, value, instance, onUpdate));
+};
+
+const _renderOption = (field, value, instance, onUpdate, option, index) => {
+    const isEven = index % 2 === 0;
+    return (
+        <Flex key={index} margin={5} column vAlignCenter>
             <Flex
-                column={!field.inline}
-                id={id}
-                style={this._hasHint(field) ? { marginBottom: 10 } : {}}
+                cursor="pointer"
+                vAlignCenter={true}
+                onClick={_handleOnClick.bind(null, field, option, onUpdate, isEven)}
             >
-                {field.options.map(this._renderOption.bind(this, field, value))}
+                {_renderOptionIcon(option, value, isEven)}&nbsp;
+                <div>{option.title}</div>
             </Flex>
-        );
-    }
+            <FormChildren field={option} instance={instance} onUpdate={onUpdate} />
+        </Flex>
+    );
+};
 
-    _renderOption(field, value, option, index) {
-        const isEven = index % 2 === 0;
-        return (
-            <Flex key={index} margin={5} column={true} vAlignCenter={true}>
-                <Flex
-                    cursor="pointer"
-                    vAlignCenter={true}
-                    onClick={this._handleOnClick.bind(this, field, option, isEven)}
-                >
-                    {this._renderOptionIcon(option, value, isEven)}&nbsp;
-                    <div style={{ fontSize: 14, fontWeight: 300 }}>{option.title}</div>
-                </Flex>
-                <FormChildren
-                    field={option}
-                    instance={this.props.instance}
-                    onUpdate={this.props.onUpdate}
-                />
-            </Flex>
-        );
-    }
+const _renderOptionIcon = (option, value, isEven) => {
+    return _isChecked(option, value, isEven) ? (
+        <Icon prefix="far" icon="dot-circle" />
+    ) : (
+        <Icon prefix="far" icon="circle" />
+    );
+};
 
-    _renderOptionIcon(option, value, isEven) {
-        return this._isChecked(option, value, isEven) ? (
-            <Icon prefix="far" icon="dot-circle" />
-        ) : (
-            <Icon prefix="far" icon="circle" />
-        );
-    }
+const _handleOnClick = (field, option, onUpdate, isEven) => {
+    onUpdate(option.id || isEven, field.id);
+};
 
-    _handleOnClick(field, option, isEven) {
-        this.props.onUpdate(option.id || isEven, field.id);
-    }
-
-    _hasHint(field) {
-        return Maybe.of(field)
-            .prop('uiDecorators')
-            .prop('hint')
-            .isJust();
-    }
-
-    _isChecked(option, value, isEven) {
-        if (!__hasValue(value)) return false;
-        if (option.id) return option.id === value;
-        return isEven ? value : !value;
-    }
-}
+const _isChecked = (option, value, isEven) => {
+    if (!__hasValue(value)) return false;
+    if (option.id) return option.id === value;
+    return isEven ? value : !value;
+};
 
 Radio.propTypes = {
     id: PropTypes.string.isRequired,

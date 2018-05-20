@@ -2,42 +2,39 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { DATA_TYPE } from '../../../form/config/form-const';
 
-export default function Select({ id, value, field, onUpdate }) {
+const Select = ({ id, value, field, onUpdate }) => {
     if (!field.options) {
         console.warn(`${field.type} is missing required "options" (id: ${id})`);
         return <span />;
     }
+    const isMultiple = __isFieldTypeArray(field);
     return (
-        <div className="select">
-            <select value={value} id={id} name={id} onChange={onUpdate} multiple={__isTypeArray(field)}>
+        <div className={`select ${isMultiple ? 'is-multiple' : ''}`}>
+            <select value={value} id={id} name={id} onChange={onUpdate} multiple={isMultiple}>
                 {_maybeRenderPlaceholder(field, value)}
                 {_renderOptions(field)}
             </select>
         </div>
     );
-}
+};
 
-function _maybeRenderPlaceholder(field, value) {
-    if (!value && !__isTypeArray(field)) {
-        return (
-            <option style={{ fontWeight: 300 }} value="">
-                {field.placeholder || '-- select value --'}
-            </option>
-        );
+const _maybeRenderPlaceholder = (field, value) => {
+    if (!value && !__isFieldTypeArray(field)) {
+        return <option value="">{field.placeholder || '-- select value --'}</option>;
     }
-}
+};
 
-function _renderOptions(field) {
+const _renderOptions = field => {
     return field.options.map((option, index) => (
-        <option key={index} value={option.id} style={{ fontWeight: 300 }}>
+        <option key={index} value={option.id}>
             {option.title}
         </option>
     ));
-}
+};
 
-function __isTypeArray(field) {
+const __isFieldTypeArray = field => {
     return field.type === DATA_TYPE.ARRAY;
-}
+};
 
 Select.propTypes = {
     id: PropTypes.string.isRequired,
@@ -46,3 +43,5 @@ Select.propTypes = {
     uiField: PropTypes.object,
     onUpdate: PropTypes.func.isRequired
 };
+
+export default Select;

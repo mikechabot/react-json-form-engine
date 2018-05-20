@@ -46,11 +46,9 @@ class App extends React.Component {
     _renderHeader() {
         return (
             <Navbar
-                brand={{
-                    icon: 'cloud',
-                    url: 'http://www.github.com/mikechabot/react-form-engine',
-                    label: 'react-form-engine'
-                }}
+                icon="cube"
+                url="http://www.github.com/mikechabot/react-form-engine"
+                label="react-form-engine"
             />
         );
     }
@@ -85,15 +83,19 @@ class App extends React.Component {
     _renderTabContent(form, index, instance) {
         if (this.state.activeKey === index && instance) {
             return (
-                <Flex padding={10} style={{ flexWrap: 'wrap' }}>
-                    <Flex flex={1} style={{ minWidth: 400 }}>
+                <Flex flexWrap="wrap" className="full-height">
+                    <Flex
+                        width={600}
+                        flexShrink={0}
+                        className="m-left--xx-small m-right--xx-small full-height"
+                    >
                         <Form
                             instance={instance}
                             onUpdate={this._onFormUpdate.bind(this)}
                             onSubmit={this._onSubmit.bind(this)}
                         />
                     </Flex>
-                    {/* {this._maybeRenderPanels(form, instance)} */}
+                    {this._maybeRenderPanels(form, instance)}
                 </Flex>
             );
         }
@@ -103,13 +105,25 @@ class App extends React.Component {
         if (instance.isValid()) {
             return (
                 <Flex flex={1} column={true}>
-                    <Flex>
-                        <CodePanel title="Schema" content={{ sections: form.sections }} />
-                        <CodePanel title="UI Decorators" content={form.decorators} />
+                    <Flex flex={1} flexShrink={0} overflow="hidden" className="m-bottom--x-small">
+                        <CodePanel
+                            icon="map"
+                            title="JSON Schema"
+                            content={{ sections: form.sections }}
+                        />
+                        <CodePanel icon="map-marker" title="UI Decorators" content={form.decorators} />
                     </Flex>
-                    <Flex>
-                        <CodePanel title="Model" content={{ model: instance.getModelValues() }} />
-                        <CodePanel title="Change Event" content={this.state.changeEvent} />
+                    <Flex flex={1} flexShrink={0} overflow="hidden" className="m-bottom--x-small">
+                        <CodePanel
+                            icon="database"
+                            title="Model"
+                            content={{ model: instance.getModelValues() }}
+                        />
+                        <CodePanel
+                            icon="sync"
+                            title="Last Change Event"
+                            content={this.state.changeEvent}
+                        />
                     </Flex>
                 </Flex>
             );

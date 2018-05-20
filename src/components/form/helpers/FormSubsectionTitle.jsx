@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import Asterisk from '../../common/Asterisk';
 
-export default function FormSubsectionTitle({ subsection, instance, isTab }) {
+function FormSubsectionTitle({ subsection, instance, isTab }) {
     return isTab ? __renderTabTitle(subsection, instance) : __renderTitle(subsection, instance);
 }
 
@@ -39,3 +39,5 @@ FormSubsectionTitle.propTypes = {
     instance: PropTypes.object.isRequired,
     isTab: PropTypes.bool
 };
+
+export default FormSubsectionTitle;

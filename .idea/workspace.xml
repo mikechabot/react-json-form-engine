@@ -2,85 +2,42 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="93849093-3fc3-4077-bd54-3f41539a1126" name="Default" comment="">
-      <change afterPath="$PROJECT_DIR$/.prettierrc" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/Footer.jsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/common/Icon.jsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/common/bulma/Navbar.jsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/common/glamorous/Flex.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/common/tabs/Tab.jsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/common/tabs/Tabs.jsx" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/components/common/tabs/index.js" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/src/scss/mixins.scss" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.babelrc" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.coveralls.yml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.eslintrc.json" beforeDir="false" afterPath="$PROJECT_DIR$/.eslintrc.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/.gitignore" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/.travis.yml" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/LICENSE" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/README.md" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/package.json" beforeDir="false" afterPath="$PROJECT_DIR$/package.json" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/server.js" beforeDir="false" />
+      <change afterPath="$PROJECT_DIR$/src/scss/bulma-override.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/App.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/App.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/Bootstrap.jsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/common/common.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/common/common.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/Footer.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/Footer.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/common/Asterisk.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/common/Asterisk.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/common/CodeBlock.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/common/CodeBlock.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/common/CodePanel.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/common/CodePanel.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/common/Flex.jsx" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/common/index.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/common/index.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/common/Icon.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/common/Icon.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/common/bulma/Navbar.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/common/bulma/Navbar.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/common/tabs/Tabs.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/common/tabs/Tabs.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/form/Form.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/form/Form.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/form/FormChildren.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/form/FormChildren.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/form/FormControl.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/form/FormControl.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/form/FormField.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/form/FormField.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/form/FormSection.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/form/FormSection.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/form/FormSubsection.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/form/FormSubsection.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/form/controls/Checkbox.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/form/controls/Checkbox.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/form/controls/CheckboxGroup.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/form/controls/CheckboxGroup.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/form/controls/DateTime.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/form/controls/DateTime.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/form/controls/Number.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/form/controls/Number.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/form/controls/Radio.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/form/controls/Radio.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/form/controls/Range.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/form/controls/Range.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/form/controls/Select.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/form/controls/Select.jsx" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/components/form/controls/Select.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/form/controls/Select.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/form/controls/Text.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/form/controls/Text.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/form/controls/Textarea.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/form/controls/Textarea.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/form/helpers/APICheckError.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/form/helpers/APICheckError.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/form/helpers/FieldError.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/form/helpers/FieldError.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/form/helpers/FormItemHint.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/form/helpers/FormItemHint.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/form/helpers/FormItemTitle.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/form/helpers/FormItemTitle.jsx" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/components/form/helpers/FormSubsectionTitle.jsx" beforeDir="false" afterPath="$PROJECT_DIR$/src/components/form/helpers/FormSubsectionTitle.jsx" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/components/form/helpers/Subtitle.jsx" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/examples/arrays.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/examples/arrays.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/examples/booleans.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/examples/booleans.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/examples/forms.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/examples/forms.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/examples/numbers.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/examples/numbers.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/examples/relationships.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/examples/nested-fields.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/examples/strings.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/examples/strings.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/form/config/form-config.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/form/config/form-config.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/form/config/form-operations.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/form/config/form-operations.js" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/form/config/form-const.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/form/config/form-const.js" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/src/form/form-engine.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/form/form-engine.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/form/form-instance-factory.bak.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/form/service/expression-service.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/form/service/expression-service.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/form/service/validation-service.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/form/service/validation-service.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/form/validation/form-validator.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/form/validation/form-validator.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/form/validation/form-validators.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/form/validation/form-validators.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/form/validation/validation-results.js" beforeDir="false" afterPath="$PROJECT_DIR$/src/form/validation/validation-results.js" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/index.html" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/style/bootstrap-override.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/style/common.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/style/style.scss" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/style/third-party/bootstrap/css/bootstrap.min.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/style/third-party/bootstrap/fonts/glyphicons-halflings-regular.eot" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/style/third-party/bootstrap/fonts/glyphicons-halflings-regular.svg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/style/third-party/bootstrap/fonts/glyphicons-halflings-regular.ttf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/style/third-party/bootstrap/fonts/glyphicons-halflings-regular.woff" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/style/third-party/bootstrap/fonts/glyphicons-halflings-regular.woff2" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/style/third-party/font-awesome/css/font-awesome.min.css" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/style/third-party/font-awesome/fonts/FontAwesome.otf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/style/third-party/font-awesome/fonts/fontawesome-webfont.eot" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/style/third-party/font-awesome/fonts/fontawesome-webfont.svg" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/style/third-party/font-awesome/fonts/fontawesome-webfont.ttf" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/style/third-party/font-awesome/fonts/fontawesome-webfont.woff" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/src/style/third-party/font-awesome/fonts/fontawesome-webfont.woff2" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/data/mock-data.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/mocha.opts" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/test/unit/form/test-form-engine.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/utils/clean-plugin.js" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/webpack.config.js" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/scss/index.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/scss/index.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/scss/index.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/scss/index.scss" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/scss/mixins.css" beforeDir="false" afterPath="$PROJECT_DIR$/src/scss/mixins.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/src/scss/mixins.scss" beforeDir="false" afterPath="$PROJECT_DIR$/src/scss/mixins.scss" afterDir="false" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -94,73 +51,11 @@
   </component>
   <component name="FileEditorManager">
     <leaf>
-      <file leaf-file-name="Form.jsx" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/components/form/Form.jsx">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="858">
-              <caret line="26" column="29" lean-forward="true" selection-start-line="26" selection-start-column="29" selection-end-line="26" selection-end-column="29" />
-              <folding>
-                <element signature="e#0#26#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="strings.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/examples/strings.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="561">
-              <caret line="17" column="43" lean-forward="true" selection-start-line="17" selection-start-column="43" selection-end-line="17" selection-end-column="43" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Select.jsx" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/components/form/controls/Select.jsx">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="165">
-              <caret line="5" column="25" lean-forward="true" selection-start-line="5" selection-start-column="25" selection-end-line="5" selection-end-column="25" />
-              <folding>
-                <element signature="e#0#35#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Radio.jsx" pinned="false" current-in-tab="true">
-        <entry file="file://$PROJECT_DIR$/src/components/form/controls/Radio.jsx">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="99">
-              <caret line="3" column="19" selection-start-line="3" selection-start-column="19" selection-end-line="3" selection-end-column="19" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="index.js" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/components/common/index.js">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="132">
-              <caret line="4" column="41" lean-forward="true" selection-start-line="4" selection-start-column="41" selection-end-line="4" selection-end-column="41" />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Icon.jsx" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/components/common/Icon.jsx">
-          <provider selected="true" editor-type-id="text-editor">
-            <state>
-              <folding>
-                <element signature="e#0#26#0" expanded="true" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
       <file leaf-file-name="FormSubsection.jsx" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/components/form/FormSubsection.jsx">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="363">
-              <caret line="14" column="45" lean-forward="true" selection-start-line="14" selection-start-column="45" selection-end-line="14" selection-end-column="45" />
+            <state relative-caret-position="396">
+              <caret line="12" column="72" selection-start-line="12" selection-start-column="72" selection-end-line="12" selection-end-column="72" />
               <folding>
                 <element signature="e#0#35#0" expanded="true" />
               </folding>
@@ -168,11 +63,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Text.jsx" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/components/form/controls/Text.jsx">
+      <file leaf-file-name="FormSection.jsx" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/components/form/FormSection.jsx">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="330">
-              <caret line="10" column="17" lean-forward="true" selection-start-line="10" selection-start-column="17" selection-end-line="10" selection-end-column="17" />
+            <state relative-caret-position="198">
+              <caret line="6" lean-forward="true" selection-start-line="6" selection-end-line="6" />
               <folding>
                 <element signature="e#0#35#0" expanded="true" />
               </folding>
@@ -180,11 +75,65 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="Textarea.jsx" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/src/components/form/controls/Textarea.jsx">
+      <file leaf-file-name="Form.jsx" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/components/form/Form.jsx">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="165">
-              <caret line="5" column="13" lean-forward="true" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
+            <state relative-caret-position="211">
+              <caret line="35" column="71" selection-start-line="35" selection-start-column="71" selection-end-line="35" selection-end-column="71" />
+              <folding>
+                <element signature="e#0#26#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="form-engine.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/form/form-engine.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="532">
+              <caret line="392" column="9" selection-start-line="392" selection-start-column="9" selection-end-line="392" selection-end-column="9" />
+              <folding>
+                <element signature="e#0#39#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="App.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/App.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state>
+              <caret column="9" selection-start-column="9" selection-end-column="9" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="nested-fields.js" pinned="false" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/src/examples/nested-fields.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="498">
+              <caret line="58" column="82" selection-start-line="58" selection-start-column="82" selection-end-line="58" selection-end-column="82" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="CheckboxGroup.jsx" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/components/form/controls/CheckboxGroup.jsx">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="264">
+              <caret line="17" column="60" selection-start-line="17" selection-start-column="60" selection-end-line="17" selection-end-column="60" />
+              <folding>
+                <element signature="e#0#35#0" expanded="true" />
+              </folding>
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="FormChildren.jsx" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/components/form/FormChildren.jsx">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="462">
+              <caret line="14" column="27" selection-start-line="14" selection-start-column="27" selection-end-line="14" selection-end-column="27" />
               <folding>
                 <element signature="e#0#35#0" expanded="true" />
               </folding>
@@ -195,8 +144,20 @@
       <file leaf-file-name="index.scss" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/src/scss/index.scss">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="429">
-              <caret line="37" column="15" lean-forward="true" selection-start-line="37" selection-start-column="15" selection-end-line="37" selection-end-column="15" />
+            <state relative-caret-position="178">
+              <caret line="51" column="1" lean-forward="true" selection-start-line="51" selection-start-column="1" selection-end-line="51" selection-end-column="1" />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="forms.js" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/src/examples/forms.js">
+          <provider selected="true" editor-type-id="text-editor">
+            <state relative-caret-position="561">
+              <caret line="17" column="17" lean-forward="true" selection-start-line="17" selection-start-column="17" selection-end-line="17" selection-end-column="17" />
+              <folding>
+                <element signature="e#0#30#0" expanded="true" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -206,21 +167,13 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="CSS File" />
         <option value="JavaScript File" />
+        <option value="CSS File" />
       </list>
     </option>
   </component>
   <component name="FindInProjectRecents">
     <findStrings>
-      <find>label</find>
-      <find>import labvel</find>
-      <find>import label</find>
-      <find>setModel</find>
-      <find>console.log</find>
-      <find>str20</find>
-      <find>str22</find>
-      <find>setModelVa</find>
       <find>forEach</find>
       <find>_</find>
       <find>_.isString</find>
@@ -243,6 +196,14 @@
       <find>getin</find>
       <find>FormSubsectionTitle</find>
       <find>key</find>
+      <find>cursor</find>
+      <find>pointer</find>
+      <find>ful</find>
+      <find>ul</find>
+      <find>disabled</find>
+      <find>schem</find>
+      <find>rela</find>
+      <find>arr</find>
     </findStrings>
     <replaceStrings>
       <replace>__.isNumber</replace>
@@ -272,26 +233,9 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/src/App.jsx" />
-        <option value="$PROJECT_DIR$/.travis.yml" />
-        <option value="$PROJECT_DIR$/README.md" />
-        <option value="$PROJECT_DIR$/.gitignore" />
-        <option value="$PROJECT_DIR$/src/components/form/controls/CheckboxGroup.jsx" />
-        <option value="$PROJECT_DIR$/src/form/config/form-config.js" />
-        <option value="$PROJECT_DIR$/src/form/config/form-operations.js" />
-        <option value="$PROJECT_DIR$/src/form/service/expression-service.js" />
-        <option value="$PROJECT_DIR$/src/form/service/validation-service.js" />
-        <option value="$PROJECT_DIR$/src/form/validation/form-validators.js" />
-        <option value="$PROJECT_DIR$/src/form/validation/validation-results.js" />
-        <option value="$PROJECT_DIR$/src/components/form/controls/Number.jsx" />
-        <option value="$PROJECT_DIR$/src/components/form/controls/DateTime.jsx" />
-        <option value="$PROJECT_DIR$/src/common/common.js" />
-        <option value="$PROJECT_DIR$/src/components/tabs/Tabs.jsx" />
-        <option value="$PROJECT_DIR$/src/components/common/CodePanel.jsx" />
         <option value="$PROJECT_DIR$/package.json" />
         <option value="$PROJECT_DIR$/src/components/glamorous/index.js" />
         <option value="$PROJECT_DIR$/src/components/common/glamorous/index.js" />
-        <option value="$PROJECT_DIR$/src/components/common/glamorous/Flex.js" />
         <option value="$PROJECT_DIR$/src/index.js" />
         <option value="$PROJECT_DIR$/src/index.scss" />
         <option value="$PROJECT_DIR$/src/components/common/tabs/index.js" />
@@ -299,30 +243,47 @@
         <option value="$PROJECT_DIR$/src/components/common/tabs/Tab.jsx" />
         <option value="$PROJECT_DIR$/src/components/common/bulma/Navbar.js" />
         <option value="$PROJECT_DIR$/src/components/common/Icon.js" />
-        <option value="$PROJECT_DIR$/src/components/common/tabs/Tabs.jsx" />
         <option value="$PROJECT_DIR$/src/components/Footer.js" />
-        <option value="$PROJECT_DIR$/src/components/Footer.jsx" />
-        <option value="$PROJECT_DIR$/src/App.js" />
         <option value="$PROJECT_DIR$/public/index.html" />
-        <option value="$PROJECT_DIR$/src/components/form/FormSection.jsx" />
         <option value="$PROJECT_DIR$/src/components/form/helpers/Subtitle.jsx" />
-        <option value="$PROJECT_DIR$/src/form/form-engine.js" />
-        <option value="$PROJECT_DIR$/src/components/form/helpers/FormSubsectionTitle.jsx" />
-        <option value="$PROJECT_DIR$/src/components/form/helpers/FormItemHint.jsx" />
-        <option value="$PROJECT_DIR$/src/scss/mixins.scss" />
-        <option value="$PROJECT_DIR$/src/components/form/helpers/FormItemTitle.jsx" />
-        <option value="$PROJECT_DIR$/src/components/form/Form.jsx" />
-        <option value="$PROJECT_DIR$/src/components/common/bulma/Navbar.jsx" />
-        <option value="$PROJECT_DIR$/src/components/form/controls/Text.jsx" />
         <option value="$PROJECT_DIR$/src/components/form/FormField.jsx" />
         <option value="$PROJECT_DIR$/src/components/form/FormControl.jsx" />
-        <option value="$PROJECT_DIR$/src/scss/index.scss" />
-        <option value="$PROJECT_DIR$/src/components/form/FormSubsection.jsx" />
         <option value="$PROJECT_DIR$/src/components/form/controls/Textarea.jsx" />
-        <option value="$PROJECT_DIR$/src/examples/strings.js" />
-        <option value="$PROJECT_DIR$/src/components/form/controls/Select.jsx" />
         <option value="$PROJECT_DIR$/src/components/common/index.js" />
+        <option value="$PROJECT_DIR$/src/components/common/glamorous/Flex.js" />
+        <option value="$PROJECT_DIR$/src/components/common/tabs/Tabs.jsx" />
         <option value="$PROJECT_DIR$/src/components/form/controls/Radio.jsx" />
+        <option value="$PROJECT_DIR$/src/scss/bulma-override.css" />
+        <option value="$PROJECT_DIR$/src/scss/bulma-override.scss" />
+        <option value="$PROJECT_DIR$/src/components/Footer.jsx" />
+        <option value="$PROJECT_DIR$/src/components/common/CodeBlock.jsx" />
+        <option value="$PROJECT_DIR$/src/components/common/CodePanel.jsx" />
+        <option value="$PROJECT_DIR$/src/components/common/bulma/Navbar.jsx" />
+        <option value="$PROJECT_DIR$/src/components/common/Icon.jsx" />
+        <option value="$PROJECT_DIR$/src/components/common/Asterisk.jsx" />
+        <option value="$PROJECT_DIR$/src/components/form/controls/Select.jsx" />
+        <option value="$PROJECT_DIR$/src/examples/strings.js" />
+        <option value="$PROJECT_DIR$/src/examples/booleans.js" />
+        <option value="$PROJECT_DIR$/src/examples/arrays.js" />
+        <option value="$PROJECT_DIR$/src/components/form/controls/Number.jsx" />
+        <option value="$PROJECT_DIR$/src/components/form/controls/Range.jsx" />
+        <option value="$PROJECT_DIR$/src/examples/numbers.js" />
+        <option value="$PROJECT_DIR$/src/components/form/controls/Text.jsx" />
+        <option value="$PROJECT_DIR$/src/components/form/helpers/FormItemHint.jsx" />
+        <option value="$PROJECT_DIR$/src/components/form/controls/Checkbox.jsx" />
+        <option value="$PROJECT_DIR$/src/components/form/helpers/FormSubsectionTitle.jsx" />
+        <option value="$PROJECT_DIR$/src/components/form/helpers/FormItemTitle.jsx" />
+        <option value="$PROJECT_DIR$/src/scss/mixins.scss" />
+        <option value="$PROJECT_DIR$/src/components/form/FormSubsection.jsx" />
+        <option value="$PROJECT_DIR$/src/components/form/FormSection.jsx" />
+        <option value="$PROJECT_DIR$/src/components/form/Form.jsx" />
+        <option value="$PROJECT_DIR$/src/form/form-engine.js" />
+        <option value="$PROJECT_DIR$/src/App.js" />
+        <option value="$PROJECT_DIR$/src/examples/forms.js" />
+        <option value="$PROJECT_DIR$/src/components/form/controls/CheckboxGroup.jsx" />
+        <option value="$PROJECT_DIR$/src/components/form/FormChildren.jsx" />
+        <option value="$PROJECT_DIR$/src/scss/index.scss" />
+        <option value="$PROJECT_DIR$/src/examples/nested-fields.js" />
       </list>
     </option>
   </component>
@@ -343,14 +304,17 @@
     <sorting>DEFINITION_ORDER</sorting>
   </component>
   <component name="MavenProjectNavigator">
-    <treeState />
+    <treeState>
+      <expand />
+      <select />
+    </treeState>
   </component>
   <component name="NodeModulesDirectoryManager">
     <handled-path value="$PROJECT_DIR$/node_modules" />
   </component>
   <component name="ProjectFrameBounds">
-    <option name="x" value="128" />
-    <option name="width" value="1314" />
+    <option name="x" value="131" />
+    <option name="width" value="1311" />
     <option name="height" value="1447" />
   </component>
   <component name="ProjectView">
@@ -396,6 +360,22 @@
               <item name="react-form-engine" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="components" type="462c0819:PsiDirectoryNode" />
+              <item name="common" type="462c0819:PsiDirectoryNode" />
+              <item name="bulma" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="react-form-engine" type="b2602c69:ProjectViewProjectNode" />
+              <item name="react-form-engine" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="components" type="462c0819:PsiDirectoryNode" />
+              <item name="common" type="462c0819:PsiDirectoryNode" />
+              <item name="glamorous" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="react-form-engine" type="b2602c69:ProjectViewProjectNode" />
+              <item name="react-form-engine" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="components" type="462c0819:PsiDirectoryNode" />
               <item name="form" type="462c0819:PsiDirectoryNode" />
             </path>
             <path>
@@ -419,6 +399,32 @@
               <item name="react-form-engine" type="462c0819:PsiDirectoryNode" />
               <item name="src" type="462c0819:PsiDirectoryNode" />
               <item name="examples" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="react-form-engine" type="b2602c69:ProjectViewProjectNode" />
+              <item name="react-form-engine" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="form" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="react-form-engine" type="b2602c69:ProjectViewProjectNode" />
+              <item name="react-form-engine" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="form" type="462c0819:PsiDirectoryNode" />
+              <item name="config" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="react-form-engine" type="b2602c69:ProjectViewProjectNode" />
+              <item name="react-form-engine" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="form" type="462c0819:PsiDirectoryNode" />
+              <item name="service" type="462c0819:PsiDirectoryNode" />
+            </path>
+            <path>
+              <item name="react-form-engine" type="b2602c69:ProjectViewProjectNode" />
+              <item name="react-form-engine" type="462c0819:PsiDirectoryNode" />
+              <item name="src" type="462c0819:PsiDirectoryNode" />
+              <item name="scss" type="462c0819:PsiDirectoryNode" />
             </path>
           </expand>
           <select />
@@ -897,7 +903,7 @@
       <workItem from="1526752823992" duration="544000" />
       <workItem from="1526753712734" duration="1316000" />
       <workItem from="1526755036972" duration="26000" />
-      <workItem from="1526755076655" duration="18794000" />
+      <workItem from="1526755076655" duration="37067000" />
     </task>
     <servers />
   </component>
@@ -934,10 +940,10 @@
     </history-entry>
   </component>
   <component name="TimeTrackingManager">
-    <option name="totallyTimeSpent" value="211417000" />
+    <option name="totallyTimeSpent" value="229690000" />
   </component>
   <component name="ToolWindowManager">
-    <frame x="128" y="0" width="1314" height="1447" extended-state="0" />
+    <frame x="131" y="0" width="1311" height="1447" extended-state="0" />
     <editor active="true" />
     <layout>
       <window_info anchor="right" id="Palette" order="6" />
@@ -946,7 +952,7 @@
       <window_info id="Image Layers" order="1" />
       <window_info anchor="right" id="Capture Analysis" order="8" />
       <window_info anchor="bottom" id="Event Log" order="7" side_tool="true" />
-      <window_info anchor="right" id="Maven Projects" order="9" weight="0.32971016" />
+      <window_info anchor="right" id="Maven Projects" order="9" weight="0.32938388" />
       <window_info anchor="bottom" id="Database Changes" order="8" show_stripe_button="false" />
       <window_info anchor="bottom" id="Version Control" order="7" weight="0.3297546" />
       <window_info anchor="bottom" id="Run" order="2" visible="true" weight="0.37987518" />
@@ -954,7 +960,7 @@
       <window_info anchor="bottom" id="Terminal" order="7" />
       <window_info id="Capture Tool" order="2" />
       <window_info id="Designer" order="3" />
-      <window_info active="true" anchor="right" content_ui="combo" id="Project" order="1" visible="true" weight="0.43341213" />
+      <window_info active="true" anchor="right" content_ui="combo" id="Project" order="1" visible="true" weight="0.30094787" />
       <window_info anchor="right" id="Database" order="11" />
       <window_info anchor="bottom" id="Find" order="1" weight="0.32917318" />
       <window_info anchor="right" id="Structure" order="2" side_tool="true" weight="0.25" />
@@ -1028,163 +1034,6 @@
     <option name="FILTER_TARGETS" value="false" />
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/node_modules/react-tabify/src/components/Tab.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="112">
-          <caret line="24" column="62" selection-start-line="24" selection-start-column="53" selection-end-line="24" selection-end-column="62" />
-          <folding>
-            <element signature="e#0#26#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/form/helpers/APICheckError.jsx">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <folding>
-            <element signature="e#0#35#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/form/helpers/FieldError.jsx">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <folding>
-            <element signature="e#0#35#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/form/helpers/validation-messages.jsx">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <folding>
-            <element signature="e#0#26#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/form/helpers/validation-results.jsx">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="231">
-          <caret line="7" column="31" lean-forward="true" selection-start-line="7" selection-start-column="31" selection-end-line="7" selection-end-column="31" />
-          <folding>
-            <element signature="e#0#26#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/form/controls/Number.jsx">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="66">
-          <caret line="2" selection-start-line="2" selection-end-line="2" />
-          <folding>
-            <element signature="e#0#35#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/form/controls/DateTime.jsx">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="528">
-          <caret line="16" column="37" selection-start-line="16" selection-start-column="37" selection-end-line="16" selection-end-column="37" />
-          <folding>
-            <element signature="e#0#35#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/form/controls/Checkbox.jsx">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <folding>
-            <element signature="e#0#35#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/common/CodeBlock.jsx">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="297">
-          <caret line="9" column="87" lean-forward="true" selection-start-line="9" selection-start-column="87" selection-end-line="9" selection-end-column="87" />
-          <folding>
-            <element signature="e#0#35#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/common/Asterisk.jsx">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="132">
-          <caret line="4" column="10" selection-start-line="4" selection-start-column="10" selection-end-line="4" selection-end-column="10" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/common/CodePanel.jsx">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="363">
-          <caret line="11" column="27" lean-forward="true" selection-start-line="11" selection-start-column="27" selection-end-line="11" selection-end-column="27" />
-          <folding>
-            <element signature="e#0#35#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/node_modules/react-tabify/src/index.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="33">
-          <caret line="1" lean-forward="true" selection-start-line="1" selection-end-line="1" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/style/bootstrap-override.scss">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/style/common.scss">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/style/style.scss">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-1155">
-          <caret line="1" selection-start-line="1" selection-end-line="1" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/package.json">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="343">
-          <caret line="35" column="49" selection-start-line="35" selection-start-column="49" selection-end-line="35" selection-end-column="49" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/App.css">
-      <provider selected="true" editor-type-id="text-editor" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/logo.svg">
-      <provider selected="true" editor-type-id="images" />
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/App.test.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="66">
-          <caret line="4" column="38" selection-start-line="4" selection-start-column="38" selection-end-line="4" selection-end-column="38" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/registerServiceWorker.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-3267" />
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/common/Flex.jsx">
-      <provider selected="true" editor-type-id="text-editor">
-        <state>
-          <folding>
-            <element signature="e#0#35#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/index.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="165">
@@ -1209,30 +1058,10 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/common/tabs/Tab.jsx">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="297">
-          <caret line="9" column="1" lean-forward="true" selection-start-line="9" selection-start-column="1" selection-end-line="9" selection-end-column="1" />
-          <folding>
-            <element signature="e#0#26#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/src/components/common/tabs/index.js">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="33">
           <caret line="1" column="39" selection-start-line="1" selection-start-column="39" selection-end-line="1" selection-end-column="39" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/common/tabs/Tabs.jsx">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-264">
-          <caret line="7" column="6" selection-start-line="7" selection-start-column="6" selection-end-line="7" selection-end-column="6" />
-          <folding>
-            <element signature="e#0#26#0" expanded="true" />
-          </folding>
         </state>
       </provider>
     </entry>
@@ -1250,187 +1079,74 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/form/form-engine.js">
+    <entry file="file://$PROJECT_DIR$/src/components/common/tabs/Tab.jsx">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="198">
-          <caret line="240" column="5" lean-forward="true" selection-start-line="240" selection-start-column="5" selection-end-line="240" selection-end-column="5" />
+        <state relative-caret-position="297">
+          <caret line="9" column="1" lean-forward="true" selection-start-line="9" selection-start-column="1" selection-end-line="9" selection-end-column="1" />
           <folding>
-            <element signature="e#0#39#0" expanded="true" />
+            <element signature="e#0#26#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/common/tabs/Tabs.jsx">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="235">
+          <caret line="45" column="15" lean-forward="true" selection-start-line="45" selection-start-column="15" selection-end-line="45" selection-end-column="15" />
+          <folding>
+            <element signature="e#0#26#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/form/controls/Radio.jsx">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="1716">
+          <caret line="52" column="41" selection-start-line="52" selection-start-column="35" selection-end-line="52" selection-end-column="41" />
+          <folding>
+            <element signature="e#0#35#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="jar://$APPLICATION_HOME_DIR$/lib/platform-impl.jar!/resources/html5-schema/html5/block.rnc">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="255">
+          <caret line="44" column="16" selection-start-line="44" selection-start-column="16" selection-end-line="44" selection-end-column="16" />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/src/components/Footer.jsx">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="2310">
-          <caret line="70" column="38" lean-forward="true" selection-start-line="70" selection-start-column="38" selection-end-line="70" selection-end-column="38" />
-          <folding>
-            <element signature="e#0#26#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/form/helpers/FormSubsectionTitle.jsx">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="330">
-          <caret line="12" column="16" lean-forward="true" selection-start-line="12" selection-start-column="16" selection-end-line="12" selection-end-column="16" />
-          <folding>
-            <element signature="e#0#35#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/form/FormSection.jsx">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="135">
-          <caret line="44" column="19" selection-start-line="44" selection-start-column="13" selection-end-line="44" selection-end-column="27" />
-          <folding>
-            <element signature="e#0#35#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/form/helpers/FormItemHint.jsx">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="297">
-          <caret line="9" column="2" lean-forward="true" selection-start-line="9" selection-start-column="2" selection-end-line="9" selection-end-column="2" />
-          <folding>
-            <element signature="e#0#35#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/scss/mixins.scss">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="297">
-          <caret line="9" column="27" lean-forward="true" selection-start-line="9" selection-start-column="27" selection-end-line="9" selection-end-column="27" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/form/helpers/FormItemTitle.jsx">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="264">
-          <caret line="8" column="59" lean-forward="true" selection-start-line="8" selection-start-column="59" selection-end-line="8" selection-end-column="59" />
-          <folding>
-            <element signature="e#0#35#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/common/bulma/Navbar.jsx">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="508">
-          <caret line="25" column="22" lean-forward="true" selection-start-line="25" selection-start-column="22" selection-end-line="25" selection-end-column="22" />
-          <folding>
-            <element signature="e#0#26#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/App.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="-121">
-          <caret line="73" column="11" lean-forward="true" selection-start-line="73" selection-start-column="11" selection-end-line="73" selection-end-column="11" />
-          <folding>
-            <element signature="e#0#26#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/common/glamorous/Flex.js">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="409">
-          <caret line="54" column="6" selection-start-line="54" selection-start-column="6" selection-end-line="54" selection-end-column="6" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/form/FormControl.jsx">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="297">
-          <caret line="27" column="5" lean-forward="true" selection-start-line="27" selection-start-column="5" selection-end-line="27" selection-end-column="5" />
-          <folding>
-            <element signature="e#0#35#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/form/FormField.jsx">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="330">
-          <caret line="10" column="22" lean-forward="true" selection-start-line="10" selection-start-column="22" selection-end-line="10" selection-end-column="22" />
-          <folding>
-            <element signature="e#0#35#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/scss/index.scss">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="429">
-          <caret line="37" column="15" lean-forward="true" selection-start-line="37" selection-start-column="15" selection-end-line="37" selection-end-column="15" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/form/controls/Text.jsx">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="330">
-          <caret line="10" column="17" lean-forward="true" selection-start-line="10" selection-start-column="17" selection-end-line="10" selection-end-column="17" />
-          <folding>
-            <element signature="e#0#35#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/form/FormSubsection.jsx">
-      <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="363">
-          <caret line="14" column="45" lean-forward="true" selection-start-line="14" selection-start-column="45" selection-end-line="14" selection-end-column="45" />
-          <folding>
-            <element signature="e#0#35#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/form/controls/Textarea.jsx">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="165">
-          <caret line="5" column="13" lean-forward="true" selection-start-line="5" selection-start-column="13" selection-end-line="5" selection-end-column="13" />
-          <folding>
-            <element signature="e#0#35#0" expanded="true" />
-          </folding>
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/form/Form.jsx">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="858">
-          <caret line="26" column="29" lean-forward="true" selection-start-line="26" selection-start-column="29" selection-end-line="26" selection-end-column="29" />
+          <caret line="11" column="44" selection-start-line="11" selection-start-column="44" selection-end-line="11" selection-end-column="44" />
           <folding>
             <element signature="e#0#26#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/examples/strings.js">
+    <entry file="file://$PROJECT_DIR$/src/scss/bulma-override.scss">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="561">
-          <caret line="17" column="43" lean-forward="true" selection-start-line="17" selection-start-column="43" selection-end-line="17" selection-end-column="43" />
+        <state relative-caret-position="66">
+          <caret line="2" column="1" lean-forward="true" selection-start-line="2" selection-start-column="1" selection-end-line="2" selection-end-column="1" />
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/form/controls/Select.jsx">
+    <entry file="file://$PROJECT_DIR$/src/components/common/CodePanel.jsx">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="165">
-          <caret line="5" column="25" lean-forward="true" selection-start-line="5" selection-start-column="25" selection-end-line="5" selection-end-column="25" />
+        <state relative-caret-position="891">
+          <caret line="27" column="28" lean-forward="true" selection-start-line="27" selection-start-column="28" selection-end-line="27" selection-end-column="28" />
           <folding>
-            <element signature="e#0#35#0" expanded="true" />
+            <element signature="e#0#26#0" expanded="true" />
           </folding>
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/common/Icon.jsx">
+    <entry file="file://$PROJECT_DIR$/src/components/common/CodeBlock.jsx">
       <provider selected="true" editor-type-id="text-editor">
-        <state>
+        <state relative-caret-position="396">
+          <caret line="27" selection-start-line="27" selection-end-line="30" />
           <folding>
             <element signature="e#0#26#0" expanded="true" />
           </folding>
@@ -1444,10 +1160,317 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/src/components/form/controls/Radio.jsx">
+    <entry file="file://$PROJECT_DIR$/src/components/common/glamorous/Flex.js">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="99">
-          <caret line="3" column="19" selection-start-line="3" selection-start-column="19" selection-end-line="3" selection-end-column="19" />
+        <state relative-caret-position="33">
+          <caret line="1" lean-forward="true" selection-start-line="1" selection-end-line="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/form/controls/Textarea.jsx">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="264">
+          <caret line="8" column="23" lean-forward="true" selection-start-line="8" selection-start-column="23" selection-end-line="8" selection-end-column="23" />
+          <folding>
+            <element signature="e#0#35#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/common/Icon.jsx">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="198">
+          <caret line="6" column="26" selection-start-line="6" selection-start-column="26" selection-end-line="6" selection-end-column="26" />
+          <folding>
+            <element signature="e#0#26#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/common/Asterisk.jsx">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="198">
+          <caret line="6" column="2" lean-forward="true" selection-start-line="6" selection-start-column="2" selection-end-line="6" selection-end-column="2" />
+          <folding>
+            <element signature="e#0#26#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/form/controls/Select.jsx">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="627">
+          <caret line="19" lean-forward="true" selection-start-line="19" selection-end-line="19" />
+          <folding>
+            <element signature="e#0#35#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/examples/validation.js">
+      <provider selected="true" editor-type-id="text-editor" />
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/examples/strings.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="396">
+          <caret line="12" column="39" selection-start-line="12" selection-start-column="39" selection-end-line="12" selection-end-column="39" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/examples/arrays.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="112">
+          <caret line="11" column="78" selection-start-line="11" selection-start-column="78" selection-end-line="11" selection-end-column="78" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/form/controls/Number.jsx">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="165">
+          <caret line="5" column="14" lean-forward="true" selection-start-line="5" selection-start-column="14" selection-end-line="5" selection-end-column="14" />
+          <folding>
+            <element signature="e#0#35#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/examples/booleans.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="363">
+          <caret line="11" column="39" selection-start-line="11" selection-start-column="39" selection-end-line="11" selection-end-column="39" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/form/config/form-operations.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="132">
+          <caret line="16" column="28" selection-start-line="16" selection-start-column="13" selection-end-line="16" selection-end-column="33" />
+          <folding>
+            <element signature="e#0#36#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/form/config/form-config.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-4290">
+          <caret line="5" column="9" selection-start-line="5" selection-start-column="9" selection-end-line="5" selection-end-column="9" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/form/config/form-const.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="277">
+          <caret line="43" column="13" selection-start-line="43" selection-start-column="13" selection-end-line="43" selection-end-column="13" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/node_modules/sortable-map/src/index.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="277">
+          <caret line="18" selection-start-line="18" selection-end-line="18" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/common/common.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="156">
+          <caret line="6" column="21" lean-forward="true" selection-start-line="6" selection-start-column="21" selection-end-line="6" selection-end-column="21" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/form/controls/Range.jsx">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="495">
+          <caret line="18" column="35" lean-forward="true" selection-start-line="18" selection-start-column="35" selection-end-line="18" selection-end-column="35" />
+          <folding>
+            <element signature="e#0#35#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/examples/numbers.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="198">
+          <caret line="15" column="43" lean-forward="true" selection-start-line="15" selection-start-column="43" selection-end-line="15" selection-end-column="43" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/form/controls/Text.jsx">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="528">
+          <caret line="16" column="36" lean-forward="true" selection-start-line="16" selection-start-column="36" selection-end-line="16" selection-end-column="36" />
+          <folding>
+            <element signature="e#0#35#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/form/helpers/FormItemHint.jsx">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="231">
+          <caret line="7" column="26" lean-forward="true" selection-start-line="7" selection-start-column="26" selection-end-line="7" selection-end-column="26" />
+          <folding>
+            <element signature="e#0#35#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/form/controls/Checkbox.jsx">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="231">
+          <caret line="7" column="40" selection-start-line="7" selection-start-column="40" selection-end-line="7" selection-end-column="40" />
+          <folding>
+            <element signature="e#0#35#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/form/helpers/FormSubsectionTitle.jsx">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="264">
+          <caret line="8" column="46" lean-forward="true" selection-start-line="8" selection-start-column="46" selection-end-line="8" selection-end-column="46" />
+          <folding>
+            <element signature="e#0#35#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/form/helpers/FormItemTitle.jsx">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="198">
+          <caret line="6" column="43" lean-forward="true" selection-start-line="8" selection-start-column="24" selection-end-line="8" selection-end-column="29" />
+          <folding>
+            <element signature="e#0#35#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/scss/mixins.scss">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="396">
+          <caret line="12" column="19" selection-start-line="12" selection-start-column="19" selection-end-line="12" selection-end-column="19" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/form/FormControl.jsx">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="48">
+          <caret line="42" column="24" lean-forward="true" selection-start-line="42" selection-start-column="24" selection-end-line="42" selection-end-column="24" />
+          <folding>
+            <element signature="e#0#35#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/form/FormField.jsx">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="264">
+          <caret line="11" column="29" selection-start-line="11" selection-start-column="17" selection-end-line="11" selection-end-column="29" />
+          <folding>
+            <element signature="e#0#35#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/common/bulma/Navbar.jsx">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="198">
+          <caret line="6" column="9" selection-start-line="6" selection-start-column="9" selection-end-line="6" selection-end-column="9" />
+          <folding>
+            <element signature="e#0#26#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/form/FormSection.jsx">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="198">
+          <caret line="6" lean-forward="true" selection-start-line="6" selection-end-line="6" />
+          <folding>
+            <element signature="e#0#35#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/form/FormSubsection.jsx">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="396">
+          <caret line="12" column="72" selection-start-line="12" selection-start-column="72" selection-end-line="12" selection-end-column="72" />
+          <folding>
+            <element signature="e#0#35#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/form/form-engine.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="532">
+          <caret line="392" column="9" selection-start-line="392" selection-start-column="9" selection-end-line="392" selection-end-column="9" />
+          <folding>
+            <element signature="e#0#39#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/form/Form.jsx">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="211">
+          <caret line="35" column="71" selection-start-line="35" selection-start-column="71" selection-end-line="35" selection-end-column="71" />
+          <folding>
+            <element signature="e#0#26#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/App.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state>
+          <caret column="9" selection-start-column="9" selection-end-column="9" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/examples/forms.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="561">
+          <caret line="17" column="17" lean-forward="true" selection-start-line="17" selection-start-column="17" selection-end-line="17" selection-end-column="17" />
+          <folding>
+            <element signature="e#0#30#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/form/controls/CheckboxGroup.jsx">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="264">
+          <caret line="17" column="60" selection-start-line="17" selection-start-column="60" selection-end-line="17" selection-end-column="60" />
+          <folding>
+            <element signature="e#0#35#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/components/form/FormChildren.jsx">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="462">
+          <caret line="14" column="27" selection-start-line="14" selection-start-column="27" selection-end-line="14" selection-end-column="27" />
+          <folding>
+            <element signature="e#0#35#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/scss/index.scss">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="178">
+          <caret line="51" column="1" lean-forward="true" selection-start-line="51" selection-start-column="1" selection-end-line="51" selection-end-column="1" />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/src/examples/nested-fields.js">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="498">
+          <caret line="58" column="82" selection-start-line="58" selection-start-column="82" selection-end-line="58" selection-end-column="82" />
         </state>
       </provider>
     </entry>

@@ -4,7 +4,7 @@ import conditions from './conditions';
 import datetime from './date-time';
 import layout from './layout';
 import numbers from './numbers';
-import relationships from './relationships';
+import nestedFields from './nested-fields';
 import strings from './strings';
 import validation from './validation';
 
@@ -15,7 +15,7 @@ export default [
     numbers,
     datetime,
     layout,
-    relationships,
+    nestedFields,
     conditions,
     validation
 ];

@@ -1,16 +1,10 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 
-const Text = ({
-    id,
-    field,
-    value,
-    onUpdate
-}) => (
+const Text = ({ id, field, value, onUpdate }) => (
     <input
         name={id}
         id={id}
-        disabled={field.disabled}
         className="input"
         type="text"
         value={value || ''}
@@ -20,10 +14,10 @@ const Text = ({
 );
 
 Text.propTypes = {
-    id      : PropTypes.string.isRequired,
-    field   : PropTypes.object.isRequired,
+    id: PropTypes.string.isRequired,
+    field: PropTypes.object.isRequired,
     onUpdate: PropTypes.func.isRequired,
-    value   : PropTypes.string
+    value: PropTypes.string
 };
 
 export default Text;

@@ -15,7 +15,7 @@ class CheckboxGroup extends React.Component {
             return <span />;
         }
         return (
-            <Flex column={true}>
+            <Flex column={true} className="m-bottom--x-small">
                 {_map(field.options, this._renderOption.bind(this, id, value, onUpdate))}
             </Flex>
         );

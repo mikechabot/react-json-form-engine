@@ -1,15 +1,10 @@
 import PropTypes from 'prop-types';
 import React from 'react';
 
-export default function Number ({
-    id,
-    field,
-    value,
-    onUpdate
-}) {
+const Number = ({ id, field, value, onUpdate }) => {
     return (
         <input
-            disabled={field.disabled}
+            className="input"
             name={id}
             id={id}
             type="number"
@@ -20,12 +15,13 @@ export default function Number ({
             placeholder={field.placeholder}
         />
     );
-}
-
-Number.propTypes = {
-    id      : PropTypes.string.isRequired,
-    field   : PropTypes.object.isRequired,
-    onUpdate: PropTypes.func.isRequired,
-    value   : PropTypes.number
 };
 
+Number.propTypes = {
+    id: PropTypes.string.isRequired,
+    field: PropTypes.object.isRequired,
+    onUpdate: PropTypes.func.isRequired,
+    value: PropTypes.number
+};
+
+export default Number;

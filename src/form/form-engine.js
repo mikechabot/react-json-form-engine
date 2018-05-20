@@ -392,8 +392,6 @@ export default class FormEngine {
             this.model.add(id, value);
         }
 
-        console.log(field.type, id, value);
-
         // Reset children if necessary
         if (this.doResetChildren(field, value)) {
             console.log('do trdry');

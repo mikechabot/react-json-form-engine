@@ -1,16 +1,22 @@
 // Normalize CSS
 @import '../../node_modules/normalize.css/normalize.css';
 
+@import url('https://fonts.googleapis.com/css?family=Roboto+Mono:400,500,700');
+
 // Bulma Initialization
 @import "../../node_modules/bulma/sass/utilities/initial-variables";
 @import "../../node_modules/bulma/sass/utilities/functions";
 
-// Bulma overrides
+// Bulma variable overrides
 $card-background-color: $grey-darker;
 $card-color: $grey-lighter;
+$label-weight: 500;
 
 // Bulma import
 @import "../../node_modules/bulma/bulma";
+
+// Bulma style overrides
+@import 'bulma-override.scss';
 
 @mixin height($height) {
   height: $height;
