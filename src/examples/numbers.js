@@ -1,6 +1,9 @@
 export default {
     id: 'NUMBERS',
     title: 'Numbers',
+    faIcon: {
+        name: 'hashtag'
+    },
     sections: [
         {
             id: 'section_0',

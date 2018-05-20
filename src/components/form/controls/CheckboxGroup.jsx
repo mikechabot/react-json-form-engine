@@ -21,7 +21,7 @@ const CheckboxGroup = ({ id, field, value, instance, onUpdate }) => {
 
 const _renderOption = (id, value, instance, onUpdate, option, index) => {
     return (
-        <Flex column={true} key={index}>
+        <Flex column={true} key={index} className={index > 0 ? 'm-top--xx-small' : ''}>
             <Checkbox
                 id={option.id}
                 option={option}

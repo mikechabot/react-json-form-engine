@@ -1,6 +1,9 @@
 export default {
     id: 'DATETIME',
     title: 'Date/Time',
+    faIcon: {
+        name: 'calendar-alt'
+    },
     sections: [
         {
             id: 'section_0',

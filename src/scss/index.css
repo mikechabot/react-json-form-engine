@@ -4811,13 +4811,13 @@ a.navbar-item,
 .panel-heading,
 .panel-tabs,
 .panel-block {
-  border-bottom: 1px solid #dbdbdb;
-  border-left: 1px solid #dbdbdb;
-  border-right: 1px solid #dbdbdb; }
+  border-bottom: 0;
+  border-left: 0;
+  border-right: 0; }
   .panel-heading:first-child,
   .panel-tabs:first-child,
   .panel-block:first-child {
-    border-top: 1px solid #dbdbdb; }
+    border-top: 0; }
 
 .panel-heading {
   background-color: whitesmoke;
@@ -6424,6 +6424,9 @@ label.panel-block {
 .panel-heading > span > h1 {
   margin: 0; }
 
+.tabs:not(:last-child) {
+  margin-bottom: 0; }
+
 .m-top--x-small {
   margin-top: 0.5rem; }
 
@@ -6695,7 +6698,7 @@ ol.child-list > li {
   border-left: 1px solid #C0C0C0; }
 
 ol.child-list > li:first-child {
-  margin: .5em 0 0 0; }
+  margin: .25em 0 0 0; }
 
 ol.child-list > li:last-child {
   padding-bottom: 0; }

@@ -7,6 +7,7 @@ import Navbar from '../common/bulma/Navbar';
 import FormSection from './FormSection';
 import { Tabs, Tab } from '../common/tabs';
 import { Flex, APICheckError } from '../common';
+import FormSubmitButton from './helpers/FormSubmitButton';
 
 class Form extends React.Component {
     constructor(props) {
@@ -16,7 +17,9 @@ class Form extends React.Component {
 
     componentDidMount() {
         const { instance } = this.props;
-        instance.validate();
+        if (instance.isValid()) {
+            instance.validate();
+        }
     }
 
     render() {
@@ -34,20 +37,30 @@ class Form extends React.Component {
             return <em className="text-danger">No sections</em>;
         }
         return (
-            <Flex id={instance.getId()} column flex={1}>
+            <Flex
+                id={`form-${instance.getId()}`}
+                column
+                flex={1}
+                flexShrink={0}
+                border="1px solid #dbdbdb"
+                overflow="auto"
+            >
                 {this._renderFormTitle(instance)}
                 {this._renderForm(instance.getSections())}
-                <Flex hAlignCenter flexShrink={0} className="m-top--small m-bottom--small">
-                    <button className="button" onClick={this.props.onSubmit}>
-                        {this.props.submitButtonLabel || 'Submit'}
-                    </button>
-                </Flex>
             </Flex>
         );
     }
 
     _renderFormTitle(instance) {
-        return <Navbar icon="cloud" label={instance.getTitle()} />;
+        return (
+            <Navbar
+                id={`form-title-${instance.getId()}`}
+                iconPrefix={instance.getFormIconPrefix()}
+                icon={instance.getFormIcon()}
+                label={instance.getFormTitle()}
+                controlsRight={<FormSubmitButton onSubmit={this.props.onSubmit} />}
+            />
+        );
     }
 
     _renderForm(sections) {
@@ -58,7 +71,7 @@ class Form extends React.Component {
 
     _renderTabbedSections(sections) {
         return (
-            <Tabs id="tabs" defaultActiveKey={0}>
+            <Tabs stacked id={`form-tabs-${this.props.instance.getId()}`} defaultActiveKey={0}>
                 {this._renderSectionContent(sections)}
             </Tabs>
         );
@@ -85,7 +98,14 @@ class Form extends React.Component {
     }
 
     _renderSingleSection(section) {
-        return <FormSection section={section} instance={this.props.instance} onUpdate={this.onUpdate} />;
+        return (
+            <FormSection
+                section={section}
+                instance={this.props.instance}
+                onUpdate={this.onUpdate}
+                onSubmit={this.props.onSubmit}
+            />
+        );
     }
 
     onUpdate(event, id) {
@@ -107,11 +127,11 @@ class Form extends React.Component {
 }
 
 Form.propTypes = {
-    onUpdate: PropTypes.func,
-    onSubmit: PropTypes.func.isRequired,
     instance: PropTypes.object.isRequired,
+    onSubmit: PropTypes.func.isRequired,
     sectionMenuWidth: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
-    submitButtonLabel: PropTypes.string
+    submitButtonLabel: PropTypes.string,
+    onUpdate: PropTypes.func
 };
 
 export default Form;

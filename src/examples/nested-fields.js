@@ -1,6 +1,9 @@
 export default {
     id: 'NESTED_FIELDS',
     title: 'Nested Fields',
+    faIcon: {
+        name: 'indent',
+    },
     sections: [
         {
             id: 'Simple-Section',

@@ -1,6 +1,6 @@
 import React from 'react';
-import Icon from './common/Icon';
-import Flex from './common/glamorous/Flex';
+import Icon from './components/common/Icon';
+import Flex from './components/common/glamorous/Flex';
 
 function Footer() {
     return (

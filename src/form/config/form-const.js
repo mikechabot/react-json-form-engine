@@ -37,6 +37,7 @@ const COMMON_PROPERTY = {
     ID: 'id',
     TITLE: 'title',
     SUBTITLE: 'subtitle',
+    FA_ICON: 'faIcon',
     TYPE: 'type',
     SORT_ORDER: 'sortOrder'
 };

@@ -1,6 +1,9 @@
 export default {
     id: 'ARRAYS',
     title: 'Arrays',
+    faIcon: {
+        name: 'th-large'
+    },
     sections: [
         {
             id: 'section_0',

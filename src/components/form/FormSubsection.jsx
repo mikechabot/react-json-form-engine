@@ -4,13 +4,14 @@ import PropTypes from 'prop-types';
 import FormField from './FormField';
 import FormSubsectionTitle from './helpers/FormSubsectionTitle';
 import { Flex } from '../common';
+import FormSubmitButton from './helpers/FormSubmitButton';
 
 class FormSubsection extends React.Component {
     render() {
-        const { hideTitle, subsection, instance, onUpdate } = this.props;
+        const { subsection, hasSiblings, instance, onUpdate, onSubmit } = this.props;
         return (
             <Flex column={true} flex={1} className="panel" flexShrink={0}>
-                {this._maybeRenderSubsectionTitle(subsection, instance, hideTitle)}
+                {this._maybeRenderSubsectionTitle(subsection, instance, hasSiblings)}
                 <div className="panel-block">
                     {this._renderSubsectionContent(subsection, instance, onUpdate)}
                 </div>
@@ -44,11 +45,15 @@ class FormSubsection extends React.Component {
         }
     }
 
-    _maybeRenderSubsectionTitle(subsection, instance, hideTitle) {
-        if (!hideTitle) {
+    _maybeRenderSubsectionTitle(subsection, instance, hasSiblings) {
+        if (!hasSiblings || subsection.subtitle) {
             return (
                 <div className="panel-heading">
-                    <FormSubsectionTitle subsection={subsection} instance={instance} />
+                    <FormSubsectionTitle
+                        subsection={subsection}
+                        instance={instance}
+                        hasSiblings={hasSiblings}
+                    />
                 </div>
             );
         }
@@ -56,10 +61,11 @@ class FormSubsection extends React.Component {
 }
 
 FormSubsection.propTypes = {
-    title: PropTypes.string,
     subsection: PropTypes.object.isRequired,
     onUpdate: PropTypes.func.isRequired,
-    instance: PropTypes.object.isRequired
+    onSubmit: PropTypes.func.isRequired,
+    instance: PropTypes.object.isRequired,
+    hasSiblings: PropTypes.bool
 };
 
 export default FormSubsection;

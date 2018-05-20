@@ -1,6 +1,9 @@
 export default {
     id: 'STRINGS',
     title: 'Strings',
+    faIcon: {
+        name: 'i-cursor'
+    },
     sections: [
         {
             id: 'section_0',

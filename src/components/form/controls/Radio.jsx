@@ -24,7 +24,12 @@ const _renderOptions = (field, value, instance, onUpdate) => {
 const _renderOption = (field, value, instance, onUpdate, option, index) => {
     const isEven = index % 2 === 0;
     return (
-        <Flex key={index} margin={5} column vAlignCenter>
+        <Flex
+            key={index}
+            className={index === 0 ? '' : field.inline ? 'm-left--x-small' : 'm-top--xx-small'}
+            column
+            vAlignCenter
+        >
             <Flex
                 cursor="pointer"
                 vAlignCenter={true}

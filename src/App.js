@@ -1,12 +1,19 @@
 import React from 'react';
-import { Tabs, Tab } from './components/common/tabs';
-import Form from './components/form/Form';
-import { CodePanel, Flex } from './components/common';
-import FormEngine from './form/form-engine';
-import forms from './examples/forms';
 import _isEmpty from 'lodash/isEmpty';
+
+import LogService from './services/log-service';
+import LocalStorageService from './services/local-storage/local-storage-service';
+
 import Navbar from './components/common/bulma/Navbar';
-import Footer from './components/Footer';
+import Footer from './Footer';
+import AppPanels from './AppPanels';
+import Form from './components/form/Form';
+import FormEngine from './form/form-engine';
+import { Tabs, Tab } from './components/common/tabs';
+import { Flex } from './components/common';
+
+import JSON_FORMS from './examples';
+const STORAGE_KEY = 'EXAMPLE_APP';
 
 class App extends React.Component {
     constructor(props) {
@@ -20,16 +27,21 @@ class App extends React.Component {
             changeEvent: {}
         };
         this._handleTabSelect = this._handleTabSelect.bind(this);
+        this._setLocalStorage = this._setLocalStorage.bind(this);
     }
 
     componentDidMount() {
-        this._initInstance(this.state.activeKey);
+        this._initInstance(__getPersistedKey(0));
+    }
+
+    componentWillUnmount() {
+        this._setLocalStorage();
     }
 
     render() {
         const { instance } = this.state;
         return (
-            <Flex column className="full-height">
+            <Flex column className="full-height" flexShrink={0}>
                 {this._renderHeader()}
                 <Tabs
                     id="react-form-engine-example"
@@ -54,26 +66,31 @@ class App extends React.Component {
     }
 
     _initInstance(activeKey) {
-        const form = forms[activeKey];
+        const form = JSON_FORMS[activeKey];
         const { instances } = this.state;
 
         let instance = instances[form.id];
-        if (!instance) {
-            instance = new FormEngine(form, null, { liveValidation: true });
+        if (!instance || !instance.isValid()) {
+            const options = { liveValidation: true };
+            // Generate instance from JSON
+            instance = new FormEngine(form, null, options);
             instances[form.id] = instance;
         }
 
-        this.setState({
-            activeKey,
-            form,
-            instance,
-            instances,
-            changeEvent: {}
-        });
+        this.setState(
+            {
+                activeKey,
+                form,
+                instance,
+                instances,
+                changeEvent: {}
+            },
+            this._setLocalStorage
+        );
     }
 
     _renderTabs(instance) {
-        return forms.map((form, index) => (
+        return JSON_FORMS.map((form, index) => (
             <Tab key={index} eventKey={index} label={form.title}>
                 {this._renderTabContent(form, index, instance)}
             </Tab>
@@ -83,48 +100,15 @@ class App extends React.Component {
     _renderTabContent(form, index, instance) {
         if (this.state.activeKey === index && instance) {
             return (
-                <Flex flexWrap="wrap" className="full-height">
-                    <Flex
-                        width={600}
-                        flexShrink={0}
-                        className="m-left--xx-small m-right--xx-small full-height"
-                    >
+                <Flex flexWrap="wrap" className="full-height" flexShrink={0} padding={25}>
+                    <Flex flexShrink={0} flex={1}>
                         <Form
                             instance={instance}
                             onUpdate={this._onFormUpdate.bind(this)}
                             onSubmit={this._onSubmit.bind(this)}
                         />
                     </Flex>
-                    {this._maybeRenderPanels(form, instance)}
-                </Flex>
-            );
-        }
-    }
-
-    _maybeRenderPanels(form, instance) {
-        if (instance.isValid()) {
-            return (
-                <Flex flex={1} column={true}>
-                    <Flex flex={1} flexShrink={0} overflow="hidden" className="m-bottom--x-small">
-                        <CodePanel
-                            icon="map"
-                            title="JSON Schema"
-                            content={{ sections: form.sections }}
-                        />
-                        <CodePanel icon="map-marker" title="UI Decorators" content={form.decorators} />
-                    </Flex>
-                    <Flex flex={1} flexShrink={0} overflow="hidden" className="m-bottom--x-small">
-                        <CodePanel
-                            icon="database"
-                            title="Model"
-                            content={{ model: instance.getModelValues() }}
-                        />
-                        <CodePanel
-                            icon="sync"
-                            title="Last Change Event"
-                            content={this.state.changeEvent}
-                        />
-                    </Flex>
+                    {/* <AppPanels instance={instance} form={form} changeEvent={this.state.changeEvent} /> */}
                 </Flex>
             );
         }
@@ -138,7 +122,10 @@ class App extends React.Component {
     }
 
     _onSubmit() {
-        console.log(this.state.instance);
+        const { instance } = this.state;
+        const title = instance.getFormTitle();
+        LogService.logGroup(`Form Instance (${title})`, instance);
+        LogService.logGroup(`Instance Model (${title})`, instance.getModel().findAll());
     }
 
     _onFormUpdate(changeEvent) {
@@ -147,6 +134,21 @@ class App extends React.Component {
             this.setState({ changeEvent });
         }
     }
+
+    _setLocalStorage(activeKey) {
+        LocalStorageService.setStickyTab(STORAGE_KEY, {
+            activeKey: activeKey || this.state.activeKey
+        });
+    }
 }
+
+const __getPersistedKey = defaultKey => {
+    let activeKey = defaultKey;
+    const savedState = LocalStorageService.getStickyTab(STORAGE_KEY);
+    if (savedState) {
+        activeKey = savedState.activeKey;
+    }
+    return activeKey;
+};
 
 export default App;

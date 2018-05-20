@@ -5,16 +5,17 @@ import Icon from '../Icon';
 
 const className = 'navbar-item is-size-4-desktop is-size-5-tablet is-size-6-mobile';
 
-function Navbar({ icon, label, url }) {
+const Navbar = ({ id, icon, iconPrefix, label, url, controlsRight }) => {
     return (
-        <nav className="navbar is-dark" aria-label="main navigation">
-            <div className="navbar-brand">{_renderBrand(icon, label, url)}</div>
+        <nav id={id} className="navbar is-dark" aria-label="main navigation">
+            <div className="navbar-brand">{_renderBrand(icon, iconPrefix, label, url)}</div>
+            {_renderControlsRight(controlsRight)}
         </nav>
     );
-}
+};
 
-function _renderBrand(icon, label, url) {
-    const children = _renderIconAndLabel(icon, label);
+const _renderBrand = (icon, iconPrefix, label, url) => {
+    const children = _renderIconAndLabel(icon, iconPrefix, label);
     if (url) {
         return (
             <a href={url} className={className}>
@@ -23,19 +24,35 @@ function _renderBrand(icon, label, url) {
         );
     }
     return <span className={className}>{children}</span>;
-}
+};
 
-const _renderIconAndLabel = (icon, label) => {
+const _renderControlsRight = controlsRight => {
+    if (controlsRight) {
+        return (
+            <div className="navbar-end">
+                <div className="navbar-item">{controlsRight}</div>
+            </div>
+        );
+    }
+};
+
+const _renderIconAndLabel = (icon, iconPrefix, label) => {
     return (
         <span>
-            {_renderIcon(icon)}&nbsp;
+            {_renderIcon(icon, iconPrefix)}
             {_renderLabel(label)}
         </span>
     );
 };
 
-const _renderIcon = icon => {
-    return <Icon icon={icon} />;
+const _renderIcon = (icon, iconPrefix) => {
+    if (icon) {
+        return (
+            <span>
+                <Icon icon={icon} prefix={iconPrefix} />&nbsp;
+            </span>
+        );
+    }
 };
 
 const _renderLabel = label => {
@@ -43,8 +60,11 @@ const _renderLabel = label => {
 };
 
 Navbar.propTypes = {
+    id: PropTypes.string,
     icon: PropTypes.string,
+    iconPrefix: PropTypes.string,
     label: PropTypes.node.isRequired,
+    controlsRight: PropTypes.node,
     url: PropTypes.string
 };
 

@@ -33,6 +33,7 @@ class FormControl extends React.Component {
         const { component, uiDecorators } = field;
 
         if (!component || !component.element) {
+            console.error(`Field of type "${field.type}" is missing required "component" (id: ${id})`);
             return <ErrorBlock id={field.id} />;
         }
 

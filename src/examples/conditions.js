@@ -1,6 +1,9 @@
 export default {
     id: 'Conditions-Section',
     title: 'Conditions',
+    faIcon: {
+        name: 'code'
+    },
     sections: [
         {
             id: 'section_condition',
@@ -9,7 +12,7 @@ export default {
                 {
                     id: 'subsection_condition',
                     title: 'Conditions',
-                    subtitle: 'Conditionally hide/show fields based on the state of the Model',
+                    subtitle: 'Conditionally hide & show fields based on the state of the Model',
                     fields: [
                         {
                             id: 'bool5',
@@ -31,7 +34,7 @@ export default {
                                                         {
                                                             id: 'str20',
                                                             type: 'string',
-                                                            title: 'Yet another field',
+                                                            title: 'Grandchild',
                                                             showCondition: {
                                                                 type: 'CONTAINS',
                                                                 expression1: {
@@ -53,7 +56,9 @@ export default {
                                                         {
                                                             id: 'num10',
                                                             type: 'number',
-                                                            title: 'And more',
+                                                            title: 'Grandchild',
+                                                            min: -20,
+                                                            max: 20,
                                                             showCondition: {
                                                                 type: 'CONTAINS',
                                                                 expression1: {
@@ -67,9 +72,7 @@ export default {
                                                             }
                                                         }
                                                     ]
-                                                },
-                                                { id: 'op3', title: 'Option 3' },
-                                                { id: 'op4', title: 'Option 4' }
+                                                }
                                             ],
                                             showCondition: {
                                                 type: 'EQUAL',
@@ -109,7 +112,7 @@ export default {
                         {
                             id: 'str17',
                             type: 'string',
-                            title: 'Conditional Field',
+                            title: 'This field will be hidden if "Yes" is selected above',
                             placeholder: 'Enter some text to show child',
                             showCondition: {
                                 type: 'EQUAL',
@@ -127,7 +130,7 @@ export default {
                                 {
                                     id: 'bool6',
                                     type: 'boolean',
-                                    title: 'Conditional field',
+                                    title: 'Field',
                                     options: [{ title: 'True' }, { title: 'False' }],
                                     inline: true,
                                     showCondition: {
@@ -149,7 +152,7 @@ export default {
                                 {
                                     id: 'str22',
                                     type: 'string',
-                                    title: 'Conditional field',
+                                    title: 'Field',
                                     showCondition: {
                                         type: 'BLANK',
                                         not: true,
@@ -177,7 +180,7 @@ export default {
                         {
                             id: 'arr3',
                             type: 'array',
-                            title: 'Click the options to display the children',
+                            title: 'Select some options to display the children',
                             options: [
                                 {
                                     id: 'op1',
@@ -186,7 +189,9 @@ export default {
                                         {
                                             id: 'num4',
                                             type: 'number',
-                                            title: 'Conditional field',
+                                            title: 'Field',
+                                            min: 0,
+                                            max: 5,
                                             showCondition: {
                                                 type: 'CONTAINS',
                                                 expression1: {
@@ -208,7 +213,7 @@ export default {
                                         {
                                             id: 'arr7',
                                             type: 'array',
-                                            title: 'Conditional field',
+                                            title: 'Field',
                                             options: [
                                                 {
                                                     id: 'op1',
@@ -240,7 +245,7 @@ export default {
                                         {
                                             id: 'bool7',
                                             type: 'boolean',
-                                            title: 'Conditional field',
+                                            title: 'Field',
                                             inline: true,
                                             options: [
                                                 {
@@ -271,7 +276,7 @@ export default {
                                         {
                                             id: 'arr4',
                                             type: 'array',
-                                            title: 'Conditional field',
+                                            title: 'Field',
                                             options: [
                                                 { id: 'op1', title: 'Option 1' },
                                                 { id: 'op2', title: 'Option 2' },
@@ -307,7 +312,7 @@ export default {
                                 {
                                     id: 'num7',
                                     type: 'number',
-                                    title: 'Conditional field',
+                                    title: 'Field',
                                     showCondition: {
                                         type: 'EMPTY',
                                         not: true,
@@ -342,7 +347,7 @@ export default {
                                 {
                                     id: 'str19',
                                     type: 'string',
-                                    title: 'Conditional field',
+                                    title: 'Field',
                                     showCondition: {
                                         type: 'GREATER_THAN',
                                         expression1: {
@@ -365,7 +370,7 @@ export default {
                                 {
                                     id: 'str21',
                                     type: 'string',
-                                    title: 'Conditional field',
+                                    title: 'Field 2',
                                     showCondition: {
                                         type: 'LESS_THAN',
                                         expression1: {
@@ -406,9 +411,6 @@ export default {
                 type: 'radio'
             }
         },
-        str17: {
-            hint: 'This will be hidden if "Yes" is selected above!'
-        },
         num4: {
             component: {
                 type: 'range'
@@ -422,11 +424,6 @@ export default {
         },
         num8: {
             hint: 'Show field if < 5'
-        },
-        num9: {
-            component: {
-                type: 'range'
-            }
         },
         num10: {
             component: {

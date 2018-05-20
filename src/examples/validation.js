@@ -1,28 +1,31 @@
 export default {
-    id      : 'VALIDATION',
-    title   : 'Validation',
+    id: 'VALIDATION',
+    title: 'Validation',
+    faIcon: {
+        name: 'asterisk'
+    },
     sections: [
         {
-            id         : 'Required-Section',
-            title      : 'Required',
+            id: 'Required-Section',
+            title: 'Required',
             subsections: [
                 {
-                    id      : 'Required-Subsection',
-                    title   : 'Make any field required',
+                    id: 'Required-Subsection',
+                    title: 'Make any field required',
                     subtitle: 'Only display the error notification once the field is dirty',
-                    fields  : [
+                    fields: [
                         {
-                            id      : 'str1',
-                            type    : 'string',
-                            title   : 'Text field',
+                            id: 'str1',
+                            type: 'string',
+                            title: 'Text field',
                             required: true
                         },
                         {
-                            id      : 'array1',
-                            type    : 'array',
-                            title   : 'Multiselect',
+                            id: 'array1',
+                            type: 'array',
+                            title: 'Multiselect',
                             required: true,
-                            options : [
+                            options: [
                                 { id: 'op1', title: 'Option 1' },
                                 { id: 'op2', title: 'Option 2' },
                                 { id: 'op3', title: 'Option 3' },
@@ -30,9 +33,9 @@ export default {
                             ]
                         },
                         {
-                            id      : 'num1',
-                            type    : 'number',
-                            title   : 'Number field',
+                            id: 'num1',
+                            type: 'number',
+                            title: 'Number field',
                             required: true
                         }
                     ]
@@ -40,37 +43,41 @@ export default {
             ]
         },
         {
-            id         : 'Numeric-Section',
-            title      : 'Numeric',
-            subsections: [{
-                id    : 'Numeric-Subsection',
-                title : 'Min/max validation supported',
-                fields: [
-                    {
-                        id   : 'num2',
-                        type : 'number',
-                        title: 'Number field',
-                        min  : 0,
-                        max  : 5
-                    }
-                ]
-            }]
+            id: 'Numeric-Section',
+            title: 'Numeric',
+            subsections: [
+                {
+                    id: 'Numeric-Subsection',
+                    title: 'Min/max validation supported',
+                    fields: [
+                        {
+                            id: 'num2',
+                            type: 'number',
+                            title: 'Number field',
+                            min: 0,
+                            max: 5
+                        }
+                    ]
+                }
+            ]
         },
         {
-            id         : 'Regex-Section',
-            title      : 'Regex',
-            subsections: [{
-                id    : 'Regex-Subsection',
-                title : 'Add a regex pattern to any String field',
-                fields: [
-                    {
-                        id     : 'str2',
-                        type   : 'string',
-                        title  : 'Using regex pattern: "^foobar!$"',
-                        pattern: '^foobar!$'
-                    }
-                ]
-            }]
+            id: 'Regex-Section',
+            title: 'Regex',
+            subsections: [
+                {
+                    id: 'Regex-Subsection',
+                    title: 'Add a regex pattern to any String field',
+                    fields: [
+                        {
+                            id: 'str2',
+                            type: 'string',
+                            title: 'Using regex pattern: "^foobar!$"',
+                            pattern: '^foobar!$'
+                        }
+                    ]
+                }
+            ]
         }
     ],
     decorators: {

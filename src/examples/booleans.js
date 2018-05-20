@@ -1,6 +1,9 @@
 export default {
     id: 'BOOLEANS',
     title: 'Booleans',
+    faIcon: {
+        name: 'adjust'
+    },
     sections: [
         {
             id: 'section_0',

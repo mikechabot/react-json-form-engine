@@ -1,6 +1,10 @@
 export default {
     id: 'LAYOUT',
     title: 'Layout',
+    faIcon: {
+        name: 'object-group',
+        prefix: 'far'
+    },
     sections: [
         {
             id: 'Section-1',
@@ -9,7 +13,7 @@ export default {
                 {
                     id: 'Subsection-1.1',
                     title: 'Subsection 1.1',
-                    subtitle: 'Group form fields into tabbed sections and subsections',
+                    subtitle: 'Utilize sections and subsections for greater organization',
                     fields: [
                         {
                             id: 'str1',
@@ -38,7 +42,7 @@ export default {
                 {
                     id: 'Subsection-2.1',
                     title: 'Subsection 2.1',
-                    subtitle: 'If a section has only one subsection, don\'t show the tabs!',
+                    subtitle: 'Just a single subsection',
                     fields: [
                         {
                             id: 'str3',
@@ -56,7 +60,7 @@ export default {
                 {
                     id: 'Subsection-3.1',
                     title: 'Subsection 3.1',
-                    subtitle: 'Ah, this feels much better!',
+                    subtitle: 'This is a subtitle',
                     fields: [
                         {
                             id: 'str4',
@@ -92,6 +96,7 @@ export default {
     ],
     decorators: {
         str2: {
+            hint: 'This subsection doesn\'t have a subtitle',
             component: {
                 type: 'textarea'
             }

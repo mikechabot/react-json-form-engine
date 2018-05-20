@@ -1,25 +1,27 @@
 import SortableMap from 'sortable-map';
+import Maybe from 'maybe-baby';
 import _forEach from 'lodash/forEach';
 import _isString from 'lodash/isString';
 import _includes from 'lodash/includes';
 import _isEmpty from 'lodash/isEmpty';
 
+import ValidationService from '../form/service/validation-service';
+import ExpressionService from '../form/service/expression-service';
+import FormApiService from '../form/service/form-api-service';
+
 import FormConfig from '../form/config/form-config';
 import FormValidator from '../form/validation/form-validator';
 import ValidationResults from '../form/validation/validation-results';
-import ExpressionService from '../form/service/expression-service';
-import Maybe from 'maybe-baby';
-import ValidationService from '../form/service/validation-service';
+
 import { __clone, __blank, __hasValue } from '../common';
 import { NO_VALUE, PROPERTY, DATA_TYPE, VALIDATION_CONST } from './config/form-const';
-const apiCheck = require('api-check')({ output: { prefix: 'FormEngine:' } });
 
-const { FIELD, SECTION, SUBSECTION, DEFINITION, CALCULATIONS } = PROPERTY;
+const { FIELD, DEFINITION } = PROPERTY;
 
-export default class FormEngine {
+class FormEngine {
     constructor(definition, model, options) {
         try {
-            this.__validateDefinitionShape(definition); // Throw error on misshapen definition
+            FormApiService.__validateDefinitionShape(definition);
             this.__isDefinitionValid = true;
         } catch (error) {
             this.__isDefinitionValid = false;
@@ -28,7 +30,7 @@ export default class FormEngine {
         }
 
         this.definition = definition; // Form definition
-        this.title = definition.title; // Form title
+        this.formTitle = definition.title; // Form title
         this.decorators = definition.decorators || {}; // UI decorators
 
         this.showConditionTriggerMap = new SortableMap(); // Map of field ids keyed by trigger id
@@ -129,7 +131,7 @@ export default class FormEngine {
      * @private
      */
     __decorateField(field, parent) {
-        this.__validateFieldShape(field);
+        FormApiService.__validateFieldShape(field);
 
         field[FIELD.PARENT] = parent;
         field[FIELD.UI_DECORATORS] = this.getCustomUIDecorators(field[FIELD.ID]);
@@ -185,62 +187,33 @@ export default class FormEngine {
             }
         });
     }
-    __validateFieldShape(field) {
-        apiCheck.throw(
-            [
-                apiCheck.shape({
-                    [FIELD.ID]: apiCheck.oneOfType([apiCheck.string, apiCheck.number]),
-                    [FIELD.TYPE]: apiCheck.string,
-                    [FIELD.TITLE]: apiCheck.string,
-                    [FIELD.SUBTITLE]: apiCheck.string.optional
-                })
-            ],
-            arguments,
-            {
-                prefix: `[Field: ${_getObjectIdDisplay(field)}]`
-            }
-        );
+    /**
+     * Get form title
+     * @returns {*}
+     */
+    getFormTitle() {
+        return this.formTitle;
     }
-    __validateDefinitionShape(definition) {
-        apiCheck.throw(
-            [
-                apiCheck.shape({
-                    [DEFINITION.ID]: apiCheck.string,
-                    [DEFINITION.TITLE]: apiCheck.string,
-                    [DEFINITION.SUBTITLE]: apiCheck.string.optional,
-                    [DEFINITION.SECTIONS]: apiCheck.arrayOf(
-                        apiCheck.shape({
-                            [SECTION.ID]: apiCheck.string,
-                            [SECTION.TITLE]: apiCheck.string,
-                            [SECTION.SUBTITLE]: apiCheck.string.optional,
-                            [SECTION.SORT_ORDER]: apiCheck.number.optional,
-                            [SECTION.SUBSECTIONS]: apiCheck.arrayOf(
-                                apiCheck.shape({
-                                    [SUBSECTION.ID]: apiCheck.string,
-                                    [SUBSECTION.TITLE]: apiCheck.string,
-                                    [SUBSECTION.SUBTITLE]: apiCheck.string.optional,
-                                    [SUBSECTION.SORT_ORDER]: apiCheck.number.optional,
-                                    [SUBSECTION.FIELDS]: apiCheck.arrayOf(apiCheck.object)
-                                }).strict
-                            )
-                        }).strict
-                    ),
-                    [DEFINITION.DECORATORS]: apiCheck.object.optional,
-                    [DEFINITION.CALCULATIONS]: apiCheck.shape({
-                        [CALCULATIONS.EXPRESSION_MAP]: apiCheck.object.optional,
-                        [CALCULATIONS.TRIGGER_MAP]: apiCheck.object.optional
-                    }).optional,
-                    [DEFINITION.DEFAULT_VALUE_TRIGGERS]: apiCheck.object.optional
-                }).strict
-            ],
-            arguments,
-            {
-                prefix: `[Definition: "${_getObjectIdDisplay(definition)}"]`
-            }
-        );
+    /**
+     * Get form icon
+     * @returns {*}
+     */
+    getFormIcon() {
+        return Maybe.of(this.definition)
+            .prop('faIcon')
+            .prop('name')
+            .join();
     }
-    getTitle() {
-        return this.title;
+
+    /**
+     * Get form icon prefix
+     * @returns {*}
+     */
+    getFormIconPrefix() {
+        return Maybe.of(this.definition)
+            .prop('faIcon')
+            .prop('prefix')
+            .join();
     }
     /**
      * Return whether the form is valid
@@ -402,7 +375,6 @@ export default class FormEngine {
                 option[FIELD.FIELDS] &&
                 ((this.isBooleanField(field) && !value) || !_includes(value, option[FIELD.ID]))
             ) {
-                console.log(id);
                 this.resetFields(option[FIELD.FIELDS]);
             }
         });
@@ -519,9 +491,4 @@ export default class FormEngine {
     }
 }
 
-function _getObjectIdDisplay(field) {
-    return Maybe.of(field)
-        .prop(FIELD.ID)
-        .orElse('[No Id]')
-        .join();
-}
+export default FormEngine;

@@ -5,6 +5,8 @@ import Tab from './Tab';
 import Flex from '../glamorous/Flex';
 import { __hasValue } from '../../../common';
 
+const DEFAULT_BORDER = '1px solid #dbdbdb';
+
 class Tabs extends React.Component {
     constructor(props) {
         super(props);
@@ -22,7 +24,7 @@ class Tabs extends React.Component {
     }
 
     render() {
-        const { id, children } = this.props;
+        const { id, children, stacked } = this.props;
 
         const tabs = __getTabs(children);
 
@@ -33,20 +35,43 @@ class Tabs extends React.Component {
             this.props.onSelect
         );
 
+        const className = !stacked ? 'tabs' : 'menu';
+
         return (
-            <Flex id={id} column flex={1} className="overflow-hidden">
-                <Flex className="tabs" flexShrink={0}>
-                    {this._renderTabLinks(tabs)}
+            <Flex id={id} column={!stacked} flex={1} className="overflow-hidden">
+                <Flex className={className} flexShrink={0} id={`tab-menu-${id}`}>
+                    {this._renderTabLinks(tabs, stacked)}
                 </Flex>
-                <Flex className="overflow-auto" flex={1}>
+                <Flex className="overflow-auto" flex={1} id={`tab-content-${id}`}>
                     {this._renderTabContent(tabs)}
                 </Flex>
             </Flex>
         );
     }
 
-    _renderTabLinks(tabs) {
+    _renderTabLinks(tabs, stacked) {
+        if (!stacked) {
+            return this._renderHorizontalTabLinks(tabs);
+        }
+        return this._renderVerticalTabLinks(tabs);
+    }
+
+    _renderHorizontalTabLinks(tabs) {
         return <ul>{tabs.map(this._renderTabLink)}</ul>;
+    }
+
+    _renderVerticalTabLinks(tabs) {
+        return (
+            <ul
+                className="menu-list"
+                style={{
+                    borderRight: DEFAULT_BORDER,
+                    minWidth: this.props.stackedTabListMinWidth || 125
+                }}
+            >
+                {tabs.map(this._renderTabLink)}
+            </ul>
+        );
     }
 
     _renderTabLink(child, index) {
@@ -59,7 +84,7 @@ class Tabs extends React.Component {
                 className={isActive ? 'is-active' : ''}
                 onClick={this._handleTabSelect.bind(this, eventKey)}
             >
-                <a>{label}</a>
+                <a className={isActive ? 'is-active' : ''}>{label}</a>
             </li>
         );
     }
@@ -158,7 +183,8 @@ Tabs.propTypes = {
     activeKey: PropTypes.oneOfType([PropTypes.string, PropTypes.number]),
     stacked: PropTypes.bool,
     onSelect: PropTypes.func,
-    children: PropTypes.node.isRequired
+    children: PropTypes.node.isRequired,
+    stackedTabListMinWidth: PropTypes.oneOfType([PropTypes.string, PropTypes.number])
 };
 
 export default Tabs;

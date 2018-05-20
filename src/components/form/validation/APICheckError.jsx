@@ -1,16 +1,32 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Icon, Flex } from '../../common';
 
-const regex = /^(.+)(.*\n)*(You passed:)((.*\n)*)(With the types:)((.*\n)*)(The API calls for:)((.*\n)*.)/g;
+const regex = /^Error: (.+)$/m;
 
 const APICheckError = ({ error }) => {
-    let details = __parseAPICheckErrorMessage(error);
+    let detail = __parseAPICheckErrorMessage(error);
     return (
-        <div>
-            {_renderTitle(details ? details.shift() : 'Error initializing FormEngine')}
-            {_renderDetails(details || [JSON.stringify(error)])}
+        <div className="panel">
+            <div className="panel-heading">
+                <Flex>
+                    <Icon icon="exclamation-triangle" className="has-text-danger" />&nbsp;
+                    {_renderTitle(detail || 'Error initializing FormEngine')}
+                </Flex>
+            </div>
         </div>
     );
+};
+
+const __parseAPICheckErrorMessage = error => {
+    if (!error) return null;
+    if (regex.test(error)) {
+        const matches = regex.exec(error);
+        if (matches) {
+            return matches[1];
+        }
+    }
+    return null;
 };
 
 const _renderTitle = title => {
@@ -21,57 +37,8 @@ const _renderTitle = title => {
     );
 };
 
-const _renderDetails = details => {
-    return details
-        .map((detail, index) => {
-            const lines = detail.split('\n');
-            if (lines.length === 1) return __renderInfoTitle(detail, index);
-            if (detail.length > 1) return __renderJSONBlock(lines, index);
-            return null;
-        })
-        .filter(detail => detail);
-};
-
-const __renderInfoTitle = (title, index) => {
-    return (
-        <div key={index} className="alert alert-info paper-1">
-            <h4>{title}</h4>
-        </div>
-    );
-};
-
-const __renderJSONBlock = (lines, index) => {
-    return (
-        <div
-            key={index}
-            className="paper-1"
-            style={{ maxHeight: 500, overflowY: 'auto', marginBottom: 20 }}
-        >
-            <pre>{lines.map(_renderLine)}</pre>
-        </div>
-    );
-};
-
-const _renderLine = (line, index) => {
-    return (
-        <div key={index} className="line">
-            {line}
-        </div>
-    );
-};
-
-const __parseAPICheckErrorMessage = error => {
-    if (!error.message) return null;
-    const matches = regex.exec(error.message);
-    if (matches) {
-        matches.shift(); // Remove the full match
-        matches.pop(); // Remove the last match (a trailing "}")
-    }
-    return matches;
-};
-
 APICheckError.propTypes = {
-    error: PropTypes.oneOfType([PropTypes.string, PropTypes.object]).isRequired
+    error: PropTypes.object.isRequired
 };
 
 export default APICheckError;

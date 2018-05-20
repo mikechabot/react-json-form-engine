@@ -7,13 +7,7 @@ import Flex from './glamorous/Flex';
 
 const CodePanel = ({ title, icon, content }) => {
     return (
-        <Flex
-            column
-            flex={1}
-            height="100%"
-            flexShrink={0}
-            className="panel m-left--xx-small m-right--xx-small"
-        >
+        <Flex column flex={1} height="100%" flexShrink={0} className="panel">
             <p className="panel-heading">
                 <Icon icon={icon} />&nbsp;{title}
             </p>

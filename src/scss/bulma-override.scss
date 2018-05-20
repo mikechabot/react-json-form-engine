@@ -1,3 +1,22 @@
+// Bulma Initialization
+@import "../../node_modules/bulma/sass/utilities/initial-variables";
+@import "../../node_modules/bulma/sass/utilities/functions";
+
+// Bulma variable overrides
+$card-background-color: $grey-darker;
+$card-color: $grey-lighter;
+$label-weight: 500;
+$panel-item-border: 0;
+
+// Bulma import
+@import "../../node_modules/bulma/bulma";
+
+
+// Bulma styles override
 .panel-heading > span > h1 {
   margin: 0
+}
+
+.tabs:not(:last-child) {
+  margin-bottom: 0;
 }

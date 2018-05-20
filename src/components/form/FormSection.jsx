@@ -44,15 +44,14 @@ class FormSection extends React.Component {
         );
     }
 
-    _renderSingleSubsection(subsection, hideTitle) {
-        const { instance, onUpdate } = this.props;
+    _renderSingleSubsection(subsection, hasSiblings) {
         return (
             <FormSubsection
-                hideTitle={hideTitle}
-                title={subsection.title}
+                hasSiblings={hasSiblings}
                 subsection={subsection}
-                instance={instance}
-                onUpdate={onUpdate}
+                instance={this.props.instance}
+                onUpdate={this.props.onUpdate}
+                onSubmit={this.props.onSubmit}
             />
         );
     }
@@ -65,6 +64,7 @@ FormSection.propTypes = {
         subsections: PropTypes.array.isRequired
     }),
     onUpdate: PropTypes.func.isRequired,
+    onSubmit: PropTypes.func.isRequired,
     instance: PropTypes.object.isRequired
 };
 
