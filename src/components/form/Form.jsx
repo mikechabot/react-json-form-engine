@@ -33,10 +33,10 @@ export default class Form extends React.Component {
             return <em className="text-danger">No sections</em>;
         }
         return (
-            <Flex id={instance.getId()} column flex={1} overflowY="auto">
+            <Flex id={instance.getId()} column flex={1}>
                 {this._renderFormTitle(instance)}
                 {this._renderForm(instance.getSections())}
-                <Flex className="panel-block" flexShrink={0}>
+                <Flex hAlignCenter flexShrink={0} className="m-top--small m-bottom--small">
                     <button className="button" onClick={this.props.onSubmit}>
                         {this.props.submitButtonLabel || 'Submit'}
                     </button>

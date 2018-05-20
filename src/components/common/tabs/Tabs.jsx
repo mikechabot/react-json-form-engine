@@ -11,6 +11,16 @@ class Tabs extends React.Component {
         this.state = {};
         this._renderTabLink = this._renderTabLink.bind(this);
     }
+
+    componentDidMount() {
+        const { defaultActiveKey } = this.props;
+        if (__hasValue(defaultActiveKey)) {
+            this.setState({
+                uncontrolledActiveKey: defaultActiveKey
+            });
+        }
+    }
+
     render() {
         const { id, children, stacked } = this.props;
 
