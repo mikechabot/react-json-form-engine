@@ -27,7 +27,9 @@ Yarn: or npm:
     const FormEngine = JsonFormEngine.FormEngine;
     const Form = JsonFormEngine.FormEngine;
 
-#### Example Component
+## Example
+
+### Component (App.jsx)
 
     import React from 'react';
     import { FormEngine, Form } from 'react-json-form-engine';
@@ -80,3 +82,30 @@ Yarn: or npm:
     }
 
     export default App;
+    
+### JSON or Javascript Object (my-form)
+
+    export default {
+        id: 'STRINGS',
+        title: 'Strings',
+        sections: [
+            {
+                id: 'section_0',
+                title: 'Strings',
+                subsections: [
+                    {
+                        id: 'subsection_0',
+                        title: 'Store String Values',
+                        fields: [
+                            {
+                                id: 'str1',
+                                type: 'string',
+                                title: 'Text'
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    };
+
