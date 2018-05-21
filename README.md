@@ -9,37 +9,47 @@
 
 # react-json-form-engine
 
-## Installation
+- [Installation](#installation)
+- [Storybook](#storybook)
+  - [Demo](#live-demo)
+  - [Repository](#repository)
+- [Getting Started](#getting-started)
+  - [ES6 Modules](#es6-modules)
+  - [CommonJS](#commonjs)
+  - [Example](#example)
+    - [Component](#component)
+    - [Form](#json-or-javascript-object)
+  
+
+## <a name="react-json-form-engine#installation">Installation</a>
 Yarn: or npm:
 
 * `$ npm install --save react-json-form-engine`
 * `$ yarn add react-json-form-engine`
 
-## Storybook
+## <a name="react-json-form-engine#storybook">Storybook</a>
 
-#### Live Demo
+#### <a name="react-json-form-engine#live-demo">Live Demo</a>
 - https://mikechabot.github.io/react-json-form-engine-storybook/
 
-#### Storybook Repository
+#### <a name="react-json-form-engine#repository">Repository</a>
 - https://github.com/mikechabot/react-json-form-engine-storybook
 
+## <a name="react-json-form-engine#getting-started">Getting Started</a>
 
-
-## Getting Started
-
-#### ES6 Modules
+#### <a name="react-json-form-engine#es6-modules">ES6 Modules</a>
 
     import { FormEngine, Form } from 'react-json-form-engine';
     
-#### CommonJS
+#### <a name="react-json-form-engine#commonjs">CommonJS</a>
 
     const JsonFormEngine = require('react-json-form-engine');
     const FormEngine = JsonFormEngine.FormEngine;
     const Form = JsonFormEngine.FormEngine;
 
-## Example
+### <a name="react-json-form-engine#example">Example</a>
 
-#### Component (App.jsx)
+#### <a name="react-json-form-engine#component">Component</a>
 
     import React from 'react';
     import { FormEngine, Form } from 'react-json-form-engine';
@@ -93,7 +103,7 @@ Yarn: or npm:
 
     export default App;
     
-#### JSON or JavaScript Object (my-form)
+#### <a name="react-json-form-engine#json-or-javascript-object">JSON or JavaScript Object</a>
 
     export default {
         id: 'STRINGS',
