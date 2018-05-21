@@ -73,7 +73,7 @@ Yarn: or npm:
             console.log(instance.getModel());
         }
 
-        _onFormUpdate = (changeEvent) =>{
+        _onFormUpdate = (changeEvent) => {
             // You might want to do something with the latest change
             // event, and then use "setState", otherwise just force a refresh
             this.forceUpdate();
