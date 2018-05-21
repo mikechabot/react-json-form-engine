@@ -29,7 +29,7 @@ Yarn: or npm:
 
 ## Example
 
-### Component (App.jsx)
+#### Component (App.jsx)
 
     import React from 'react';
     import { FormEngine, Form } from 'react-json-form-engine';
@@ -83,7 +83,7 @@ Yarn: or npm:
 
     export default App;
     
-### JSON or JavaScript Object (my-form)
+#### JSON or JavaScript Object (my-form)
 
     export default {
         id: 'STRINGS',
