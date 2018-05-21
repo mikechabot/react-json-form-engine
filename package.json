@@ -1,6 +1,7 @@
 {
   "name": "react-json-form-engine",
   "version": "0.1.2",
+  "main": "index.js",
   "peerDependencies": {
     "react": "^16.3.2",
     "react-dom": "^16.3.2"
