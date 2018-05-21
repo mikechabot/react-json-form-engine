@@ -45,7 +45,7 @@ Yarn: or npm:
         }
 
         componentDidMount() {
-            // Generate instance from JSON
+            // Generate instance from JSON or JavaScript Object
             const instance = new FormEngine(MyForm);
             
             this.setState({instance});
@@ -83,7 +83,7 @@ Yarn: or npm:
 
     export default App;
     
-### JSON or Javascript Object (my-form)
+### JSON or JavaScript Object (my-form)
 
     export default {
         id: 'STRINGS',
