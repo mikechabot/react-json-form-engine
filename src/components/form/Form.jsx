@@ -2,6 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import _isEmpty from 'lodash/isEmpty';
 
+import '../../scss/index.css';
+
 import Asterisk from '../common/Asterisk';
 import Navbar from '../common/bulma/Navbar';
 import FormSection from './FormSection';
