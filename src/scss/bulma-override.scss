@@ -30,3 +30,15 @@ $panel-item-border: 0;
 .tabs:not(:last-child) {
   margin-bottom: 0;
 }
+
+.breadcrumb span {
+  padding: 0 0.75em;
+}
+
+.breadcrumb li:first-child span {
+  padding-left: 0;
+}
+
+.breadcrumb:not(:last-child) {
+  margin-bottom: 0
+}

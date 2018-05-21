@@ -1,42 +1,56 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import VALIDATION_CONST from '../../../form/validation/validation-const';
+import { Icon } from '../../common';
+import { VALIDATION_CONST } from '../../../form/config/form-const';
 
 const ValidationMessages = ({ field, results }) => {
     if (results.status === VALIDATION_CONST.STATUS.OK) {
         return <span />;
     }
 
+    // Mutates labels!
     let labels = [];
-    getLabels(labels, field);
+    __buildBreadcrumbs(labels, field);
 
     return (
-        <div style={{ marginTop: 10 }}>
-            <ol className="breadcrumb">{labels.map((label, index) => <li key={index}>{label}</li>)}</ol>
-            <ul style={{ listStyleType: 'square', fontSize: '90%' }}>
-                {results.messages.map((message, index) => {
-                    const className =
-                        message.status === VALIDATION_CONST.STATUS.ERROR
-                            ? 'text-danger'
-                            : 'text-warning';
-                    return (
-                        <li key={index} className={className}>
-                            {message.message}
-                        </li>
-                    );
-                })}
-            </ul>
+        <div className="m-bottom--x-small">
+            {__renderBreadcrumbs(labels)}
+            {__renderMessages(results)}
         </div>
     );
 };
 
-const getLabels = (labels, field) => {
+const __renderBreadcrumbs = labels => (
+    <nav className="breadcrumb" aria-label="breadcrumbs">
+        <ul>{labels.map(__renderBreadcrumb)}</ul>
+    </nav>
+);
+
+const __renderBreadcrumb = (crumb, index) => (
+    <li key={index}>
+        <span>{crumb}</span>
+    </li>
+);
+
+const __buildBreadcrumbs = (labels, field) => {
     labels.unshift(field.title);
     if (field.parent) {
-        getLabels(labels, field.parent);
+        __buildBreadcrumbs(labels, field.parent);
     }
 };
+
+const __renderMessages = results => (
+    <ul>
+        {results.messages.map((message, index) => {
+            return (
+                <li key={index}>
+                    <Icon icon="angle-right" />&nbsp;{message.message}
+                </li>
+            );
+        })}
+    </ul>
+);
 
 ValidationMessages.propTypes = {
     field: PropTypes.object.isRequired,

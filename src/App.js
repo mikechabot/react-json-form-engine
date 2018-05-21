@@ -13,6 +13,7 @@ import { Tabs, Tab } from './components/common/tabs';
 import { Flex } from './components/common';
 
 import JSON_FORMS from './examples';
+import ValidationResults from './components/form/validation/ValidationResults';
 const STORAGE_KEY = 'EXAMPLE_APP';
 
 class App extends React.Component {

@@ -4,6 +4,7 @@ import PropTypes from 'prop-types';
 import FormField from './FormField';
 import FormSubsectionTitle from './helpers/FormSubsectionTitle';
 import { Flex } from '../common';
+import ValidationResults from './validation/ValidationResults';
 
 class FormSubsection extends React.Component {
     render() {
@@ -14,6 +15,7 @@ class FormSubsection extends React.Component {
                 <div className="panel-block">
                     {this._renderSubsectionContent(subsection, instance, onUpdate)}
                 </div>
+                {this._maybeRenderValidationMessages(subsection, instance)}
             </Flex>
         );
     }
@@ -55,6 +57,12 @@ class FormSubsection extends React.Component {
                     />
                 </div>
             );
+        }
+    }
+
+    _maybeRenderValidationMessages(subsection, instance) {
+        if (instance.subsectionHasError(subsection)) {
+            return <ValidationResults instance={instance} subsection={subsection} />;
         }
     }
 }

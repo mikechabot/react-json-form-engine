@@ -4,6 +4,7 @@ import _forEach from 'lodash/forEach';
 import _isString from 'lodash/isString';
 import _includes from 'lodash/includes';
 import _isEmpty from 'lodash/isEmpty';
+import _omit from 'lodash/omit';
 
 import ValidationService from '../form/service/validation-service';
 import ExpressionService from '../form/service/expression-service';
@@ -338,6 +339,17 @@ class FormEngine {
     getField(id) {
         return this.getFields().find(id);
     }
+
+    /**
+     * Get all subsection fields (including conditional children)
+     * @param subsection
+     */
+    getAllSubsectionFields(subsection) {
+        if (!subsection || _isEmpty(subsection.fields)) {
+            return [];
+        }
+        return this.__buildFlatFieldList([], subsection.fields);
+    }
     /**
      * Detemrine if the field is a boolen data type
      * @param field
@@ -488,6 +500,24 @@ class FormEngine {
     }
     sectionHasError(section) {
         return ValidationService.isError(this.getSectionStatus(section));
+    }
+    __buildFlatFieldList(list = [], fields) {
+        if (fields) {
+            fields.forEach(field => {
+                list.push(Object.assign({}, _omit(field, PROPERTY.FIELDS, PROPERTY.OPTIONS)));
+                if (field.fields) {
+                    this.__buildFlatFieldList(list, field.fields);
+                }
+                if (field.options) {
+                    field.options.forEach(option => {
+                        if (option.fields) {
+                            this.__buildFlatFieldList(list, option.fields);
+                        }
+                    });
+                }
+            });
+        }
+        return list;
     }
 }
 

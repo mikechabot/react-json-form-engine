@@ -18,7 +18,15 @@ export default {
                             id: 'str1',
                             type: 'string',
                             title: 'Text field',
-                            required: true
+                            required: true,
+                            fields: [
+                                {
+                                    id: 'str2',
+                                    type: 'string',
+                                    title: 'Required Child',
+                                    required: true
+                                }
+                            ]
                         },
                         {
                             id: 'array1',
@@ -68,14 +76,15 @@ export default {
             subsections: [
                 {
                     id: 'Regex-Subsection',
-                    title: 'Add a regex pattern to any String field',
+                    title: 'Add a Regex to any String field',
                     subtitle: 'Useful for validating emails, URLS, etc.',
                     fields: [
                         {
-                            id: 'str2',
+                            id: 'str3',
                             type: 'string',
                             title: 'Satisfy the condition by typing "foobar!" (no quotes)',
-                            pattern: '^foobar!$'
+                            pattern: '^foobar!$',
+                            required: true
                         }
                     ]
                 }
@@ -85,6 +94,9 @@ export default {
     decorators: {
         str1: {
             hint: 'Enter some text, then delete it.'
+        },
+        str2: {
+            hint: 'Breadcrumbs to the parent appear in Validation Messages'
         },
         array1: {
             hint: 'Select, then deselect an option.',
@@ -98,8 +110,8 @@ export default {
         num2: {
             hint: 'Min: 0, Max: 5. Try entering a value outside the range.'
         },
-        str2: {
-            hint: 'Pattern: ^foobar!$"'
+        str3: {
+            hint: 'This field is also required, try entering some text, and then removing it.'
         }
     }
 };
