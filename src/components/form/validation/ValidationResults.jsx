@@ -4,13 +4,11 @@ import PropTypes from 'prop-types';
 import ValidationMessages from './ValidationMessages';
 import { Icon } from '../../common';
 
-import { VALIDATION_CONST } from '../../../form/config/form-const';
-
 const ValidationResults = ({ instance, subsection, validationMessagesLabel }) => {
     const results = instance.getValidationResults();
     const { validationStateMap } = results;
 
-    if (!results || results.overallStatus === VALIDATION_CONST.STATUS.OK) {
+    if (!instance.hasError()) {
         return null;
     }
 
@@ -28,18 +26,21 @@ const ValidationResults = ({ instance, subsection, validationMessagesLabel }) =>
                 </p>
             </div>
             <div className="message-body">
-                {Object.keys(validationStateMap).map(fieldId => {
-                    if (!includeOnly || includeOnly.includes(fieldId)) {
-                        return (
-                            <ValidationMessages
-                                key={fieldId}
-                                tag={fieldId}
-                                field={instance.getField(fieldId)}
-                                results={instance.getValidationResultByTag(fieldId)}
-                            />
-                        );
-                    }
-                })}
+                {Object.keys(validationStateMap)
+                    .map(fieldId => {
+                        if (!includeOnly || includeOnly.includes(fieldId)) {
+                            return (
+                                <ValidationMessages
+                                    key={fieldId}
+                                    tag={fieldId}
+                                    field={instance.getField(fieldId)}
+                                    results={instance.getValidationResultByTag(fieldId)}
+                                />
+                            );
+                        }
+                        return null;
+                    })
+                    .filter(message => message)}
             </div>
         </article>
     );

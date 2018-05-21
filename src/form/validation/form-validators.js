@@ -1,25 +1,23 @@
+import _isEmpty from 'lodash/isEmpty';
 import { __hasValue, __blank } from '../../common';
 import { DATA_TYPE, VALIDATION_CONST } from '../config/form-const';
-import _isEmpty from 'lodash/isEmpty';
 
-function _getStatus (errorCondition) {
-    return errorCondition
-        ? VALIDATION_CONST.STATUS.ERROR
-        : VALIDATION_CONST.STATUS.OK;
+function _getStatus(errorCondition) {
+    return errorCondition ? VALIDATION_CONST.STATUS.ERROR : VALIDATION_CONST.STATUS.OK;
 }
 
 /**
- * Available validators keyed by validation type. Each validation type
+ * Available VALIDATORS keyed by validation type. Each validation type
  * may contain one or more data types.
  * @type {{REQUIRED: {}, NUMERIC: {}}}
  */
-const validators = {
+const VALIDATORS = {
     REQUIRED: {
-        [DATA_TYPE.ARRAY]  : (field, value) => _getStatus(_isEmpty(value)),
+        [DATA_TYPE.ARRAY]: (field, value) => _getStatus(_isEmpty(value)),
         [DATA_TYPE.BOOLEAN]: () => VALIDATION_CONST.STATUS.OK,
-        [DATA_TYPE.DATE]   : (field, value) => _getStatus(__blank(value)),
-        [DATA_TYPE.NUMBER] : (field, value) => _getStatus(Number.isNaN(value)),
-        [DATA_TYPE.STRING] : (field, value) => _getStatus(__blank(value))
+        [DATA_TYPE.DATE]: (field, value) => _getStatus(__blank(value)),
+        [DATA_TYPE.NUMBER]: (field, value) => _getStatus(Number.isNaN(value)),
+        [DATA_TYPE.STRING]: (field, value) => _getStatus(__blank(value))
     },
     NUMERIC: {
         [DATA_TYPE.NUMBER]: (field, value) => {
@@ -37,7 +35,7 @@ export default {
      * @param value
      * @returns {*}
      */
-    validate (validators, field, value) {
+    validate(validators, field, value) {
         const validator = validators[field.type];
         if (validator) {
             return validator(field, value);
@@ -49,8 +47,8 @@ export default {
      * @param value
      * @returns {*}
      */
-    checkRequired (field, value) {
-        return this.validate(validators.REQUIRED, field, value);
+    checkRequired(field, value) {
+        return this.validate(VALIDATORS.REQUIRED, field, value);
     },
     /**
      * Determine if the model value passes the min/max check
@@ -58,8 +56,8 @@ export default {
      * @param value
      * @returns {*}
      */
-    checkNumeric (field, value) {
-        return this.validate(validators.NUMERIC, field, value);
+    checkNumeric(field, value) {
+        return this.validate(VALIDATORS.NUMERIC, field, value);
     },
     /**
      * Determine if the model value matches the regex pattern
@@ -67,7 +65,7 @@ export default {
      * @param value
      * @returns {boolean}
      */
-    checkPattern (field, value) {
+    checkPattern(field, value) {
         return field.pattern.test(value);
     }
 };

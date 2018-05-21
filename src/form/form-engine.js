@@ -467,6 +467,9 @@ class FormEngine {
         this.validator.validate(this, this.validationResults);
         this.validationResults.postProcess();
     }
+    hasError() {
+        return this.validationResults.hasError();
+    }
     getValidationResults() {
         return this.validationResults;
     }

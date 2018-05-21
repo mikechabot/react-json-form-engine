@@ -1,5 +1,4 @@
 import React from 'react';
-import _isEmpty from 'lodash/isEmpty';
 
 import LogService from './services/log-service';
 import LocalStorageService from './services/local-storage/local-storage-service';
@@ -13,7 +12,6 @@ import { Tabs, Tab } from './components/common/tabs';
 import { Flex } from './components/common';
 
 import JSON_FORMS from './examples';
-import ValidationResults from './components/form/validation/ValidationResults';
 const STORAGE_KEY = 'EXAMPLE_APP';
 
 class App extends React.Component {
@@ -24,8 +22,7 @@ class App extends React.Component {
             form: {},
             model: {},
             instance: null,
-            instances: {},
-            changeEvent: {}
+            instances: {}
         };
         this._handleTabSelect = this._handleTabSelect.bind(this);
         this._setLocalStorage = this._setLocalStorage.bind(this);
@@ -84,8 +81,7 @@ class App extends React.Component {
                 activeKey,
                 form,
                 instance,
-                instances,
-                changeEvent: {}
+                instances
             },
             this._setLocalStorage
         );
@@ -111,11 +107,7 @@ class App extends React.Component {
                         />
                     </Flex>
                     <Flex flex={2}>
-                        <AppPanels
-                            instance={instance}
-                            form={form}
-                            changeEvent={this.state.changeEvent}
-                        />
+                        <AppPanels instance={instance} form={form} />
                     </Flex>
                 </Flex>
             );
@@ -137,10 +129,9 @@ class App extends React.Component {
     }
 
     _onFormUpdate(changeEvent) {
-        const { form } = this.state;
-        if (!_isEmpty(form)) {
-            this.setState({ changeEvent });
-        }
+        // You might want to do something with the latest change
+        // event, and then use "setState", otherwise just force a refresh
+        this.forceUpdate();
     }
 
     _setLocalStorage(activeKey) {

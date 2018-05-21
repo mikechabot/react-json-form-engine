@@ -69,7 +69,7 @@ const conditionEvaluators = {
 
         let conditionMet = false;
         if (__hasValue(val1) && __hasValue(val2)) {
-            conditionMet = val1 == val2;
+            conditionMet = val1 === val2;
         }
 
         return conditionMet;
@@ -126,7 +126,7 @@ const expressionEvaluators = {
                     return _includes(formResponses, option.id);
                 });
                 _forEach(selections, selection => {
-                    const valueToAdd = parseInt(selection.value);
+                    const valueToAdd = parseInt(selection.value, 10);
                     if (!sum) {
                         sum = valueToAdd;
                     } else {

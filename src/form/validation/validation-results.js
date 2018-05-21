@@ -1,20 +1,19 @@
-import { VALIDATION_CONST } from '../config/form-const';
-import ValidationService from '../service/validation-service';
 import _isArray from 'lodash/isArray';
-import _forEach from 'lodash/forEach';
+import ValidationService from '../service/validation-service';
+import { VALIDATION_CONST } from '../config/form-const';
 
 class ValidationResults {
-    constructor () {
-        this.validationMap = {};   // Map keyed by tag; each entry is an array of validation messages
-        this.validationStateMap = {};   // Map keyed by tag; each entry is the most severe status for the tag
-        this.actionMap = {};   // Map keyed by action; each entry is the most severe status for that action
-        this.overallStatus = {};   // Holds the aggregated status of the results
+    constructor() {
+        this.validationMap = {}; // Map keyed by tag; each entry is an array of validation messages
+        this.validationStateMap = {}; // Map keyed by tag; each entry is the most severe status for the tag
+        this.actionMap = {}; // Map keyed by action; each entry is the most severe status for that action
+        this.overallStatus = {}; // Holds the aggregated status of the results
     }
 
     /**
      * Clear validation results
      */
-    clear () {
+    clear() {
         this.validationMap = {};
         this.validationStateMap = {};
         this.actionMap = {};
@@ -30,7 +29,7 @@ class ValidationResults {
      * @param message
      * @param actions
      */
-    addValidationMessage (tag, type, status, message, actions) {
+    addValidationMessage(tag, type, status, message, actions) {
         // Create a messages list if it doesn't exist
         let messages = this.validationMap[tag];
         if (!messages) {
@@ -60,7 +59,7 @@ class ValidationResults {
             validationMessage.actions = actions;
 
             // Update the actions with the most severe error
-            _forEach(actions, action => {
+            actions.forEach(action => {
                 const currentStatus = this.actionMap[action] || VALIDATION_CONST.STATUS.OK;
                 if (ValidationService.isMoreSevereStatus(status, currentStatus)) {
                     this.actionMap[action] = status;
@@ -75,9 +74,9 @@ class ValidationResults {
      * @param tag
      * @returns {{status: (*|string), messages: (*|Array)}}
      */
-    getResults (tag) {
+    getResults(tag) {
         return {
-            status  : this.validationStateMap[tag] || VALIDATION_CONST.STATUS.OK,
+            status: this.validationStateMap[tag] || VALIDATION_CONST.STATUS.OK,
             messages: this.validationMap[tag] || []
         };
     }
@@ -87,12 +86,13 @@ class ValidationResults {
      * where we determine the most severe status per tag, along with
      * setting the overall status of the validation results.
      */
-    postProcess () {
+    postProcess() {
         let overallStatus = VALIDATION_CONST.STATUS.OK;
-        _forEach(this.validationMap, (messages, tag) => {
+        Object.keys(this.validationMap).forEach(key => {
+            const messages = this.validationMap[key];
             // Get most severe status for tag
             const status = ValidationService.getMostSevereStatus(messages);
-            this.validationStateMap[tag] = status;
+            this.validationStateMap[key] = status;
 
             // Update overall status of more severe
             if (ValidationService.isMoreSevereStatus(status, overallStatus)) {
@@ -107,7 +107,7 @@ class ValidationResults {
      * @param message
      * @param actions
      */
-    addMissingRequired (tag, message, actions) {
+    addMissingRequired(tag, message, actions) {
         this.addValidationMessage(
             tag,
             VALIDATION_CONST.TYPE.REQUIRED,
@@ -123,7 +123,7 @@ class ValidationResults {
      * @param message
      * @param actions
      */
-    addInvalidValue (tag, message, actions) {
+    addInvalidValue(tag, message, actions) {
         this.addValidationMessage(
             tag,
             VALIDATION_CONST.TYPE.INVALID_VALUE,
@@ -137,7 +137,7 @@ class ValidationResults {
      * Return the aggregated validation results status
      * @returns {boolean}
      */
-    hasError () {
+    hasError() {
         return this.overallStatus === VALIDATION_CONST.STATUS.ERROR;
     }
 }
