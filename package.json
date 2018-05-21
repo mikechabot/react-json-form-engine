@@ -1,5 +1,5 @@
 {
-  "name": "react-form-engine",
+  "name": "react-json-form-engine",
   "version": "0.1.0",
   "peerDependencies": {
     "react": "^16.3.2",
