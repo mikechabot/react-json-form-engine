@@ -2,7 +2,15 @@
   "name": "react-form-engine",
   "version": "0.1.0",
   "private": true,
+  "peerDependencies": {
+    "react": "^16.3.2",
+    "react-dom": "^16.3.2"
+  },
   "devDependencies": {
+    "babel-core": "^6.26.3",
+    "babel-preset-es2015": "^6.24.1",
+    "babel-preset-react": "^6.24.1",
+    "babel-preset-stage-0": "^6.24.1",
     "eslint": "^4.19.1",
     "eslint-config-prettier": "^2.9.0",
     "eslint-config-standard": "^11.0.0",
@@ -12,7 +20,6 @@
     "eslint-plugin-react": "^7.8.2",
     "eslint-plugin-standard": "^3.1.0",
     "node-sass-chokidar": "^1.3.0",
-    "npm-run-all": "^4.1.3",
     "prettier": "^1.12.1"
   },
   "dependencies": {
@@ -24,22 +31,12 @@
     "maybe-baby": "^1.0.20",
     "moment": "^2.22.1",
     "normalize.css": "^8.0.0",
-    "prop-types": "^15.6.1",
-    "react": "^16.3.2",
     "react-datepicker": "^1.4.1",
-    "react-dom": "^16.3.2",
-    "react-scripts": "1.1.4",
-    "react-tabify": "0.0.27",
-    "sortable-map": "0.0.17"
+    "sortable-map": "0.0.17",
+    "prop-types": "^15.6.1"
   },
   "scripts": {
-    "build-css": "node-sass-chokidar src/ -o src/",
-    "watch-css": "npm run build-css && node-sass-chokidar src/ -o src/ --watch --recursive",
-    "start-js": "react-scripts start",
-    "start": "npm-run-all -p watch-css start-js",
-    "build-js": "react-scripts build",
-    "build": "npm-run-all build-css build-js",
-    "test": "react-scripts test --env=jsdom",
-    "eject": "react-scripts eject"
+    "build": "npm run build-css && babel src -d lib",
+    "build-css": "node-sass-chokidar src/ -o src/"
   }
 }
