@@ -19,6 +19,7 @@ class FormConfig {
         this.typeConfigs = {};
         this.__registerDataType(DATA_TYPE.STRING, {
             [COMPONENT_TYPE.TEXT]: require('../../components/form/controls/Text').default,
+            [COMPONENT_TYPE.PASSWORD]: require('../../components/form/controls/Text').default,
             [COMPONENT_TYPE.TEXTAREA]: require('../../components/form/controls/Textarea').default,
             [COMPONENT_TYPE.SELECT]: require('../../components/form/controls/Select').default,
             [COMPONENT_TYPE.RADIO]: require('../../components/form/controls/Radio').default

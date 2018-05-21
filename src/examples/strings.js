@@ -26,12 +26,18 @@ export default {
                         {
                             id: 'str2',
                             type: 'string',
+                            title: 'Password',
+                            sortOrder: 4
+                        },
+                        {
+                            id: 'str3',
+                            type: 'string',
                             title: 'Textarea',
                             placeholder: 'Yet another placeholder',
                             sortOrder: 1
                         },
                         {
-                            id: 'str3',
+                            id: 'str4',
                             type: 'string',
                             title: 'Select',
                             placeholder: '-- Select Something --',
@@ -43,7 +49,7 @@ export default {
                             sortOrder: 2
                         },
                         {
-                            id: 'str4',
+                            id: 'str5',
                             type: 'string',
                             title: 'Radio',
                             options: [
@@ -60,15 +66,20 @@ export default {
     ],
     decorators: {
         str2: {
+            component: {
+                type: 'password'
+            }
+        },
+        str3: {
             hint: 'This is some hint text.',
             component: {
                 type: 'textarea'
             }
         },
-        str3: {
+        str4: {
             hint: 'Stores the option id as the value.'
         },
-        str4: {
+        str5: {
             hint: 'Stores the option id as the value.',
             component: {
                 type: 'radio'

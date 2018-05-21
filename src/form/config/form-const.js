@@ -13,6 +13,7 @@ export const COMPONENT_TYPE = {
     CHECKBOXGROUP: 'checkboxgroup',
     RADIO: 'radio',
     NUMBER: 'number',
+    PASSWORD: 'password',
     RANGE: 'range',
     SELECT: 'select',
     DATE: 'date',
