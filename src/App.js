@@ -4,9 +4,9 @@ import _isEmpty from 'lodash/isEmpty';
 import LogService from './services/log-service';
 import LocalStorageService from './services/local-storage/local-storage-service';
 
-import Navbar from './components/common/bulma/Navbar';
 import Footer from './Footer';
 import AppPanels from './AppPanels';
+import Navbar from './components/common/bulma/Navbar';
 import Form from './components/form/Form';
 import FormEngine from './form/form-engine';
 import { Tabs, Tab } from './components/common/tabs';
@@ -58,6 +58,7 @@ class App extends React.Component {
     _renderHeader() {
         return (
             <Navbar
+                id="main-nav"
                 icon="cube"
                 url="http://www.github.com/mikechabot/react-form-engine"
                 label="react-form-engine"
