@@ -1,9 +1,8 @@
 'use strict';
 
-const Form = require('./lib/index');
-const FormEngine = require('./lib/index');
+const ReactJsonFormEngine = require('./lib/index');
 
 module.exports = {
-    Form,
-    FormEngine
+    Form: ReactJsonFormEngine.Form,
+    FormEngine: ReactJsonFormEngine.FormEngine
 };
