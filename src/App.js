@@ -100,15 +100,21 @@ class App extends React.Component {
     _renderTabContent(form, index, instance) {
         if (this.state.activeKey === index && instance) {
             return (
-                <Flex flexWrap="wrap" className="full-height" flexShrink={0} padding={25}>
-                    <Flex flexShrink={0} flex={1}>
+                <Flex flexWrap="wrap" className="full-height section" flexShrink={0}>
+                    <Flex flexShrink={0} flex={index > 4 ? 2 : 0.75} minWidth={425}>
                         <Form
                             instance={instance}
                             onUpdate={this._onFormUpdate.bind(this)}
                             onSubmit={this._onSubmit.bind(this)}
                         />
                     </Flex>
-                    {/* <AppPanels instance={instance} form={form} changeEvent={this.state.changeEvent} /> */}
+                    <Flex flex={2}>
+                        <AppPanels
+                            instance={instance}
+                            form={form}
+                            changeEvent={this.state.changeEvent}
+                        />
+                    </Flex>
                 </Flex>
             );
         }

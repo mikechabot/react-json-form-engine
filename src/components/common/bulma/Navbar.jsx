@@ -5,9 +5,9 @@ import Icon from '../Icon';
 
 const className = 'navbar-item is-size-4-desktop is-size-5-tablet is-size-6-mobile';
 
-const Navbar = ({ id, icon, iconPrefix, label, url, controlsRight }) => {
+const Navbar = ({ id, icon, iconPrefix, theme, label, url, controlsRight }) => {
     return (
-        <nav id={id} className="navbar is-dark" aria-label="main navigation">
+        <nav id={id} className={`navbar ${theme || 'is-dark'}`} aria-label="main navigation">
             <div className="navbar-brand">{_renderBrand(icon, iconPrefix, label, url)}</div>
             {_renderControlsRight(controlsRight)}
         </nav>
@@ -39,7 +39,7 @@ const _renderControlsRight = controlsRight => {
 const _renderIconAndLabel = (icon, iconPrefix, label) => {
     return (
         <span>
-            {_renderIcon(icon, iconPrefix)}
+            {_renderIcon(icon, iconPrefix)}&nbsp;
             {_renderLabel(label)}
         </span>
     );
@@ -49,7 +49,7 @@ const _renderIcon = (icon, iconPrefix) => {
     if (icon) {
         return (
             <span>
-                <Icon icon={icon} prefix={iconPrefix} />&nbsp;
+                <Icon icon={icon} prefix={iconPrefix} />
             </span>
         );
     }
@@ -62,6 +62,7 @@ const _renderLabel = label => {
 Navbar.propTypes = {
     id: PropTypes.string,
     icon: PropTypes.string,
+    theme: PropTypes.string,
     iconPrefix: PropTypes.string,
     label: PropTypes.node.isRequired,
     controlsRight: PropTypes.node,

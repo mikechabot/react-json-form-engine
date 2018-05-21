@@ -6422,5 +6422,13 @@ label.panel-block {
 .panel-heading > span > h1 {
   margin: 0; }
 
+.code-panel .panel-block, .code-panel .panel-heading {
+  border-bottom: 1px solid #dbdbdb;
+  border-left: 1px solid #dbdbdb;
+  border-right: 1px solid #dbdbdb; }
+
+.code-panel .panel-heading:first-child, .code-panel .panel-tabs:first-child, .code-panel .panel-block:first-child {
+  border-top: 1px solid #dbdbdb; }
+
 .tabs:not(:last-child) {
   margin-bottom: 0; }

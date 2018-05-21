@@ -302,17 +302,18 @@ export default {
                         {
                             id: 'arr5',
                             type: 'array',
-                            title: 'Show a child regardless of the option(s) selected',
+                            title: 'Show child regardless of the option(s) selected',
                             options: [
                                 { id: 'op1', title: 'Option 1' },
                                 { id: 'op2', title: 'Option 2' },
-                                { id: 'op3', title: 'Option 3' }
+                                { id: 'op3', title: 'Option 3' },
+                                { id: 'op4', title: 'Option 4' }
                             ],
                             fields: [
                                 {
                                     id: 'num7',
                                     type: 'number',
-                                    title: 'Field',
+                                    title: 'Child',
                                     showCondition: {
                                         type: 'EMPTY',
                                         not: true,
@@ -370,7 +371,7 @@ export default {
                                 {
                                     id: 'str21',
                                     type: 'string',
-                                    title: 'Field 2',
+                                    title: 'Field',
                                     showCondition: {
                                         type: 'LESS_THAN',
                                         expression1: {
@@ -417,13 +418,13 @@ export default {
             }
         },
         num5: {
-            hint: 'Show field if > 5',
+            hint: 'Show child if > 5',
             component: {
                 type: 'range'
             }
         },
         num8: {
-            hint: 'Show field if < 5'
+            hint: 'Show child if < 5'
         },
         num10: {
             component: {

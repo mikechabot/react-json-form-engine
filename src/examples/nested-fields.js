@@ -12,7 +12,7 @@ export default {
                 {
                     id: 'Simple-Subsection',
                     title: 'Simple Nesting',
-                    subtitle: 'Parent/child relationship',
+                    subtitle: 'Simple parent/child relationships',
                     fields: [
                         {
                             id: 'str1',
@@ -59,7 +59,7 @@ export default {
                 {
                     id: 'Complex-Subsection',
                     title: 'Complex Nesting',
-                    subtitle: 'Create forms forms with infinite depth and variety',
+                    subtitle: 'Create forms with infinite depth and variety',
                     fields: [
                         {
                             id: 'bool1',

@@ -44,7 +44,7 @@ ol.field-list {
 ol.field-list > li {
   margin-bottom: 1em;
   padding-left: .75em;
-  border-left: 1px solid #3273DC;
+  border-left: 1px solid #3273dc;
 }
 
 ol.child-list {
@@ -54,7 +54,7 @@ ol.child-list {
 
 ol.child-list > li {
   padding: .25em .75em;
-  border-left: 1px solid #C0C0C0;
+  border-left: 1px solid #dbdbdb;
 }
 
 ol.child-list > li:first-child {
@@ -66,9 +66,9 @@ ol.child-list > li:last-child {
 }
 
 pre {
-  font-size: .70rem;
+  font-size: .95em;
   counter-reset: line-numbering;
-  font-family: "Roboto Mono", Menlo, Monaco, monospace;
+  font-family: "Ubuntu Mono", Menlo, Monaco, monospace;
   padding: 5px;
   color: #757575;
   border-radius: 3px;
@@ -82,6 +82,6 @@ pre .line::before {
   /* space after numbers */
   width: 1.5em;
   text-align: right;
-  font-weight: 700;
-  color: #5ab4d2;
+  font-weight: 500;
+  color: #3273dc;
 }

@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { Asterisk } from '../../common';
+import { Asterisk, Icon } from '../../common';
 
 const FormSubsectionTitle = ({ subsection, hasSiblings, instance, isTab }) => {
     return isTab
@@ -33,7 +33,7 @@ const _renderTitleAndSubtitle = (subsection, hasSiblings, instance) => {
     return (
         <span>
             {__renderTitle(subsection, instance)}
-            {__renderSubtitle(subsection)}
+            {__renderSubtitle(subsection, true)}
         </span>
     );
 };
@@ -48,7 +48,12 @@ const __renderTitle = (subsection, instance) => (
     <h1 className="title is-5">{_renderTitleAndError(subsection, instance)}</h1>
 );
 
-const __renderSubtitle = subsection => <h2 className="subtitle is-6">{subsection.subtitle}</h2>;
+const __renderSubtitle = subsection => (
+    <h2 className="subtitle is-6">
+        <Icon icon="angle-right" />&nbsp;
+        {subsection.subtitle}
+    </h2>
+);
 
 FormSubsectionTitle.propTypes = {
     subsection: PropTypes.object.isRequired,

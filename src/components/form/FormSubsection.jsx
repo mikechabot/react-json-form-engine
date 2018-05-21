@@ -4,11 +4,10 @@ import PropTypes from 'prop-types';
 import FormField from './FormField';
 import FormSubsectionTitle from './helpers/FormSubsectionTitle';
 import { Flex } from '../common';
-import FormSubmitButton from './helpers/FormSubmitButton';
 
 class FormSubsection extends React.Component {
     render() {
-        const { subsection, hasSiblings, instance, onUpdate, onSubmit } = this.props;
+        const { subsection, hasSiblings, instance, onUpdate } = this.props;
         return (
             <Flex column={true} flex={1} className="panel" flexShrink={0}>
                 {this._maybeRenderSubsectionTitle(subsection, instance, hasSiblings)}
@@ -63,7 +62,6 @@ class FormSubsection extends React.Component {
 FormSubsection.propTypes = {
     subsection: PropTypes.object.isRequired,
     onUpdate: PropTypes.func.isRequired,
-    onSubmit: PropTypes.func.isRequired,
     instance: PropTypes.object.isRequired,
     hasSiblings: PropTypes.bool
 };

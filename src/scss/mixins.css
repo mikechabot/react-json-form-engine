@@ -1,5 +1,5 @@
 @import url(../../node_modules/normalize.css/normalize.css);
-@import url("https://fonts.googleapis.com/css?family=Roboto+Mono:400,500,700");
+@import url("https://fonts.googleapis.com/css?family=Ubuntu+Mono:400,700");
 /*! bulma.io v0.7.1 | MIT License | github.com/jgthms/bulma */
 @keyframes spinAround {
   from {
@@ -6423,6 +6423,14 @@ label.panel-block {
 
 .panel-heading > span > h1 {
   margin: 0; }
+
+.code-panel .panel-block, .code-panel .panel-heading {
+  border-bottom: 1px solid #dbdbdb;
+  border-left: 1px solid #dbdbdb;
+  border-right: 1px solid #dbdbdb; }
+
+.code-panel .panel-heading:first-child, .code-panel .panel-tabs:first-child, .code-panel .panel-block:first-child {
+  border-top: 1px solid #dbdbdb; }
 
 .tabs:not(:last-child) {
   margin-bottom: 0; }

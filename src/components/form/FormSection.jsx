@@ -51,7 +51,6 @@ class FormSection extends React.Component {
                 subsection={subsection}
                 instance={this.props.instance}
                 onUpdate={this.props.onUpdate}
-                onSubmit={this.props.onSubmit}
             />
         );
     }

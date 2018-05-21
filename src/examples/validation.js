@@ -12,7 +12,7 @@ export default {
                 {
                     id: 'Required-Subsection',
                     title: 'Make any field required',
-                    subtitle: 'Only display the error notification once the field is dirty',
+                    subtitle: 'Only display errors once a field is marked as dirty',
                     fields: [
                         {
                             id: 'str1',
@@ -49,6 +49,7 @@ export default {
                 {
                     id: 'Numeric-Subsection',
                     title: 'Min/max validation supported',
+                    subtitle: 'Display an error if out-of-range',
                     fields: [
                         {
                             id: 'num2',
@@ -68,11 +69,12 @@ export default {
                 {
                     id: 'Regex-Subsection',
                     title: 'Add a regex pattern to any String field',
+                    subtitle: 'Useful for validating emails, URLS, etc.',
                     fields: [
                         {
                             id: 'str2',
                             type: 'string',
-                            title: 'Using regex pattern: "^foobar!$"',
+                            title: 'Satisfy the condition by typing "foobar!" (no quotes)',
                             pattern: '^foobar!$'
                         }
                     ]
@@ -97,7 +99,7 @@ export default {
             hint: 'Min: 0, Max: 5. Try entering a value outside the range.'
         },
         str2: {
-            hint: 'Satisfy the condition by entering "foobar!"'
+            hint: 'Pattern: ^foobar!$"'
         }
     }
 };

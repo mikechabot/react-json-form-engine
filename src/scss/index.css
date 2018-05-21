@@ -1,5 +1,5 @@
 @import url(../../node_modules/normalize.css/normalize.css);
-@import url("https://fonts.googleapis.com/css?family=Roboto+Mono:400,500,700");
+@import url("https://fonts.googleapis.com/css?family=Ubuntu+Mono:400,700");
 /*! bulma.io v0.7.1 | MIT License | github.com/jgthms/bulma */
 @keyframes spinAround {
   from {
@@ -6424,6 +6424,14 @@ label.panel-block {
 .panel-heading > span > h1 {
   margin: 0; }
 
+.code-panel .panel-block, .code-panel .panel-heading {
+  border-bottom: 1px solid #dbdbdb;
+  border-left: 1px solid #dbdbdb;
+  border-right: 1px solid #dbdbdb; }
+
+.code-panel .panel-heading:first-child, .code-panel .panel-tabs:first-child, .code-panel .panel-block:first-child {
+  border-top: 1px solid #dbdbdb; }
+
 .tabs:not(:last-child) {
   margin-bottom: 0; }
 
@@ -6687,7 +6695,7 @@ ol.field-list {
 ol.field-list > li {
   margin-bottom: 1em;
   padding-left: .75em;
-  border-left: 1px solid #3273DC; }
+  border-left: 1px solid #3273dc; }
 
 ol.child-list {
   width: 100%;
@@ -6695,7 +6703,7 @@ ol.child-list {
 
 ol.child-list > li {
   padding: .25em .75em;
-  border-left: 1px solid #C0C0C0; }
+  border-left: 1px solid #dbdbdb; }
 
 ol.child-list > li:first-child {
   margin: .25em 0 0 0; }
@@ -6704,9 +6712,9 @@ ol.child-list > li:last-child {
   padding-bottom: 0; }
 
 pre {
-  font-size: .70rem;
+  font-size: .95em;
   counter-reset: line-numbering;
-  font-family: "Roboto Mono", Menlo, Monaco, monospace;
+  font-family: "Ubuntu Mono", Menlo, Monaco, monospace;
   padding: 5px;
   color: #757575;
   border-radius: 3px;
@@ -6720,5 +6728,5 @@ pre .line::before {
   /* space after numbers */
   width: 1.5em;
   text-align: right;
-  font-weight: 700;
-  color: #5ab4d2; }
+  font-weight: 500;
+  color: #3273dc; }
