@@ -11,6 +11,8 @@
 
 /.idea/*
 
+/src/scss/*.css
+
 # misc
 .DS_Store
 .env.local
