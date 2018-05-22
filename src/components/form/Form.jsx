@@ -1,13 +1,13 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import _isEmpty from 'lodash/isEmpty';
+import { Tabs, Tab } from 'react-tabify';
 
 import Asterisk from '../common/Asterisk';
+import FormSubmitButton from './helpers/FormSubmitButton';
 import Navbar from '../common/bulma/Navbar';
 import FormSection from './FormSection';
-import { Tabs, Tab } from '../common/tabs';
 import { Flex, APICheckError } from '../common';
-import FormSubmitButton from './helpers/FormSubmitButton';
 
 class Form extends React.Component {
     constructor(props) {

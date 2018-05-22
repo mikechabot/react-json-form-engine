@@ -1,7 +1,23 @@
 {
   "name": "react-json-form-engine",
   "version": "0.2.3",
+  "author": "Mike Chabot",
+  "license": "MIT",
   "main": "index.js",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/mikechabot/react-json-form-engine.git"
+  },
+  "keywords": [
+    "react",
+    "forms",
+    "json forms",
+    "conditional forms"
+  ],
+  "bugs": {
+    "url": "https://github.com/mikechabot/react-json-form-engine/issues"
+  },
+  "homepage": "http://mikechabot.github.io/react-json-form-engine-storybook",
   "peerDependencies": {
     "react": "^16.3.2",
     "react-dom": "^16.3.2"
@@ -31,9 +47,10 @@
     "maybe-baby": "^1.0.20",
     "moment": "^2.22.1",
     "normalize.css": "^8.0.0",
+    "prop-types": "^15.6.1",
     "react-datepicker": "^1.4.1",
-    "sortable-map": "0.0.17",
-    "prop-types": "^15.6.1"
+    "react-tabify": "^0.1.2",
+    "sortable-map": "0.0.17"
   },
   "scripts": {
     "build": "npm run build-css && babel src -d lib",

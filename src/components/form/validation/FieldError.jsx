@@ -1,8 +1,8 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import Icon from '../../common/Icon';
 import FormItemHint from '../helpers/FormItemHint';
+import { Icon } from '../../common';
 
 export default function ErrorBlock({ id }) {
     return (

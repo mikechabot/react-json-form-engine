@@ -1,9 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { Flex } from '../../common';
-import { __hasValue } from '../../../common';
 import ErrorBlock from '../validation/FieldError';
+import { Flex } from '../../common';
+
+import { __hasValue } from '../../../common';
 
 const Range = ({ id, field, value, onUpdate }) => {
     if (!__hasValue(field.min) || !__hasValue(field.max)) {

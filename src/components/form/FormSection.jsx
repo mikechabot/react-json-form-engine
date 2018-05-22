@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import { Tabs, Tab } from 'react-tabify';
 
 import FormSubsectionTitle from './helpers/FormSubsectionTitle';
 import FormSubsection from './FormSubsection';
-import { Tabs, Tab } from '../common/tabs';
 import { Flex } from '../common';
 
 class FormSection extends React.Component {

@@ -1,5 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+
 import { Icon, Flex } from '../../common';
 
 const regex = /^Error: (.+)$/m;
