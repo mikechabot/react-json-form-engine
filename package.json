@@ -49,7 +49,7 @@
     "normalize.css": "^8.0.0",
     "prop-types": "^15.6.1",
     "react-datepicker": "^1.4.1",
-    "react-tabify": "^0.1.3",
+    "react-tabify": "^0.1.6",
     "sortable-map": "0.0.17"
   },
   "scripts": {
