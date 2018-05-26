@@ -5,9 +5,10 @@
   "license": "MIT",
   "main": "index.js",
   "scripts": {
-    "ship": "rimaf ./lib && npm run build && npm version patch && npm publish",
+    "ship": "rimraf ./lib && npm run build && npm run auto-commit && npm version patch && npm publish",
     "build": "npm run build-css && babel src -d lib",
-    "build-css": "node-sass-chokidar src/ -o src/"
+    "build-css": "node-sass-chokidar src/ -o src/",
+    "auto-commit": "git add . && git commit -m \"Packaging assets\""
   },
   "repository": {
     "type": "git",
