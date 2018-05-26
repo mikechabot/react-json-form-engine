@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 
 import FormControl from './FormControl';
 import FormChildren from './FormChildren';
-import { Flex } from '../common/glamorous';
+import { Flex } from '../common';
 
 class FormField extends React.Component {
     render() {

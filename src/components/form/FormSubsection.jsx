@@ -4,7 +4,7 @@ import PropTypes from 'prop-types';
 import FormField from './FormField';
 import FormSubsectionTitle from './helpers/FormSubsectionTitle';
 import ValidationResults from './validation/ValidationResults';
-import { Flex } from '../common/glamorous';
+import { Flex } from '../common';
 
 class FormSubsection extends React.Component {
     render() {

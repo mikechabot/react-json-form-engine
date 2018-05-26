@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import ErrorBlock from '../validation/FieldError';
-import { Flex } from '../../common/glamorous';
+import { Flex } from '../../common';
 
 import { __hasValue } from '../../../common';
 

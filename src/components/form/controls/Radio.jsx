@@ -2,9 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import FormChildren from '../FormChildren';
-import { Icon } from '../../common';
-import { Flex } from '../../common/glamorous';
-
+import { Icon, Flex } from '../../common';
 import { __hasValue } from '../../../common';
 
 const Radio = ({ id, value, field, instance, onUpdate }) => {
