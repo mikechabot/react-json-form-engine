@@ -5,9 +5,10 @@ import { Tabs, Tab } from 'react-tabify';
 
 import Asterisk from '../common/Asterisk';
 import FormSubmitButton from './helpers/FormSubmitButton';
-import Navbar from '../common/bulma/Navbar';
+import FormTitle from '../common/bulma/Navbar';
 import FormSection from './FormSection';
-import { Flex, APICheckError } from '../common';
+import { APICheckError } from '../common';
+import { Flex } from '../common/glamorous/Flex';
 
 class Form extends React.Component {
     constructor(props) {
@@ -53,7 +54,7 @@ class Form extends React.Component {
 
     _renderFormTitle(instance) {
         return (
-            <Navbar
+            <FormTitle
                 id={`form-title-${instance.getId()}`}
                 iconPrefix={instance.getFormIconPrefix()}
                 icon={instance.getFormIcon()}

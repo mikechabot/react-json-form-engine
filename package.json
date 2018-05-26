@@ -30,6 +30,7 @@
     "eslint": "^4.19.1",
     "eslint-config-prettier": "^2.9.0",
     "eslint-config-standard": "^11.0.0",
+    "eslint-plugin-import": "^2.12.0",
     "eslint-plugin-node": "^6.0.1",
     "eslint-plugin-prettier": "^2.6.0",
     "eslint-plugin-promise": "^3.7.0",
@@ -44,12 +45,12 @@
     "glamor": "^2.20.40",
     "glamorous": "^4.13.0",
     "lodash": "^4.17.10",
-    "maybe-baby": "^1.0.20",
+    "maybe-baby": "^1.0.24",
     "moment": "^2.22.1",
     "normalize.css": "^8.0.0",
     "prop-types": "^15.6.1",
     "react-datepicker": "^1.4.1",
-    "react-tabify": "^0.1.6",
+    "react-tabify": "^0.1.24",
     "sortable-map": "0.0.17"
   },
   "scripts": {

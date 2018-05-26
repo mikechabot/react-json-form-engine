@@ -31,7 +31,6 @@ class FormEngine {
         }
 
         this.definition = definition; // Form definition
-        this.formTitle = definition.title; // Form title
         this.decorators = definition.decorators || {}; // UI decorators
 
         this.showConditionTriggerMap = new SortableMap(); // Map of field ids keyed by trigger id
@@ -193,7 +192,7 @@ class FormEngine {
      * @returns {*}
      */
     getFormTitle() {
-        return this.formTitle;
+        return this.getDefinition().title;
     }
     /**
      * Get form icon
