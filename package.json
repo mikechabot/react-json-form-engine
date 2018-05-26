@@ -4,6 +4,11 @@
   "author": "Mike Chabot",
   "license": "MIT",
   "main": "index.js",
+  "scripts": {
+    "ship": "rimaf ./lib && npm run build && npm version patch && npm publish",
+    "build": "npm run build-css && babel src -d lib",
+    "build-css": "node-sass-chokidar src/ -o src/"
+  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/mikechabot/react-json-form-engine.git"
@@ -52,9 +57,5 @@
     "react-datepicker": "^1.4.1",
     "react-tabify": "^0.1.24",
     "sortable-map": "0.0.17"
-  },
-  "scripts": {
-    "build": "npm run build-css && babel src -d lib",
-    "build-css": "node-sass-chokidar src/ -o src/"
   }
 }
