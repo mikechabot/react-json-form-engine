@@ -5,7 +5,7 @@ import { Tabs, Tab } from 'react-tabify';
 
 import Asterisk from '../common/Asterisk';
 import FormSubmitButton from './helpers/FormSubmitButton';
-import FormTitle from '../common/bulma/Navbar';
+import FormTitle from '../common/bulma/FormTitle';
 import FormSection from './FormSection';
 import { APICheckError } from '../common';
 import { Flex } from '../common/glamorous/Flex';
