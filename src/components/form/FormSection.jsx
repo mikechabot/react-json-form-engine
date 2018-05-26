@@ -4,7 +4,7 @@ import { Tabs, Tab } from 'react-tabify';
 
 import FormSubsectionTitle from './helpers/FormSubsectionTitle';
 import FormSubsection from './FormSubsection';
-import { Flex } from '../common';
+import { Flex } from '../common/glamorous';
 
 class FormSection extends React.Component {
     render() {

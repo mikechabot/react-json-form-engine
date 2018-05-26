@@ -8,7 +8,7 @@ import FormSubmitButton from './helpers/FormSubmitButton';
 import FormTitle from '../common/bulma/FormTitle';
 import FormSection from './FormSection';
 import { APICheckError } from '../common';
-import { Flex } from '../common/glamorous/Flex';
+import { Flex } from '../common/glamorous';
 
 class Form extends React.Component {
     constructor(props) {

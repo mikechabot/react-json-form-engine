@@ -2,7 +2,8 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import FormChildren from '../FormChildren';
-import { Flex, Icon } from '../../common';
+import { Icon } from '../../common';
+import { Flex } from '../../common/glamorous';
 
 import { __hasValue } from '../../../common';
 

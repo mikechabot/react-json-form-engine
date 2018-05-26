@@ -5,7 +5,7 @@ import _isEmpty from 'lodash/isEmpty';
 import Checkbox from './Checkbox';
 import FieldError from '../validation/FieldError';
 import FormChildren from '../FormChildren';
-import { Flex } from '../../common';
+import { Flex } from '../../common/glamorous';
 
 const CheckboxGroup = ({ id, field, value, instance, onUpdate }) => {
     if (_isEmpty(field.options)) {
