@@ -8,6 +8,7 @@
     "ship": "rimraf ./lib && npm run build && npm run auto-commit && npm version patch && npm publish",
     "build": "npm run build-css && babel src -d lib",
     "build-css": "node-sass-chokidar src/ -o src/",
+    "eject": "react-scripts eject",
     "auto-commit": "git add . && git commit -m \"Packaging assets\""
   },
   "repository": {
@@ -56,6 +57,7 @@
     "normalize.css": "^8.0.0",
     "prop-types": "^15.6.1",
     "react-datepicker": "^1.4.1",
+    "react-scripts": "^1.1.4",
     "react-tabify": "^0.1.24",
     "sortable-map": "0.0.17"
   }
