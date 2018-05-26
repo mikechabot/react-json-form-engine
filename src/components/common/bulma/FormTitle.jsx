@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import { Navbar, NavbarBrand, NavbarItem, NavbarItemEnd } from '../glamorous/Flex';
+import { Navbar, NavbarBrand, NavbarItem, NavbarItemEnd } from '../glamorous';
 import { Icon } from '../index';
 
 class FormTitle extends React.Component {
