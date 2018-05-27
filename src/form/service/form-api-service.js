@@ -2,7 +2,7 @@ import Maybe from 'maybe-baby';
 import apiCheck from 'api-check';
 
 import { PROPERTY } from '../config/form-const';
-const { FIELD, SECTION, SUBSECTION, DEFINITION, CALCULATIONS } = PROPERTY;
+const { FIELD, SECTION, SUBSECTION, DEFINITION } = PROPERTY;
 
 // Configure api-check
 const validator = apiCheck({ output: { prefix: 'FormEngine:' } });
@@ -49,12 +49,7 @@ const FormApiService = {
                             )
                         }).strict
                     ),
-                    [DEFINITION.DECORATORS]: validator.object.optional,
-                    [DEFINITION.CALCULATIONS]: validator.shape({
-                        [CALCULATIONS.EXPRESSION_MAP]: validator.object.optional,
-                        [CALCULATIONS.TRIGGER_MAP]: validator.object.optional
-                    }).optional,
-                    [DEFINITION.DEFAULT_VALUE_TRIGGERS]: validator.object.optional
+                    [DEFINITION.DECORATORS]: validator.object.optional
                 }).strict
             ],
             arguments,

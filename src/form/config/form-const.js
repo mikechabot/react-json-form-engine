@@ -46,10 +46,6 @@ const COMMON_PROPERTY = {
 export const NO_VALUE = undefined;
 
 export const PROPERTY = {
-    CALCULATIONS: {
-        EXPRESSION_MAP: 'expressionMap',
-        TRIGGER_MAP: 'triggerMap'
-    },
     FIELD: {
         ...COMMON_PROPERTY,
         PARENT: 'parent',
@@ -76,9 +72,7 @@ export const PROPERTY = {
     DEFINITION: {
         ...COMMON_PROPERTY,
         SECTIONS: 'sections',
-        DECORATORS: 'decorators',
-        CALCULATIONS: 'calculations',
-        DEFAULT_VALUE_TRIGGERS: 'defaultValueTriggers'
+        DECORATORS: 'decorators'
     }
 };
 
