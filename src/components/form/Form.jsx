@@ -3,11 +3,11 @@ import PropTypes from 'prop-types';
 import _isEmpty from 'lodash/isEmpty';
 import { Tabs, Tab } from 'react-tabify';
 
-import FormTitle from '../common/bulma/FormTitle';
 import Asterisk from '../common/Asterisk';
 import FormSubmitButton from './helpers/FormSubmitButton';
 import ValidationAPIError from './validation/ValidationAPIError';
 import FormSection from './FormSection';
+import FormTitle from './helpers/FormTitle';
 
 class Form extends React.Component {
     constructor(props) {
