@@ -53,7 +53,7 @@ Requires React 15.0.0+
 
 `$ npm install --save bulma`
 
-2. If your project supports Sass/SCSS, Bulma can be over easily overriden. See [here](https://bulma.io/documentation/overview/start/) for more details:
+2. If your project supports Sass/SCSS, Bulma can be over easily overriden:
 
   ```scss
   /* index.scss */
@@ -63,7 +63,6 @@ Requires React 15.0.0+
   @import "../sass/utilities/functions";
 
   // 2. Set your own initial variables
-  // Update blue
   $blue: #72d0eb;
 
   // 3. Import the rest of Bulma
