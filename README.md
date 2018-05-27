@@ -1,11 +1,4 @@
-
-# react-json-form-engine 
-
-[![NPM](https://img.shields.io/npm/v/react-json-form-engine.svg)](https://www.npmjs.com/package/react-json-form-engine)
-[![Build Status](https://travis-ci.org/mikechabot/react-json-form-engine.svg?branch=master)](https://travis-ci.org/mikechabot/react-json-form-engine) [![Dependency Status](https://david-dm.org/mikechabot/react-json-form-engine.svg)](https://david-dm.org/mikechabot/react-json-form-engine) [![PRs Welcome](https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square)](https://github.com/mikechabot/react-json-form-engine/pulls)
-
-[![GitHub stars](https://img.shields.io/github/stars/mikechabot/react-json-form-engine.svg?style=social&label=Star)](https://github.com/mikechabot/react-json-form-engine)
-[![GitHub forks](https://img.shields.io/github/forks/mikechabot/react-json-form-engine.svg?style=social&label=Fork)](https://github.com/mikechabot/react-json-form-engine)
+# <a href='https://github.com/mikechabot/react-json-form-engine'><img src='https://raw.githubusercontent.com/mikechabot/react-json-form-engine-storybook/master/src/assets/logo_transparent.png' height='90' alt='logo' aria-label='https://github.com/mikechabot/react-json-form-engine' /></a>
 
 Build lightning-fast web forms from JSON.
 
@@ -15,9 +8,24 @@ Build lightning-fast web forms from JSON.
 
 &nbsp; :heart: Mindless deserialization and rehydration
 
-Form state maintenance has always been a burden in web development, and within the React ecosystem especially, there's no shortage of approaches to take. Utilization of Redux has been popular, however the overhead is unnecessary. Other libraries might use `context` or export some type of HOC, however they rely on ever-changing React patterns, and/or deprecatable APIs. 
+Within the React ecosystem, there's no shortage of approaches to take for form state management. Utilization of Redux is popular, but the overhead is unnecessary. Other libraries might use `context`, or export some type of HOC, however they rely on ever-changing React patterns, and/or deprecatable APIs. 
 
 `react-json-form-engine` takes a different approach: by relying on React as little as possible, and offloading everything else to pure JavaScript. The result is scalable, lightning-fast performance with neglible reliance on the React lifecycle.
+
+<div align="center">  
+  <a href="https://travis-ci.org/mikechabot/react-json-form-engine">
+    <img src="https://travis-ci.org/mikechabot/react-json-form-engine.svg?branch=master" alt="build status" />
+  </a>
+  <a href="https://www.npmjs.com/package/react-json-form-engine">
+    <img src="https://img.shields.io/npm/v/npm.svg" alt="npm version" />
+  </a>
+  <a href="https://david-dm.org/mikechabot/react-json-form-engine">
+    <img src="https://david-dm.org/mikechabot/react-json-form-engine.svg" alt="dependency status" />
+  </a>
+  <a href="https://github.com/mikechabot/react-json-form-engine/pulls">
+    <img src="https://img.shields.io/badge/PRs-welcome-brightgreen.svg?style=flat-square" alt="prs welcome" />
+  </a>
+</div>
 
 ----
 
