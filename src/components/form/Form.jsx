@@ -3,11 +3,11 @@ import PropTypes from 'prop-types';
 import _isEmpty from 'lodash/isEmpty';
 import { Tabs, Tab } from 'react-tabify';
 
+import FormTitle from '../common/bulma/FormTitle';
 import Asterisk from '../common/Asterisk';
 import FormSubmitButton from './helpers/FormSubmitButton';
-import FormTitle from '../common/bulma/FormTitle';
+import ValidationAPIError from './validation/ValidationAPIError';
 import FormSection from './FormSection';
-import { APICheckError, Flex } from '../common';
 
 class Form extends React.Component {
     constructor(props) {
@@ -26,15 +26,15 @@ class Form extends React.Component {
         const { instance } = this.props;
         // No instance
         if (!instance || _isEmpty(instance)) {
-            return <em className="text-danger">No form instance</em>;
+            return <em className="has-text-danger">No form instance</em>;
         }
         // Invalid definition
         if (!instance.isValid()) {
-            return <APICheckError error={instance.error} />;
+            return <ValidationAPIError error={instance.error} />;
         }
         // No sections
         if (instance.getSections().isEmpty()) {
-            return <em className="text-danger">No sections</em>;
+            return <em className="has-text-danger">No sections</em>;
         }
         return (
             <Flex
@@ -117,8 +117,7 @@ class Form extends React.Component {
         const value = field.actions.onUpdate(event, field, instance.getModelValue(id));
 
         instance.setModelValue(id, value, field); // Set model value
-        // instance.calculateFields(field);               // Calculate fields if necessary
-        // instance.triggerDefaultValueEvaluation(tag);   // Trigger default value evaluation
+
         if (instance.isLiveValidation()) {
             instance.validate(); // Validate the form
         }

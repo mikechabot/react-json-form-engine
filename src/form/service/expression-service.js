@@ -1,4 +1,4 @@
-import { __hasValue, __blank } from '../../common';
+import { __hasValue, __isBlank } from '../../common';
 import _isArray from 'lodash/isArray';
 import _isEmpty from 'lodash/isEmpty';
 import _includes from 'lodash/includes';
@@ -45,7 +45,7 @@ const conditionEvaluators = {
     },
     BLANK: (service, condition, instance) => {
         const value = service.evalExpression(condition.expression, instance);
-        return __blank(value);
+        return __isBlank(value);
     },
     CONTAINS: (service, condition, instance) => {
         const val1 = service.evalExpression(condition.expression1, instance);

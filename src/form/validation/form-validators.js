@@ -1,5 +1,5 @@
 import _isEmpty from 'lodash/isEmpty';
-import { __hasValue, __blank } from '../../common';
+import { __hasValue, __isBlank } from '../../common';
 import { DATA_TYPE, VALIDATION_CONST } from '../config/form-const';
 
 function _getStatus(errorCondition) {
@@ -15,9 +15,9 @@ const VALIDATORS = {
     REQUIRED: {
         [DATA_TYPE.ARRAY]: (field, value) => _getStatus(_isEmpty(value)),
         [DATA_TYPE.BOOLEAN]: () => VALIDATION_CONST.STATUS.OK,
-        [DATA_TYPE.DATE]: (field, value) => _getStatus(__blank(value)),
+        [DATA_TYPE.DATE]: (field, value) => _getStatus(__isBlank(value)),
         [DATA_TYPE.NUMBER]: (field, value) => _getStatus(Number.isNaN(value)),
-        [DATA_TYPE.STRING]: (field, value) => _getStatus(__blank(value))
+        [DATA_TYPE.STRING]: (field, value) => _getStatus(__isBlank(value))
     },
     NUMERIC: {
         [DATA_TYPE.NUMBER]: (field, value) => {

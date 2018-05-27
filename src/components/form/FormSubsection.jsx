@@ -1,9 +1,9 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import FormField from './FormField';
 import FormSubsectionTitle from './helpers/FormSubsectionTitle';
 import ValidationResults from './validation/ValidationResults';
+import FormField from './FormField';
 import { Flex } from '../common';
 
 class FormSubsection extends React.Component {

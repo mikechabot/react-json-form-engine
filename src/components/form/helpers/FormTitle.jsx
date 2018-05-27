@@ -1,12 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import Icon from '../Icon';
+import Icon from '../../common/Icon';
 
 const DEFAULT_THEME = 'is-dark';
 const className = 'navbar-item is-size-4-desktop is-size-5-tablet is-size-6-mobile';
 
-class Navbar extends React.Component {
+class FormTitle extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -99,7 +99,7 @@ const _renderLabel = label => {
 
 const _renderSpacer = () => <span key="spacer">&nbsp;</span>;
 
-Navbar.propTypes = {
+FormTitle.propTypes = {
     id: PropTypes.string.isRequired,
     icon: PropTypes.string,
     theme: PropTypes.string,
@@ -109,4 +109,4 @@ Navbar.propTypes = {
     url: PropTypes.string
 };
 
-export default Navbar;
+export default FormTitle;

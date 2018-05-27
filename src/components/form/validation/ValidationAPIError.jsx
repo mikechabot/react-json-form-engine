@@ -5,7 +5,7 @@ import { Icon, Flex } from '../../common';
 
 const regex = /^Error: (.+)$/m;
 
-const APICheckError = ({ error }) => {
+const ValidationAPIError = ({ error }) => {
     let detail = __parseAPICheckErrorMessage(error);
     return (
         <div className="panel">
@@ -38,8 +38,8 @@ const _renderTitle = title => {
     );
 };
 
-APICheckError.propTypes = {
+ValidationAPIError.propTypes = {
     error: PropTypes.object.isRequired
 };
 
-export default APICheckError;
+export default ValidationAPIError;

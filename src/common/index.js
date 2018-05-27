@@ -11,7 +11,7 @@ export const __hasValue = val => {
     return val !== undefined && val !== null;
 };
 
-export const __blank = val => {
+export const __isBlank = val => {
     if (typeof val === 'object' && Array.isArray(val)) {
         return _isEmpty(val);
     }

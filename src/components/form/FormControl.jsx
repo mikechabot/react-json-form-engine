@@ -6,7 +6,7 @@ import _isEqual from 'lodash/isEqual';
 
 import FormItemTitle from './helpers/FormItemTitle';
 import FormItemHint from './helpers/FormItemHint';
-import ErrorBlock from './validation/FieldError';
+import ValidationFieldError from './validation/ValidationFieldError';
 
 class FormControl extends React.Component {
     /**
@@ -34,7 +34,7 @@ class FormControl extends React.Component {
 
         if (!component || !component.element) {
             console.error(`Field of type "${field.type}" is missing required "component" (id: ${id})`);
-            return <ErrorBlock id={field.id} />;
+            return <ValidationFieldError id={field.id} />;
         }
 
         // Assign to uppercase for the JSX compiler

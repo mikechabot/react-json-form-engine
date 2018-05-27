@@ -14,7 +14,7 @@ import FormConfig from '../form/config/form-config';
 import FormValidator from '../form/validation/form-validator';
 import ValidationResults from '../form/validation/validation-results';
 
-import { __clone, __blank, __hasValue } from '../common';
+import { __clone, __isBlank, __hasValue } from '../common';
 import { NO_VALUE, PROPERTY, DATA_TYPE, VALIDATION_CONST } from './config/form-const';
 
 const { FIELD, DEFINITION } = PROPERTY;
@@ -430,7 +430,7 @@ class FormEngine {
             case DATA_TYPE.BOOLEAN:
                 return value === false;
             case DATA_TYPE.STRING:
-                return __blank(value);
+                return __isBlank(value);
             case DATA_TYPE.ARRAY:
                 return _isEmpty(value);
             default: {
