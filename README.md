@@ -69,7 +69,7 @@ Requires React 15.0.0+
   @import "../bulma";
   ```
 
-3. Depending on your build pipeline, either import the compiled CSS or pure SCSS.
+3. Depending on your build pipeline, either import the compiled CSS, or uncompiled SCSS.
  
   ```js
   // App.js
