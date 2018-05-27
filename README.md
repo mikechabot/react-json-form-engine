@@ -53,7 +53,7 @@ Requires React 15.0.0+
 
 `$ npm install --save bulma`
 
-2. If your project supports Sass/SCSS, Bulma can over easily overriden:
+2. If your project supports Sass/SCSS, Bulma can be over easily overriden. See [here](https://bulma.io/documentation/overview/start/) for more details:
 
   ```scss
   /* index.scss */
