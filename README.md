@@ -17,7 +17,7 @@ Within the React ecosystem, there's no shortage of approaches to take for form s
     <img src="https://travis-ci.org/mikechabot/react-json-form-engine.svg?branch=master" alt="build status" />
   </a>
   <a href="https://www.npmjs.com/package/react-json-form-engine">
-    <img src="https://img.shields.io/npm/v/npm.svg" alt="npm version" />
+    <img src="https://img.shields.io/npm/v/react-json-form-engine.svg" alt="npm version" />
   </a>
   <a href="https://david-dm.org/mikechabot/react-json-form-engine">
     <img src="https://david-dm.org/mikechabot/react-json-form-engine.svg" alt="dependency status" />
