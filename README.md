@@ -84,7 +84,7 @@ If you'd like to use [Font Awesome](https://fontawesome.com), be sure to also in
 
 `<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css">`
 
-#### Starter Template
+### Starter Template
 
 ```html
 <!DOCTYPE html>
