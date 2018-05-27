@@ -2,9 +2,11 @@
 
 Build lightning-fast web forms from JSON.
 
-<div align="center">
-:heart: Robust conditional logic :heart: Flexible validation :heart: Mindless deserialization and rehydration
-</div>
+:heart: Robust conditional logic 
+<br/>
+:heart: Flexible validation 
+<br/>
+:heart: Mindless deserialization and rehydration
 
 Within the React ecosystem, there's no shortage of approaches to take for form state management. Utilization of Redux is popular, but the overhead is unnecessary. Other libraries might use `context`, or export some type of HOC, however they rely on ever-changing React patterns, and/or deprecatable APIs. 
 
