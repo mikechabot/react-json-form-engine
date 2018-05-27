@@ -149,4 +149,30 @@ class MyForm extends React.Component {
 
 ### Form Schema (JSON / JavaScript Object)
 
-The form object must adhere to a strict schema that is validated upon instantiation via the [FormAPIService](https://github.com/mikechabot/react-json-form-engine/blob/master/src/form/service/form-api-service.js#L27).
+The `form` object must adhere to a strict schema that is validated upon instantiation via the [FormAPIService](https://github.com/mikechabot/react-json-form-engine/blob/master/src/form/service/form-api-service.js#L27).
+
+A `form` *must* contain at least one (1) section, which in turn *must* contain at least one (1) subsection. Form fields are stored within subsections.
+
+```js
+export default {
+    id: 'Form_ID',
+    title: 'Form Title',
+    sections: [
+        {
+            id: 'section_ID',
+            title: 'Section Title',
+            subsections: [
+                {
+                    id: 'subsection_ID',
+                    title: 'Subsection Title',
+                    fields: [
+                        {
+                            ...
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+};
+```
