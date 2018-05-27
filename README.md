@@ -20,8 +20,6 @@ Build conditional web forms from JSON.
 - [Live Demo](#live-demo)
 - [Installing](#installing)
 - [Getting Started](#getting-started)
-  - [ES6 Modules](#es6-modules)
-  - [CommonJS](#commonjs)
   - [Example](#example)
     - [Component](#component)
     - [Form](#json-or-javascript-object)
@@ -41,9 +39,36 @@ Requires React 15.0.0+
 
 `$ npm install --save react-json-form-engine`
 
-> Note: This library renders [Bulma](https://bulma.io/documentation/overview/start/) semantics, you'll need to include the styles on your own. You can either install it with npm, and `require`/`import` the CSS, or have it served from a CDN.
+> Note: This library renders [Bulma](https://bulma.io/documentation/overview/start/) semantics, you'll need to include the styles on your own. You can either install it with npm, and `require`/`import` the CSS/SCSS, or have it served from a CDN.
+
+### npm
 
 `$ npm install --save bulma`
+
+If your project supports Sass/SCSS, Bulma can over easily overriden:
+
+##### index.scss
+```scss
+// 1. Import the initial variables
+@import "../sass/utilities/initial-variables";
+@import "../sass/utilities/functions";
+
+// 2. Set your own initial variables
+// Update blue
+$blue: #72d0eb;
+
+// 6. Import the rest of Bulma
+@import "../bulma";
+```
+
+Depending on your build pipeline, either import the compiled CSS or pure SCSS.
+
+##### App.js
+```js
+import './scss/index.scss';
+```
+
+### Served from a CDN
 
 `<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.1/css/bulma.min.css">`
 
