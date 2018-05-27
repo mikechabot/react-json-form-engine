@@ -51,9 +51,13 @@ Requires React 15.0.0+
 
 > Note: This library renders [Bulma](https://bulma.io/documentation/overview/start/) semantics, you'll need to include the styles on your own. You can either install it with npm, and `require`/`import` the CSS/SCSS, or have it served from a CDN.
 
+> Note: [Font Awesome](https://fontawesome.com) is supported.
+
 #### Bulma via CDN
 
-`<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.1/css/bulma.min.css">`
+```html
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.1/css/bulma.min.css">
+```
 
 #### Bulma via npm 
 
@@ -84,9 +88,11 @@ Requires React 15.0.0+
 
 #### Font Awesome
 
-If you'd like to use [Font Awesome](https://fontawesome.com), be sure to also include the icon pack:
+If you'd like to use , be sure to also include the icon pack:
 
-`<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css">`
+```html
+<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css">
+```
 
 ### Starter Template
 
