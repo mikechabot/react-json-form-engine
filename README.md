@@ -41,9 +41,7 @@ Within the React ecosystem, there's no shortage of approaches to take for form s
   
 ## <a id="live-demo">Live Demo</a>
 
-* https://mikechabot.github.io/react-json-form-engine-storybook/
-
-> Clone the demo from [here](https://github.com/mikechabot/react-json-form-engine-storybook)
+https://mikechabot.github.io/react-json-form-engine-storybook/
 
 ## <a id="installing">Installing</a>
 
