@@ -86,6 +86,25 @@ If you'd like to use [Font Awesome](https://fontawesome.com), be sure to also in
 
 `<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css">`
 
+#### Starter Template
+
+```html
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <title>react-json-form-engine</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.1/css/bulma.min.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css">
+  </head>
+  <body>
+    <div id="root"></div>
+  </body>
+</html>
+```
+
+
 ## <a name="react-json-form-engine#getting-started">Getting Started</a>
 
 Under the hood, there are two important components:
