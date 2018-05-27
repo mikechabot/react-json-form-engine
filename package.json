@@ -5,8 +5,8 @@
   "license": "MIT",
   "main": "index.js",
   "scripts": {
-    "republish": "rimraf ./lib && npm run build && npm run auto-commit && npm version patch && npm publish",
-    "build": "babel src -d lib",
+    "republish": "npm run build && npm run auto-commit && npm version patch && npm publish",
+    "build": "rm -rf ./lib && babel src -d lib",
     "auto-commit": "git add . && git commit -m \"Packaging assets\""
   },
   "repository": {
