@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import ErrorBlock from '../validation/FieldError';
+import ValidationFieldError from '../validation/ValidationFieldError';
 import { Flex } from '../../common';
 
 import { __hasValue } from '../../../common';
@@ -11,7 +11,7 @@ const Range = ({ id, field, value, onUpdate }) => {
         console.error(
             `Field of type "${field.type}" is missing required "min" and/or "max" (id: ${id})`
         );
-        return <ErrorBlock id={field.id} />;
+        return <ValidationFieldError id={field.id} />;
     }
 
     return (

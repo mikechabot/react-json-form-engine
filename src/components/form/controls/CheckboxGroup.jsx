@@ -3,14 +3,14 @@ import PropTypes from 'prop-types';
 import _isEmpty from 'lodash/isEmpty';
 
 import Checkbox from './Checkbox';
-import FieldError from '../validation/FieldError';
+import ValidationFieldError from '../validation/ValidationFieldError';
 import FormChildren from '../FormChildren';
 import { Flex } from '../../common';
 
 const CheckboxGroup = ({ id, field, value, instance, onUpdate }) => {
     if (_isEmpty(field.options)) {
         __logError(id, field);
-        return <FieldError id={id} />;
+        return <ValidationFieldError id={id} />;
     }
     return (
         <Flex column={true} className="m-bottom--x-small">
