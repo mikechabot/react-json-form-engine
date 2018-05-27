@@ -35,9 +35,9 @@ Form state maintenance has always been a burden in web development, and within t
   
 ## <a id="live-demo">Live Demo</a>
 
-https://mikechabot.github.io/react-json-form-engine-storybook/
+* https://mikechabot.github.io/react-json-form-engine-storybook/
 
-> Storybook repository located at https://github.com/mikechabot/react-json-form-engine-storybook/
+> Clone the storybook [here](https://github.com/mikechabot/react-json-form-engine-storybook)
 
 ## <a id="installing">Installing</a>
 
