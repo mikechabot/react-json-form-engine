@@ -17,6 +17,15 @@ Build lightning-fast web forms from JSON.
 
 &nbsp; :heart: Mindless deserialization and rehydration
 
+Form state maintenance has always been a burden in web development, and within the React ecosystem, there is no shortage of approaches to take. Utilization of Redux has been popular, however the overhead is unnucessary. Other libraries might use `context` or export some HOC, however they rely on ever-changing React patterns and/or deprecatable APIs. 
+
+`react-json-form-engine` takes a different approach, by relying on React as little as possible, and offloading the work to pure JavaScript. Under the hood, two classes are the main drivers:
+
+* `<Form />`: 
+* `FormEngine`:
+
+----
+
 - [Live Demo](#live-demo)
 - [Installing](#installing)
 - [Getting Started](#getting-started)
@@ -74,6 +83,32 @@ Requires React 15.0.0+
 `<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">`
 
 ## <a name="react-json-form-engine#getting-started">Getting Started</a>
+
+
+
+export default {
+        id: 'STRINGS',
+        title: 'Strings',
+        sections: [
+            {
+                id: 'section_0',
+                title: 'Strings',
+                subsections: [
+                    {
+                        id: 'subsection_0',
+                        title: 'Store String Values',
+                        fields: [
+                            {
+                                id: 'str1',
+                                type: 'string',
+                                title: 'Text'
+                            }
+                        ]
+                    }
+                ]
+            }
+        ]
+    };
 
 ### <a name="react-json-form-engine#example">Example</a>
 
