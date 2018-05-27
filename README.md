@@ -1,4 +1,4 @@
-[![Build Status](https://travis-ci.org/mikechabot/react-form-engine.svg?branch=master)](https://travis-ci.org/mikechabot/react-form-engine)
+[![Build Status](https://travis-ci.org/mikechabot/react-json-form-engine.svg?branch=master)](https://travis-ci.org/mikechabot/react-json-form-engine)
 [![Dependency Status](https://david-dm.org/mikechabot/react-json-form-engine.svg)](https://david-dm.org/mikechabot/react-json-form-engine)
 [![devDependencies Status](https://david-dm.org/mikechabot/react-json-form-engine/dev-status.svg)](https://david-dm.org/mikechabot/react-json-form-engine?type=dev)
 
