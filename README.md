@@ -1,4 +1,4 @@
-# <a href='https://github.com/mikechabot/react-json-form-engine'><img src='https://raw.githubusercontent.com/mikechabot/react-json-form-engine-storybook/master/src/assets/logo_transparent.png' height='100' alt='logo' aria-label='https://github.com/mikechabot/react-json-form-engine' /></a>
+# <a href='https://github.com/mikechabot/react-json-form-engine'><img src='https://raw.githubusercontent.com/mikechabot/react-json-form-engine-storybook/master/src/assets/banner_dark.png' alt='logo' aria-label='https://github.com/mikechabot/react-json-form-engine' /></a>
 
 Build lightning-fast web forms from JSON.
 
