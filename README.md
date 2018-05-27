@@ -47,7 +47,7 @@ Requires React 15.0.0+
 
 > Note: This library renders [Bulma](https://bulma.io/documentation/overview/start/) semantics, you'll need to include the styles on your own. You can either install it with npm, and `require`/`import` the CSS/SCSS, or have it served from a CDN.
 
-#### Bulma via npm
+#### Option 1: Bulma via npm 
 
 1. Install the package:
 
@@ -77,11 +77,13 @@ Requires React 15.0.0+
   import './scss/index.scss';
   ```
 
-#### Bulma via CDN
+#### Option 2: Bulma via CDN
 
 `<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.1/css/bulma.min.css">`
 
-> Supports [Font Awesome](https://fontawesome.com). If you'd like to use Font Awesome, be sure to also include the icon pack
+#### Font Awesome
+
+If you'd like to use [Font Awesome](https://fontawesome.com), be sure to also include the icon pack:
 
 `<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css">`
 
