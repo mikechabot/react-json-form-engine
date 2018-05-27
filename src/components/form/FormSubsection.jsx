@@ -69,26 +69,20 @@ class FormSubsection extends React.Component {
     }
 
     _maybeRenderSubmitButton() {
-      if (this.props.showSubsectionSubmit) {
-            return (
-                <div className="panel-block">
-                    <button className="button is-link" onClick={this.props.onSubmit}>
-                        {this.props.submitButtonLabel || 'Submit'}
-                    </button>
-                </div>
-            );
+        if (this.props.submitButton) {
+            return <div className="panel-block">{this.props.submitButton}</div>;
         }
     }
 }
 
 FormSubsection.propTypes = {
-    subsection: PropTypes.object.isRequired,
-    onUpdate: PropTypes.func.isRequired,
     instance: PropTypes.object.isRequired,
+    subsection: PropTypes.object.isRequired,
     hasSiblings: PropTypes.bool,
     hideTitle: PropTypes.bool,
     hideSubtitle: PropTypes.bool,
-    showSubsectionSubmit: PropTypes.bool
+    submitButton: PropTypes.node,
+    onUpdate: PropTypes.func.isRequired
 };
 
 export default FormSubsection;

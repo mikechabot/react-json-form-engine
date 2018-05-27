@@ -51,8 +51,7 @@ class FormSection extends React.Component {
                 subsection={subsection}
                 instance={this.props.instance}
                 onUpdate={this.props.onUpdate}
-                onSubmit={this.props.onSubmit}
-                showSubsectionSubmit={this.props.showSubsectionSubmit}
+                submitButton={this.props.submitButton}
             />
         );
     }
@@ -71,17 +70,16 @@ class FormSection extends React.Component {
 }
 
 FormSection.propTypes = {
+    instance: PropTypes.object.isRequired,
     section: PropTypes.shape({
         id: PropTypes.string.isRequired,
         title: PropTypes.string.isRequired,
         subsections: PropTypes.array.isRequired
     }),
-    onUpdate: PropTypes.func.isRequired,
-    onSubmit: PropTypes.func.isRequired,
-    instance: PropTypes.object.isRequired,
     hideTitle: PropTypes.bool,
     hideSubtitle: PropTypes.bool,
-    showSubsectionSubmit: PropTypes.bool
+    submitButton: PropTypes.node,
+    onUpdate: PropTypes.func.isRequired
 };
 
 export default FormSection;

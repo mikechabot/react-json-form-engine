@@ -63,7 +63,7 @@ class Form extends React.Component {
                     iconPrefix={instance.getFormIconPrefix()}
                     icon={instance.getFormIcon()}
                     label={instance.getFormTitle()}
-                    controlsRight={<FormSubmitButton onSubmit={this.props.onSubmit} />}
+                    controlsRight={this._renderSubmitButton()}
                 />
             );
         }
@@ -84,7 +84,7 @@ class Form extends React.Component {
     }
 
     _renderSectionContent(sections) {
-      return sections.values().map(this._renderSectionTabPane);
+        return sections.values().map(this._renderSectionTabPane);
     }
 
     _renderSectionTabPane(section, index) {
@@ -101,10 +101,9 @@ class Form extends React.Component {
                 section={section}
                 instance={this.props.instance}
                 onUpdate={this.onUpdate}
-                onSubmit={this.props.onSubmit}
                 hideTitle={this.props.hideSectionTitles}
                 hideSubtitle={this.props.hideSubsectionTitles}
-                showSubsectionSubmit={this.props.hideTitle}
+                submitButton={this.props.hideTitle ? this._renderSubmitButton() : null}
             />
         );
     }
@@ -121,6 +120,10 @@ class Form extends React.Component {
         return label;
     }
 
+    _renderSubmitButton() {
+        return <FormSubmitButton onSubmit={this.props.onSubmit} label={this.props.submitButtonLabel} />;
+    }
+
     onUpdate(event, id) {
         const { instance, onUpdate } = this.props;
 
@@ -134,18 +137,23 @@ class Form extends React.Component {
         if (instance.isLiveValidation()) {
             instance.validate(); // Validate the form
         }
-        onUpdate({ id, value }); // Notify parent
+
+        if (!onUpdate) {
+            this.forceUpdate();
+        } else {
+            onUpdate({ id, value }); // Notify parent
+        }
     }
 }
 
 Form.propTypes = {
     instance: PropTypes.object.isRequired,
-    onSubmit: PropTypes.func.isRequired,
     submitButtonLabel: PropTypes.string,
     hideTitle: PropTypes.bool,
     hideSectionTitles: PropTypes.bool,
     hideSubsectionTitles: PropTypes.bool,
     width: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
+    onSubmit: PropTypes.func.isRequired,
     onUpdate: PropTypes.func
 };
 
