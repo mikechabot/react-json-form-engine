@@ -14,6 +14,11 @@ export default {
         instance.getFields().forEachValue(field => {
             const id = field[FIELD.ID];
 
+            if (!field.dirty) {
+              return;
+            }
+
+
             // Get model value
             const value = instance.getModelValue(id);
 

@@ -2,10 +2,10 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 const Icon = ({ icon, prefix, title, className }) => {
-    let iconPrefix = prefix || 'fa';
+    let iconPrefix = prefix || 'fas';
     return (
         <span title={title}>
-            <i className={`${iconPrefix} fa-${icon} ${className || ''}`} />
+        <i className={`${iconPrefix} fa-${icon} ${className || ''}`} />
         </span>
     );
 };

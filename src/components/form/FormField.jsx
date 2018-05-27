@@ -8,7 +8,7 @@ import { Flex } from '../common';
 class FormField extends React.Component {
     render() {
         return (
-            <Flex column className="field">
+            <Flex column className="field" width="100%">
                 <FormControl {...this.props} />
                 <FormChildren {...this.props} />
             </Flex>

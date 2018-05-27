@@ -12,11 +12,7 @@ export default class FormChildren extends React.Component {
 
         const { fields } = field;
         const { instance, onUpdate } = this.props;
-        return (
-            <ol className="child-list">
-                {fields.map(this._renderField.bind(this, instance, onUpdate))}
-            </ol>
-        );
+        return <ul style={{ marginLeft: '1rem'}}>{fields.map(this._renderField.bind(this, instance, onUpdate))}</ul>;
     }
     _renderField(instance, onUpdate, child) {
         if (instance.evaluateFieldShowCondition(child)) {

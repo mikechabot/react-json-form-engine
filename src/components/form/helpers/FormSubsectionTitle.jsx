@@ -3,39 +3,25 @@ import PropTypes from 'prop-types';
 
 import { Asterisk, Icon } from '../../common';
 
-const FormSubsectionTitle = ({ subsection, hasSiblings, instance, isTab }) => {
-    return isTab
-        ? _renderTitleAndError(subsection, instance)
-        : _renderTitleAndSubtitle(subsection, hasSiblings, instance);
-};
-
-const _renderTitleAndError = (subsection, instance) => {
-    return (
-        <span>
-            {subsection.title}&nbsp;
-            {__maybeRenderError(subsection, instance)}
-        </span>
-    );
-};
-
-const _renderTitleAndSubtitle = (subsection, hasSiblings, instance) => {
-    const hasSubtitle = !!subsection.subtitle;
-
-    if (hasSiblings) {
-        if (hasSubtitle) {
-            return __renderSubtitle(subsection);
-        }
+const FormSubsectionPanelTitle = ({ subsection, hideTitle, hideSubtitle, instance }) => {
+    if (hideTitle && hideSubtitle) {
         return null;
     }
-    if (!hasSubtitle) {
-        return __renderTitle(subsection, instance);
+
+    const title = !hideTitle ? __renderTitle(subsection, instance) : null;
+    const subtitle = !hideSubtitle ? __renderSubtitle(subsection) : null;
+
+    if (title || subtitle) {
+        return (
+            <div className="panel-heading">
+                {title}
+                {subtitle}
+            </div>
+        );
     }
-    return (
-        <span>
-            {__renderTitle(subsection, instance)}
-            {__renderSubtitle(subsection, true)}
-        </span>
-    );
+
+    return null;
+
 };
 
 const __maybeRenderError = (subsection, instance) => {
@@ -45,21 +31,28 @@ const __maybeRenderError = (subsection, instance) => {
 };
 
 const __renderTitle = (subsection, instance) => (
-    <h1 className="title is-5">{_renderTitleAndError(subsection, instance)}</h1>
+    <h1 className="title is-5">
+        {subsection.title}&nbsp;
+        {__maybeRenderError(subsection, instance)}
+    </h1>
 );
 
-const __renderSubtitle = subsection => (
-    <h2 className="subtitle is-6">
-        <Icon icon="angle-right" />&nbsp;
-        {subsection.subtitle}
-    </h2>
-);
-
-FormSubsectionTitle.propTypes = {
-    subsection: PropTypes.object.isRequired,
-    instance: PropTypes.object.isRequired,
-    isTab: PropTypes.bool,
-    hasSiblings: PropTypes.bool
+const __renderSubtitle = subsection => {
+    if (subsection.subtitle) {
+        return (
+            <h2 className="subtitle is-6">
+                <Icon icon="angle-right" />&nbsp;
+                {subsection.subtitle}
+            </h2>
+        );
+    }
 };
 
-export default FormSubsectionTitle;
+FormSubsectionPanelTitle.propTypes = {
+    subsection: PropTypes.object.isRequired,
+    instance: PropTypes.object.isRequired,
+    hideTitle: PropTypes.bool,
+    hideSubtitle: PropTypes.bool
+};
+
+export default FormSubsectionPanelTitle;

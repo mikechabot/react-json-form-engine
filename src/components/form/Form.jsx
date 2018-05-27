@@ -14,6 +14,7 @@ class Form extends React.Component {
     constructor(props) {
         super(props);
         this.onUpdate = this.onUpdate.bind(this);
+        this._renderSectionTabPane = this._renderSectionTabPane.bind(this);
     }
 
     componentDidMount() {
@@ -37,8 +38,10 @@ class Form extends React.Component {
         if (instance.getSections().isEmpty()) {
             return <em className="has-text-danger">No sections</em>;
         }
+
         return (
             <Flex
+                width={this.props.width || 500}
                 id={`form-${instance.getId()}`}
                 column
                 flex={1}
@@ -53,15 +56,17 @@ class Form extends React.Component {
     }
 
     _renderFormTitle(instance) {
-        return (
-            <FormTitle
-                id={`form-title-${instance.getId()}`}
-                iconPrefix={instance.getFormIconPrefix()}
-                icon={instance.getFormIcon()}
-                label={instance.getFormTitle()}
-                controlsRight={<FormSubmitButton onSubmit={this.props.onSubmit} />}
-            />
-        );
+        if (!this.props.hideTitle) {
+            return (
+                <FormTitle
+                    id={`form-title-${instance.getId()}`}
+                    iconPrefix={instance.getFormIconPrefix()}
+                    icon={instance.getFormIcon()}
+                    label={instance.getFormTitle()}
+                    controlsRight={<FormSubmitButton onSubmit={this.props.onSubmit} />}
+                />
+            );
+        }
     }
 
     _renderForm(sections) {
@@ -79,20 +84,12 @@ class Form extends React.Component {
     }
 
     _renderSectionContent(sections) {
-        return sections.values().map(this._renderSectionTabPane.bind(this));
+      return sections.values().map(this._renderSectionTabPane);
     }
 
     _renderSectionTabPane(section, index) {
-        let label = section.title;
-        if (this.props.instance.sectionHasError(section)) {
-            label = (
-                <span>
-                    {label} <Asterisk />
-                </span>
-            );
-        }
         return (
-            <Tab key={index} eventKey={index} label={label}>
+            <Tab key={index} eventKey={index} label={this._getDerivedSectionTitle(section)}>
                 {this._renderSingleSection(section)}
             </Tab>
         );
@@ -105,8 +102,23 @@ class Form extends React.Component {
                 instance={this.props.instance}
                 onUpdate={this.onUpdate}
                 onSubmit={this.props.onSubmit}
+                hideTitle={this.props.hideSectionTitles}
+                hideSubtitle={this.props.hideSubsectionTitles}
+                showSubsectionSubmit={this.props.hideTitle}
             />
         );
+    }
+
+    _getDerivedSectionTitle(section) {
+        let label = section.title;
+        if (this.props.instance.sectionHasError(section)) {
+            label = (
+                <span>
+                    {label} <Asterisk />
+                </span>
+            );
+        }
+        return label;
     }
 
     onUpdate(event, id) {
@@ -129,8 +141,11 @@ class Form extends React.Component {
 Form.propTypes = {
     instance: PropTypes.object.isRequired,
     onSubmit: PropTypes.func.isRequired,
-    sectionMenuWidth: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
     submitButtonLabel: PropTypes.string,
+    hideTitle: PropTypes.bool,
+    hideSectionTitles: PropTypes.bool,
+    hideSubsectionTitles: PropTypes.bool,
+    width: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
     onUpdate: PropTypes.func
 };
 

@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { Icon } from '../../common';
+import { Icon, Flex } from '../../common';
 import { VALIDATION_CONST } from '../../../form/config/form-const';
 
 const ValidationMessages = ({ field, results }) => {
@@ -14,22 +14,23 @@ const ValidationMessages = ({ field, results }) => {
     __buildBreadcrumbs(labels, field);
 
     return (
-        <div className="m-bottom--x-small">
-            {__renderBreadcrumbs(labels)}
-            {__renderMessages(results)}
-        </div>
+        <Flex column flexShrink={0} width="100%" className="message is-danger">
+            <div className="message-header">
+                <Flex flexShrink={0}>
+                    <Icon icon="exclamation-triangle" />&nbsp;
+                    <div className="breadcrumb" aria-label="breadcrumbs">
+                        <ul>{labels.map(__renderBreadcrumb)}</ul>
+                    </div>
+                </Flex>
+            </div>
+            <div className="message-body">{__renderMessages(results)}</div>
+        </Flex>
     );
 };
 
-const __renderBreadcrumbs = labels => (
-    <nav className="breadcrumb" aria-label="breadcrumbs">
-        <ul>{labels.map(__renderBreadcrumb)}</ul>
-    </nav>
-);
-
 const __renderBreadcrumb = (crumb, index) => (
     <li key={index}>
-        <span>{crumb}</span>
+        <a style={{ cursor: 'inherit', textDecoration: 'inherit' }}>{crumb}</a>
     </li>
 );
 

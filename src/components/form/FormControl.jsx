@@ -41,7 +41,7 @@ class FormControl extends React.Component {
         const Control = component.element;
 
         return (
-            <div>
+            <span>
                 <FormItemTitle field={field} decorators={uiDecorators} instance={instance} />
                 <div className="control">
                     <Control
@@ -54,7 +54,7 @@ class FormControl extends React.Component {
                     />
                 </div>
                 {this._maybeRenderHint(uiDecorators)}
-            </div>
+            </span>
         );
     }
 

@@ -204,7 +204,6 @@ class FormEngine {
             .prop('name')
             .join();
     }
-
     /**
      * Get form icon prefix
      * @returns {*}
@@ -214,6 +213,13 @@ class FormEngine {
             .prop('faIcon')
             .prop('prefix')
             .join();
+    }
+    /**
+     * Return whether the form consists only
+     * of one section and one subsection
+     */
+    isSimpleForm() {
+        return this.getSections().count() === 1 && this.getSubsections().count() === 1;
     }
     /**
      * Return whether the form is valid
@@ -365,7 +371,6 @@ class FormEngine {
      */
     setModelValue(id, value, field) {
         // Set or reset the model value
-
         if (value === this.getModelValue(id)) return;
 
         if (value === NO_VALUE) {
@@ -475,8 +480,26 @@ class FormEngine {
     getValidationResultByTag(id) {
         return this.validationResults.getResults(id);
     }
-    getValidationStatusByTag(id) {
-        return this.getValidationResultByTag(id).status;
+    getValidationStatusByTag(id, doNotRecurse) {
+
+        let status = this.getValidationResultByTag(id).status;
+        if (doNotRecurse) {
+          return status;
+        }
+
+        const field = this.getField(id);
+        _forEach(field.fields, (child, index) => {
+            const newStatus = this.findStatus(
+                field.fields,
+                this.getValidationStatusByTag.bind(this),
+                true
+            );
+            if (ValidationService.isMoreSevereStatus(newStatus, status)) {
+                status = newStatus;
+            }
+        });
+
+        return status;
     }
     findStatus(list, getStatus, useId) {
         let status = VALIDATION_CONST.STATUS.OK;
@@ -495,7 +518,7 @@ class FormEngine {
         return this.findStatus(section.subsections, this.getSubsectionStatus.bind(this));
     }
     fieldHasError(id) {
-        return ValidationService.isError(this.getValidationStatusByTag(id));
+        return ValidationService.isError(this.getValidationStatusByTag(id, true));
     }
     subsectionHasError(subsection) {
         return ValidationService.isError(this.getSubsectionStatus(subsection));

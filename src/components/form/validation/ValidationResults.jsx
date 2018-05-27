@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import ValidationMessages from './ValidationMessages';
-import { Icon } from '../../common';
+import { Icon, Flex } from '../../common';
 
 const ValidationResults = ({ instance, subsection, validationMessagesLabel }) => {
     const results = instance.getValidationResults();
@@ -18,31 +18,23 @@ const ValidationResults = ({ instance, subsection, validationMessagesLabel }) =>
     }
 
     return (
-        <article className="message m-around--small is-danger">
-            <div className="message-header">
-                <p>
-                    <Icon icon="exclamation-triangle" />&nbsp;
-                    {validationMessagesLabel || 'Validation Messages'}
-                </p>
-            </div>
-            <div className="message-body">
-                {Object.keys(validationStateMap)
-                    .map(fieldId => {
-                        if (!includeOnly || includeOnly.includes(fieldId)) {
-                            return (
-                                <ValidationMessages
-                                    key={fieldId}
-                                    tag={fieldId}
-                                    field={instance.getField(fieldId)}
-                                    results={instance.getValidationResultByTag(fieldId)}
-                                />
-                            );
-                        }
-                        return null;
-                    })
-                    .filter(message => message)}
-            </div>
-        </article>
+        <Flex column flexShrink={0} width="100%">
+        {Object.keys(validationStateMap)
+          .map(fieldId => {
+            if (!includeOnly || includeOnly.includes(fieldId)) {
+              return (
+                <ValidationMessages
+                  key={fieldId}
+                  tag={fieldId}
+                  field={instance.getField(fieldId)}
+                  results={instance.getValidationResultByTag(fieldId)}
+                />
+              );
+            }
+            return null;
+          })
+          .filter(message => message)}
+      </Flex>
     );
 };
 
