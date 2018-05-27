@@ -37,7 +37,7 @@ Form state maintenance has always been a burden in web development, and within t
 
 * https://mikechabot.github.io/react-json-form-engine-storybook/
 
-> Clone the storybook [here](https://github.com/mikechabot/react-json-form-engine-storybook)
+> Clone the demo from [here](https://github.com/mikechabot/react-json-form-engine-storybook)
 
 ## <a id="installing">Installing</a>
 
@@ -83,7 +83,7 @@ Requires React 15.0.0+
 
 > Supports [Font Awesome](https://fontawesome.com). If you'd like to use Font Awesome, be sure to also include the icon pack
 
-`<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">`
+`<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css">`
 
 ## <a name="react-json-form-engine#getting-started">Getting Started</a>
 
