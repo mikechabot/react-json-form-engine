@@ -47,7 +47,11 @@ Requires React 15.0.0+
 
 > Note: This library renders [Bulma](https://bulma.io/documentation/overview/start/) semantics, you'll need to include the styles on your own. You can either install it with npm, and `require`/`import` the CSS/SCSS, or have it served from a CDN.
 
-#### Option 1: Bulma via npm 
+#### Bulma via CDN
+
+`<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.1/css/bulma.min.css">`
+
+#### Bulma via npm 
 
 1. Install the package:
 
@@ -74,11 +78,7 @@ Requires React 15.0.0+
   ```js
   // App.js
   import './scss/index.scss';
-  ```
-
-#### Option 2: Bulma via CDN
-
-`<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.1/css/bulma.min.css">`
+ ```
 
 #### Font Awesome
 
@@ -103,7 +103,6 @@ If you'd like to use [Font Awesome](https://fontawesome.com), be sure to also in
   </body>
 </html>
 ```
-
 
 ## <a name="react-json-form-engine#getting-started">Getting Started</a>
 
