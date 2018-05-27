@@ -53,11 +53,9 @@ Requires React 15.0.0+
 
 #### Bulma via npm 
 
-1. Install the package:
-
 `$ npm install --save bulma`
 
-2. If your project supports Sass/SCSS, Bulma can be over easily overriden:
+1. If your project supports Sass/SCSS, Bulma can be over easily overriden:
 
   ```scss
   /* index.scss */
@@ -73,7 +71,7 @@ Requires React 15.0.0+
   @import "../bulma";
   ```
 
-3. Depending on your build pipeline, either import the compiled CSS, or uncompiled SCSS.
+2. Depending on your build pipeline, either import the compiled CSS, or uncompiled SCSS.
  
   ```js
   // App.js
