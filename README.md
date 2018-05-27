@@ -15,10 +15,8 @@
 
 # react-json-form-engine
 
-- [Installation](#installation)
 - [Storybook](#storybook)
-  - [Demo](#live-demo)
-  - [Repository](#repository)
+- [Installation](#installation)
 - [Getting Started](#getting-started)
   - [ES6 Modules](#es6-modules)
   - [CommonJS](#commonjs)
@@ -26,6 +24,14 @@
     - [Component](#component)
     - [Form](#json-or-javascript-object)
   
+  
+## <a id="storybook">Storybook</a>
+
+#### Live Demo
+- https://mikechabot.github.io/react-json-form-engine-storybook/
+
+#### Repository
+- https://github.com/mikechabot/react-json-form-engine-storybook
 
 ## <a name="react-json-form-engine#installation">Installation</a>
 Yarn: or npm:
@@ -33,25 +39,8 @@ Yarn: or npm:
 * `$ npm install --save react-json-form-engine`
 * `$ yarn add react-json-form-engine`
 
-## <a name="react-json-form-engine#storybook">Storybook</a>
-
-#### <a name="react-json-form-engine#live-demo">Live Demo</a>
-- https://mikechabot.github.io/react-json-form-engine-storybook/
-
-#### <a name="react-json-form-engine#repository">Repository</a>
-- https://github.com/mikechabot/react-json-form-engine-storybook
 
 ## <a name="react-json-form-engine#getting-started">Getting Started</a>
-
-#### <a name="react-json-form-engine#es6-modules">ES6 Modules</a>
-
-    import { FormEngine, Form } from 'react-json-form-engine';
-    
-#### <a name="react-json-form-engine#commonjs">CommonJS</a>
-
-    const JsonFormEngine = require('react-json-form-engine');
-    const FormEngine = JsonFormEngine.FormEngine;
-    const Form = JsonFormEngine.FormEngine;
 
 ### <a name="react-json-form-engine#example">Example</a>
 
