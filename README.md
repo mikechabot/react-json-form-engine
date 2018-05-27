@@ -47,12 +47,16 @@ Requires React 15.0.0+
 
 > Note: This library renders [Bulma](https://bulma.io/documentation/overview/start/) semantics, you'll need to include the styles on your own. You can either install it with npm, and `require`/`import` the CSS/SCSS, or have it served from a CDN.
 
+#### Bulma via npm
+
+1. Install the package:
+
 `$ npm install --save bulma`
 
-1. If your project supports Sass/SCSS, Bulma can over easily overriden:
+2. If your project supports Sass/SCSS, Bulma can over easily overriden:
 
   ```scss
-  // index.scss
+  /* index.scss */
   
   // 1. Import the initial variables
   @import "../sass/utilities/initial-variables";
@@ -66,14 +70,14 @@ Requires React 15.0.0+
   @import "../bulma";
   ```
 
-2. Depending on your build pipeline, either import the compiled CSS or pure SCSS.
+3. Depending on your build pipeline, either import the compiled CSS or pure SCSS.
  
   ```js
   // App.js
   import './scss/index.scss';
   ```
 
-#### Served from a CDN
+#### Bulma via CDN
 
 `<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.1/css/bulma.min.css">`
 
