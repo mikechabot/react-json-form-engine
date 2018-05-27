@@ -114,4 +114,35 @@ If you'd like to use , be sure to also include the icon pack:
 
 ## <a name="react-json-form-engine#getting-started">Getting Started</a>
 
-*...in process...*
+Use `FormEngine` to instantiate your form, then render it with `<Form />`. 
+
+```jsx
+import React from 'react'
+import { Form, FormEngine } from 'react-json-form-engine'
+
+const myForm = import('./my-form.json');
+
+class MyForm extends React.Component {
+   constructor(props) {
+      this.state = {
+         instance: new FormEngine(myForm)
+      }
+   }
+   
+   render() {
+    return (
+      <Form
+        instance={this.state.instance}
+        onSubmit={this._onSubmit}
+      />
+    );
+  }
+
+  _onSubmit () => {
+     const { instance } = this.state;
+     const model = instance.getModel();
+     // Do stuff
+  }  
+}
+
+```
