@@ -17,11 +17,13 @@ Build lightning-fast web forms from JSON.
 
 &nbsp; :heart: Mindless deserialization and rehydration
 
-Form state maintenance has always been a burden in web development, and within the React ecosystem especially, there's no shortage of approaches to take. Utilization of Redux has been popular, however the overhead is unnucessary. Other libraries might use `context` or export some HOC, however they rely on ever-changing React patterns, and/or deprecatable APIs. 
+Form state maintenance has always been a burden in web development, and within the React ecosystem especially, there's no shortage of approaches to take. Utilization of Redux has been popular, however the overhead is unnecessary. Other libraries might use `context` or export some type of HOC, however they rely on ever-changing React patterns, and/or deprecatable APIs. 
 
-`react-json-form-engine` takes a different approach: by relying on React as little as possible, and offloading everything else to pure JavaScript. 
+`react-json-form-engine` takes a different approach: by relying on React as little as possible, and offloading everything else to pure JavaScript. The result is scalable, lightning-fast performance with neglible reliance on the React lifecycle.
 
 ----
+
+## Table of Contents
 
 - [Live Demo](#live-demo)
 - [Installing](#installing)
