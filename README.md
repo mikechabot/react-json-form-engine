@@ -7,15 +7,15 @@
 [![GitHub stars](https://img.shields.io/github/stars/mikechabot/react-json-form-engine.svg?style=social&label=Star)](https://github.com/mikechabot/react-json-form-engine)
 [![GitHub forks](https://img.shields.io/github/forks/mikechabot/react-json-form-engine.svg?style=social&label=Fork)](https://github.com/mikechabot/react-json-form-engine)
 
-----
-
-## Still Experimental. If you want to tinker, clone the [Storybook](#storybook) repository since it has all the appropriate styling in place. 
-
-----
-
 # react-json-form-engine
 
-Build conditional web forms from JSON.
+Build lightning-fast web forms from JSON.
+
+&nbsp; :heart: Robust conditional logic
+
+&nbsp; :heart: Flexible validation
+
+&nbsp; :heart: Mindless deserialization and rehydration
 
 - [Live Demo](#live-demo)
 - [Installing](#installing)
