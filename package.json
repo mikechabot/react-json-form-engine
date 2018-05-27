@@ -1,6 +1,6 @@
 {
     "name": "react-json-form-engine",
-    "version": "0.2.17",
+    "version": "0.2.18",
     "author": "Mike Chabot",
     "license": "MIT",
     "main": "index.js",
@@ -13,7 +13,12 @@
         "type": "git",
         "url": "git+https://github.com/mikechabot/react-json-form-engine.git"
     },
-    "keywords": ["react", "forms", "json forms", "conditional forms"],
+    "keywords": [
+        "react",
+        "forms",
+        "json forms",
+        "conditional forms"
+    ],
     "bugs": {
         "url": "https://github.com/mikechabot/react-json-form-engine/issues"
     },
