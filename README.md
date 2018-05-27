@@ -15,8 +15,10 @@
 
 # react-json-form-engine
 
-- [Storybook](#storybook)
-- [Installation](#installation)
+Build conditional web forms from JSON.
+
+- [Live Demo](#live-demo)
+- [Installing](#installing)
 - [Getting Started](#getting-started)
   - [ES6 Modules](#es6-modules)
   - [CommonJS](#commonjs)
@@ -25,20 +27,29 @@
     - [Form](#json-or-javascript-object)
   
   
-## <a id="storybook">Storybook</a>
+## <a id="live-demo">Live Demo</a>
 
-#### Live Demo
-- https://mikechabot.github.io/react-json-form-engine-storybook/
 
-#### Repository
-- https://github.com/mikechabot/react-json-form-engine-storybook
+**Demo**: https://mikechabot.github.io/react-json-form-engine-storybook/
 
-## <a name="react-json-form-engine#installation">Installation</a>
-Yarn: or npm:
+**Repo**: https://github.com/mikechabot/react-json-form-engine-storybook
 
-* `$ npm install --save react-json-form-engine`
-* `$ yarn add react-json-form-engine`
 
+## <a id="installing">Installing</a>
+
+Requires React 15.0.0+
+
+`$ npm install --save react-json-form-engine`
+
+> Note: This library renders [Bulma](https://bulma.io/documentation/overview/start/) semantics, you'll need to include the styles on your own. You can either install it with npm, and `require`/`import` the CSS, or have it served from a CDN.
+
+`$ npm install --save bulma`
+
+`<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.1/css/bulma.min.css">`
+
+> Supports [Font Awesome](https://fontawesome.com). If you'd like to use Font Awesome, be sure to also include the icon pack
+
+`<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">`
 
 ## <a name="react-json-form-engine#getting-started">Getting Started</a>
 
