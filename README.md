@@ -2,11 +2,11 @@
 
 Build lightning-fast web forms from JSON.
 
-:heart: Robust conditional logic 
+:heart: Conditional logic 
 <br/>
 :heart: Flexible validation 
 <br/>
-:heart: Mindless deserialization & rehydration
+:heart: Easy deserialization & rehydration
 
 Within the React ecosystem, there's no shortage of approaches to take for form state management. Utilization of Redux is popular, but the overhead is unnecessary. Other libraries might use `context`, or export some type of HOC, however they rely on ever-changing React patterns, and/or deprecatable APIs. 
 
@@ -34,12 +34,13 @@ Within the React ecosystem, there's no shortage of approaches to take for form s
 - [Live Demo](#live-demo)
 - [Installing](#installing)
 - [Getting Started](#getting-started)
-  - [Form Schema](#form-schema)
-  - [Field Schema](#field-schema)
-  - [FormEngine](#form-engine)
-  - [&lt;Form /&gt;](#form)
-  
-  
+  - [Form Definition](#form-definition)
+  - [Field Definition](#field-definition)
+  - [Option Field Definition](#option-field-definition)
+  - [Field Decorators](#field-decorators)
+- [Validation](#validation)
+- [Conditions](#conditions)
+
 ## <a id="live-demo">Live Demo</a>
 
 https://mikechabot.github.io/react-json-form-engine-storybook/
@@ -89,7 +90,7 @@ Requires React 15.0.0+
 
 #### Font Awesome
 
-If you'd like to use , be sure to also include the icon pack:
+If you'd like to use [Font Awesome](https://fontawesome.com), be sure to also include the icon pack:
 
 ```html
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css">
@@ -117,15 +118,13 @@ If you'd like to use , be sure to also include the icon pack:
 
 ## <a id="getting-started">Getting Started</a>
 
-Before we can start rendering, we'll need to build a form object, which consists of sections, subsections, and fields. Fields can contain other fields as children -- with or without conditional logic.
+Before we start rendering, we'll need to build a [Form Definition](#form-definition), which is the skeleton structure that tells the `FormEngine` how to render the form.
 
-So to start, let's understand the basic form schema.
+### <a id="form-definition">Form Definition</a>
 
-### <a id="form-schema">Form Schema</a>
+Form definitions adhere to a strict schema. They must contain at least **one section**, which contains at least **one subsection**, which contains at least **one [Field Definition](#field-definition)**.
 
-Form objects adhere to a strict schema. They must contain at least **one** section, which contains at least **one** subsection, which contains at least **one** field.
-
-> See the full schema definition in the [FormAPIService](https://github.com/mikechabot/react-json-form-engine/blob/master/src/form/service/form-api-service.js#L27)
+> View the full schema in the [FormAPIService](https://github.com/mikechabot/react-json-form-engine/blob/master/src/form/service/form-api-service.js#L27)
 
 ```js
 // The most minimal form possible
@@ -152,89 +151,198 @@ export default {
 };
 ```
 
-> If the form object is malformed, the UI will be notified of the exact cause and location of the failure: <div align="center">
-> <img src='https://raw.githubusercontent.com/mikechabot/react-json-form-engine-storybook/master/src/assets/form-engine-api-check.png' alt='api-check' aria-label='api-check' />
+[![Edit react-json-form-engine (Simple)](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/n3wrwzpjo0)
+
+---
+
+#### Form Definition Validation
+
+If the `FormEngine` is instantiated with a malformed definition, the UI will be notified of the failure:
+
+<div align="center">
+<img src='https://raw.githubusercontent.com/mikechabot/react-json-form-engine-storybook/master/src/assets/form-engine-api-check.png' alt='api-check' aria-label='api-check' />
 </div>
 
+[![Edit react-json-form-engine (Malformed)](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/mm3y516258)
 ----
 
-### <a id="field-schema">Field Schema</a>
+### <a id="field-definition">Field Definition</a>
 
-Field objects also adhere to a strict schema. At minimum, they must contain an `id`, `type` and `title`:
-
-```js
-{
-    // The most minimal field object
-    id: 'subsection_ID',
-    title: 'Subsection Title',
-    fields: [
-        {
-            id: 'field_ID',
-            type: 'string',
-            title: 'Field title'
-        }
-    ]
-}
-```
-
-Fields are rendered contextually based on how they are configured within the schema.
-
-The field's `type` is the most important property; it tells the `FormEngine` what data type you want to store in the model. The following data types are supported:
- 
-  1. `string`
-  2. `boolean`
-  3. `number`
-  4. `array`
-  5. `date`
-
-For example, if a field has a `type` of `string`:
+Field definitions also adhere to a strict schema. At minimum, they must contain an `id`, `type` and `title`:
 
 ```js
-{
-    id: 'field_ID',
-    type: 'string',
-    title: 'Field title'
-}
-```
-
-It will simply be rendered as a `text` input:
-
-```html
-<input name="field_ID" id="field_ID" class="input" type="text" value="">
-```
-
-If a field has a `type` of `string`, but has `options`:
-
-```js
+// The most minimal field object
 {
   id: 'field_ID',
   type: 'string',
-  title: 'Field title',
-  options: [
-    { id: "op1", title: "Option 1" },
-    { id: "op2", title: "Option 2" },
-  ]
+  title: 'Field title'
 }
 ```
-It will be rendered as a `select`:
+#### <a id="field-id">Field ID</a>
 
-```html
-<select id="field_ID" name="field_ID">
-  <option value="">-- select value --</option>
-  <option value="op1">Option 1</option>
-  <option value="op2">Option 2</option>
-</select>
+Uniquely identifies the form field within the DOM, as well as the form instance. End-user input is stored in the model as:
+
+```js
+{ key: <field.id>, value: <value> }
 ```
 
+----
 
+#### <a id="field-type">Field Type</a>
 
-| Property  | Type      | Required | Description                                                                 | 
-|-----------|-----------|----------|-----------------------------------------------------------------------------|
-| `id`      | `string`  | Yes      | Uniquely identifies the field in the DOM, as well as the form's data model. |
-| `type`    | `string`  | Yes      | Used to derive form control to render (See [Field Types](#field-types)).    |
-| `title`   | `string`  | Yes      | Display label for the field.                                                |
-| `options` | `array`   | No       | Options to render for Select, Radio, and Checkboxgroup fields types.        |
-| `fields`  | `array`   | No       | Children of the field (children must adhere to Field schema).               |
-| `min`     | `number`  | No       | Minimum value (Used for `number` field types).                              |
-| `max`     | `number`  | No       | Maximum value (Used for `number` field types).                              |
+Determines the data type of the value stored in the model, and also plays a role in which form control to render:
+
+| Field/Data Type  | Default Control   | Allowed Controls                                          | Supports `options`? |
+|------------------|-------------------|-----------------------------------------------------------|---------------------|
+| `string`         | `<Text />`        | `<Password />`, `<Textarea />`, `<Select />`, `<Radio />` | Yes*                |
+| `boolean`        | `<Checkbox />`    | `<Radio />`                                               | Yes*                |
+| `number`         | `<Number />`      | `<Range />`                                               | No                  |
+| `array`          | `<Select />`      | `<Checkboxgroup />`                                       | Yes                 |
+| `date`           | `<DateTime />`    | N/A                                                       | No                  |
+
+> Some field types will *automatically* transition from their Default Control to another Allowed Control if an `options` array is present in the field definition. (See [Field Type Transitions](#field-type-transitions))
+
+----
+
+#### <a id="field-property-list">Complete Field Property List</a>
+
+| Property        | Type      | Required | Description                                                                                 |
+|-----------------|-----------|----------|---------------------------------------------------------------------------------------------|
+| `id`            | `string`  | Yes      | See [Field ID](#field-id)                                                                   |
+| `type`          | `string`  | Yes      | See [Field Type](#field-type)                                                               |
+| `title`         | `string`  | Yes      | Display label for the field                                                                 |
+| `options`       | `array`   | No       | Options to render for certain types (See [Option Field Definition](#option-field-definition)|
+| `fields`        | `array`   | No       | Children of the field (Must adhere to [Field Definition](#field-definition))                |
+| `placeholder`   | `string`  | No       | Display a placeholder                                                                       |
+| `showCondition` | `object`  | No       | Condition object (See [Conditions](#conditions))                                            |
+| `required`      | `boolean` | No       | Whether the field is required (See [Validation](#validation))                               |
+| `pattern`       | `string`  | No       | Pattern to match (See [Validation](#validation))                                            |
+| `min`           | `number`  | Yes*     | Minimum value. (Used for `number` field types)                                              |
+| `max`           | `number`  | Yes*     | Maximum value. (Used for `number` field types)                                              |
+| `hideTime`      | `boolean` | No       | Hide the time value. (Used for `date` field types)                                          |
+| `hideCalendar`  | `boolean` | No       | Hide the date value. (Used for `date` field types)                                          |
+
+> `min` and `max` are only required for `number` field types.
+
+----
+
+### <a id="form-definition">Option Field Definition</a>
+
+> Applies to `string`, `boolean`, and `array` field types only.
+
+For field types that accept unlimited options (`string`, `array`), you must include both an `id` and `title`. The `ids` of the selected options are stored in the model.
+
+```js
+options: [
+      { id: "op1", title: "Option 1" },
+      { id: "op2", title: "Option 2" },
+    ]
+```
+
+For `boolean` field types, which can accept a maximum of two (2) options, only include a `title` property. The first option is considered the affirmative response:
+
+```
+options: [
+      { title: "Always" },
+      { title: "Never" },
+    ]
+```
+
+[![Edit react-json-form-engine (Option Field Definitions)](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/9ymvkn8qnw)
+
+----
+
+### <a id="field-type-transitions">Field Type Transitions</a>
+
+#### `string`
+
+By default, a `string` field is rendered as `<Text />`, but with `options` it automatically renders as a `<Select />`.
+
+```js
+[
+  { 
+    // Renders as <Text />
+    id: 'field_1',
+    type: 'string', 
+    title: 'Text Field'
+  },
+  {             
+    // Renders as <Select />
+    id: 'field_2',
+    type: 'string',
+    title: 'Select Field',
+    options: [
+      { id: "op1", title: "Option 1" },
+      { id: "op2", title: "Option 2" },
+    ]
+  }
+]
+```
+[![Edit react-json-form-engine (Simple)](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/mq88xm5l6x)
+
+----
+
+#### `boolean`
+
+By default, a `boolean` field is rendered as `<Checkbox />`, but with `options` it automatically renders as a `<Radio />`.
+
+```js
+[
+  {
+    id: "field_1",
+    type: "boolean",
+    title: "Checkbox Field"
+  },
+  {
+    id: "field_2",
+    type: "boolean",
+    title: "Radio Field",
+    options: [
+      { title: "Yes" },
+      { title: "No" }
+    ]
+  }
+]
+```
+
+> A maximum of two (2) options is allowed for `boolean` fields. For unlimited `<Radio />` options, use the `string` type with a `component` of `radio`.
+
+[![Edit react-json-form-engine (Boolean Field Type Transition)](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/zw9q7zrol4)
+
+----
+
+### <a id="form-definition">Field Decorators</a> 
+
+As we've seen above, both field `type` and `options` help drive the rendered Component type. However, you'll often want to explicitly override the default component type in favor of another. 
+
+Add the `decorators` object to the root of the [Form Definition](#form-definition); this object will be keyed by [Field ID](#field-id), and can contain the properties `hint` and `component`:
+
+```js
+  {
+  ...
+  sections: [...],
+  decorators: {
+    [field.id]: {
+      hint: <hintText>
+      component: {
+        type: <componentType>
+      }
+    }
+  }
+```
+
+| Field Type       | Component Decorator Overrides   | 
+|------------------|---------------------------------|
+| `string`         | `password`, `textarea`, `radio` |
+| `number`         | `range`                         |  
+| `array`          | `checkboxgroup`                 |
+
+[![Edit react-json-form-engine (Component Type Decorators)](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/wqpy6099p7)
+
+----
+
+## <a id="validation">Validation</a>
+
+## <a id="conditions">Conditions</a>
+
 
