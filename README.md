@@ -116,9 +116,13 @@ If you'd like to use , be sure to also include the icon pack:
 
 The public API consists of two components that are used in tandem:
 
+```js
+import { Form, FormEngine } from 'react-json-form-engine';
+```
+
 <table>
 <tr>
-<th align="right"><code>FormEngine</code></th>
+<th align="right"><code></code></th>
 <td>Instantiates and manages the form instance</td>
 </tr>
 <tr>
@@ -130,8 +134,8 @@ The public API consists of two components that are used in tandem:
 #### Basic Example
 
 ```jsx
-import React from 'react'
-import { Form, FormEngine } from 'react-json-form-engine'
+import React from 'react';
+import { Form, FormEngine } from 'react-json-form-engine';
 
 const myForm = import('./my-form.json');
 
