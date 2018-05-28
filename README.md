@@ -286,14 +286,12 @@ By default, a `boolean` field will be rendered as `Checkbox` control:
     <td>
       <pre>
 &lt;div id="field_ID" class="control"&gt;
-&lt;div class="checkbox"&gt;
-&lt;span&gt;&lt;i class="far fa-square "&gt;
-&lt;/i&gt;&lt;/span&gt;&nbsp;
-&lt;span&gt;Field title&lt;/span>&lt;/div&gt;&lt;/div&gt;
-      &lt;/pre&gt;
-    &lt;/td&gt;
-  &lt;tr&gt;
-&lt;/table&gt;
+   &lt;div class="checkbox"&gt;
+      &lt;span&gt;&lt;i class="far fa-square "&gt;
+      &lt;/i&gt;&lt;/span&gt;&nbsp;
+      &lt;span&gt;Field title&lt;/span&gt;
+   &lt;/div&gt;
+&lt;/div&gt;
       </pre>
     </td>
   </tr>
