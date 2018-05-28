@@ -153,7 +153,7 @@ export default {
 
 ---
 
-#### <a id="form-schema-validation">Form Definition Validation</a>
+#### Form Definition Validation
 
 If the form definition is malformed, the UI will be notified of the failure:
 
@@ -176,7 +176,7 @@ Field definitions also adhere to a strict schema. At minimum, they must contain 
   title: 'Field title'
 }
 ```
-#### Field Id
+#### <a id="field-id">Field ID</a>
 
 Uniquely identifies the form field within the DOM, as well as the form instance. User input is stored in the form's model as:
 
@@ -186,7 +186,7 @@ Uniquely identifies the form field within the DOM, as well as the form instance.
 
 ----
 
-#### Field Type
+#### <a id="field-type">Field Type</a>
 
 Determines the data type of the value to be stored in the model, and also plays a role in which form control to render:
 
