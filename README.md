@@ -217,10 +217,12 @@ Determines the data type of the value stored in the model, and also plays a role
 | `showCondition` | `object`  | No       | Condition object (See [Conditions](#conditions))                                            |
 | `required`      | `boolean` | No       | Whether the field is required (See [Validation](#validation))                               |
 | `pattern`       | `string`  | No       | Pattern to match (See [Validation](#validation))                                            |
-| `min`           | `number`  | No       | Minimum value. (Used for `number` field types)                                              |
-| `max`           | `number`  | No       | Maximum value. (Used for `number` field types)                                              |
+| `min`           | `number`  | Yes*     | Minimum value. (Used for `number` field types)                                              |
+| `max`           | `number`  | Yes*     | Maximum value. (Used for `number` field types)                                              |
 | `hideTime`      | `boolean` | No       | Hide the time value. (Used for `date` field types)                                          |
 | `hideCalendar`  | `boolean` | No       | Hide the date value. (Used for `date` field types)                                          |
+
+> `min` and `max` are only required for `number` field types.
 
 ----
 
@@ -303,15 +305,38 @@ By default, a `boolean` field is rendered as `<Checkbox />`, but with `options` 
 ]
 ```
 
-> A maximum of two (2) options is allowed for `boolean` fields. For unlimited `<Radio />` options, use the `string` type with a `componentType` of `radio`.
+> A maximum of two (2) options is allowed for `boolean` fields. For unlimited `<Radio />` options, use the `string` type with a `component` of `radio`.
 
 [![Edit react-json-form-engine (Boolean Field Type Transition)](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/zw9q7zrol4)
 
 ### <a id="form-definition">Field Decorators</a> 
 
-As we've seen above, both field `type` and `options` help drive the rendered Component type. However, in some cases, you'll want to explicitly override the Component type. 
+As we've seen above, both field `type` and `options` help drive the rendered Component type. However, you'll often want to explicitly override the default component type in favor of another. 
 
-Use field decorotors.
+Add the `decorators` object to the root of the [Form Definition](#form-definition); this object will be keyed by [Field ID](#field-id), and can contain the following properties:
+
+* `hint`
+* `component`
+
+```js
+  {
+  ...
+  sections: [...],
+  decorators: {
+    [field.id]: {
+      hint: <hintText>
+      component: {
+        type: <componentType>
+      }
+    }
+  }
+```
+
+| Field Type       | Component Decorator Overrides   | 
+|------------------|---------------------------------|
+| `string`         | `password`, `textarea`, `radio` |
+| `number`         | `range`                |  
+| `array`          | `checkboxgroup`        |
 
 ## <a id="validation">Validation</a>
 
