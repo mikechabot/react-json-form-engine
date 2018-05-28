@@ -119,7 +119,7 @@ If you'd like to use , be sure to also include the icon pack:
 
 Before we can start rendering, we'll need to build a form object, which consists of sections, subsections, and fields. Fields can contain other fields as children -- with or without conditional logic.
 
-But to start, let's understand the basic form schema.
+So to start, let's understand the basic form schema.
 
 ### <a id="form-schema">Form Schema</a>
 
