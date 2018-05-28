@@ -117,6 +117,10 @@ If you'd like to use , be sure to also include the icon pack:
 
 ## <a id="getting-started">Getting Started</a>
 
+Before we can start rendering, we'll need to build our form objects, which consist of sections, subsections, and fields. Fields themselves are rendered contextually based on their `type`, configured decorators, and other factors, which are discussed in detail below. 
+
+But to start, let's understand the basic form schema.
+
 ### <a id="form-schema">Form Schema</a>
 
 Form objects must adhere to a strict schema. They must contain at least **one** section, which contains at least **one** subsection, which contains at least **one** field.
