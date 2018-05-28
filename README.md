@@ -116,13 +116,13 @@ If you'd like to use , be sure to also include the icon pack:
 
 Before we can start rendering, we'll need to build a form object, which consists of sections, subsections, and fields. Fields can contain other fields as children (infinitely) -- with or without conditional logic.
 
-So to start, let's understand the basic form schema.
+Let's start by understanding the basic form schema.
 
 ----
 
 ### <a id="form-schema">Form Schema</a>
 
-Form objects adhere to a strict schema. They must contain at least **one section**, which contains at least **one subsection**, which contains at least **one field**.
+Form objects must adhere to a strict schema. They must contain at least **one section**, which contains at least **one subsection**, which contains at least **one field**.
 
 > See the full schema definition in the [FormAPIService](https://github.com/mikechabot/react-json-form-engine/blob/master/src/form/service/form-api-service.js#L27)
 
