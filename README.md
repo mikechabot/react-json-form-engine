@@ -114,7 +114,18 @@ If you'd like to use , be sure to also include the icon pack:
 
 ## <a name="react-json-form-engine#getting-started">Getting Started</a>
 
-The public API consists of two components that are used in tandem: `FormEngine` manages the form, while `<Form />` renders it. 
+The public API consists of two components that are used in tandem:
+
+<table>
+<tr>
+<th align="right"><code>FormEngine</code></th>
+<td>Instantiates and manages the form instance</td>
+</tr>
+<tr>
+<th align="right"><code>&lt;Form /&gt;</code></th>
+<td>Renders the form instance</td>
+</tr>
+</table>
 
 #### Basic Example
 
