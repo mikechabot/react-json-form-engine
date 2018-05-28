@@ -131,7 +131,14 @@ class FormEngine {
      * @private
      */
     __decorateField(field, parent) {
-        FormApiService.__validateFieldShape(field);
+
+        try {
+            FormApiService.__validateFieldShape(field);
+        } catch (error) {
+            this.__isDefinitionValid = false;
+            this.error = error;
+            return;
+        }
 
         field[FIELD.PARENT] = parent;
         field[FIELD.UI_DECORATORS] = this.getCustomUIDecorators(field[FIELD.ID]);
