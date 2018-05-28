@@ -204,6 +204,8 @@ Determines the data type of the value to be stored in the model, and also plays 
 
 ### <a id="field-schema">Field Type Transitions</a>
 
+#### `string`
+
 By default, a `string` field will be rendered as `<Text />` control:
 
 <table>
@@ -229,7 +231,7 @@ By default, a `string` field will be rendered as `<Text />` control:
   <tr>
 </table>
 
-However, a `string` field with `options` will be rendered as `<Select />` control:
+However, a `string` field with `options` will be automatically rendered as `<Select />` control:
 
 <table>
   <tr>
@@ -262,6 +264,40 @@ However, a `string` field with `options` will be rendered as `<Select />` contro
   <tr>
 </table>
 
+#### `boolean`
+
+By default, a `boolean` field will be rendered as `Checkbox` control:
+
+<table>
+  <tr>
+    <th>Field Definition</th>
+    <th>Field Instance</th>
+  </tr>
+  <tr>
+    <td>
+    <pre>
+{
+  "id": "field_ID",
+  "type": "boolean",
+  "title": "Field title"
+}
+    </pre>
+    </td>
+    <td>
+      <pre>
+&lt;div id="field_ID" class="control"&gt;
+&lt;div class="checkbox"&gt;
+&lt;span&gt;&lt;i class="far fa-square "&gt;
+&lt;/i&gt;&lt;/span&gt;&nbsp;
+&lt;span&gt;Field title&lt;/span>&lt;/div&gt;&lt;/div&gt;
+      &lt;/pre&gt;
+    &lt;/td&gt;
+  &lt;tr&gt;
+&lt;/table&gt;
+      </pre>
+    </td>
+  </tr>
+</table>
 
 | Property  | Type      | Required | Description                                                                 | 
 |-----------|-----------|----------|-----------------------------------------------------------------------------|
