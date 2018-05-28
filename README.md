@@ -183,10 +183,9 @@ Field objects also adhere to a strict schema. At minimum, they must contain an `
 }
 ```
 
-The field's `type` is the most important property. It determines the data type stored in the model for the field's value, and also the form control that will eventually be rendered.
+#### Field Type
 
-Depending on the `type`, the following components are available to you:
-
+The field's `type` determines the data type of its value stored in the model, and also the type of form control to render:
 
 | Data Type | Field Type  | Default Control | Additional Controls                              |
 |-----------|-------------|------------------|-------------------------------------------------|
