@@ -36,7 +36,9 @@ Within the React ecosystem, there's no shortage of approaches to take for form s
 - [Getting Started](#getting-started)
   - [Form Definition](#form-definition)
   - [Field Definition](#field-definition)
-  
+- [Validation](#validation)
+- [Conditions](#conditions)
+
 ## <a id="live-demo">Live Demo</a>
 
 https://mikechabot.github.io/react-json-form-engine-storybook/
