@@ -226,7 +226,7 @@ Determines the data type of the value stored in the model, and also plays a role
 
 ### <a id="form-definition">Option Field Definition</a>
 
-> Applies to `string`, `boolean`, and `array` field types only
+> Applies to `string`, `boolean`, and `array` field types only.
 
 For field types that accept unlimited options (`string`, `array`), you must include both an `id` and `title`. The `ids` of the selected options is stored in the model.
 
