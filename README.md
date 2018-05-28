@@ -117,7 +117,7 @@ If you'd like to use , be sure to also include the icon pack:
 
 ## <a id="getting-started">Getting Started</a>
 
-Before we start rendering, we'll need to build a form definition, which is the skeleton structure that tells the `FormEngine` how to render the form. At its code, the definition contains sections, subsections, and fields. 
+Before we start rendering, we'll need to build a form definition, which is the skeleton structure that tells the `FormEngine` how to render the form.
 
 ----
 
