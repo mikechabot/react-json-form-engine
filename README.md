@@ -122,7 +122,7 @@ So to start, let's understand the basic form schema.
 
 ### <a id="form-schema">Form Schema</a>
 
-Form objects adhere to a strict schema. They must contain at least **one** section, which contains at least **one** subsection, which contains at least **one** field.
+Form objects adhere to a strict schema. They must contain at least **one section**, which contains at least **one subsection**, which contains at least **one field**.
 
 > See the full schema definition in the [FormAPIService](https://github.com/mikechabot/react-json-form-engine/blob/master/src/form/service/form-api-service.js#L27)
 
