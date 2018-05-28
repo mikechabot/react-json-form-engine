@@ -228,7 +228,7 @@ Determines the data type of the value stored in the model, and also plays a role
 
 > Applies to `string`, `boolean`, and `array` field types only.
 
-For field types that accept unlimited options (`string`, `array`), you must include both an `id` and `title`. The `ids` of the selected options is stored in the model.
+For field types that accept unlimited options (`string`, `array`), you must include both an `id` and `title`. The `ids` of the selected options are stored in the model.
 
 ```js
 options: [
