@@ -198,13 +198,13 @@ Determines the data type of the value to be stored in the model, and also plays 
 | `array`          | `<Select />`     | `<Checkboxgroup />`                                       | Yes                 |
 | `date`           | `<DateTime />`   | N/A                                                       | No                  |
 
-> Certain field types will *automatically* transition from their Default Control to a supported Additional Control with the addition of an `options` array. (See [Field Type Transitions](#field-type-transitions))
+> Certain field types will *automatically* transition from their Default Control to a supported Additional Control if an `options` array is present in the field definition. (See [Field Type Transitions](#field-type-transitions))
 
 ----
 
 ### <a id="field-schema">Field Type Transitions</a>
 
-By default, a `string` field will be rendered as <Text /> control:
+By default, a `string` field will be rendered as `<Text />` control:
 
 <table>
   <tr>
