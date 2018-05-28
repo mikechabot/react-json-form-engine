@@ -229,7 +229,7 @@ By default, a `string` field will be rendered as `<Text />` control:
     </td>
     <td>
       <pre>
-&lt;input name="field_ID" id="field_ID" class="input" type="text" value=""&gt;
+&lt;input id="field_ID" class="input" type="text" value=""&gt;
       </pre>
     </td>
   <tr>
