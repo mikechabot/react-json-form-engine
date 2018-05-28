@@ -199,7 +199,7 @@ Determines the data type of the value stored in the model, and also plays a role
 | `string`         | `<Text />`        | `<Password />`, `<Textarea />`, `<Select />`, `<Radio />` | Yes*                |
 | `boolean`        | `<Checkbox />`    | `<Radio />`                                               | Yes*                |
 | `number`         | `<Number />`      | `<Range />`                                               | No                  |
-| `array`          | `<Multiselect />` | `<Checkboxgroup />`                                       | Yes                 |
+| `array`          | `<Select />`      | `<Checkboxgroup />`                                       | Yes                 |
 | `date`           | `<DateTime />`    | N/A                                                       | No                  |
 
 > Some field types will *automatically* transition from their Default Control to another Allowed Control if an `options` array is present in the field definition. (See [Field Type Transitions](#field-type-transitions))
