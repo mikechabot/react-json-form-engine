@@ -228,3 +228,4 @@ By default, a `string` field is rendered as `<Text />`, but with `options` it au
   }
 ]
 ```
+[![Edit react-json-form-engine (Simple)](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/mq88xm5l6x)
