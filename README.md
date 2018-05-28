@@ -41,8 +41,6 @@ Within the React ecosystem, there's no shortage of approaches to take for form s
 
 https://mikechabot.github.io/react-json-form-engine-storybook/
 
-----
-
 ## <a id="installing">Installing</a>
 
 Requires React 15.0.0+
