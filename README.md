@@ -309,6 +309,8 @@ By default, a `boolean` field is rendered as `<Checkbox />`, but with `options` 
 
 [![Edit react-json-form-engine (Boolean Field Type Transition)](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/zw9q7zrol4)
 
+----
+
 ### <a id="form-definition">Field Decorators</a> 
 
 As we've seen above, both field `type` and `options` help drive the rendered Component type. However, you'll often want to explicitly override the default component type in favor of another. 
