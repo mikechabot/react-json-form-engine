@@ -182,6 +182,13 @@ Field objects also adhere to a strict schema. At minimum, they must contain an `
   title: 'Field title'
 }
 ```
+#### Field Id
+
+Uniquely identifies the form field within the DOM, as well as the form instance. User input is stored in the form's model as:
+
+```js
+{ key: <field.id>, value: <value> }
+```
 
 #### Field Type
 
