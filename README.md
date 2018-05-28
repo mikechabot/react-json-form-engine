@@ -122,6 +122,8 @@ Before we can start rendering, we'll need to build a form object, which consists
 
 So to start, let's understand the basic form schema.
 
+----
+
 ### <a id="form-schema">Form Schema</a>
 
 Form objects adhere to a strict schema. They must contain at least **one** section, which contains at least **one** subsection, which contains at least **one** field.
