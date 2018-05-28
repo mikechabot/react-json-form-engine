@@ -206,13 +206,12 @@ Determines the data type of the value to be stored in the model, and also plays 
 
 #### `string`
 
-By default, a `string` field will be rendered as `<Text />` control:
+By default, a `string` field will be rendered as `<Text />` control. However, a `string` field with `options` will be automatically rendered as `<Select />` control:
 
 <table>
   <tr>
     <th>Definition</th>
     <th>Component</th>
-    <th>DOM Element</th>
   </tr>
   <tr>
     <td>
@@ -227,21 +226,6 @@ By default, a `string` field will be rendered as `<Text />` control:
     <td>
       &lt;Text /&gt;
     </td>
-    <td>
-      <pre>
-&lt;input id="field_ID" class="input" type="text" value=""&gt;
-      </pre>
-    </td>
-  <tr>
-</table>
-
-However, a `string` field with `options` will be automatically rendered as `<Select />` control:
-
-<table>
-  <tr>
-    <th>Definition</th>
-    <th>Component</th>
-    <th>DOM Element</th>
   </tr>
   <tr>
     <td>
@@ -260,62 +244,6 @@ However, a `string` field with `options` will be automatically rendered as `<Sel
     <td>
       &lt;Select /&gt;
     </td>
-    <td>
-      <pre>
-&lt;select id="field_ID" name="field_ID"&gt;
-  &lt;option value=""&gt;-- select value --&lt;/option&gt;
-  &lt;option value="op1"&gt;Option 1&lt;/option&gt;
-  &lt;option value="op2"&gt;Option 2&lt;/option&gt;
-&lt;/select&gt;
-      </pre>
-    </td>
   <tr>
 </table>
-
-#### `boolean`
-
-By default, a `boolean` field will be rendered as `Checkbox` control:
-
-<table>
-  <tr>
-    <th>Definition</th>
-    <th>Component</th>
-    <th>Rendered Component</th>
-  </tr>
-  <tr>
-    <td>
-    <pre>
-{
-  "id": "field_ID",
-  "type": "boolean",
-  "title": "Field title"
-}
-    </pre>
-    </td>
-    <td>
-      &lt;Checkbox /&gt;
-    </td>
-    <td>
-      <pre>
-&lt;div id="field_ID" class="control"&gt;
-   &lt;div class="checkbox"&gt;
-      &lt;span&gt;&lt;i class="far fa-square "&gt;
-      &lt;/i&gt;&lt;/span&gt;&nbsp;
-      &lt;span&gt;Field title&lt;/span&gt;
-   &lt;/div&gt;
-&lt;/div&gt;
-      </pre>
-    </td>
-  </tr>
-</table>
-
-| Property  | Type      | Required | Description                                                                 | 
-|-----------|-----------|----------|-----------------------------------------------------------------------------|
-| `id`      | `string`  | Yes      | Uniquely identifies the field in the DOM, as well as the form's data model. |
-| `type`    | `string`  | Yes      | Used to derive form control to render (See [Field Types](#field-types)).    |
-| `title`   | `string`  | Yes      | Display label for the field.                                                |
-| `options` | `array`   | No       | Options to render for Select, Radio, and Checkboxgroup fields types.        |
-| `fields`  | `array`   | No       | Children of the field (children must adhere to Field schema).               |
-| `min`     | `number`  | No       | Minimum value (Used for `number` field types).                              |
-| `max`     | `number`  | No       | Maximum value (Used for `number` field types).                              |
 
