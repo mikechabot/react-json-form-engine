@@ -35,11 +35,7 @@ Within the React ecosystem, there's no shortage of approaches to take for form s
 - [Installing](#installing)
 - [Getting Started](#getting-started)
   - [Form Schema](#form-schema)
-  - [Form Schema Validation](#form-schema-validation)
-  - [Field Schema](#field-schema)
-  - [FormEngine](#form-engine)
-  - [&lt;Form /&gt;](#form)
-  
+  - [Field Schema](#field-schema)  
   
 ## <a id="live-demo">Live Demo</a>
 
@@ -192,7 +188,7 @@ Uniquely identifies the form field within the DOM, as well as the form instance.
 
 #### Field Type
 
-The field's `type` determines how its value will be stored the model, and also plays a role in which form control to render:
+The field's `type` determines the data type to be stored in the model, and also plays a role in which form control to render:
 
 | Field/Data Type  | Default Control  | Additional Controls                                       | Supports `options`? |
 |------------------|------------------|-----------------------------------------------------------|---------------------|
@@ -202,11 +198,13 @@ The field's `type` determines how its value will be stored the model, and also p
 | `array`          | `<Select />`     | `<Checkboxgroup />`                                       | Yes                 |
 | `date`           | `<DateTime />`   | N/A                                                       | No                  |
 
-> Certain field types will *automatically* transition from their Default Control to a supported Additional Control with the addition of an `options` array. 
+> Certain field types will *automatically* transition from their Default Control to a supported Additional Control with the addition of an `options` array. (See [Field Type Transitions](#field-type-transitions)
 
 ----
 
-For example, a `string` field will be rendered as a `text` control:
+### <a id="field-schema">Field Type Transitions</a>
+
+By default, a `string` field will be rendered as <Text /> control:
 
 <table>
   <tr>
@@ -231,7 +229,7 @@ For example, a `string` field will be rendered as a `text` control:
   <tr>
 </table>
 
-A `string` field with `options` will be rendered as `<select />` control:
+However, a `string` field with `options` will be rendered as `<Select />` control:
 
 <table>
   <tr>
