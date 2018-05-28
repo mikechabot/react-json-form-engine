@@ -235,8 +235,9 @@ However, a `string` field with `options` will be automatically rendered as `<Sel
 
 <table>
   <tr>
-    <th>Field Definition</th>
-    <th>Field Instance</th>
+    <th>Definition</th>
+    <th>Component</th>
+    <th>Rendered Component</th>
   </tr>
   <tr>
     <td>
@@ -251,6 +252,9 @@ However, a `string` field with `options` will be automatically rendered as `<Sel
   ]
 }
     </pre>
+    </td>
+    <td>
+      &lt;Input /&gt;
     </td>
     <td>
       <pre>
@@ -270,8 +274,9 @@ By default, a `boolean` field will be rendered as `Checkbox` control:
 
 <table>
   <tr>
-    <th>Field Definition</th>
-    <th>Field Instance</th>
+    <th>Definition</th>
+    <th>Component</th>
+    <th>Rendered Component</th>
   </tr>
   <tr>
     <td>
@@ -282,6 +287,9 @@ By default, a `boolean` field will be rendered as `Checkbox` control:
   "title": "Field title"
 }
     </pre>
+    </td>
+    <td>
+      &lt;Checkbox /&gt;
     </td>
     <td>
       <pre>
