@@ -187,11 +187,11 @@ Fields are rendered contextually based on how they are configured within the sch
 
 The field's `type` is the most important property; it tells the `FormEngine` what data type you want to store in the model. The following data types are supported:
  
-  1. String
-  2. Boolean
-  3. Number
-  4. Array
-  5. Date
+  * String
+  * Boolean
+  * Number
+  * Array
+  * Date
 
 For example, if a field has a `type` of `string`:
 
