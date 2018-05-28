@@ -152,7 +152,7 @@ export default {
 };
 ```
 
-> If the form object is malformed, the UI will be notified of the exact cause and location of the failure <div align="center">
+> If the form object is malformed, the UI will be notified of the exact cause and location of the failure: <div align="center">
 > <img src='https://raw.githubusercontent.com/mikechabot/react-json-form-engine-storybook/master/src/assets/form-engine-api-check.png' alt='api-check' aria-label='api-check' />
 </div>
 
