@@ -179,7 +179,7 @@ Field objects also adhere to a strict schema. At minimum, they must contain an `
 
 Fields are rendered contextually based on how they are configured within the schema.
 
-The field's `type` is the most important property. It tells the `FormEngine` what data type you want to store in the model. The following data types are supported:
+The field's `type` is the most important property; it tells the `FormEngine` what data type you want to store in the model. The following data types are supported:
  
   1. `string`
   2. `boolean`
@@ -187,11 +187,45 @@ The field's `type` is the most important property. It tells the `FormEngine` wha
   4. `array`
   5. `date`
 
-For instance, if a field has a `type` of `string`, it will be rendered as an:
+For example, if a field has a `type` of `string`:
+
+```js
+{
+    id: 'field_ID',
+    type: 'string',
+    title: 'Field title'
+}
+```
+
+It will simply be rendered as a `text` input:
 
 ```html
 <input name="field_ID" id="field_ID" class="input" type="text" value="">
 ```
+
+If a field has a `type` of `string`, but has `options`:
+
+```js
+{
+  id: 'field_ID',
+  type: 'string',
+  title: 'Field title',
+  options: [
+    { id: "op1", title: "Option 1" },
+    { id: "op2", title: "Option 2" },
+  ]
+}
+```
+It will be rendered as a `select`:
+
+```html
+<select id="field_ID" name="field_ID">
+  <option value="">-- select value --</option>
+  <option value="op1">Option 1</option>
+  <option value="op2">Option 2</option>
+</select>
+```
+
 
 
 | Property  | Type      | Required | Description                                                                 | 
