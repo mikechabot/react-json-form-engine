@@ -175,17 +175,11 @@ If the form object is malformed, the UI will be notified of the exact cause and 
 Field objects also adhere to a strict schema. At minimum, they must contain an `id`, `type` and `title`:
 
 ```js
+// The most minimal field object
 {
-    // The most minimal field object
-    id: 'subsection_ID',
-    title: 'Subsection Title',
-    fields: [
-        {
-            id: 'field_ID',
-            type: 'string',
-            title: 'Field title'
-        }
-    ]
+  id: 'field_ID',
+  type: 'string',
+  title: 'Field title'
 }
 ```
 
