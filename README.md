@@ -34,7 +34,7 @@ Within the React ecosystem, there's no shortage of approaches to take for form s
 - [Live Demo](#live-demo)
 - [Installing](#installing)
 - [Getting Started](#getting-started)
-  - [Form Schema](#form-schema)
+  - [Form Definition](#form-definition)
   - [Field Schema](#field-schema)  
   
 ## <a id="live-demo">Live Demo</a>
@@ -114,17 +114,15 @@ If you'd like to use , be sure to also include the icon pack:
 
 ## <a id="getting-started">Getting Started</a>
 
-Before we can start rendering, we'll need to build a form object, which consists of sections, subsections, and fields. Fields can contain other fields as children (infinitely) -- with or without conditional logic.
-
-Let's start by understanding the basic form schema.
+Before we can start rendering, we'll need to build a form definition, which is the skeleton that tells the `FormEngine` how to render our form. The form definition contains sections, subsections, and fields. 
 
 ----
 
-### <a id="form-schema">Form Schema</a>
+### <a id="form-definition">Form Definition</a>
 
-Form objects must adhere to a strict schema. They must contain at least **one section**, which contains at least **one subsection**, which contains at least **one field**.
+Form definitions must adhere to a strict schema. They must contain at least **one section**, which contains at least **one subsection**, which contains at least **one field**.
 
-> See the full schema definition in the [FormAPIService](https://github.com/mikechabot/react-json-form-engine/blob/master/src/form/service/form-api-service.js#L27)
+> View the full schema definition in the [FormAPIService](https://github.com/mikechabot/react-json-form-engine/blob/master/src/form/service/form-api-service.js#L27)
 
 ```js
 // The most minimal form possible
@@ -155,9 +153,9 @@ export default {
 
 ---
 
-#### <a id="form-schema-validation">Form Schema Validation</a>
+#### <a id="form-schema-validation">Form Definition Validation</a>
 
-If the form object is malformed, the UI will be notified of the failure:
+If the form definition is malformed, the UI will be notified of the failure:
 
 <div align="center">
 <img src='https://raw.githubusercontent.com/mikechabot/react-json-form-engine-storybook/master/src/assets/form-engine-api-check.png' alt='api-check' aria-label='api-check' />
@@ -166,9 +164,9 @@ If the form object is malformed, the UI will be notified of the failure:
 [![Edit react-json-form-engine (Malformed)](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/mm3y516258)
 ----
 
-### <a id="field-schema">Field Schema</a>
+### <a id="field-schema">Field Definition</a>
 
-Field objects also adhere to a strict schema. At minimum, they must contain an `id`, `type` and `title`:
+Field definitions also adhere to a strict schema. At minimum, they must contain an `id`, `type` and `title`:
 
 ```js
 // The most minimal field object
