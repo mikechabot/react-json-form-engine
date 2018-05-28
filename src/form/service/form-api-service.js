@@ -15,7 +15,15 @@ const FormApiService = {
                     [FIELD.ID]: validator.oneOfType([validator.string, validator.number]),
                     [FIELD.TYPE]: validator.string,
                     [FIELD.TITLE]: validator.string,
-                    [FIELD.SUBTITLE]: validator.string.optional
+                    [FIELD.SUBTITLE]: validator.string.optional,
+                    [FIELD.OPTIONS]: validator.array.optional,
+                    [FIELD.FIELDS]: validator.array.optional,
+                    [FIELD.MIN]: validator.number.optional,
+                    [FIELD.MAX]: validator.number.optional,
+                    [FIELD.REQUIRED]: validator.bool.optional,
+                    [FIELD.PLACEHOLDER]: validator.string.optional,
+                    [FIELD.PATTERN]: validator.string.optional,
+                    [FIELD.SHOW_CONDITION]: validator.object.optional
                 })
             ],
             arguments,
