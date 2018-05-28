@@ -36,6 +36,7 @@ Within the React ecosystem, there's no shortage of approaches to take for form s
 - [Getting Started](#getting-started)
   - [Form Definition](#form-definition)
   - [Field Definition](#field-definition)
+  - [Option Field Definition](#option-field-definition)
   - [Field Decorators](#field-decorators)
 - [Validation](#validation)
 - [Conditions](#conditions)
@@ -207,23 +208,45 @@ Determines the data type of the value stored in the model, and also plays a role
 
 #### <a id="field-property-list">Complete Field Property List</a>
 
-| Property        | Type      | Required | Description                                                                   | 
-|-----------------|-----------|----------|-------------------------------------------------------------------------------|
-| `id`            | `string`  | Yes      | See [Field ID](#field-id)                                                     |
-| `type`          | `string`  | Yes      | See [Field Type](#field-type)                                                 |
-| `title`         | `string`  | Yes      | Display label for the field                                                   |
-| `options`       | `array`   | No       | Options to render for `string`, `array` and `boolean` types                   |
-| `fields`        | `array`   | No       | Children of the field (Must adhere to [Field Definition](#field-definition))  |
-| `placeholder`   | `string`  | No       | Display a placeholder                                                         |
-| `showCondition` | `object`  | No       | Condition object (See [Conditions](#conditions))                              |
-| `required`      | `boolean` | No       | Whether the field is required (See [Validation](#validation))                 |
-| `pattern`       | `string`  | No       | Pattern to match (See [Validation](#validation))                              |
-| `min`           | `number`  | No       | Minimum value. (Used for `number` field types)                                |
-| `max`           | `number`  | No       | Maximum value. (Used for `number` field types)                                |
-| `hideTime`      | `boolean` | No       | Hide the time value. (Used for `date` field types)                            |
-| `hideCalendar`  | `boolean` | No       | Hide the date value. (Used for `date` field types)                            |
+| Property        | Type      | Required | Description                                                                                 |
+|-----------------|-----------|----------|---------------------------------------------------------------------------------------------|
+| `id`            | `string`  | Yes      | See [Field ID](#field-id)                                                                   |
+| `type`          | `string`  | Yes      | See [Field Type](#field-type)                                                               |
+| `title`         | `string`  | Yes      | Display label for the field                                                                 |
+| `options`       | `array`   | No       | Options to render for certain types (See [Option Field Definition](#option-field-definition)|
+| `fields`        | `array`   | No       | Children of the field (Must adhere to [Field Definition](#field-definition))                |
+| `placeholder`   | `string`  | No       | Display a placeholder                                                                       |
+| `showCondition` | `object`  | No       | Condition object (See [Conditions](#conditions))                                            |
+| `required`      | `boolean` | No       | Whether the field is required (See [Validation](#validation))                               |
+| `pattern`       | `string`  | No       | Pattern to match (See [Validation](#validation))                                            |
+| `min`           | `number`  | No       | Minimum value. (Used for `number` field types)                                              |
+| `max`           | `number`  | No       | Maximum value. (Used for `number` field types)                                              |
+| `hideTime`      | `boolean` | No       | Hide the time value. (Used for `date` field types)                                          |
+| `hideCalendar`  | `boolean` | No       | Hide the date value. (Used for `date` field types)                                          |
 
 ----
+
+### <a id="form-definition">Option Field Definition</a>
+
+> Applies to `string`, `boolean`, and `array` field types only
+
+For field types that accept unlimited options (`string`, `array`), you must include both an `id` and `title`. The `id` of the selected option(s) is stored in the model.
+
+```js
+options: [
+      { id: "op1", title: "Option 1" },
+      { id: "op2", title: "Option 2" },
+    ]
+```
+
+For `boolean` field types, which can accept a maximum of two (2) options, only include a `title` property. The first option is considered the affirmative response:
+
+```
+options: [
+      { title: "Always" },
+      { title: "Never" },
+    ]
+```
 
 ### <a id="field-type-transitions">Field Type Transitions</a>
 
