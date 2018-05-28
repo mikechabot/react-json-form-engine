@@ -315,10 +315,7 @@ By default, a `boolean` field is rendered as `<Checkbox />`, but with `options` 
 
 As we've seen above, both field `type` and `options` help drive the rendered Component type. However, you'll often want to explicitly override the default component type in favor of another. 
 
-Add the `decorators` object to the root of the [Form Definition](#form-definition); this object will be keyed by [Field ID](#field-id), and can contain the following properties:
-
-* `hint`
-* `component`
+Add the `decorators` object to the root of the [Form Definition](#form-definition); this object will be keyed by [Field ID](#field-id), and can contain the `hint` and `component`:
 
 ```js
   {
