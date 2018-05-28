@@ -175,3 +175,15 @@ Field objects also adhere to a strict schema. They must contain an `id`, `type` 
     ]
 }
 ```
+
+
+| Property  | Type      | Required | Description                                                                 | 
+|-----------|-----------|----------|-----------------------------------------------------------------------------|
+| `id`      | `string`  | Yes      | Uniquely identifies the field in the DOM, as well as the form's data model. |
+| `type`    | `string`  | Yes      | Used to derive form control to render (See [Field Types](#field-types)).    |
+| `title`   | `string`  | Yes      | Display label for the field.                                                |
+| `options` | `array`   | No       | Options to render for Select, Radio, and Checkboxgroup fields types.        |
+| `fields`  | `array`   | No       | Children of the field (children must adhere to Field schema).               |
+| `min`     | `number`  | No       | Minimum value (Used for `number` field types).                              |
+| `max`     | `number`  | No       | Maximum value (Used for `number` field types).                              |
+
