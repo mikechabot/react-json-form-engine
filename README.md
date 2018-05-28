@@ -187,13 +187,13 @@ Field objects also adhere to a strict schema. At minimum, they must contain an `
 
 The field's `type` determines how its value will be stored the model, and also plays a role in which form control to render:
 
-| Data Type | Field Type  | Default Control | Additional Controls                                        |
-|-----------|-------------|------------------|-----------------------------------------------------------|
-| String    | `string`    |  `<Text />`      | `<Password />`, `<Textarea />`, `<Select />`, `<Radio />` |
-| Boolean   | `boolean`   |  `<Checkbox />`  | `<Radio />`                                               |
-| Number    | `number`    |  `<Number />`    | `<Range />`                                               |
-| Array     | `array`     | `<Select />`     | `<Checkboxgroup />`                                       |
-| Date      | `date`      | `<DateTime />`   | N/A                                                       |
+| Field/Data Type  | Default Control  | Additional Controls                                       | Supports `options`? |
+|-------------|------------------|-----------------------------------------------------------|---------------------|
+| `string`    |  `<Text />`      | `<Password />`, `<Textarea />`, `<Select />`, `<Radio />` | Yes                 |
+| `boolean`   |  `<Checkbox />`  | `<Radio />`                                               | Yes                 |
+| `number`    |  `<Number />`    | `<Range />`                                               | No                  |
+| `array`     | `<Select />`     | `<Checkboxgroup />`                                       | Yes                 |
+| `date`      | `<DateTime />`   | N/A                                                       | No                  |
 
 
 
