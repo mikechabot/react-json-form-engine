@@ -117,9 +117,9 @@ If you'd like to use , be sure to also include the icon pack:
 
 ## <a id="getting-started">Getting Started</a>
 
-Before we can start rendering, we'll need to build a form object, which consists of sections, subsections, and fields. Fields can contain other fields as children (with or without conditional logic), and are rendered contextually based on their `type`, configured decorators, and other factors discussed below.
+Before we can start rendering, we'll need to build a form object, which consists of sections, subsections, and fields. Fields can contain other fields as children -- with or without conditional logic.
 
-But to start, let's understand the basic form schema.
+So to start, let's understand the basic form schema.
 
 ### <a id="form-schema">Form Schema</a>
 
@@ -156,14 +156,15 @@ export default {
 > <img src='https://raw.githubusercontent.com/mikechabot/react-json-form-engine-storybook/master/src/assets/form-engine-api-check.png' alt='api-check' aria-label='api-check' />
 </div>
 
+----
 
 ### <a id="field-schema">Field Schema</a>
 
-Field objects also adhere to a strict schema. They must contain an `id`, `type` and `title`:
+Field objects also adhere to a strict schema. At minimum, they must contain an `id`, `type` and `title`:
 
 ```js
 {
-    // The most minimal fields array
+    // The most minimal field object
     id: 'subsection_ID',
     title: 'Subsection Title',
     fields: [
@@ -175,3 +176,65 @@ Field objects also adhere to a strict schema. They must contain an `id`, `type` 
     ]
 }
 ```
+
+Fields are rendered contextually based on how they are configured within the schema.
+
+The field's `type` is the most important property; it tells the `FormEngine` what data type you want to store in the model. The following data types are supported:
+ 
+  1. `string`
+  2. `boolean`
+  3. `number`
+  4. `array`
+  5. `date`
+
+For example, if a field has a `type` of `string`:
+
+```js
+{
+    id: 'field_ID',
+    type: 'string',
+    title: 'Field title'
+}
+```
+
+It will simply be rendered as a `text` input:
+
+```html
+<input name="field_ID" id="field_ID" class="input" type="text" value="">
+```
+
+If a field has a `type` of `string`, but has `options`:
+
+```js
+{
+  id: 'field_ID',
+  type: 'string',
+  title: 'Field title',
+  options: [
+    { id: "op1", title: "Option 1" },
+    { id: "op2", title: "Option 2" },
+  ]
+}
+```
+It will be rendered as a `select`:
+
+```html
+<select id="field_ID" name="field_ID">
+  <option value="">-- select value --</option>
+  <option value="op1">Option 1</option>
+  <option value="op2">Option 2</option>
+</select>
+```
+
+
+
+| Property  | Type      | Required | Description                                                                 | 
+|-----------|-----------|----------|-----------------------------------------------------------------------------|
+| `id`      | `string`  | Yes      | Uniquely identifies the field in the DOM, as well as the form's data model. |
+| `type`    | `string`  | Yes      | Used to derive form control to render (See [Field Types](#field-types)).    |
+| `title`   | `string`  | Yes      | Display label for the field.                                                |
+| `options` | `array`   | No       | Options to render for Select, Radio, and Checkboxgroup fields types.        |
+| `fields`  | `array`   | No       | Children of the field (children must adhere to Field schema).               |
+| `min`     | `number`  | No       | Minimum value (Used for `number` field types).                              |
+| `max`     | `number`  | No       | Maximum value (Used for `number` field types).                              |
+
