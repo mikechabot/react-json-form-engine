@@ -186,6 +186,8 @@ Uniquely identifies the form field within the DOM, as well as the form instance.
 { key: <field.id>, value: <value> }
 ```
 
+----
+
 #### Field Type
 
 Determines the data type of the value to be stored in the model, and also plays a role in which form control to render:
