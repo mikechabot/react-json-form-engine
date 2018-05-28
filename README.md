@@ -212,7 +212,7 @@ By default, a `string` field will be rendered as `<Text />` control:
   <tr>
     <th>Definition</th>
     <th>Component</th>
-    <th>Rendered Component</th>
+    <th>DOM Element</th>
   </tr>
   <tr>
     <td>
@@ -241,7 +241,7 @@ However, a `string` field with `options` will be automatically rendered as `<Sel
   <tr>
     <th>Definition</th>
     <th>Component</th>
-    <th>Rendered Component</th>
+    <th>DOM Element</th>
   </tr>
   <tr>
     <td>
