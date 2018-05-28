@@ -34,7 +34,6 @@ Within the React ecosystem, there's no shortage of approaches to take for form s
 - [Live Demo](#live-demo)
 - [Installing](#installing)
 - [Getting Started](#getting-started)
-  - [Form Schema](#form-schema)
   - [FormEngine](#form-engine)
   - [&lt;Form /&gt;](#form)
   
