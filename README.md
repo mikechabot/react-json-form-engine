@@ -210,17 +210,17 @@ By default, a `string` field is rendered as `<Text />`, but with `options` it au
 
 ```js
 [
-  {
+  { 
     // Renders as <Text />
-    id: 'field_ID',
-    type: 'string',
-    title: 'Field title'
+    id: 'field_1',
+    type: 'string', 
+    title: 'Text Field'
   },
-  {
+  {             
     // Renders as <Select />
-    id: 'field_ID',
+    id: 'field_2',
     type: 'string',
-    title: 'Field title',
+    title: 'Select Field',
     options: [
       { id: "op1", title: "Option 1" },
       { id: "op2", title: "Option 2" },
