@@ -126,7 +126,7 @@ Forms must adhere to a strict schema. If the form object is malformed, the UI wi
 
 > See the full schema definition in the [FormAPIService](https://github.com/mikechabot/react-json-form-engine/blob/master/src/form/service/form-api-service.js#L27)
 
-A `form` *must* contain at least **one** (1) section, which in turn *must* contain at least **one** (1) subsection. Form fields are stored within subsections.
+A form object *must* contain at least **one** section, which in turn *must* contain at least **one** subsection that contains an array of fields:
 
 ```js
 export default {
