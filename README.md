@@ -194,13 +194,13 @@ Uniquely identifies the form field within the DOM, as well as the form instance.
 
 Determines the data type of the value stored in the model, and also plays a role in which form control to render:
 
-| Field/Data Type  | Default Control  | Allowed Controls                                          | Supports `options`? |
-|------------------|------------------|-----------------------------------------------------------|---------------------|
-| `string`         | `<Text />`       | `<Password />`, `<Textarea />`, `<Select />`, `<Radio />` | Yes*                |
-| `boolean`        | `<Checkbox />`   | `<Radio />`                                               | Yes*                |
-| `number`         | `<Number />`     | `<Range />`                                               | No                  |
-| `array`          | `<Select />`     | `<Checkboxgroup />`                                       | Yes                 |
-| `date`           | `<DateTime />`   | N/A                                                       | No                  |
+| Field/Data Type  | Default Control   | Allowed Controls                                          | Supports `options`? |
+|------------------|-------------------|-----------------------------------------------------------|---------------------|
+| `string`         | `<Text />`        | `<Password />`, `<Textarea />`, `<Select />`, `<Radio />` | Yes*                |
+| `boolean`        | `<Checkbox />`    | `<Radio />`                                               | Yes*                |
+| `number`         | `<Number />`      | `<Range />`                                               | No                  |
+| `array`          | `<Multiselect />` | `<Checkboxgroup />`                                       | Yes                 |
+| `date`           | `<DateTime />`    | N/A                                                       | No                  |
 
 > Some field types will *automatically* transition from their Default Control to another Allowed Control if an `options` array is present in the field definition. (See [Field Type Transitions](#field-type-transitions))
 
