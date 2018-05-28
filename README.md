@@ -158,7 +158,7 @@ export default {
 
 #### Form Definition Validation
 
-If the form definition is malformed, the UI will be notified of the failure:
+The the `FormEngine` is instantiated with a malformed definition, the UI will be notified of the failure:
 
 <div align="center">
 <img src='https://raw.githubusercontent.com/mikechabot/react-json-form-engine-storybook/master/src/assets/form-engine-api-check.png' alt='api-check' aria-label='api-check' />
