@@ -248,6 +248,10 @@ options: [
     ]
 ```
 
+[![Edit react-json-form-engine (Option Field Definitions)](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/9ymvkn8qnw)
+
+----
+
 ### <a id="field-type-transitions">Field Type Transitions</a>
 
 #### `string`
