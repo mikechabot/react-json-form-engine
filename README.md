@@ -198,7 +198,7 @@ Determines the data type of the value to be stored in the model, and also plays 
 | `array`          | `<Select />`     | `<Checkboxgroup />`                                       | Yes                 |
 | `date`           | `<DateTime />`   | N/A                                                       | No                  |
 
-> Certain field types will *automatically* transition from their Default Control to a supported Additional Control with the addition of an `options` array. (See [Field Type Transitions](#field-type-transitions)
+> Certain field types will *automatically* transition from their Default Control to a supported Additional Control with the addition of an `options` array. (See [Field Type Transitions](#field-type-transitions))
 
 ----
 
