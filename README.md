@@ -34,10 +34,8 @@ Within the React ecosystem, there's no shortage of approaches to take for form s
 - [Live Demo](#live-demo)
 - [Installing](#installing)
 - [Getting Started](#getting-started)
-  - [Example](#example)
-    - [Component](#component)
-    - [Form](#json-or-javascript-object)
-  
+  - [Basic Example](#basic-example)
+  - [Form Schema](#form-schema)
   
 ## <a id="live-demo">Live Demo</a>
 
@@ -112,7 +110,9 @@ If you'd like to use , be sure to also include the icon pack:
 </html>
 ```
 
-## <a name="react-json-form-engine#getting-started">Getting Started</a>
+----
+
+## <a id="getting-started">Getting Started</a>
 
 The public API consists of two components that are used in tandem:
 
@@ -123,15 +123,15 @@ import { Form, FormEngine } from 'react-json-form-engine';
 <table>
 <tr>
 <th align="right"><code>FormEngine</code></th>
-<td>Instantiates and manages the form instance</td>
+<td>Instantiates and manages the form.</td>
 </tr>
 <tr>
 <th align="right"><code>&lt;Form /&gt;</code></th>
-<td>Renders the form instance</td>
+<td>Renders the form instance.</td>
 </tr>
 </table>
 
-#### Basic Example
+#### <a id="basic-example">Basic Example</a>
 
 ```jsx
 import React from 'react';
@@ -164,7 +164,7 @@ class MyForm extends React.Component {
 
 ```
 
-#### Form Schema (JSON / JavaScript Object)
+#### <a id="form-schema">Form Schema</a>
 
 Form objects fed to `FormEngine` must adhere to a strict schema. The full schema is located in the [FormAPIService](https://github.com/mikechabot/react-json-form-engine/blob/master/src/form/service/form-api-service.js#L27), however don't worry about making any mistakes during instantiation, `FormEngine` will notify the UI if it can't digest the object:
 
