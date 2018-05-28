@@ -6,7 +6,7 @@ Build lightning-fast web forms from JSON.
 <br/>
 :heart: Flexible validation 
 <br/>
-:heart: Mindless deserialization and rehydration
+:heart: Mindless deserialization & rehydration
 
 Within the React ecosystem, there's no shortage of approaches to take for form state management. Utilization of Redux is popular, but the overhead is unnecessary. Other libraries might use `context`, or export some type of HOC, however they rely on ever-changing React patterns, and/or deprecatable APIs. 
 
@@ -34,9 +34,11 @@ Within the React ecosystem, there's no shortage of approaches to take for form s
 - [Live Demo](#live-demo)
 - [Installing](#installing)
 - [Getting Started](#getting-started)
+  - [Form Schema](#form-schema)
+  - [Field Schema](#field-schema)
   - [FormEngine](#form-engine)
   - [&lt;Form /&gt;](#form)
-  - [Form Schema](#form-schema)
+  
   
 ## <a id="live-demo">Live Demo</a>
 
@@ -115,65 +117,18 @@ If you'd like to use , be sure to also include the icon pack:
 
 ## <a id="getting-started">Getting Started</a>
 
-The public API consists of two components that are used in tandem:
+Before we can start rendering, we'll need to build a form object, which consists of sections, subsections, and fields. Fields can contain other fields as children (with or without conditional logic), and are rendered contextually based on their `type`, configured decorators, and other factors discussed below.
+
+But to start, let's understand the basic form schema.
+
+### <a id="form-schema">Form Schema</a>
+
+Form objects adhere to a strict schema. They must contain at least **one** section, which contains at least **one** subsection, which contains at least **one** field.
+
+> See the full schema definition in the [FormAPIService](https://github.com/mikechabot/react-json-form-engine/blob/master/src/form/service/form-api-service.js#L27)
 
 ```js
-import { Form, FormEngine } from 'react-json-form-engine';
-```
-
-<table>
-<tr>
-<th align="right"><code>FormEngine</code></th>
-<td>Instantiates and manages the form.</td>
-</tr>
-<tr>
-<th align="right"><code>&lt;Form /&gt;</code></th>
-<td>Renders the form.</td>
-</tr>
-</table>
-
-#### <a id="form-engine">FormEngine</a>
-
-```jsx
-import React from 'react';
-import { Form, FormEngine } from 'react-json-form-engine';
-
-const myForm = import('./my-form.json');
-
-class MyForm extends React.Component {
-   constructor(props) {
-      this.state = {
-         instance: new FormEngine(myForm)
-      }
-   }
-   
-   render() {
-    return (
-      <Form
-        instance={this.state.instance}
-        onSubmit={this._onSubmit}
-      />
-    );
-  }
-
-  _onSubmit () => {
-     const { instance } = this.state;
-     const model = instance.getModel();
-     // Do stuff
-  }  
-}
-
-```
-
-#### <a id="form">&lt;Form /&gt;</a>
-
-#### <a id="form-schema">Form Schema</a>
-
-Form objects fed to `FormEngine` must adhere to a strict schema. The full schema is located in the [FormAPIService](https://github.com/mikechabot/react-json-form-engine/blob/master/src/form/service/form-api-service.js#L27), however don't worry about making any mistakes during instantiation, `FormEngine` will notify the UI if it can't digest the object:
-
-A `form` *must* contain at least **one** (1) section, which in turn *must* contain at least **one** (1) subsection. Form fields are stored within subsections.
-
-```js
+// The most minimal form possible
 export default {
     id: 'Form_ID',
     title: 'Form Title',
@@ -197,38 +152,26 @@ export default {
 };
 ```
 
-#### <a id="form-schema">Basic Example</a>
+> If the form object is malformed, the UI will be notified of the exact cause and location of the failure: <div align="center">
+> <img src='https://raw.githubusercontent.com/mikechabot/react-json-form-engine-storybook/master/src/assets/form-engine-api-check.png' alt='api-check' aria-label='api-check' />
+</div>
 
-```jsx
-import React from 'react';
-import { Form, FormEngine } from 'react-json-form-engine';
 
-const myForm = import('./my-form.json');
+### <a id="field-schema">Field Schema</a>
 
-class MyForm extends React.Component {
-   constructor(props) {
-      this.state = {
-         instance: new FormEngine(myForm)
-      }
-   }
-   
-   render() {
-    return (
-      <Form
-        instance={this.state.instance}
-        onSubmit={this._onSubmit}
-      />
-    );
-  }
+Field objects also adhere to a strict schema. They must contain an `id`, `type` and `title`:
 
-  _onSubmit () => {
-     const { instance } = this.state;
-     const model = instance.getModel();
-     // Do stuff
-  }  
+```js
+{
+    // The most minimal fields array
+    id: 'subsection_ID',
+    title: 'Subsection Title',
+    fields: [
+        {
+            id: 'field_ID',
+            type: 'string',
+            title: 'Field title'
+        }
+    ]
 }
-
 ```
-
-
-
