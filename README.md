@@ -122,7 +122,7 @@ import { Form, FormEngine } from 'react-json-form-engine';
 
 <table>
 <tr>
-<th align="right"><code></code></th>
+<th align="right"><code>FormEngine</code></th>
 <td>Instantiates and manages the form instance</td>
 </tr>
 <tr>
