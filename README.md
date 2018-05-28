@@ -237,20 +237,3 @@ By default, a `string` field is rendered as `<Text />`, but with `options` it au
 By default, a `boolean` field is rendered as `<Checkbox />`, but with `options` it automatically renders as a `<Radio />`.
 
 > Maximum of two (2) options are allowed for `<Radio />` of type `boolean`. Use type `string` for unlimited `<Radio />` options.
-
-[
-{
-id: 'field_1',
-type: 'boolean',
-title: 'Checkbox Field'
-},
-{             
-id: 'field_2',
-type: 'boolean',
-title: 'Radio Field',
-options: [
-{ id: "op1", title: "Option 1" },
-{ id: "op2", title: "Option 2" },
-]
-}
-]
