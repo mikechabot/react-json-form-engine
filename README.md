@@ -183,9 +183,21 @@ Field objects also adhere to a strict schema. At minimum, they must contain an `
 }
 ```
 
-The field's `type` is the most important property; it tells the `FormEngine` what data type should be stored in the model. 
+The field's `type` is the most important property. It determines the data type stored in the model for the field's value, and also the form control that will eventually be rendered.
 
-The following data types are supported:
+Depending on the `type`, the following components are available to you:
+
+
+| Data Type | Field Type  | Default Control | Additional Controls                              |
+|-----------|-------------|------------------|-------------------------------------------------|
+| String    | `string`    |  `<Text />`   |  `<Password />`, `<Textarea />`, `<Select />`, `<Radio />` |
+| Boolean   | `boolean`   |  `<Checkbox />`   |   `<Radio />` |
+| Number    | `number`    |  `<Number />`   |   `<Range />` |
+| Array     | `array`     | `<Select />`  |   `<Checkboxgroup />`  |
+| Date      | `date`      | `<DateTime />`    | N/A |
+
+
+
 
 | Data Type | Field Type  | Default Control         | Supports `options`?
 |-----------|-------------|-------------------------|-----------------------|
