@@ -206,44 +206,25 @@ Determines the data type of the value to be stored in the model, and also plays 
 
 #### `string`
 
-By default, a `string` field will be rendered as `<Text />` control. However, a `string` field with `options` will be automatically rendered as `<Select />` control:
+By default, a `string` field is rendered as `<Text />`, but with `options` it automatically renders as a `<Select />`.
 
-<table>
-  <tr>
-    <th>Definition</th>
-    <th>Component</th>
-  </tr>
-  <tr>
-    <td>
-    <pre>
-{
-  id: 'field_ID',
-  type: 'string',
-  title: 'Field title'
-}
-    </pre>
-    </td>
-    <td>
-      &lt;Text /&gt;
-    </td>
-  </tr>
-  <tr>
-    <td>
-    <pre>
-{
-  id: 'field_ID',
-  type: 'string',
-  title: 'Field title',
-  options: [
-    { id: "op1", title: "Option 1" },
-    { id: "op2", title: "Option 2" },
-  ]
-}
-    </pre>
-    </td>
-    <td>
-      &lt;Select /&gt;
-    </td>
-  <tr>
-</table>
-
+```js
+[
+  {
+    // Renders as <Text />
+    id: 'field_ID',
+    type: 'string',
+    title: 'Field title'
+  },
+  {
+    // Renders as <Select />
+    id: 'field_ID',
+    type: 'string',
+    title: 'Field title',
+    options: [
+      { id: "op1", title: "Option 1" },
+      { id: "op2", title: "Option 2" },
+    ]
+  }
+]
+```
