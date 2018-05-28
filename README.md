@@ -204,7 +204,7 @@ Determines the data type of the value stored in the model, and also plays a role
 
 ----
 
-The additional field properties are as follows
+The additional field properties are as follows:
 
 | Property        | Type      | Required | Description                                                                   | 
 |-----------------|-----------|----------|-------------------------------------------------------------------------------|
