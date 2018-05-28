@@ -179,7 +179,7 @@ Field objects also adhere to a strict schema. At minimum, they must contain an `
 
 Before we continue to the field schema definition, it's important to understand how the `FormEngine` consumes and renders field objects. 
 
-A field is rendered contextually based on how its configured within the schema. The following properties to determine what kind of form control to render (i.e. <input />, <select />, etc):
+A field is rendered contextually based on how its configured within the schema. The following properties to determine what kind of form control to render (i.e. `<input />`, `<select />`, etc):
 
   1. Field `type`
   2. Field `options`
