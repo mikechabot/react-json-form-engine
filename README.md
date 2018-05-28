@@ -195,25 +195,41 @@ The following data types are supported:
 
 ----
 
-For example, if a field has a `type` of `string`:
+For example, a `string` field will be rendered as a `text` input:
 
-```js
+<table>
+  <tr>
+    <th>Field Definition</th>
+    <th>Field Instance</th>
+  </tr>
+  <tr>
+    <td>
+    <pre>
 {
-    id: 'field_ID',
-    type: 'string',
-    title: 'Field title'
+  id: 'field_ID',
+  type: 'string',
+  title: 'Field title'
 }
-```
-
-It will simply be rendered as a `text` input:
-
-```html
-<input name="field_ID" id="field_ID" class="input" type="text" value="">
-```
+    </pre>
+    </td>
+    <td>
+      <pre>
+&lt;input name="field_ID" id="field_ID" class="input" type="text" value=""&gt;
+      </pre>
+    </td>
+  <tr>
+</table>
 
 If a field has a `type` of `string`, but has `options`:
 
-```js
+<table>
+  <tr>
+    <th>Field Definition</th>
+    <th>Field Instance</th>
+  </tr>
+  <tr>
+    <td>
+    <pre>
 {
   id: 'field_ID',
   type: 'string',
@@ -223,17 +239,19 @@ If a field has a `type` of `string`, but has `options`:
     { id: "op2", title: "Option 2" },
   ]
 }
-```
-It will be rendered as a `select`:
-
-```html
-<select id="field_ID" name="field_ID">
-  <option value="">-- select value --</option>
-  <option value="op1">Option 1</option>
-  <option value="op2">Option 2</option>
-</select>
-```
-
+    </pre>
+    </td>
+    <td>
+      <pre>
+&lt;select id="field_ID" name="field_ID"&gt;
+  &lt;option value=""&gt;-- select value --&lt;/option&gt;
+  &lt;option value="op1"&gt;Option 1&lt;/option&gt;
+  &lt;option value="op2"&gt;Option 2&lt;/option&gt;
+&lt;/select&gt;
+      </pre>
+    </td>
+  <tr>
+</table>
 
 
 | Property  | Type      | Required | Description                                                                 | 
