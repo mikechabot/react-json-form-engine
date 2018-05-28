@@ -120,8 +120,6 @@ If you'd like to use , be sure to also include the icon pack:
 
 Before we start rendering, we'll need to build a [Form Definition](#form-definition), which is the skeleton structure that tells the `FormEngine` how to render the form.
 
-----
-
 ### <a id="form-definition">Form Definition</a>
 
 Form definitions adhere to a strict schema. They must contain at least **one section**, which contains at least **one subsection**, which contains at least **one [Field Definition](#field-definition)**.
