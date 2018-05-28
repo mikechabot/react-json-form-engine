@@ -123,7 +123,7 @@ Before we start rendering, we'll need to build a [Form Definition](#form-definit
 
 ### <a id="form-definition">Form Definition</a>
 
-Form definitions must adhere to a strict schema. They must contain at least **one section**, which contains at least **one subsection**, which contains at least **one field**.
+Form definitions adhere to a strict schema. They must contain at least **one section**, which contains at least **one subsection**, which contains at least **one field**.
 
 > View the full schema in the [FormAPIService](https://github.com/mikechabot/react-json-form-engine/blob/master/src/form/service/form-api-service.js#L27)
 
