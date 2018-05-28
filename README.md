@@ -34,7 +34,8 @@ Within the React ecosystem, there's no shortage of approaches to take for form s
 - [Live Demo](#live-demo)
 - [Installing](#installing)
 - [Getting Started](#getting-started)
-  - [Basic Example](#basic-example)
+  - [FormEngine](#form-engine)
+  - [&lt;Form /&gt;](#form)
   - [Form Schema](#form-schema)
   
 ## <a id="live-demo">Live Demo</a>
@@ -131,7 +132,7 @@ import { Form, FormEngine } from 'react-json-form-engine';
 </tr>
 </table>
 
-#### <a id="basic-example">Basic Example</a>
+#### <a id="form-engine">FormEngine</a>
 
 ```jsx
 import React from 'react';
@@ -164,6 +165,8 @@ class MyForm extends React.Component {
 
 ```
 
+#### <a id="form">&lt;Form /&gt;</a>
+
 #### <a id="form-schema">Form Schema</a>
 
 Form objects fed to `FormEngine` must adhere to a strict schema. The full schema is located in the [FormAPIService](https://github.com/mikechabot/react-json-form-engine/blob/master/src/form/service/form-api-service.js#L27), however don't worry about making any mistakes during instantiation, `FormEngine` will notify the UI if it can't digest the object:
@@ -193,3 +196,39 @@ export default {
     ]
 };
 ```
+
+#### <a id="form-schema">Basic Example</a>
+
+```jsx
+import React from 'react';
+import { Form, FormEngine } from 'react-json-form-engine';
+
+const myForm = import('./my-form.json');
+
+class MyForm extends React.Component {
+   constructor(props) {
+      this.state = {
+         instance: new FormEngine(myForm)
+      }
+   }
+   
+   render() {
+    return (
+      <Form
+        instance={this.state.instance}
+        onSubmit={this._onSubmit}
+      />
+    );
+  }
+
+  _onSubmit () => {
+     const { instance } = this.state;
+     const model = instance.getModel();
+     // Do stuff
+  }  
+}
+
+```
+
+
+
