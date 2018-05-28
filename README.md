@@ -188,23 +188,14 @@ Field objects also adhere to a strict schema. At minimum, they must contain an `
 The field's `type` determines how its value will be stored the model, and also plays a role in which form control to render:
 
 | Field/Data Type  | Default Control  | Additional Controls                                       | Supports `options`? |
-|-------------|------------------|-----------------------------------------------------------|---------------------|
-| `string`    |  `<Text />`      | `<Password />`, `<Textarea />`, `<Select />`, `<Radio />` | Yes                 |
-| `boolean`   |  `<Checkbox />`  | `<Radio />`                                               | Yes                 |
-| `number`    |  `<Number />`    | `<Range />`                                               | No                  |
-| `array`     | `<Select />`     | `<Checkboxgroup />`                                       | Yes                 |
-| `date`      | `<DateTime />`   | N/A                                                       | No                  |
+|------------------|------------------|-----------------------------------------------------------|---------------------|
+| `string`         | `<Text />`       | `<Password />`, `<Textarea />`, `<Select />`, `<Radio />` | Yes*                |
+| `boolean`        | `<Checkbox />`   | `<Radio />`                                               | Yes*                |
+| `number`         | `<Number />`     | `<Range />`                                               | No                  |
+| `array`          | `<Select />`     | `<Checkboxgroup />`                                       | Yes                 |
+| `date`           | `<DateTime />`   | N/A                                                       | No                  |
 
-
-
-
-| Data Type | Field Type  | Default Control         | Supports `options`?
-|-----------|-------------|-------------------------|-----------------------|
-| String    | `string`    | `<input type="text" />` | Yes. Transitions to `<select />` |
-| Boolean   | `boolean`   | Single Checkbox         | Yes. Transitions to Radio |
-| Number    | `number`    | `<input type="text" />` | No.
-| Array     | `array`     | Checkboxgroup           | Yes.
-| Date      | `date`      | [`react-datepicker`](https://reactdatepicker.com) | No. |
+> Certain field types will *automatically* transition from their Default Control to a supported Additional Control with the addition of an `options` array. 
 
 ----
 
