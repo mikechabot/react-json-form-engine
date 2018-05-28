@@ -177,15 +177,17 @@ Field objects also adhere to a strict schema. At minimum, they must contain an `
 }
 ```
 
-Before we continue to the field schema definition, it's important to understand how the `FormEngine` consumes and renders field objects. 
+Fields are rendered contextually based on how they are configured within the schema.
 
-A field is rendered contextually based on how its configured within the schema. The following properties to determine what kind of form control to render (i.e. `<input />`, `<select />`, etc):
+The field's `type` is the most important property. It tells the `FormEngine` what data type you want to store in the model. The following data types are supported:
+ 
+  1. `string`
+  2. `boolean`
+  3. `number`
+  4. `array`
+  5. `date`
 
-  1. Field `type`
-  2. Field `options`
-  3. Decorator `componentType`
-
-The field's `type` is the most important property. It tells the `FormEngine` what data type you want to store in the model. For instance, if a field has a `type` of `string`, it will be rendered as an:
+For instance, if a field has a `type` of `string`, it will be rendered as an:
 
 ```html
 <input name="field_ID" id="field_ID" class="input" type="text" value="">
