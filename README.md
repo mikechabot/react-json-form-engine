@@ -210,8 +210,9 @@ By default, a `string` field will be rendered as `<Text />` control:
 
 <table>
   <tr>
-    <th>Field Definition</th>
-    <th>Field Instance</th>
+    <th>Definition</th>
+    <th>Component</th>
+    <th>Rendered Component</th>
   </tr>
   <tr>
     <td>
@@ -222,6 +223,9 @@ By default, a `string` field will be rendered as `<Text />` control:
   title: 'Field title'
 }
     </pre>
+    </td>
+    <td>
+      &lt;Text /&gt;
     </td>
     <td>
       <pre>
@@ -254,7 +258,7 @@ However, a `string` field with `options` will be automatically rendered as `<Sel
     </pre>
     </td>
     <td>
-      &lt;Input /&gt;
+      &lt;Select /&gt;
     </td>
     <td>
       <pre>
