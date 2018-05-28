@@ -186,16 +186,18 @@ Field objects also adhere to a strict schema. At minimum, they must contain an `
 The field's `type` is the most important property; it tells the `FormEngine` what data type should be stored in the model. 
 
 The following data types are supported:
- 
-  * String
-  * Boolean
-  * Number
-  * Array
-  * Date
+
+| Data Type | Field Type  | Default Control         | Supports `options`?
+|-----------|-------------|-------------------------|-----------------------|
+| String    | `string`    | `<input type="text" />` | Yes. Transitions to `<select />` |
+| Boolean   | `boolean`   | Single Checkbox         | Yes. Transitions to Radio |
+| Number    | `number`    | `<input type="text" />` | No.
+| Array     | `array`     | Checkboxgroup           | Yes.
+| Date      | `date`      | [`react-datepicker`](https://reactdatepicker.com) | No. |
 
 ----
 
-For example, a `string` field will be rendered as a `text` input:
+For example, a `string` field will be rendered as a `text` control:
 
 <table>
   <tr>
@@ -220,7 +222,7 @@ For example, a `string` field will be rendered as a `text` input:
   <tr>
 </table>
 
-If a field has a `type` of `string`, but has `options`:
+A `string` field with `options` will be rendered as `<select />` control:
 
 <table>
   <tr>
