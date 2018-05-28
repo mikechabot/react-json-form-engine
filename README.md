@@ -36,6 +36,7 @@ Within the React ecosystem, there's no shortage of approaches to take for form s
 - [Getting Started](#getting-started)
   - [Form Definition](#form-definition)
   - [Field Definition](#field-definition)
+  - [Field Decorators](#field-decorators)
 - [Validation](#validation)
 - [Conditions](#conditions)
 
@@ -213,12 +214,14 @@ The additional field properties are as follows:
 | `title`         | `string`  | Yes      | Display label for the field                                                   |
 | `options`       | `array`   | No       | Options to render for `string`, `array` and `boolean` types                   |
 | `fields`        | `array`   | No       | Children of the field (Must adhere to [Field Definition](#field-definition))  |
-| `min`           | `number`  | No       | Minimum value. (Used for `number` field types)                                |
-| `max`           | `number`  | No       | Maximum value. (Used for `number` field types)                                |
-| `required`      | `boolean` | No       | Whether the field is required (See [Validation](#validation))                 |
 | `placeholder`   | `string`  | No       | Display a placeholder                                                         |
 | `showCondition` | `object`  | No       | Condition object (See [Conditions](#conditions))                              |
+| `required`      | `boolean` | No       | Whether the field is required (See [Validation](#validation))                 |
 | `pattern`       | `string`  | No       | Pattern to match (See [Validation](#validation))                              |
+| `min`           | `number`  | No       | Minimum value. (Used for `number` field types)                                |
+| `max`           | `number`  | No       | Maximum value. (Used for `number` field types)                                |
+| `hideTime`      | `boolean` | No       | Hide the time value. (Used for `date` field types)                            |
+| `hideCalendar`  | `boolean` | No       | Hide the date value. (Used for `date` field types)                            |
 
 ----
 
@@ -278,6 +281,12 @@ By default, a `boolean` field is rendered as `<Checkbox />`, but with `options` 
 > A maximum of two (2) options is allowed for `boolean` fields. For unlimited `<Radio />` options, use the `string` type with a `componentType` of `radio`.
 
 [![Edit react-json-form-engine (Boolean Field Type Transition)](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/zw9q7zrol4)
+
+### <a id="form-definition">Field Decorators</a> 
+
+As we've seen above, both field `type` and `options` help drive the rendered Component type. However, in some cases, you'll want to explicitly override the Component type. 
+
+Use field decorotors.
 
 ## <a id="validation">Validation</a>
 
