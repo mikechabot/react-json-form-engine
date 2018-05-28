@@ -315,7 +315,7 @@ By default, a `boolean` field is rendered as `<Checkbox />`, but with `options` 
 
 As we've seen above, both field `type` and `options` help drive the rendered Component type. However, you'll often want to explicitly override the default component type in favor of another. 
 
-Add the `decorators` object to the root of the [Form Definition](#form-definition); this object will be keyed by [Field ID](#field-id), and can contain the `hint` and `component`:
+Add the `decorators` object to the root of the [Form Definition](#form-definition); this object will be keyed by [Field ID](#field-id), and can contain the properties `hint` and `component`:
 
 ```js
   {
@@ -334,8 +334,10 @@ Add the `decorators` object to the root of the [Form Definition](#form-definitio
 | Field Type       | Component Decorator Overrides   | 
 |------------------|---------------------------------|
 | `string`         | `password`, `textarea`, `radio` |
-| `number`         | `range`                |  
-| `array`          | `checkboxgroup`        |
+| `number`         | `range`                         |  
+| `array`          | `checkboxgroup`                 |
+
+[![Edit react-json-form-engine (Component Type Decorators)](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/wqpy6099p7)
 
 ## <a id="validation">Validation</a>
 
