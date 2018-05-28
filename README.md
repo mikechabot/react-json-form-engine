@@ -35,7 +35,7 @@ Within the React ecosystem, there's no shortage of approaches to take for form s
 - [Installing](#installing)
 - [Getting Started](#getting-started)
   - [Form Definition](#form-definition)
-  - [Field Schema](#field-schema)  
+  - [Field Definition](#field-definition)  
   
 ## <a id="live-demo">Live Demo</a>
 
@@ -164,7 +164,7 @@ If the form definition is malformed, the UI will be notified of the failure:
 [![Edit react-json-form-engine (Malformed)](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/mm3y516258)
 ----
 
-### <a id="field-schema">Field Definition</a>
+### <a id="field-definition">Field Definition</a>
 
 Field definitions also adhere to a strict schema. At minimum, they must contain an `id`, `type` and `title`:
 
@@ -202,7 +202,21 @@ Determines the data type of the value stored in the model, and also plays a role
 
 ----
 
-### <a id="field-schema">Field Type Transitions</a>
+The additional field properties are as follows
+
+| Property  | Type      | Required | Description                                                                 | 
+|-----------|-----------|----------|-----------------------------------------------------------------------------|
+| `id`      | `string`  | Yes      | See [Field ID](#field-id).                                                  |
+| `type`    | `string`  | Yes      | See [Field Type](#field-type).                                              |
+| `title`   | `string`  | Yes      | Display label for the field.                                                |
+| `options` | `array`   | No       | Options to render for `string`, `array` and `boolean` types.                |
+| `fields`  | `array`   | No       | Children of the field (children must adhere to Field schema).               |
+| `min`     | `number`  | No       | Minimum value (Used for `number` field types).                              |
+| `max`     | `number`  | No       | Maximum value (Used for `number` field types).                              |
+
+----
+
+### <a id="field-type-transitions">Field Type Transitions</a>
 
 #### `string`
 
