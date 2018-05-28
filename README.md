@@ -155,7 +155,7 @@ export default {
 
 ---
 
-### <a id="form-schema-validation">Form Schema Validation</a>
+#### <a id="form-schema-validation">Form Schema Validation</a>
 
 If the form object is malformed, the UI will be notified of the exact cause and location of the failure: 
 
