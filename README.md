@@ -118,9 +118,13 @@ If you'd like to use , be sure to also include the icon pack:
 
 #### <a id="form-schema">Form Schema</a>
 
-Forms objects fed to the `FormEngine` must adhere to a strict schema. The full schema is defined in the [FormAPIService](https://github.com/mikechabot/react-json-form-engine/blob/master/src/form/service/form-api-service.js#L27), however don't worry about making any mistakes during instantiation, `FormEngine` will notify the UI if it can't digest the object:
+Forms must adhere to a strict schema. If the form object is malformed, the UI will be notified of the exact cause and location of the failure:
 
+<div align="center">
+<img src='https://raw.githubusercontent.com/mikechabot/react-json-form-engine-storybook/master/src/assets/form-engine-api-check.png' alt='api-check' aria-label='api-check' />
+</div>
 
+> See the full schema definition in the [FormAPIService](https://github.com/mikechabot/react-json-form-engine/blob/master/src/form/service/form-api-service.js#L27)
 
 A `form` *must* contain at least **one** (1) section, which in turn *must* contain at least **one** (1) subsection. Form fields are stored within subsections.
 
