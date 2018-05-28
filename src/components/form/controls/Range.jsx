@@ -18,10 +18,10 @@ const Range = ({ id, field, value, onUpdate }) => {
         <Flex column flexShrink={0}>
             <Flex hAlignCenter>{__hasValue(value) ? value : 'No Value'}</Flex>
             <Flex flex={1}>
-                <MinMaxLabel value={field.min} className="m-right--xx-small" />
+                <MinMaxLabel value={field.min} style={{ marginRight: '0.25rem' }} />
                 <Flex flex={1}>
                     <input
-                        className="full-width"
+                        style={{ width: '100%' }}
                         name={id}
                         id={id}
                         type="range"
@@ -31,13 +31,17 @@ const Range = ({ id, field, value, onUpdate }) => {
                         onChange={onUpdate}
                     />
                 </Flex>
-                <MinMaxLabel value={field.max} className="m-left--xx-small" />
+                <MinMaxLabel value={field.max} style={{ marginLeft: '0.25rem' }} />
             </Flex>
         </Flex>
     );
 };
 
-const MinMaxLabel = ({ value, className }) => <div className={`is-size-7 ${className}`}>{value}</div>;
+const MinMaxLabel = ({ value, style }) => (
+    <div style={style} className="is-size-7">
+        {value}
+    </div>
+);
 
 MinMaxLabel.propTypes = {
     value: PropTypes.number.isRequired

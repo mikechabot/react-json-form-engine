@@ -13,7 +13,7 @@ const CheckboxGroup = ({ id, field, value, instance, onUpdate }) => {
         return <ValidationFieldError id={id} />;
     }
     return (
-        <Flex column={true} className="m-bottom--x-small">
+        <Flex column={true} style={{ marginBottom: '0.5rem' }}>
             {field.options.map(_renderOption.bind(this, id, value, instance, onUpdate))}
         </Flex>
     );
@@ -21,7 +21,7 @@ const CheckboxGroup = ({ id, field, value, instance, onUpdate }) => {
 
 const _renderOption = (id, value, instance, onUpdate, option, index) => {
     return (
-        <Flex column={true} key={index} className={index > 0 ? 'm-top--xx-small' : ''}>
+        <Flex column={true} key={index} style={index > 0 ? { marginTop: '0.25rem' } : {}}>
             <Checkbox
                 id={option.id}
                 option={option}

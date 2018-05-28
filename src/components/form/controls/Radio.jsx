@@ -26,7 +26,7 @@ const _renderOption = (field, value, instance, onUpdate, option, index) => {
     return (
         <Flex
             key={index}
-            className={index === 0 ? '' : field.inline ? 'm-left--x-small' : 'm-top--xx-small'}
+            style={index === 0 ? {} : field.inline ? { marginLeft: '0.5rem' } : { marginTop: '0.25rem' }}
             column
             vAlignCenter
         >
