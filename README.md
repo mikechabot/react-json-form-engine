@@ -114,7 +114,7 @@ If you'd like to use , be sure to also include the icon pack:
 
 ## <a name="react-json-form-engine#getting-started">Getting Started</a>
 
-Use `FormEngine` to instantiate your form, then render it with `<Form />`. 
+The public API consists of two components that are used in tandem: `FormEngine` manages the form, while `<Form />` renders it. 
 
 #### Basic Example
 
