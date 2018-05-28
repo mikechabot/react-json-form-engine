@@ -118,15 +118,9 @@ If you'd like to use , be sure to also include the icon pack:
 
 #### <a id="form-schema">Form Schema</a>
 
-Forms must adhere to a strict schema. If the form object is malformed, the UI will be notified of the exact cause and location of the failure:
-
-<div align="center">
-<img src='https://raw.githubusercontent.com/mikechabot/react-json-form-engine-storybook/master/src/assets/form-engine-api-check.png' alt='api-check' aria-label='api-check' />
-</div>
+Form objects must adhere to a strict schema. They must contain at least **one** section, which contains at least **one** subsection, that contains an array of fields:
 
 > See the full schema definition in the [FormAPIService](https://github.com/mikechabot/react-json-form-engine/blob/master/src/form/service/form-api-service.js#L27)
-
-A form object must contain at least **one** section, which contains at least **one** subsection, that contains an array of fields:
 
 ```js
 // The most minimal form possible
@@ -152,6 +146,38 @@ export default {
     ]
 };
 ```
+
+If the form object is malformed, the UI will be notified of the exact cause and location of the failure:
+
+<div align="center">
+<img src='https://raw.githubusercontent.com/mikechabot/react-json-form-engine-storybook/master/src/assets/form-engine-api-check.png' alt='api-check' aria-label='api-check' />
+</div>
+
+
+Field objects must also adhere to a strict schema, and at minimum require the following properties:
+
+<table>
+  <tr>
+    <th>Property</td>
+    <th>Type</td>
+    <th>Description</td>
+  </tr>
+  <tr>
+    <td>ID</td>
+    <td>String</td>
+    <td>Uniquely identifies the field</td>
+  </tr>
+  <tr>
+    <td>Type</td>
+    <td>Enum</td>
+    <td>Data type of the field</td>
+  </tr>
+  <tr>
+    <td>Title</td>
+    <td>String</td>
+    <td>Display label of the field</td>
+  </tr>
+</table>
 
 
 The public API consists of two components that are used in tandem:
