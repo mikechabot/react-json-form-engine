@@ -183,9 +183,7 @@ Field objects also adhere to a strict schema. At minimum, they must contain an `
 }
 ```
 
-Fields are rendered contextually based on how they are configured within the schema.
-
-The field's `type` is the most important property; it tells the `FormEngine` what data type should be stored in the model. 
+Fields are rendered contextually based on how they are configured within the schema. The field's `type` is the most important property; it tells the `FormEngine` what data type should be stored in the model. 
 
 The following data types are supported:
  
