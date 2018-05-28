@@ -204,15 +204,19 @@ Determines the data type of the value stored in the model, and also plays a role
 
 The additional field properties are as follows
 
-| Property  | Type      | Required | Description                                                                   | 
-|-----------|-----------|----------|-------------------------------------------------------------------------------|
-| `id`      | `string`  | Yes      | See [Field ID](#field-id).                                                    |
-| `type`    | `string`  | Yes      | See [Field Type](#field-type).                                                |
-| `title`   | `string`  | Yes      | Display label for the field.                                                  |
-| `options` | `array`   | No       | Options to render for `string`, `array` and `boolean` types.                  |
-| `fields`  | `array`   | No       | Children of the field (Must adhere to [Field Definition](#field-definition)). |
-| `min`     | `number`  | No       | Minimum value (Used for `number` field types).                                |
-| `max`     | `number`  | No       | Maximum value (Used for `number` field types).                                |
+| Property        | Type      | Required | Description                                                                   | 
+|-----------------|-----------|----------|-------------------------------------------------------------------------------|
+| `id`            | `string`  | Yes      | See [Field ID](#field-id).                                                    |
+| `type`          | `string`  | Yes      | See [Field Type](#field-type).                                                |
+| `title`         | `string`  | Yes      | Display label for the field.                                                  |
+| `options`       | `array`   | No       | Options to render for `string`, `array` and `boolean` types.                  |
+| `fields`        | `array`   | No       | Children of the field (Must adhere to [Field Definition](#field-definition)). |
+| `min`           | `number`  | No       | Minimum value (Used for `number` field types).                                |
+| `max`           | `number`  | No       | Maximum value (Used for `number` field types).                                |
+| `required`      | `boolean` | No       | Whether the field is required (See [Validation](#validation)                  |
+| `placeholder`   | `string`  | No       | Display a placeholder                                                         |
+| `showCondition` | `object`  | No       | Condition object (See [Conditions](#conditions)                               |
+| `pattern`       | `string`  | No       | Pattern to match (See [Validation](#validation)                               |
 
 ----
 
