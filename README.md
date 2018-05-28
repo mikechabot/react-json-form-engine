@@ -339,6 +339,8 @@ Add the `decorators` object to the root of the [Form Definition](#form-definitio
 
 [![Edit react-json-form-engine (Component Type Decorators)](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/wqpy6099p7)
 
+----
+
 ## <a id="validation">Validation</a>
 
 ## <a id="conditions">Conditions</a>
