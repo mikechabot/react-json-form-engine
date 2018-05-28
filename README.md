@@ -34,9 +34,10 @@ Within the React ecosystem, there's no shortage of approaches to take for form s
 - [Live Demo](#live-demo)
 - [Installing](#installing)
 - [Getting Started](#getting-started)
+  - [Form Schema](#form-schema)
   - [FormEngine](#form-engine)
   - [&lt;Form /&gt;](#form)
-  - [Form Schema](#form-schema)
+  
   
 ## <a id="live-demo">Live Demo</a>
 
@@ -115,6 +116,39 @@ If you'd like to use , be sure to also include the icon pack:
 
 ## <a id="getting-started">Getting Started</a>
 
+#### <a id="form-schema">Form Schema</a>
+
+Forms objects fed to the `FormEngine` must adhere to a strict schema. The full schema is defined in the [FormAPIService](https://github.com/mikechabot/react-json-form-engine/blob/master/src/form/service/form-api-service.js#L27), however don't worry about making any mistakes during instantiation, `FormEngine` will notify the UI if it can't digest the object:
+
+
+
+A `form` *must* contain at least **one** (1) section, which in turn *must* contain at least **one** (1) subsection. Form fields are stored within subsections.
+
+```js
+export default {
+    id: 'Form_ID',
+    title: 'Form Title',
+    sections: [
+        {
+            id: 'section_ID',
+            title: 'Section Title',
+            subsections: [
+                {
+                    id: 'subsection_ID',
+                    title: 'Subsection Title',
+                    fields: [
+                        {
+                            ...
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+};
+```
+
+
 The public API consists of two components that are used in tandem:
 
 ```js
@@ -167,35 +201,7 @@ class MyForm extends React.Component {
 
 #### <a id="form">&lt;Form /&gt;</a>
 
-#### <a id="form-schema">Form Schema</a>
 
-Form objects fed to `FormEngine` must adhere to a strict schema. The full schema is located in the [FormAPIService](https://github.com/mikechabot/react-json-form-engine/blob/master/src/form/service/form-api-service.js#L27), however don't worry about making any mistakes during instantiation, `FormEngine` will notify the UI if it can't digest the object:
-
-A `form` *must* contain at least **one** (1) section, which in turn *must* contain at least **one** (1) subsection. Form fields are stored within subsections.
-
-```js
-export default {
-    id: 'Form_ID',
-    title: 'Form Title',
-    sections: [
-        {
-            id: 'section_ID',
-            title: 'Section Title',
-            subsections: [
-                {
-                    id: 'subsection_ID',
-                    title: 'Subsection Title',
-                    fields: [
-                        {
-                            ...
-                        }
-                    ]
-                }
-            ]
-        }
-    ]
-};
-```
 
 #### <a id="form-schema">Basic Example</a>
 
