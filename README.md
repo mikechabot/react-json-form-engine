@@ -226,7 +226,7 @@ The additional field properties are as follows
 
 #### `string`
 
-By default, a `string` field is rendered as `<Text />`, but with `options` it automatically renders as a `<Select />`. In both cases, a `string` is stored to the model.
+By default, a `string` field is rendered as `<Text />`, but with `options` it automatically renders as a `<Select />`.
 
 ```js
 [
@@ -254,7 +254,7 @@ By default, a `string` field is rendered as `<Text />`, but with `options` it au
 
 #### `boolean`
 
-By default, a `boolean` field is rendered as `<Checkbox />`, but with `options` it automatically renders as a `<Radio />`. In both cases, a `boolean` is stored to the model.
+By default, a `boolean` field is rendered as `<Checkbox />`, but with `options` it automatically renders as a `<Radio />`.
 
 ```js
 [
