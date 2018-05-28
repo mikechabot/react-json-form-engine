@@ -90,7 +90,7 @@ Requires React 15.0.0+
 
 #### Font Awesome
 
-If you'd like to use , be sure to also include the icon pack:
+If you'd like to use [Font Awesome](https://fontawesome.com), be sure to also include the icon pack:
 
 ```html
 <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css">
