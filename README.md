@@ -35,7 +35,7 @@ Within the React ecosystem, there's no shortage of approaches to take for form s
 - [Installing](#installing)
 - [Getting Started](#getting-started)
   - [Form Definition](#form-definition)
-  - [Field Definition](#field-definition)  
+  - [Field Definition](#field-definition)
   
 ## <a id="live-demo">Live Demo</a>
 
@@ -276,3 +276,9 @@ By default, a `boolean` field is rendered as `<Checkbox />`, but with `options` 
 > A maximum of two (2) options is allowed for `boolean` fields. For unlimited `<Radio />` options, use the `string` type with a `componentType` of `radio`.
 
 [![Edit react-json-form-engine (Boolean Field Type Transition)](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/zw9q7zrol4)
+
+## <a id="validation">Validation</a>
+
+## <a id="conditions">Conditions</a>
+
+
