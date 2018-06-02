@@ -131,7 +131,6 @@ const instance = new FormEngine(signUpFormDefinition);
  
 const SignUpForm = () => (
   <Form
-    width="100%"
     instance={instance}
     onSubmit={() => {
       const model = instance.getModel();  // Get form model
