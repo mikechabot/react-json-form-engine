@@ -124,7 +124,55 @@ If you'd like to use [Font Awesome](https://fontawesome.com), be sure to also in
 
 Before we start rendering, we'll need to build a [Form Definition](#form-definition), which is the skeleton structure that describes how the form should look and behave. The definition can be a JavaScript object or a [JSON Schema](http://json-schema.org). 
 
-Once we have a defintion, we'll create an instance of `FormEngine` and pass it to our `<Form />` component; both of which work to manage the form:
+Let's create a typical form:
+
+ <img src='https://raw.githubusercontent.com/mikechabot/react-json-form-engine-storybook/master/src/assets/login.png' alt='login' aria-label='login' />
+
+```javascript
+{
+  id: "login_form",
+  title: "Login Form",
+  sections: [
+    {
+      id: "section_1",
+      title: "Login Section",
+      subsections: [
+        {
+          id: "subsection_1",
+          title: "Login",
+          "subtitle": "Please enter your credentials.",
+          fields: [
+            {
+              id: "user_name",
+              title: "Username",
+              type: "string"
+            },
+            {
+              id: "user_pass",
+              title: "Password",
+              type: "string"
+            },
+            {
+              id: "remember_me",
+              title: "Remember me",
+              type: "boolean"
+            }
+          ]
+        }
+      ]
+    }
+  ],
+  decorators: {
+    "user_pass": {
+      component: {
+        type: "password"
+      }
+    }
+  }
+};
+```
+
+Once we have a defintion, we'll create an instance of `FormEngine` and pass it to our `<Form />` component; both of which work together to manage the form. And once filled out, `onSubmit` will get us the form responses:
 
  ```jsx
 const instance = new FormEngine(signUpFormDefinition); 
