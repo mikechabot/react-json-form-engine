@@ -10,7 +10,7 @@ Build lightning fast web forms from JSON.
 <br/>
 :heart: Rehydratable 
 
-While other libraries might utilize `react-redux`, or the `context` or `refs` API for complex form managagement, `react-json-form-engine` relies on React as little as possible, and offloads its core logic to plain JavaScript. The result is scalable, lightning fast performance with neglible reliance on the React lifecycle.
+While other libraries might utilize [react-redux](https://github.com/reduxjs/react-redux), or the `context` or `refs` API for complex form managagement, `react-json-form-engine` relies on React as little as possible, and offloads its core logic to plain JavaScript. The result is scalable, lightning fast performance with neglible reliance on the React lifecycle.
 
 Before proceeding, it's important to note that this engine was designed to manage large forms (multi-section and multi-subsection), that may contain complex field dependencies (e.g Only show the "Select Guardian" field if the "Age" response is less than `18`). This may or may not be for you, but it can also handle simple forms with extreme ease.
 
