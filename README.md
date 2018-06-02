@@ -122,12 +122,12 @@ If you'd like to use [Font Awesome](https://fontawesome.com), be sure to also in
 
 ## <a id="getting-started">Getting Started</a>
 
-Before we start rendering, we'll need to build a [Form Definition](#form-definition), which is the skeleton structure that describes how the form should look and behave. The definition can be a JavaScript object or a [JSON Schema](http://json-schema.org). 
+Before we start rendering, we'll need to build a [Form Definition](#form-definition), which is the skeleton structure that describes how the form should look and behave. The definition can be a JavaScript object or a [JSON Schema](http://json-schema.org).
 
-Let's create a typical form:
+Let's create a typical login form:
 
  <img src='https://raw.githubusercontent.com/mikechabot/react-json-form-engine-storybook/master/src/assets/login.png' alt='login' aria-label='login' />
-
+ 
 ```javascript
 {
   id: "login_form",
