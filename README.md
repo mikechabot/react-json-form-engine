@@ -1,6 +1,6 @@
 # <a href='https://github.com/mikechabot/react-json-form-engine'><img src='https://raw.githubusercontent.com/mikechabot/react-json-form-engine-storybook/master/src/assets/banner_dark.png' alt='logo' aria-label='https://github.com/mikechabot/react-json-form-engine' /></a>
 
-Build lightning-fast web forms from JSON.
+Build lightning fast web forms from JSON.
 
 :heart: Conditional logic 
 <br/>
@@ -8,9 +8,9 @@ Build lightning-fast web forms from JSON.
 <br/>
 :heart: Easy deserialization & rehydration
 
-Within the React ecosystem, there's no shortage of approaches to take for form state management. Utilization of Redux is popular, but the overhead is unnecessary. Other libraries might use `context`, or export some type of HOC, however they rely on ever-changing React patterns, and/or deprecatable APIs. 
+There are plenty of solutions for form management within the React ecosystem. Utilization of Redux is popular, but the overhead is unnecessary. Other libraries might use `context`, or export some type of HOC, however they rely on ever-changing React patterns, and/or deprecatable APIs. 
 
-`react-json-form-engine` takes a different approach: by relying on React as little as possible, and offloading everything else to pure JavaScript. The result is scalable, lightning-fast performance with neglible reliance on the React lifecycle.
+This library takes a different approach: by relying on React as little as possible, and offloading everything else to plain JavaScript. The result is scalable, lightning fast performance with neglible reliance on the React lifecycle.
 
 <div align="center">  
   <a href="https://travis-ci.org/mikechabot/react-json-form-engine">
@@ -41,9 +41,13 @@ Within the React ecosystem, there's no shortage of approaches to take for form s
 - [Validation](#validation)
 - [Conditions](#conditions)
 
+----
+
 ## <a id="live-demo">Live Demo</a>
 
 https://mikechabot.github.io/react-json-form-engine-storybook/
+
+> Storybook repository located [here](https://github.com/mikechabot/react-json-form-engine-storybook)
 
 ## <a id="installing">Installing</a>
 
