@@ -12,7 +12,7 @@ Build lightning fast web forms from JSON.
 
 While other libraries might utilize `react-redux`, or the `context` or `refs` API for complex form managagement, this library relies on React as little as possible, and offloads its core logic to plain JavaScript. The result is scalable, lightning fast performance with neglible reliance on the React lifecycle.
 
-Before proceeding, it's important to note that this engine was built to manage large forms (multi-section and multi-subsection), that may contain complex field dependencies (e.g Only show "Select Guardian" if the "Age" response is less than `18`). This may or may not be for you, but it can also handle simple forms with extreme ease.
+Before proceeding, it's important to note that this engine was built to manage large forms (multi-section and multi-subsection), that may contain complex field dependencies (e.g Only show the "Select Guardian" field if the "Age" response is less than `18`). This may or may not be for you, but it can also handle simple forms with extreme ease.
 
 It also offers an easy mechanism for serializing all form responses to JSON for persistence. The reverse also stands, as any form can be easily rehydrated with historical data, and returned to its previous state.
 
