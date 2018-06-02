@@ -128,6 +128,8 @@ Let's create a typical login form:
 
  <img src='https://raw.githubusercontent.com/mikechabot/react-json-form-engine-storybook/master/src/assets/login.png' alt='login' aria-label='login' />
  
+#### Login Form Definition
+
 ```javascript
 {
   id: "login_form",
@@ -179,6 +181,7 @@ const instance = new FormEngine(signUpFormDefinition);
  
 const SignUpForm = () => (
   <Form
+    hideTitle
     instance={instance}
     onSubmit={() => {
       const model = instance.getModel();  // Get form model
@@ -187,6 +190,14 @@ const SignUpForm = () => (
   />
 );
 ```
+
+Have a look at the Login Form demo:
+
+<a href="https://codesandbox.io/s/9lnylw51pp">
+  <img alt="Edit react-json-form-engine (Login Form Example)" src="https://codesandbox.io/static/img/play-codesandbox.svg">
+</a>
+
+----
 
 ### <a id="form-definition">Form Definition</a>
 
