@@ -150,7 +150,18 @@ Then, we just pass the instance to the `<Form />` component, and `react-json-for
 
 Let's create a simple login form:
 
- <img src='https://raw.githubusercontent.com/mikechabot/react-json-form-engine-storybook/master/src/assets/login.png' alt='login' aria-label='login' />
+<table>
+<tr>
+  <th>Title</th>
+  <th>Hide Title</th>
+</tr>
+  <tr>
+  <td>
+ <img src='https://raw.githubusercontent.com/mikechabot/react-json-form-engine-storybook/master/src/assets/login-title.png' alt='login-title' aria-label='login-title' /></td>
+  <td>
+ <img src='https://raw.githubusercontent.com/mikechabot/react-json-form-engine-storybook/master/src/assets/login.png' alt='login' aria-label='login' /></td>
+</tr>
+</table>
  
 #### Login Form Definition
 
