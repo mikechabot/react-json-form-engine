@@ -60,7 +60,7 @@ Requires React 15.0.0+
 
 `$ npm install --save react-json-form-engine`
 
-> Note: This library renders [Bulma](https://bulma.io/documentation/overview/start/) semantics; you'll need to include the styles on your own for everything to look nice. You can either install it with npm, or just have it served from a CDN.
+> Note: This library renders [Bulma](https://bulma.io/documentation/overview/start/) semantics; you'll need to include the styles on your own for everything to look nice. You can either install it with npm, or have it served from a CDN.
 
 > Note: [Font Awesome](https://fontawesome.com) is supported.
 
