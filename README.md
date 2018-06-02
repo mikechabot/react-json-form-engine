@@ -126,7 +126,7 @@ Before we start rendering, we'll need to build a [Form Definition](#form-definit
 
 Once we have a defintion, we'll create an instance of `FormEngine` and pass it to our `<Form />` component; both of which work to manage the form:
 
- ```javascript
+ ```jsx
 const instance = new FormEngine(signUpFormDefinition); 
  
 const SignUpForm = () => (
