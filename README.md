@@ -265,16 +265,16 @@ Form definitions adhere to a strict schema. They must contain at least **one sec
 ```js
 // The most minimal form possible
 export default {
-    id: 'Form_ID',
-    title: 'Form Title',
+    id: <string>,
+    title: <string>,
     sections: [
         {
-            id: 'section_ID',
-            title: 'Section Title',
+            id: <string>,
+            title: <string>,
             subsections: [
                 {
-                    id: 'subsection_ID',
-                    title: 'Subsection Title',
+                    id: <string>,
+                    title: <string>,
                     fields: [
                         {
                             ...
@@ -309,9 +309,9 @@ Field definitions also adhere to a strict schema. At minimum, they must contain 
 ```js
 // The most minimal field object
 {
-  id: 'field_ID',
-  type: 'string',
-  title: 'Field title'
+  id: <string>,
+  type: <string>,
+  title: <string>
 }
 ```
 #### <a id="field-id">Field ID</a>
