@@ -220,7 +220,7 @@ const instance = new FormEngine(loginForm);
 With the instance in hand, we can pass it our `<Form />` component:
 
 ```jsx
-const SignUpForm = () => (
+const LoginForm = () => (
   <Form
     hideTitle
     instance={instance}
@@ -235,7 +235,7 @@ And once filled out, `onSubmit` will get us the form responses:
 
 
 ```jsx
-const SignUpForm = () => (
+const LoginForm = () => (
   <Form
     hideTitle
     instance={instance}
