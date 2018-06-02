@@ -165,7 +165,7 @@ Let's create a simple login form:
  
 #### Login Form Definition
 
-Here's our definition; it contains a single section with a single subsection, that contains three fields:
+Here's our definition; it contains a single section with a single subsection, that contains three fields. We're also decorating the `user_pass` field to ensure it renders as a proper password field:
 
 ```javascript
 const loginForm = {
