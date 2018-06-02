@@ -6,6 +6,8 @@ Build lightning fast web forms from JSON.
 <br/>
 :heart: Flexible validation 
 <br/>
+:heart: Infinite depth
+<br/>
 :heart: Easy deserialization & rehydration
 
 There are plenty of solutions for form management within the React ecosystem. Utilization of Redux is popular, but the overhead is unnecessary. Other libraries might use `context`, or export some type of HOC, however they rely on ever-changing React patterns, and/or deprecatable APIs. 
