@@ -12,7 +12,7 @@ Build lightning fast web forms from JSON.
 
 While other libraries might utilize `react-redux`, or the `context` or `refs` API for complex form managagement, this library relies on React as little as possible, and offloads its core logic to plain JavaScript. The result is scalable, lightning fast performance with neglible reliance on the React lifecycle.
 
-Before proceeding, it's important to note that this engine was built to manage large forms (multi-section and multi-subsection), that may contain complex field dependencies (e.g Only show the "Select Guardian" field if the "Age" response is less than `18`). This may or may not be for you, but it can also handle simple forms with extreme ease.
+Before proceeding, it's important to note that this engine was designed to manage large forms (multi-section and multi-subsection), that may contain complex field dependencies (e.g Only show the "Select Guardian" field if the "Age" response is less than `18`). This may or may not be for you, but it can also handle simple forms with extreme ease.
 
 It also offers an easy mechanism for serializing all form responses to JSON for persistence. The reverse also stands, as any form can be easily rehydrated with historical data, and returned to its previous state.
 
@@ -154,8 +154,10 @@ Let's create a simple login form:
  
 #### Login Form Definition
 
+Here's our definition. And since it's a small form, we only have a single section that contains a single subsection. Our fields live within the subsection:
+
 ```javascript
-{
+const loginForm = {
   id: "login_form",
   title: "Login Form",
   sections: [
@@ -166,7 +168,7 @@ Let's create a simple login form:
         {
           id: "subsection_1",
           title: "Login",
-          "subtitle": "Please enter your credentials.",
+          subtitle: "Please enter your credentials.",
           fields: [
             {
               id: "user_name",
@@ -198,18 +200,38 @@ Let's create a simple login form:
 };
 ```
 
-Once we have a defintion, we'll create an instance of `FormEngine` and pass it to our `<Form />` component; both of which work together to manage the form. And once filled out, `onSubmit` will get us the form responses:
+Now that we have our definition, let's create an instance of `FormEngine`:
 
- ```jsx
-const instance = new FormEngine(signUpFormDefinition); 
- 
+```jsx
+const instance = new FormEngine(loginForm); 
+```
+
+With the instance in hand, we can pass it our `<Form />` component:
+
+```jsx
 const SignUpForm = () => (
   <Form
     hideTitle
     instance={instance}
     onSubmit={() => {
-      const model = instance.getModel();  // Get form model
-      console.log(model.findAll());       // Log all form responses
+       // Do stuff
+    }}
+  />
+);
+```
+
+And once filled out, `onSubmit` will get us the form responses:
+
+
+```jsx
+const SignUpForm = () => (
+  <Form
+    hideTitle
+    instance={instance}
+    onSubmit={() => {
+       const model = instance.getModel();         // Get form model
+       console.log(model.serialize());            // Log all form responses
+       axios.post('/submit', model.serialize());  // Send it!
     }}
   />
 );
