@@ -34,7 +34,8 @@ This library takes a different approach: by relying on React as little as possib
 - [Live Demo](#live-demo)
 - [Installing](#installing)
 - [Getting Started](#getting-started)
-  - [Form Definition](#form-definition)
+  - [Login Form Example](#login-form-example)
+- [Form Definition](#form-definition)
   - [Field Definition](#field-definition)
   - [Option Field Definition](#option-field-definition)
   - [Field Decorators](#field-decorators)
@@ -122,7 +123,25 @@ If you'd like to use [Font Awesome](https://fontawesome.com), be sure to also in
 
 ## <a id="getting-started">Getting Started</a>
 
-Before we start rendering, we'll need to build a [Form Definition](#form-definition), which is the skeleton structure that describes how the form should look and behave. The definition can be a JavaScript object or a [JSON Schema](http://json-schema.org).
+Before we can start rendering, we'll need to build a [Form Definition](#form-definition), which is the skeleton structure that describes how the form should look and behave. The definition must adhere to a strict schema, and can be a JavaScript object or a [JSON Schema](http://json-schema.org). But don't worry about the details yet, we'll get into those.
+
+Once we've built our definition, we'll feed it to the `FormEngine`:
+
+```
+const instance = new FormEngine(definition);
+```
+
+Then, we just pass the instance to the `<Form />` component, and `react-json-form-engine` takes care of the rest:
+
+```
+<Form
+  instance={instance}
+  onSubmit={() => {
+    // Do stuff
+  }}
+/>
+```
+
 
 Let's create a typical login form:
 
