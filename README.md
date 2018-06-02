@@ -55,7 +55,7 @@ Requires React 15.0.0+
 
 `$ npm install --save react-json-form-engine`
 
-> Note: This library renders [Bulma](https://bulma.io/documentation/overview/start/) semantics, you'll need to include the styles on your own. You can either install it with npm, and `require`/`import` the CSS/SCSS, or have it served from a CDN.
+> Note: This library renders [Bulma](https://bulma.io/documentation/overview/start/) semantics; you'll need to include the styles on your own for everything to look nice. You can either install it with npm, or just have it served from a CDN.
 
 > Note: [Font Awesome](https://fontawesome.com) is supported.
 
@@ -72,7 +72,7 @@ Requires React 15.0.0+
 1. If your project supports Sass/SCSS, Bulma can be over easily overriden:
 
   ```scss
-  /* index.scss */
+  /* my-awesome-styles.scss */
   
   // 1. Import the initial variables
   @import "../sass/utilities/initial-variables";
@@ -89,7 +89,7 @@ Requires React 15.0.0+
  
   ```js
   // App.js
-  import './scss/index.scss';
+  import './scss/my-awesome-styles.scss';
  ```
 
 #### Font Awesome
