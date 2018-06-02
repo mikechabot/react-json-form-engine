@@ -165,7 +165,7 @@ Let's create a simple login form:
  
 #### Login Form Definition
 
-Here's our definition. And since it's a small form, we only have a single section that contains a single subsection. Our fields live within the subsection:
+Here's our definition: one (1) section, one (1) subsection, and three (3) fields.
 
 ```javascript
 const loginForm = {
