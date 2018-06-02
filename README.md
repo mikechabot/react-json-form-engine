@@ -123,17 +123,17 @@ If you'd like to use [Font Awesome](https://fontawesome.com), be sure to also in
 
 ## <a id="getting-started">Getting Started</a>
 
-Before we can start rendering, we'll need to build a [Form Definition](#form-definition), which is the skeleton structure that describes how the form should look and behave. The definition must adhere to a strict schema, and can be a JavaScript object or a [JSON Schema](http://json-schema.org). But don't worry about the details yet, we'll get into those.
+Before we can start rendering, we'll need to build a [Form Definition](#form-definition), which is the skeleton structure that describes how the form should look and behave. The definition must adhere to a strict schema, and can be represented as a JavaScript object or a [JSON Schema](http://json-schema.org). But don't worry about the details yet, we'll get into those.
 
-Once we've built our definition, we'll feed it to the `FormEngine`:
+Once we've built our definition, we'll feed it to the `FormEngine`, which returns an instance:
 
-```
+```javascript
 const instance = new FormEngine(definition);
 ```
 
 Then, we just pass the instance to the `<Form />` component, and `react-json-form-engine` takes care of the rest:
 
-```
+```jsx
 <Form
   instance={instance}
   onSubmit={() => {
@@ -142,8 +142,9 @@ Then, we just pass the instance to the `<Form />` component, and `react-json-for
 />
 ```
 
+### <a id="login-form-example">Login Form Example</a>
 
-Let's create a typical login form:
+Let's create the typical login form:
 
  <img src='https://raw.githubusercontent.com/mikechabot/react-json-form-engine-storybook/master/src/assets/login.png' alt='login' aria-label='login' />
  
