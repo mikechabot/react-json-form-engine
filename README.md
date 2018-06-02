@@ -152,7 +152,7 @@ Let's create a simple login form:
 
 <table>
 <tr>
-  <th>Title</th>
+  <th>Show Title</th>
   <th>Hide Title</th>
 </tr>
   <tr>
