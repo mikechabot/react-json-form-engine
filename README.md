@@ -144,7 +144,7 @@ Then, we just pass the instance to the `<Form />` component, and `react-json-for
 
 ### <a id="login-form-example">Login Form Example</a>
 
-Let's create the typical login form:
+Let's create a simple login form:
 
  <img src='https://raw.githubusercontent.com/mikechabot/react-json-form-engine-storybook/master/src/assets/login.png' alt='login' aria-label='login' />
  
