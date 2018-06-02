@@ -170,7 +170,7 @@ Here's our definition. And since it's a small form, we only have a single sectio
 ```javascript
 const loginForm = {
   id: "login_form",
-  title: "Login Form",
+  title: "Welcome to Foo!",
   sections: [
     {
       id: "section_1",
