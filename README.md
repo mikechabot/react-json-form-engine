@@ -45,6 +45,7 @@ It also offers an easy mechanism for serializing all form responses to JSON for 
   - [Field Decorators](#field-decorators)
 - [Validation](#validation)
 - [Conditions](#conditions)
+- [Serialize](#serialize)
 
 ----
 
@@ -317,10 +318,14 @@ Field definitions also adhere to a strict schema. At minimum, they must contain 
 ```
 #### <a id="field-id">Field ID</a>
 
-Uniquely identifies the form field within the DOM, as well as the form instance. End-user input is stored in the model as:
+Uniquely identifies the form field within the DOM; it's also used as the `key` when storing the field's response in the model:
 
 ```js
-{ key: <field.id>, value: <value> }
+// Form response stored as key/value:
+{ 
+  key: <field.id>, 
+  value: <value> 
+}
 ```
 
 ----
