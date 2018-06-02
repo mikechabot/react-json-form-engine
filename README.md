@@ -300,6 +300,7 @@ If the `FormEngine` is instantiated with a malformed definition, the UI will be 
 </div>
 
 [![Edit react-json-form-engine (Malformed)](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/mm3y516258)
+
 ----
 
 ### <a id="field-definition">Field Definition</a>
