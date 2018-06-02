@@ -122,7 +122,24 @@ If you'd like to use [Font Awesome](https://fontawesome.com), be sure to also in
 
 ## <a id="getting-started">Getting Started</a>
 
-Before we start rendering, we'll need to build a [Form Definition](#form-definition), which is the skeleton structure that tells the `FormEngine` how to render the form.
+Before we start rendering, we'll need to build a [Form Definition](#form-definition), which is the skeleton structure that describes how the form should look and behave. The definition can be a JavaScript object or a [JSON Schema](http://json-schema.org). 
+
+Once we have a defintion, we'll create an instance of `FormEngine` and pass it to our `<Form />` component; both of which work to manage the form:
+
+ ```javascript
+const instance = new FormEngine(definition); 
+ 
+const SignUpForm = () => (
+  <Form
+    width="100%"
+    instance={instance}
+    onSubmit={() => {
+      const model = instance.getModel();  // Get form model
+      console.log(model.findAll());       // Log all form responses
+    }}
+  />
+);
+```
 
 ### <a id="form-definition">Form Definition</a>
 
