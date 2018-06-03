@@ -38,28 +38,46 @@ class FormEngine {
         this.validator = FormValidator; // Form validator class
         this.validationResults = new ValidationResults(); // Stores validation results
 
-        this.model = this.__hydrateModel(model); // Map of form responses keyed by field id
-
+        this.model = new SortableMap();
         this.sections = new SortableMap(); // Map of form sections keyed by id
         this.subsections = new SortableMap(); // Map of form subsections keyed by id
         this.fields = new SortableMap(); // Map of form fields keyed by ids
 
-        this.__initInstance(options);
+        this.__initInstance(model, options);
     }
-
+    /**
+     * Initialize the form instance
+     * @private
+     */
+    __initInstance(model, options) {
+        this.__hydrateModel(model);
+        this.__parseOptions(options);
+        this.__cloneSections();
+        this.__initFieldMetadata();
+    }
     /**
      * Hydrate the instance mode with existing data
      * @param model
      * @private
      */
     __hydrateModel(model) {
-        let hydratedModel = new SortableMap();
-        _forEach(model, (value, key) => {
-            hydratedModel.add(key, value);
-        });
-        return hydratedModel;
-    }
+        if (!model || _isEmpty(model)) return;
 
+        let parsed = model;
+        if (typeof model === 'string') {
+            try {
+                parsed = JSON.parse(model);
+            } catch(e) {
+                console.error('** FormEngine.__hydrateModel: Unable to parse JSON model!');
+                console.error(`** You passed: ${model}`);
+                parsed = {};
+            }
+        }
+
+        Object.keys(parsed).forEach(key => {
+            this.model.add(key, model[key]);
+        });
+    }
     /**
      * Parse and apply form options
      * @param options
@@ -68,15 +86,6 @@ class FormEngine {
     __parseOptions(options) {
         if (!options) return;
         this.__liveValidation = options.liveValidation || false;
-    }
-    /**
-     * Initialize the form instance
-     * @private
-     */
-    __initInstance(options) {
-        this.__parseOptions(options);
-        this.__cloneSections();
-        this.__initFieldMetadata();
     }
     /**
      * Don't modify the original definition. Instead, clone each section
@@ -108,18 +117,18 @@ class FormEngine {
      * @private
      */
     __decorateFields(fields, parent) {
-        _forEach(fields, field => {
-            this.__decorateField(field, parent);
-            if (field.fields) {
-                this.__decorateFields(field.fields, field);
-            }
-            _forEach(field.options, option => {
-                option.parent = field;
-                if (option.fields) {
-                    this.__decorateFields(option.fields, option);
+        if (Array.isArray(fields) && !_isEmpty(fields)) {
+            fields.forEach(field => {
+                this.__decorateField(field, parent);
+                this.__decorateFields(field[FIELD.FIELDS], field);
+                if (Array.isArray(field[FIELD.OPTIONS]) && !_isEmpty(field[FIELD.OPTIONS])) {
+                    field[FIELD.OPTIONS].forEach(option => {
+                        option[FIELD.PARENT] = field;
+                        this.__decorateFields(option[FIELD.FIELDS], option);
+                    });
                 }
             });
-        });
+        }
     }
 
     /**
@@ -131,7 +140,6 @@ class FormEngine {
      * @private
      */
     __decorateField(field, parent) {
-
         try {
             FormApiService.__validateFieldShape(field);
         } catch (error) {
@@ -226,7 +234,8 @@ class FormEngine {
      * of one section and one subsection
      */
     isSimpleForm() {
-        return this.getSections().count() === 1 && this.getSubsections().count() === 1;
+        return this.getSections().count() === 1 &&
+            this.getSubsections().count() === 1;
     }
     /**
      * Return whether the form is valid
@@ -268,7 +277,19 @@ class FormEngine {
      */
     getModelValues() {
         return this.model.findAll();
-    }
+    },
+
+    /**
+     * Serialize the model to json
+     * @returns {string}
+     */
+    serialize() {
+        let store = {};
+        this.getModelValues().forEach(entry => {
+            store[entry.key] = entry.value;
+        });
+        return JSON.stringify(store);
+    },
     /**
      * Get single model value (e.g. form response)
      * @param id
@@ -488,10 +509,9 @@ class FormEngine {
         return this.validationResults.getResults(id);
     }
     getValidationStatusByTag(id, doNotRecurse) {
-
         let status = this.getValidationResultByTag(id).status;
         if (doNotRecurse) {
-          return status;
+            return status;
         }
 
         const field = this.getField(id);
