@@ -67,7 +67,7 @@ class FormEngine {
         if (typeof model === 'string') {
             try {
                 parsed = JSON.parse(model);
-            } catch(e) {
+            } catch (e) {
                 console.error('** FormEngine.__hydrateModel: Unable to parse JSON model!');
                 console.error(`** You passed: ${model}`);
                 parsed = {};
@@ -234,8 +234,7 @@ class FormEngine {
      * of one section and one subsection
      */
     isSimpleForm() {
-        return this.getSections().count() === 1 &&
-            this.getSubsections().count() === 1;
+        return this.getSections().count() === 1 && this.getSubsections().count() === 1;
     }
     /**
      * Return whether the form is valid
@@ -277,7 +276,7 @@ class FormEngine {
      */
     getModelValues() {
         return this.model.findAll();
-    },
+    }
 
     /**
      * Serialize the model to json
@@ -289,7 +288,7 @@ class FormEngine {
             store[entry.key] = entry.value;
         });
         return JSON.stringify(store);
-    },
+    }
     /**
      * Get single model value (e.g. form response)
      * @param id
