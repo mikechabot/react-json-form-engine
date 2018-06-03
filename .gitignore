@@ -10,6 +10,7 @@
 /build
 
 /.idea/*
+*.iml
 
 /src/scss/*.css
 
