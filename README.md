@@ -582,56 +582,74 @@ Field decorators contain metadata about the fields you've configured in your for
 The decorators object will be keyed by [Field ID](#field-id), and can contain the properties `hint` and `component`.
 
 #### Hint
-```
-  {
-    id: 'my_form'
-    title: 'My Form',
-    sections: [{
-      ...
-      subsections: [{
-        fields: [{
-          id: 'str_1',
-          type: 'string',
-          title: 'Username'
-        }]
+
+Add hint text to any field:
+
+```js
+  id: "Form_ID",
+  title: "Form Title",
+  sections: [{
+    ...
+    subsections: [{
+      ...     
+      fields: [{
+        id: "field_1",
+        type: "string",
+        title: "Field title"
       }]
-    }],
-    decorators: {
-      str_1: {
-        hint: 'This is some hint text!'
-      }
+    }]
+  }],
+  decorators: {
+    field_1: {
+      hint: "This is some hint text!"
     }
   }
+}
 ```
 
-See the Hint Decorator demo here:
+Take a look at the Hint Decorator demo:
 
-
+<a href="https://codesandbox.io/s/j7jvxo88ny">
+  <img alt="Edit react-json-form-engine (Hint Text)" src="https://codesandbox.io/static/img/play-codesandbox.svg">
+</a>
 
 ----
 
 #### Component
 
-Every field `type` renders a Default Control (See [Field Type](#field-type)), however you'll often want to explicitly override the default component type in favor of another. In some cases, this occurs automatically (See [Field Type Transitions](#field-type-transitions), but otherwise you'll need to specify a decorator.
+Every field `type` renders a Default Control (See [Field Type](#field-type)), however you'll often want to explicitly override the default component type in favor of another. In some cases, this occurs automatically (See [Field Type Transitions](#field-type-transitions), however most times you'll need to specify a component decorator.
+
+The default component for `array` is a `<Select />`, which displays as a multi-select, however to display a `<Checkboxgroup />` instead, use a decorator: 
 
 ```js
-  {
-  ...
-  sections: [...],
+  id: "Form_ID",
+  title: "Form Title",
+  sections: [{
+    ...
+    subsections: [{
+      ...     
+      fields: [{
+        id: "field_1",
+        type: "array",
+        title: "Field title",
+        options: [
+          { id: "op1", title: "Option 1" },
+          { id: "op2", title: "Option 2" },
+        ]
+      }]
+    }]
+  }],
   decorators: {
-    myFild: {
+    field_1: {
       component: {
-        type: <componentType>
+        type: 'checkboxgroup'
       }
     }
   }
+}
 ```
 
-| Field Type       | Allowed Controls                             |
-|------------------|----------------------------------------------|
-| `string`         | `<Password />`, `<Textarea />`, `<Radio />`  |
-| `number`         | `<Range />`                                  |
-| `array`          | `<Checkboxgroup />`                          |
+Here's a list of field types with overrideable components:
 
 | Field Type       | Component Decorator Overrides   | 
 |------------------|---------------------------------|
@@ -640,7 +658,7 @@ Every field `type` renders a Default Control (See [Field Type](#field-type)), ho
 | `array`          | `checkboxgroup`                 |
 
 
-
+Take a look a the Component Override demo:
 
 [![Edit react-json-form-engine (Component Type Decorators)](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/wqpy6099p7)
 
