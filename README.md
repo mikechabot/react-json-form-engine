@@ -133,6 +133,8 @@ Before we can start rendering, we'll need to build a [Form Definition](#form-def
 Once we've built our definition, we'll feed it to the `FormEngine`, which returns an instance:
 
 ```javascript
+import { FormEngine, Form } from 'react-json-form-engine';
+
 const instance = new FormEngine(definition);
 ```
 
