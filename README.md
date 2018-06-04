@@ -249,9 +249,11 @@ const LoginForm = () => (
 );
 ```
 
+### <a id="login-example-codesandbox">Login Form Codesandbox</a>
+
 Have a look at the Login Form demo:
 
-<a id="login-example-codesandbox" href="https://codesandbox.io/s/9lnylw51pp">
+<a href="https://codesandbox.io/s/9lnylw51pp">
   <img alt="Edit react-json-form-engine (Login Form Example)" src="https://codesandbox.io/static/img/play-codesandbox.svg">
 </a>
 
