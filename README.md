@@ -166,7 +166,7 @@ Let's create a simple login form. Either follow along below, or check out the [c
  
 #### Login Form Definition
 
-Here's our definition; it contains a single section with a single subsection, that contains three fields. We're also decorating the `user_pass` field to ensure it renders as a proper password field:
+Here's our definition, which is a rather simple one. It consists of a single section with a single subsection, which houses three fields. Note, we're also decorating the `user_pass` field to ensure it renders as a password field:
 
 ```javascript
 const loginForm = {
@@ -214,7 +214,7 @@ const loginForm = {
 
 Now that we have our definition, let's create an instance of `FormEngine`:
 
-```jsx
+```javascript
 const instance = new FormEngine(loginForm); 
 ```
 
