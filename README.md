@@ -416,7 +416,7 @@ Note, `boolean` field types only accept a maximum of **two** options; each of wh
 }
 ```
 
-For field types that accept unlimited options (`string`, `array`), you must include both an `id` and `title`. The `ids` of the selected options are stored in the model.
+For field types that accept unlimited options (`string`, `array`), you must include both an `id` and `title`. The `ids` of the selected option(s) are stored in the model.
 
 ```js
 {
