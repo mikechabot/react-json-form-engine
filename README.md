@@ -269,6 +269,7 @@ Have a look at the Login Form demo:
 - [Field Children](#field-children)
 - [Field Options](#field-options)
 - [Field Props List](#field-props-list)
+- [Field Type Transitions](#field-type-transitions)
 
 ### <a id="form-definition">Form Definition</a>
 
