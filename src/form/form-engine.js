@@ -282,7 +282,7 @@ class FormEngine {
      * Serialize the model to json
      * @returns {string}
      */
-    serialize() {
+    serializeModel() {
         let store = {};
         this.getModelValues().forEach(entry => {
             store[entry.key] = entry.value;
