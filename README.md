@@ -509,7 +509,7 @@ Here's the complete list of props that can be passed to [Field Definitions](#fie
 
 #### `string`
 
-By default, a `string` field is rendered as `<Text />`, but with `options` it automatically renders as a `<Select />`.
+By default, a `string` field is rendered as `<Text />` (See [Field Type](#field-type)), but with `options` it automatically renders as a `<Select />`.
 
 ```js
 [
@@ -542,7 +542,7 @@ Have a look at the String Transition demo:
 
 #### `boolean`
 
-By default, a `boolean` field is rendered as `<Checkbox />`, but with `options` it automatically renders as a `<Radio />`.
+By default, a `boolean` field is rendered as `<Checkbox />` (See [Field Type](#field-type)), but with `options` it automatically renders as a `<Radio />`.
 
 ```js
 [
