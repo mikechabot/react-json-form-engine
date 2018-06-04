@@ -318,15 +318,11 @@ Field definitions also adhere to a strict schema. At minimum, they must contain 
 ```js
 // The most minimal field object
 {
-  id: <string>,
-  type: <string>,
-  title: <string>
+  id: <string>,       // Uniquely identifies the field in the DOM, and the form's model data
+  type: <string>,     // Determins the data type of the field response
+  title: <string>     // Label of the field
 }
 ```
-
-#### <a id="field-id">Field ID</a>
-
-Uniquely identifies the form field within the DOM, and form's data model.
 
 ----
 
