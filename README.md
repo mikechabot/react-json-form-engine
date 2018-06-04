@@ -268,6 +268,7 @@ Have a look at the Login Form demo:
 - [Field Type](#field-type)
 - [Field Children](#field-children)
 - [Field Options](#field-options)
+- [Field Props List](#field-props-list)
 
 ### <a id="form-definition">Form Definition</a>
 
@@ -337,7 +338,7 @@ Field definitions also adhere to a strict schema. At minimum, they must contain 
 
 ----
 
-#### <a id="field-type">Field Type</a>
+### <a id="field-type">Field Type</a>
 
 Determines the *data type* of the response value stored in the model, and which Default Control to render. To override the default and render an Allowed Control instead, use a [Field Decorator](#field-decorators).
 
@@ -353,7 +354,7 @@ Determines the *data type* of the response value stored in the model, and which 
 [Field Decorator](#field-decorators) to use another Allowed Control.
 ----
 
-#### <a id="field-children">Field Children</a>
+### <a id="field-children">Field Children</a>
 
 Any field can contain child fields. Simply create a `fields` array on the field, and drop in valid [Field Definitions](#field-definition). Here's an example of some nested fields: 
 
@@ -398,7 +399,7 @@ Have a look at the Child Fields demo:
 
 ----
 
-#### <a id="field-options">Field Options</a>
+### <a id="field-options">Field Options</a>
 
 > Applies to `string`, `boolean`, and `array` field types only.
 
@@ -476,7 +477,7 @@ Have a look at the Field Options demo:
 
 ----
 
-#### <a id="field-property-list">Complete Field Property List</a>
+### <a id="field-props-list">Field Props List</a>
 
 | Property        | Type      | Required | Description                                                                                 |
 |-----------------|-----------|----------|---------------------------------------------------------------------------------------------|
