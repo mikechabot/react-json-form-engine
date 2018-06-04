@@ -247,8 +247,8 @@ const LoginForm = () => (
     submitButtonLabel="Login"
     instance={instance}
     onSubmit={() => {
-      console.log(instance.serializeModel());         // Log all form responses
-      axios.post('/submit', model.serializeModel());  // Send it!
+      console.log(instance.getModelValues());   // Get form responses
+      console.log(instance.serializeModel());   // Serialize form responses
     }}
   />
 );
