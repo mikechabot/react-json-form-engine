@@ -579,7 +579,7 @@ Field decorators contain metadata about the fields you've configured in your for
     decorators: {}
   }
 ```
-The decorators object will be keyed by [Field ID](#field-id), and can contain the properties `hint` and `component`.
+The `decorators` object will be keyed by [Field ID](#field-id), and can contain the properties `hint` and `component`.
 
 #### Hint
 
@@ -641,6 +641,7 @@ The default component for `array` is a `<Select />`, which displays as a multi-s
   }],
   decorators: {
     field_1: {
+      hint: 'More hint text!',
       component: {
         type: 'checkboxgroup'
       }
