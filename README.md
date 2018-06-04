@@ -230,7 +230,6 @@ With the instance in hand, we can pass it our `<Form />` component:
 ```jsx
 const LoginForm = () => (
   <Form
-    hideTitle
     instance={instance}
     onSubmit={() => {
        // Do stuff
@@ -245,6 +244,7 @@ And once filled out, `onSubmit` will get us the form responses:
 const LoginForm = () => (
   <Form
     hideTitle
+    submitButtonLabel="Login"
     instance={instance}
     onSubmit={() => {
       console.log(instance.serializeModel());         // Log all form responses
