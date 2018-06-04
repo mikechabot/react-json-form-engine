@@ -353,27 +353,31 @@ Any field can contain child fields. Simply create a `fields` array on the field,
 
 ```javascript
 {
-  id: 'parent',
-  type: 'string',
-  title: 'Parent',
+  id: "parent",
+  type: "number",
+  title: "Parent",             
   fields: [
     {
-      id: 'child',
-      type: 'string',
-      title: 'Child',
+      id: "child",
+      type: "string",
+      title: "Child",
       fields: [
         {
-          id: 'grandchild',
-          type: 'string',
-          title: 'Grandchild'
+          id: "grandchild",
+          type: "number",
+          title: "Grandchild"
         }
       ]
     },
     {
-      id: 'child-2',
-      type: 'string',
-      title: 'Child'
-    },
+      id: "child-2",
+      type: "array",
+      title: "Child",
+      options: [
+        { id: 'op1', title: 'Option 1'},
+        { id: 'op2', title: 'Option 2' },
+      ]
+    }
   ]
 }
 ```
