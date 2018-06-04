@@ -433,6 +433,33 @@ For field types that accept unlimited options (`string`, `array`), you must incl
 }
 ```
 
+For field controls that render selectable options, like `<Radio />` or `<Checkboxgroup />`, you can include [Field Children](#field-children) on any of the options:
+
+```javascript
+{
+  id: "field_2",
+  type: "string",
+  title: "Select One (Field Type: String)",
+  options: [
+    {
+      id: "op1",
+      title: "Option 1",
+      fields: [{ id: "field_6", type: "string", title: "Explain" }]
+    },
+    {
+      id: "op2",
+      title: "Option 2",
+      fields: [{ id: "field_6", type: "string", title: "Explain" }]
+    },
+    {
+      id: "op3",
+      title: "Option 3",
+      fields: [{ id: "field_6", type: "string", title: "Explain" }]
+    }
+  ]
+}
+```
+
 Have a look at the Field Options demo:
 
 <a href="https://codesandbox.io/s/9ymvkn8qnw">
