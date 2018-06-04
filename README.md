@@ -270,6 +270,7 @@ Have a look at the Login Form demo:
 - [Field Options](#field-options)
 - [Field Props List](#field-props-list)
 - [Field Type Transitions](#field-type-transitions)
+- [Field Decorators](#field-decorators)
 
 ### <a id="form-definition">Form Definition</a>
 
