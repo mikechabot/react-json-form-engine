@@ -331,7 +331,7 @@ Field definitions also adhere to a strict schema. At minimum, they must contain 
 
 #### <a id="field-type">Field Type</a>
 
-Determines the *data type* of the response value stored in the model, and also plays a role in which form control to render:
+Determines the *data type* of the response value stored in the model, and which Default Control to render. To override the default and render an Allowed Control instead, use a [Field Decorator](#field-decorators).
 
 | Field Type       | Default Control   | Allowed Controls                                          | Supports `options`? |
 |------------------|-------------------|-----------------------------------------------------------|---------------------|
@@ -349,7 +349,7 @@ Determines the *data type* of the response value stored in the model, and also p
 
 Any field can contain child fields. Simply create a `fields` array on the field, and drop in valid [Field Definitions](#field-definition). Here's an example of some nested fields: 
 
-> Note: Field children can recurse infinitely.
+> Note: Field children can recurse infinitely, and also be placed on [Field Options](#field-options).
 
 ```javascript
 {
@@ -459,7 +459,7 @@ Have a look at the Field Options demo:
 | `hideTime`      | `boolean` | No       | Only show the Date in Date/Time. (Used for `date` field types)                              |
 | `hideCalendar`  | `boolean` | No       | Only show the Time in Data/Time. (Used for `date` field types)                              |
 
-> `min` and `max` are only required for `number` field types.
+> `min` and `max` are only required for `<Range />` component types.
 
 ----
 
