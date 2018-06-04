@@ -275,7 +275,7 @@ Form definitions adhere to a strict schema. They must contain at least **one sec
 
 > View the full schema in the [FormAPIService](https://github.com/mikechabot/react-json-form-engine/blob/master/src/form/service/form-api-service.js#L27)
 
-> In forms with a single section, navigational tabs are not displayed. In sections with a single subsection, inner navigational tabs are not displayed.
+> In forms with a single section, vertical tabs are not displayed. In sections with a single subsection, horizontal tabs are not displayed.
 
 ```js
 // The most minimal form possible
