@@ -611,7 +611,7 @@ Add hint text to any field:
   }],
   decorators: {
     field_1: {
-      hint: "This is some hint text!"
+      hint: "This is some hint text!"   // Add hint text to any field
     }
   }
 }
@@ -652,7 +652,7 @@ Let's update `field_1` from a `<Select />` to a `<Checkboxgroup />`:
     field_1: {
       hint: 'More hint text!',
       component: {
-        type: 'checkboxgroup'
+        type: 'checkboxgroup'   // Override the default component type
       }
     }
   }
