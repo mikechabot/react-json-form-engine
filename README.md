@@ -589,7 +589,9 @@ Field decorators contain metadata about the fields you've configured in your for
 ```
 The `decorators` object will be keyed by [Field ID](#field-id), and can contain the properties `hint` and `component`.
 
-#### Hint
+----
+
+#### Hint Decorator
 
 Add hint text to any field:
 
@@ -623,11 +625,11 @@ Take a look at the Hint Decorator demo:
 
 ----
 
-#### Component
+#### Component Decorator
 
 Every field `type` renders a Default Control (See [Field Type](#field-type)), however you'll often want to explicitly override the default component type in favor of another. In some cases, this occurs automatically (See [Field Type Transitions](#field-type-transitions), however most times you'll need to specify a component decorator.
 
-The default component for `array` is a `<Select />`, which displays as a multi-select, however to display a `<Checkboxgroup />` instead, use a decorator: 
+Let's update `field_1` from a `<Select />` to a `<Checkboxgroup />`:
 
 ```js
   id: "Form_ID",
@@ -641,8 +643,7 @@ The default component for `array` is a `<Select />`, which displays as a multi-s
         type: "array",
         title: "Field title",
         options: [
-          { id: "op1", title: "Option 1" },
-          { id: "op2", title: "Option 2" },
+           ...
         ]
       }]
     }]
