@@ -370,7 +370,12 @@ Any field can contain child fields. Simply create a `fields` array on the field,
           title: 'Grandchild'
         }
       ]
-    }
+    },
+    {
+      id: 'child-2',
+      type: 'string',
+      title: 'Child'
+    },
   ]
 }
 ```
