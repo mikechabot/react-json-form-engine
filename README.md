@@ -444,17 +444,17 @@ For field controls that render selectable options, like `<Radio />` or `<Checkbo
     {
       id: "op1",
       title: "Option 1",
-      fields: [{ id: "field_6", type: "string", title: "Explain" }]
+      fields: [{ id: "explain_1", type: "string", title: "Explain" }]
     },
     {
       id: "op2",
       title: "Option 2",
-      fields: [{ id: "field_6", type: "string", title: "Explain" }]
+      fields: [{ id: "explain_2", type: "string", title: "Explain" }]
     },
     {
       id: "op3",
       title: "Option 3",
-      fields: [{ id: "field_6", type: "string", title: "Explain" }]
+      fields: [{ id: "explain_3", type: "string", title: "Explain" }]
     }
   ]
 }
