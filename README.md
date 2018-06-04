@@ -12,7 +12,7 @@ Build lightning fast web forms from JSON.
 
 While other libraries might utilize [react-redux](https://github.com/reduxjs/react-redux), or the `refs` or `context` API for complex form managagement, `react-json-form-engine` relies on React as little as possible, and offloads its core logic to plain JavaScript. The result is scalable, lightning fast performance with neglible reliance on the React lifecycle.
 
-Before proceeding, it's important to note that this engine was designed to manage large forms (multi-section and multi-subsection), that may contain complex field dependencies (e.g Only show the **Select Guardian** field if the **Age** response is less than `18`). This may or may not be for you, but it can also handle simple forms with extreme ease.
+Before proceeding, it's important to note that this library was designed to manage large forms (multi-section and multi-subsection), that may contain complex field dependencies (e.g Only show the **Select Guardian** field if the **Age** response is less than `18`). This may or may not be for you, but it can also handle simple forms with extreme ease.
 
 It also offers an easy mechanism for serializing all form responses to JSON for persistence. The reverse also stands, as any form can be easily rehydrated from historical data, and returned to its previous state.
 
@@ -149,7 +149,7 @@ Then, we just pass the instance to the `<Form />` component, and `react-json-for
 
 ### <a id="login-form-example">Login Form Example</a>
 
-Let's create a simple login form:
+Let's create a simple login form. Either follow along below, or check out the [codesandbox](#login-example-codesandbox).
 
 <table>
 <tr>
@@ -251,7 +251,7 @@ const LoginForm = () => (
 
 Have a look at the Login Form demo:
 
-<a href="https://codesandbox.io/s/9lnylw51pp">
+<a id="login-example-codesandbox" href="https://codesandbox.io/s/9lnylw51pp">
   <img alt="Edit react-json-form-engine (Login Form Example)" src="https://codesandbox.io/static/img/play-codesandbox.svg">
 </a>
 
