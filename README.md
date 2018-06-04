@@ -318,8 +318,8 @@ Field definitions also adhere to a strict schema. At minimum, they must contain 
 ```js
 // The most minimal field object
 {
-  id: <string>,       // Uniquely identifies the field in the DOM, and the form's model data
-  type: <string>,     // Determins the data type of the field response
+  id: <string>,       // Uniquely identifies the field within the DOM, and FormEngine instance
+  type: <string>,     // Determines the data type of the field response
   title: <string>     // Label of the field
 }
 ```
@@ -328,7 +328,7 @@ Field definitions also adhere to a strict schema. At minimum, they must contain 
 
 #### <a id="field-type">Field Type</a>
 
-Determines the *data type* of the value stored in the model, and also plays a role in which form control to render:
+Determines the *data type* of the response value stored in the model, and also plays a role in which form control to render:
 
 | Field/Data Type  | Default Control   | Allowed Controls                                          | Supports `options`? |
 |------------------|-------------------|-----------------------------------------------------------|---------------------|
@@ -340,12 +340,11 @@ Determines the *data type* of the value stored in the model, and also plays a ro
 
 > Some field types will *automatically* transition from their Default Control to another Allowed Control if an `options` array is present in the field definition. (See [Field Type Transitions](#field-type-transitions))
 
-
 ----
 
 #### <a id="field-type">Field Children</a>
 
-Any field can contain child fields. Simply create a `fields` array on the field, and drop in valid [Field Definitions](#field-definition). Here's an example of a Parent, Child and Granchild fields. 
+Any field can contain child fields. Simply create a `fields` array on the field, and drop in valid [Field Definitions](#field-definition). Here's an example of some nested fields: 
 
 > Note: Field children can recurse infinitely.
 
