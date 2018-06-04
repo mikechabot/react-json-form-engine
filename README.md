@@ -446,6 +446,8 @@ For field types that accept unlimited options (`string`, `array`), you must incl
 }
 ```
 
+#### Field Children on Options
+
 For field controls that render selectable options, like `<Radio />` (incarnated as a `string` or `boolean`) or `<Checkboxgroup />`, you can include [Field Children](#field-children) on any of the options:
 
 ```javascript
