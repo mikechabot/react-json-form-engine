@@ -341,7 +341,7 @@ Determines the *data type* of the response value stored in the model, and also p
 [Field Decorator](#field-decorators) to use another Allowed Control.
 ----
 
-#### <a id="field-type">Field Children</a>
+#### <a id="field-children">Field Children</a>
 
 Any field can contain child fields. Simply create a `fields` array on the field, and drop in valid [Field Definitions](#field-definition). Here's an example of some nested fields: 
 
@@ -382,7 +382,7 @@ Have a look at the Child Fields demo:
 
 ----
 
-#### <a id="form-definition">Field Options</a>
+#### <a id="field-options">Field Options</a>
 
 > Applies to `string`, `boolean`, and `array` field types only.
 
@@ -436,16 +436,16 @@ For field types that accept unlimited options (`string`, `array`), you must incl
 | `id`            | `string`  | Yes      | See [Field ID](#field-id)                                                                   |
 | `type`          | `string`  | Yes      | See [Field Type](#field-type)                                                               |
 | `title`         | `string`  | Yes      | Display label for the field                                                                 |
-| `options`       | `array`   | No       | Options to render for certain types (See [Option Field Definition](#option-field-definition)|
-| `fields`        | `array`   | No       | Children of the field (Must adhere to [Field Definition](#field-definition))                |
-| `placeholder`   | `string`  | No       | Display a placeholder                                                                       |
+| `options`       | `array`   | No       | See [Field Options](#field-options)                                                         |
+| `fields`        | `array`   | No       | See [Field Children](#field-children)                                                       |
+| `placeholder`   | `string`  | No       | Placeholder text to display                                                                 |
 | `showCondition` | `object`  | No       | Condition object (See [Conditions](#conditions))                                            |
 | `required`      | `boolean` | No       | Whether the field is required (See [Validation](#validation))                               |
-| `pattern`       | `string`  | No       | Pattern to match (See [Validation](#validation))                                            |
+| `pattern`       | `string`  | No       | Pattern to match during validation (See [Validation](#validation))                          |
 | `min`           | `number`  | Yes*     | Minimum value. (Used for `number` field types)                                              |
 | `max`           | `number`  | Yes*     | Maximum value. (Used for `number` field types)                                              |
-| `hideTime`      | `boolean` | No       | Hide the time value. (Used for `date` field types)                                          |
-| `hideCalendar`  | `boolean` | No       | Hide the date value. (Used for `date` field types)                                          |
+| `hideTime`      | `boolean` | No       | Only show the Date in Date/Time. (Used for `date` field types)                              |
+| `hideCalendar`  | `boolean` | No       | Only show the Time in Data/Time. (Used for `date` field types)                              |
 
 > `min` and `max` are only required for `number` field types.
 
