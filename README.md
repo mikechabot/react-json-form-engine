@@ -234,16 +234,14 @@ const LoginForm = () => (
 
 And once filled out, `onSubmit` will get us the form responses:
 
-
 ```jsx
 const LoginForm = () => (
   <Form
     hideTitle
     instance={instance}
     onSubmit={() => {
-       const model = instance.getModel();         // Get form model
-       console.log(model.serialize());            // Log all form responses
-       axios.post('/submit', model.serialize());  // Send it!
+      console.log(instance.serializeModel());         // Log all form responses
+      axios.post('/submit', model.serializeModel());  // Send it!
     }}
   />
 );
@@ -253,7 +251,7 @@ const LoginForm = () => (
 
 Have a look at the Login Form demo:
 
-<a href="https://codesandbox.io/s/9lnylw51pp">
+<a href="https://codesandbox.io/s/konxynx4o">
   <img alt="Edit react-json-form-engine (Login Form Example)" src="https://codesandbox.io/static/img/play-codesandbox.svg">
 </a>
 
