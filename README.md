@@ -12,7 +12,7 @@ Build lightning fast web forms from JSON.
 
 While other libraries might utilize [react-redux](https://github.com/reduxjs/react-redux), or the `refs` or `context` API for complex form managagement, `react-json-form-engine` relies on React as little as possible, and offloads its core logic to plain JavaScript. The result is scalable, lightning fast performance with neglible reliance on the React lifecycle.
 
-Before proceeding, it's important to note that this engine was designed to manage large forms (multi-section and multi-subsection), that may contain complex field dependencies (e.g Only show the **Select Guardian** field if the **Age** response is less than `18`). This may or may not be for you, but it can also handle simple forms with extreme ease.
+Before proceeding, it's important to note that this library was designed to manage large forms (multi-section and multi-subsection), that may contain complex field dependencies (e.g Only show the **Select Guardian** field if the **Age** response is less than `18`). This may or may not be for you, but it can also handle simple forms with extreme ease.
 
 It also offers an easy mechanism for serializing all form responses to JSON for persistence. The reverse also stands, as any form can be easily rehydrated from historical data, and returned to its previous state.
 
@@ -149,7 +149,7 @@ Then, we just pass the instance to the `<Form />` component, and `react-json-for
 
 ### <a id="login-form-example">Login Form Example</a>
 
-Let's create a simple login form:
+Let's create a simple login form. Either follow along below, or check out the [codesandbox](#login-example-codesandbox).
 
 <table>
 <tr>
@@ -166,7 +166,7 @@ Let's create a simple login form:
  
 #### Login Form Definition
 
-Here's our definition; it contains a single section with a single subsection, that contains three fields. We're also decorating the `user_pass` field to ensure it renders as a proper password field:
+Here's our definition, which is a rather simple one. It consists of a single section with a single subsection, which houses three fields. Note, we're also decorating the `user_pass` field to ensure it renders as a password field:
 
 ```javascript
 const loginForm = {
@@ -214,7 +214,7 @@ const loginForm = {
 
 Now that we have our definition, let's create an instance of `FormEngine`:
 
-```jsx
+```javascript
 const instance = new FormEngine(loginForm); 
 ```
 
@@ -248,6 +248,8 @@ const LoginForm = () => (
   />
 );
 ```
+
+### <a id="login-example-codesandbox">Login Form Codesandbox</a>
 
 Have a look at the Login Form demo:
 
