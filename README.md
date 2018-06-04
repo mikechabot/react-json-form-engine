@@ -323,23 +323,16 @@ Field definitions also adhere to a strict schema. At minimum, they must contain 
   title: <string>
 }
 ```
+
 #### <a id="field-id">Field ID</a>
 
-Uniquely identifies the form field within the DOM; it's also used as the `key` when storing the field's response in the model:
-
-```js
-// Form response stored as key/value:
-{ 
-  key: <field.id>, 
-  value: <value> 
-}
-```
+Uniquely identifies the form field within the DOM, and form's data model.
 
 ----
 
 #### <a id="field-type">Field Type</a>
 
-Determines the data type of the value stored in the model, and also plays a role in which form control to render:
+Determines the *data type* of the value stored in the model, and also plays a role in which form control to render:
 
 | Field/Data Type  | Default Control   | Allowed Controls                                          | Supports `options`? |
 |------------------|-------------------|-----------------------------------------------------------|---------------------|
@@ -350,6 +343,43 @@ Determines the data type of the value stored in the model, and also plays a role
 | `date`           | `<DateTime />`    | N/A                                                       | No                  |
 
 > Some field types will *automatically* transition from their Default Control to another Allowed Control if an `options` array is present in the field definition. (See [Field Type Transitions](#field-type-transitions))
+
+
+----
+
+#### <a id="field-type">Field Children</a>
+
+Any field can contain child fields. Simply create a `fields` array on the field, and drop in valid [Field Definitions](#field-definition). Here's an example of a Parent, Child and Granchild fields. 
+
+> Note: Field children can recurse infinitely.
+
+```javascript
+{
+  id: 'parent',
+  type: 'string',
+  title: 'Parent',
+  fields: [
+    {
+      id: 'child',
+      type: 'string',
+      title: 'Child',
+      fields: [
+        {
+          id: 'grandchild',
+          type: 'string',
+          title: 'Grandchild'
+        }
+      ]
+    }
+  ]
+}
+```
+
+Have a look at the Child Fields demo:
+
+<a href="https://codesandbox.io/s/4xr9rj1rz4">
+  <img alt="Edit react-json-form-engine (Login Form Example)" src="https://codesandbox.io/static/img/play-codesandbox.svg">
+</a>
 
 ----
 
