@@ -294,6 +294,8 @@ export default {
 };
 ```
 
+Have a look the Simple Form demo:
+
 [![Edit react-json-form-engine (Simple)](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/n3wrwzpjo0)
 
 ---
@@ -305,6 +307,8 @@ Don't worry about making mistakes with your definition. If the `FormEngine` is i
 <div align="center">
 <img src='https://raw.githubusercontent.com/mikechabot/react-json-form-engine-storybook/master/src/assets/form-engine-api-check.png' alt='api-check' aria-label='api-check' />
 </div>
+
+Have a look at the Malformed Form demo:
 
 [![Edit react-json-form-engine (Malformed)](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/mm3y516258)
 
@@ -481,7 +485,13 @@ By default, a `string` field is rendered as `<Text />`, but with `options` it au
   }
 ]
 ```
-[![Edit react-json-form-engine (Simple)](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/mq88xm5l6x)
+
+Have a look at the String Transition demo:
+
+<a href="https://codesandbox.io/s/mq88xm5l6x">
+  <img alt="Edit react-json-form-engine (String Field Type Transition)" src="https://codesandbox.io/static/img/play-codesandbox.svg">
+</a>
+
 
 ----
 
@@ -509,6 +519,8 @@ By default, a `boolean` field is rendered as `<Checkbox />`, but with `options` 
 ```
 
 > A maximum of two (2) options is allowed for `boolean` fields. For unlimited `<Radio />` options, use the `string` type with a `component` of `radio`.
+
+Have a look at the Boolean Transition demo:
 
 [![Edit react-json-form-engine (Boolean Field Type Transition)](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/zw9q7zrol4)
 
