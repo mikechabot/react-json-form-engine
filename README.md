@@ -41,7 +41,6 @@ It also offers an easy mechanism for serializing all form responses to JSON for 
   - [Login Form Example](#login-form-example)
 - [Form Definition](#form-definition)
   - [Field Definition](#field-definition)
-  - [Option Field Definition](#option-field-definition)
   - [Field Decorators](#field-decorators)
 - [Validation](#validation)
 - [Conditions](#conditions)
@@ -383,7 +382,7 @@ Have a look at the Child Fields demo:
 
 ----
 
-### <a id="form-definition">Option Fields</a>
+#### <a id="form-definition">Field Options</a>
 
 > Applies to `string`, `boolean`, and `array` field types only.
 
