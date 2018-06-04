@@ -39,10 +39,7 @@ It also offers an easy mechanism for serializing all form responses to JSON for 
 - [Installing](#installing)
 - [Getting Started](#getting-started)
   - [Login Form Example](#login-form-example)
-- [Form Definition](#form-definition)
-  - [Field Definition](#field-definition)
-  - [Option Field Definition](#option-field-definition)
-  - [Field Decorators](#field-decorators)
+- [Form Engine](#form-engine)
 - [Validation](#validation)
 - [Conditions](#conditions)
 - [Serialize](#serialize)
@@ -230,7 +227,6 @@ With the instance in hand, we can pass it our `<Form />` component:
 ```jsx
 const LoginForm = () => (
   <Form
-    hideTitle
     instance={instance}
     onSubmit={() => {
        // Do stuff
@@ -245,10 +241,11 @@ And once filled out, `onSubmit` will get us the form responses:
 const LoginForm = () => (
   <Form
     hideTitle
+    submitButtonLabel="Login"
     instance={instance}
     onSubmit={() => {
-      console.log(instance.serializeModel());         // Log all form responses
-      axios.post('/submit', model.serializeModel());  // Send it!
+      console.log(instance.getModelValues());   // Get form responses
+      console.log(instance.serializeModel());   // Serialize form responses
     }}
   />
 );
@@ -264,11 +261,24 @@ Have a look at the Login Form demo:
 
 ----
 
+## <a id="form-engine">Form Engine</a>
+
+- [Form Definition](#form-definition)
+- [Field Definition](#field-definition)
+- [Field Type](#field-type)
+- [Field Children](#field-children)
+- [Field Options](#field-options)
+- [Field Props List](#field-props-list)
+- [Field Type Transitions](#field-type-transitions)
+- [Field Decorators](#field-decorators)
+
 ### <a id="form-definition">Form Definition</a>
 
-Form definitions adhere to a strict schema. They must contain at least **one section**, which contains at least **one subsection**, which contains at least **one [Field Definition](#field-definition)**.
+Form definitions adhere to a strict schema. They must contain at least **one section**, which contains at least **one subsection**, which contains at least **one [Field Definition](#field-definition)**. You may find this schema verbose for smaller forms, however it scales well for significantly complex forms.
 
 > View the full schema in the [FormAPIService](https://github.com/mikechabot/react-json-form-engine/blob/master/src/form/service/form-api-service.js#L27)
+
+> In forms with a single section, vertical tabs are not displayed. In sections with a single subsection, horizontal tabs are not displayed.
 
 ```js
 // The most minimal form possible
@@ -295,17 +305,21 @@ export default {
 };
 ```
 
+Have a look the Simple Form demo:
+
 [![Edit react-json-form-engine (Simple)](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/n3wrwzpjo0)
 
 ---
 
 #### Form Definition Validation
 
-If the `FormEngine` is instantiated with a malformed definition, the UI will be notified of the failure:
+Don't worry about making mistakes with your definition. If the `FormEngine` is instantiated with a malformed definition, the UI will be notified of the failure location:
 
 <div align="center">
 <img src='https://raw.githubusercontent.com/mikechabot/react-json-form-engine-storybook/master/src/assets/form-engine-api-check.png' alt='api-check' aria-label='api-check' />
 </div>
+
+Have a look at the Malformed Form demo:
 
 [![Edit react-json-form-engine (Malformed)](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/mm3y516258)
 
@@ -318,30 +332,19 @@ Field definitions also adhere to a strict schema. At minimum, they must contain 
 ```js
 // The most minimal field object
 {
-  id: <string>,
-  type: <string>,
-  title: <string>
-}
-```
-#### <a id="field-id">Field ID</a>
-
-Uniquely identifies the form field within the DOM; it's also used as the `key` when storing the field's response in the model:
-
-```js
-// Form response stored as key/value:
-{ 
-  key: <field.id>, 
-  value: <value> 
+  id: <string>,       // Uniquely identifies the field within the DOM, and FormEngine instance
+  type: <string>,     // Determines the data type of the field response
+  title: <string>     // Label of the field
 }
 ```
 
 ----
 
-#### <a id="field-type">Field Type</a>
+### <a id="field-type">Field Type</a>
 
-Determines the data type of the value stored in the model, and also plays a role in which form control to render:
+Determines the *data type* of the response value stored in the model, and which Default Control to render. To override the default and render an Allowed Control instead, use a [Field Decorator](#field-decorators).
 
-| Field/Data Type  | Default Control   | Allowed Controls                                          | Supports `options`? |
+| Field Type       | Default Control   | Allowed Controls                                          | Supports `options`? |
 |------------------|-------------------|-----------------------------------------------------------|---------------------|
 | `string`         | `<Text />`        | `<Password />`, `<Textarea />`, `<Select />`, `<Radio />` | Yes*                |
 | `boolean`        | `<Checkbox />`    | `<Radio />`                                               | Yes*                |
@@ -349,55 +352,160 @@ Determines the data type of the value stored in the model, and also plays a role
 | `array`          | `<Select />`      | `<Checkboxgroup />`                                       | Yes                 |
 | `date`           | `<DateTime />`    | N/A                                                       | No                  |
 
-> Some field types will *automatically* transition from their Default Control to another Allowed Control if an `options` array is present in the field definition. (See [Field Type Transitions](#field-type-transitions))
+> Some field types will *automatically* transition from their Default Control to another Allowed Control if an `options` array is present in the field definition. (See [Field Type Transitions](#field-type-transitions)). However, in most cases, you must use a 
+[Field Decorator](#field-decorators) to use another Allowed Control.
+----
+
+### <a id="field-children">Field Children</a>
+
+Any field can contain child fields. Simply create a `fields` array on the field, and drop in valid [Field Definitions](#field-definition). Here's an example of some nested fields: 
+
+> Note: Field children can recurse infinitely, and also be placed on [Field Options](#field-options).
+
+```javascript
+{
+  id: "parent",
+  type: "number",
+  title: "Parent",             
+  fields: [
+    {
+      id: "child",
+      type: "string",
+      title: "Child",
+      fields: [
+        {
+          id: "grandchild",
+          type: "number",
+          title: "Grandchild"
+        }
+      ]
+    },
+    {
+      id: "child-2",
+      type: "array",
+      title: "Child",
+      options: [
+        { id: 'op1', title: 'Option 1'},
+        { id: 'op2', title: 'Option 2' },
+      ]
+    }
+  ]
+}
+```
+
+Have a look at the Child Fields demo:
+
+<a href="https://codesandbox.io/s/4xr9rj1rz4">
+  <img alt="Edit react-json-form-engine (Login Form Example)" src="https://codesandbox.io/static/img/play-codesandbox.svg">
+</a>
 
 ----
 
-#### <a id="field-property-list">Complete Field Property List</a>
+### <a id="field-options">Field Options</a>
+
+> Applies to `string`, `boolean`, and `array` field types only.
+
+#### `boolean`
+
+Fields of type `boolean` only accept a maximum of **two** options; each of which should contain just a `title` property. The first option is considered the affirmative response:
+
+```
+{
+  id: 'my_bool',
+  title: 'How often does it occur?',
+  type: 'boolean',
+  options: [
+    { title: 'Always' },
+    { title: 'Never' },
+  ]
+}
+```
+
+#### `string` / `array`
+
+For field types that accept unlimited options (`string`, `array`), you must include both an `id` and `title`. The `ids` of the selected option(s) are stored in the model.
+
+```js
+{
+  id: 'my_arr',
+  title: 'Pick some',  
+  type: 'array',      // Array type allows for multiple selections
+  options: [
+    { id: "op1", title: "Option 1" },
+    { id: "op2", title: "Option 2" },
+    { id: "op3", title: "Option 3" },
+  ]
+},
+{
+  id: 'my_str',
+  title: 'Pick one',
+  type: 'string',    // String type allows for single selection
+  options: [
+    { id: "op1", title: "Option 1" },
+    { id: "op2", title: "Option 2" },
+    { id: "op3", title: "Option 3" },
+  ]
+}
+```
+
+#### Field Children on Options
+
+For field controls that render selectable options, like `<Radio />` (incarnated as a `string` or `boolean`) or `<Checkboxgroup />`, you can include [Field Children](#field-children) on any of the options:
+
+```javascript
+{
+  id: "field_2",
+  type: "string",
+  title: "Select One (Field Type: String)",
+  options: [
+    {
+      id: "op1",
+      title: "Option 1",
+      fields: [{ id: "explain_1", type: "string", title: "Explain" }]
+    },
+    {
+      id: "op2",
+      title: "Option 2",
+      fields: [{ id: "explain_2", type: "string", title: "Explain" }]
+    },
+    {
+      id: "op3",
+      title: "Option 3",
+      fields: [{ id: "explain_3", type: "string", title: "Explain" }]
+    }
+  ]
+}
+```
+
+Have a look at the Field Options demo:
+
+<a href="https://codesandbox.io/s/9ymvkn8qnw">
+  <img alt="Edit react-json-form-engine (Option Field Definitions)" src="https://codesandbox.io/static/img/play-codesandbox.svg">
+</a>
+
+----
+
+### <a id="field-props-list">Field Props List</a>
+
+Here's the complete list of props that can be passed to [Field Definitions](#field-definition):
 
 | Property        | Type      | Required | Description                                                                                 |
 |-----------------|-----------|----------|---------------------------------------------------------------------------------------------|
 | `id`            | `string`  | Yes      | See [Field ID](#field-id)                                                                   |
 | `type`          | `string`  | Yes      | See [Field Type](#field-type)                                                               |
 | `title`         | `string`  | Yes      | Display label for the field                                                                 |
-| `options`       | `array`   | No       | Options to render for certain types (See [Option Field Definition](#option-field-definition)|
-| `fields`        | `array`   | No       | Children of the field (Must adhere to [Field Definition](#field-definition))                |
-| `placeholder`   | `string`  | No       | Display a placeholder                                                                       |
+| `options`       | `array`   | No       | See [Field Options](#field-options)                                                         |
+| `fields`        | `array`   | No       | See [Field Children](#field-children)                                                       |
+| `placeholder`   | `string`  | No       | Placeholder text to display                                                                 |
 | `showCondition` | `object`  | No       | Condition object (See [Conditions](#conditions))                                            |
 | `required`      | `boolean` | No       | Whether the field is required (See [Validation](#validation))                               |
-| `pattern`       | `string`  | No       | Pattern to match (See [Validation](#validation))                                            |
+| `pattern`       | `string`  | No       | Pattern to match during validation (See [Validation](#validation))                          |
 | `min`           | `number`  | Yes*     | Minimum value. (Used for `number` field types)                                              |
 | `max`           | `number`  | Yes*     | Maximum value. (Used for `number` field types)                                              |
-| `hideTime`      | `boolean` | No       | Hide the time value. (Used for `date` field types)                                          |
-| `hideCalendar`  | `boolean` | No       | Hide the date value. (Used for `date` field types)                                          |
+| `hideTime`      | `boolean` | No       | Only show the Date in Date/Time. (Used for `date` field types)                              |
+| `hideCalendar`  | `boolean` | No       | Only show the Time in Data/Time. (Used for `date` field types)                              |
 
-> `min` and `max` are only required for `number` field types.
-
-----
-
-### <a id="form-definition">Option Field Definition</a>
-
-> Applies to `string`, `boolean`, and `array` field types only.
-
-For field types that accept unlimited options (`string`, `array`), you must include both an `id` and `title`. The `ids` of the selected options are stored in the model.
-
-```js
-options: [
-      { id: "op1", title: "Option 1" },
-      { id: "op2", title: "Option 2" },
-    ]
-```
-
-For `boolean` field types, which can accept a maximum of two (2) options, only include a `title` property. The first option is considered the affirmative response:
-
-```
-options: [
-      { title: "Always" },
-      { title: "Never" },
-    ]
-```
-
-[![Edit react-json-form-engine (Option Field Definitions)](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/9ymvkn8qnw)
+> `min` and `max` are only required for `<Range />` component types.
 
 ----
 
@@ -405,7 +513,7 @@ options: [
 
 #### `string`
 
-By default, a `string` field is rendered as `<Text />`, but with `options` it automatically renders as a `<Select />`.
+By default, a `string` field is rendered as `<Text />` (See [Field Type](#field-type)), but with `options` it automatically renders as a `<Select />`.
 
 ```js
 [
@@ -427,13 +535,18 @@ By default, a `string` field is rendered as `<Text />`, but with `options` it au
   }
 ]
 ```
-[![Edit react-json-form-engine (Simple)](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/mq88xm5l6x)
+
+Have a look at the String Transition demo:
+
+<a href="https://codesandbox.io/s/mq88xm5l6x">
+  <img alt="Edit react-json-form-engine (String Field Type Transition)" src="https://codesandbox.io/static/img/play-codesandbox.svg">
+</a>
 
 ----
 
 #### `boolean`
 
-By default, a `boolean` field is rendered as `<Checkbox />`, but with `options` it automatically renders as a `<Radio />`.
+By default, a `boolean` field is rendered as `<Checkbox />` (See [Field Type](#field-type)), but with `options` it automatically renders as a `<Radio />`.
 
 ```js
 [
@@ -456,35 +569,106 @@ By default, a `boolean` field is rendered as `<Checkbox />`, but with `options` 
 
 > A maximum of two (2) options is allowed for `boolean` fields. For unlimited `<Radio />` options, use the `string` type with a `component` of `radio`.
 
+Have a look at the Boolean Transition demo:
+
 [![Edit react-json-form-engine (Boolean Field Type Transition)](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/zw9q7zrol4)
 
 ----
 
-### <a id="form-definition">Field Decorators</a> 
+### <a id="field-decorators">Field Decorators</a> 
 
-As we've seen above, both field `type` and `options` help drive the rendered Component type. However, you'll often want to explicitly override the default component type in favor of another. 
-
-Add the `decorators` object to the root of the [Form Definition](#form-definition); this object will be keyed by [Field ID](#field-id), and can contain the properties `hint` and `component`:
+Field decorators contain metadata about the fields you've configured in your form definition. Add the `decorators` object to the root of the [Form Definition](#form-definition):
 
 ```js
   {
-  ...
-  sections: [...],
+    id: 'my_form'
+    title: 'My Form',
+    sections: [...],
+    decorators: {}
+  }
+```
+The `decorators` object will be keyed by [Field ID](#field-id), and can contain the properties `hint` and `component`.
+
+----
+
+#### Hint Decorator
+
+Add hint text to any field:
+
+```js
+  id: "Form_ID",
+  title: "Form Title",
+  sections: [{
+    ...
+    subsections: [{
+      ...     
+      fields: [{
+        id: "field_1",
+        type: "string",
+        title: "Field title"
+      }]
+    }]
+  }],
   decorators: {
-    [field.id]: {
-      hint: <hintText>
+    field_1: {
+      hint: "This is some hint text!"
+    }
+  }
+}
+```
+
+Take a look at the Hint Decorator demo:
+
+<a href="https://codesandbox.io/s/j7jvxo88ny">
+  <img alt="Edit react-json-form-engine (Hint Text)" src="https://codesandbox.io/static/img/play-codesandbox.svg">
+</a>
+
+----
+
+#### Component Decorator
+
+Every field `type` renders a Default Control (See [Field Type](#field-type)), however you'll often want to explicitly override the default component type in favor of another. In some cases, this occurs automatically (See [Field Type Transitions](#field-type-transitions), however most times you'll need to specify a component decorator.
+
+Let's update `field_1` from a `<Select />` to a `<Checkboxgroup />`:
+
+```js
+  id: "Form_ID",
+  title: "Form Title",
+  sections: [{
+    ...
+    subsections: [{
+      ...     
+      fields: [{
+        id: "field_1",
+        type: "array",
+        title: "Field title",
+        options: [
+           ...
+        ]
+      }]
+    }]
+  }],
+  decorators: {
+    field_1: {
+      hint: 'More hint text!',
       component: {
-        type: <componentType>
+        type: 'checkboxgroup'
       }
     }
   }
+}
 ```
+
+Here's a list of field types with overrideable components:
 
 | Field Type       | Component Decorator Overrides   | 
 |------------------|---------------------------------|
 | `string`         | `password`, `textarea`, `radio` |
 | `number`         | `range`                         |  
 | `array`          | `checkboxgroup`                 |
+
+
+Take a look a the Component Override demo:
 
 [![Edit react-json-form-engine (Component Type Decorators)](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/wqpy6099p7)
 
