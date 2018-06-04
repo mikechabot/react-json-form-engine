@@ -266,7 +266,7 @@ Have a look at the Login Form demo:
 
 ### <a id="form-definition">Form Definition</a>
 
-Form definitions adhere to a strict schema. They must contain at least **one section**, which contains at least **one subsection**, which contains at least **one [Field Definition](#field-definition)**.
+Form definitions adhere to a strict schema. They must contain at least **one section**, which contains at least **one subsection**, which contains at least **one [Field Definition](#field-definition)**. You may find this schema verbose for smaller forms, however it scales nicely for significanltly complex forms.
 
 > View the full schema in the [FormAPIService](https://github.com/mikechabot/react-json-form-engine/blob/master/src/form/service/form-api-service.js#L27)
 
@@ -301,7 +301,7 @@ export default {
 
 #### Form Definition Validation
 
-If the `FormEngine` is instantiated with a malformed definition, the UI will be notified of the failure:
+Don't worry about making mistakes with your definition. If the `FormEngine` is instantiated with a malformed definition, the UI will be notified of the failure location:
 
 <div align="center">
 <img src='https://raw.githubusercontent.com/mikechabot/react-json-form-engine-storybook/master/src/assets/form-engine-api-check.png' alt='api-check' aria-label='api-check' />
@@ -330,7 +330,7 @@ Field definitions also adhere to a strict schema. At minimum, they must contain 
 
 Determines the *data type* of the response value stored in the model, and also plays a role in which form control to render:
 
-| Field/Data Type  | Default Control   | Allowed Controls                                          | Supports `options`? |
+| Field Type       | Default Control   | Allowed Controls                                          | Supports `options`? |
 |------------------|-------------------|-----------------------------------------------------------|---------------------|
 | `string`         | `<Text />`        | `<Password />`, `<Textarea />`, `<Select />`, `<Radio />` | Yes*                |
 | `boolean`        | `<Checkbox />`    | `<Radio />`                                               | Yes*                |
@@ -338,8 +338,8 @@ Determines the *data type* of the response value stored in the model, and also p
 | `array`          | `<Select />`      | `<Checkboxgroup />`                                       | Yes                 |
 | `date`           | `<DateTime />`    | N/A                                                       | No                  |
 
-> Some field types will *automatically* transition from their Default Control to another Allowed Control if an `options` array is present in the field definition. (See [Field Type Transitions](#field-type-transitions))
-
+> Some field types will *automatically* transition from their Default Control to another Allowed Control if an `options` array is present in the field definition. (See [Field Type Transitions](#field-type-transitions)). However, in most cases, you must use a 
+[Field Decorator](#field-decorators) to use another Allowed Control.
 ----
 
 #### <a id="field-type">Field Children</a>
@@ -383,6 +383,53 @@ Have a look at the Child Fields demo:
 
 ----
 
+### <a id="form-definition">Option Fields</a>
+
+> Applies to `string`, `boolean`, and `array` field types only.
+
+Note, `boolean` field types only accept a maximum of **two** options; each of which should contain just a `title` property. The first option is considered the affirmative response:
+
+```
+{
+  id: 'my_bool',
+  title: 'How often does it occur?',
+  type: 'boolean',
+  options: [
+    { title: 'Always' },
+    { title: 'Never' },
+  ]
+}
+```
+
+For field types that accept unlimited options (`string`, `array`), you must include both an `id` and `title`. The `ids` of the selected options are stored in the model.
+
+```js
+{
+  id: 'my_arr',
+  title: 'Pick some',
+  type: 'array',
+  options: [
+    { id: "op1", title: "Option 1" },
+    { id: "op2", title: "Option 2" },
+    { id: "op3", title: "Option 3" },
+  ]
+},
+{
+  id: 'my_str',
+  title: 'Pick one',
+  type: 'string',
+  options: [
+    { id: "op1", title: "Option 1" },
+    { id: "op2", title: "Option 2" },
+    { id: "op3", title: "Option 3" },
+  ]
+}
+```
+
+[![Edit react-json-form-engine (Option Field Definitions)](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/9ymvkn8qnw)
+
+----
+
 #### <a id="field-property-list">Complete Field Property List</a>
 
 | Property        | Type      | Required | Description                                                                                 |
@@ -402,32 +449,6 @@ Have a look at the Child Fields demo:
 | `hideCalendar`  | `boolean` | No       | Hide the date value. (Used for `date` field types)                                          |
 
 > `min` and `max` are only required for `number` field types.
-
-----
-
-### <a id="form-definition">Option Field Definition</a>
-
-> Applies to `string`, `boolean`, and `array` field types only.
-
-For field types that accept unlimited options (`string`, `array`), you must include both an `id` and `title`. The `ids` of the selected options are stored in the model.
-
-```js
-options: [
-      { id: "op1", title: "Option 1" },
-      { id: "op2", title: "Option 2" },
-    ]
-```
-
-For `boolean` field types, which can accept a maximum of two (2) options, only include a `title` property. The first option is considered the affirmative response:
-
-```
-options: [
-      { title: "Always" },
-      { title: "Never" },
-    ]
-```
-
-[![Edit react-json-form-engine (Option Field Definitions)](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/9ymvkn8qnw)
 
 ----
 
@@ -490,7 +511,7 @@ By default, a `boolean` field is rendered as `<Checkbox />`, but with `options` 
 
 ----
 
-### <a id="form-definition">Field Decorators</a> 
+### <a id="field-decorators">Field Decorators</a> 
 
 As we've seen above, both field `type` and `options` help drive the rendered Component type. However, you'll often want to explicitly override the default component type in favor of another. 
 
