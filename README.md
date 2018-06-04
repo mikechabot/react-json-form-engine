@@ -425,7 +425,11 @@ For field types that accept unlimited options (`string`, `array`), you must incl
 }
 ```
 
-[![Edit react-json-form-engine (Option Field Definitions)](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/9ymvkn8qnw)
+Have a look at the Field Options demo:
+
+<a href="https://codesandbox.io/s/9ymvkn8qnw">
+  <img alt="Edit react-json-form-engine (Option Field Definitions)" src="https://codesandbox.io/static/img/play-codesandbox.svg">
+</a>
 
 ----
 
