@@ -128,7 +128,13 @@ If you'd like to use [Font Awesome](https://fontawesome.com), be sure to also in
 
 ## <a id="getting-started">Getting Started</a>
 
-Before we can start rendering, we'll need to build a [Form Definition](#form-definition), which is the skeleton structure that describes how the form should look and behave. The definition must adhere to a strict schema, and can be represented as a JavaScript object or a [JSON Schema](http://json-schema.org). But don't worry about the details yet, we'll get into those.
+First, let's import the API:
+
+```javascript
+import { Form, FormEngine } from 'react-json-form-engine';
+```
+
+Next, we'll need to build a [Form Definition](#form-definition), which is the skeleton structure that describes how the form should look and behave. The definition must adhere to a strict schema, and can be represented as a JavaScript object or a [JSON Schema](http://json-schema.org). But don't worry about the details yet, we'll get into those. 
 
 Once we've built our definition, we'll feed it to the `FormEngine`, which returns an instance:
 
@@ -142,6 +148,7 @@ Then, we just pass the instance to the `<Form />` component, and `react-json-for
 <Form
   instance={instance}
   onSubmit={() => {
+    const responses = instance.serializeModel();
     // Do stuff
   }}
 />
@@ -166,7 +173,7 @@ Let's create a simple login form. Either follow along below, or check out the [c
  
 #### Login Form Definition
 
-Here's our definition, which is a rather simple one. It consists of a single section with a single subsection, which houses three fields. Note, we're also decorating the `user_pass` field to ensure it renders as a password field:
+Here's our definition, which is a rather simple one. It consists of just a single section with a single subsection, which houses three fields. Note, we're also decorating the `user_pass` field to ensure it renders as a password field:
 
 ```javascript
 const loginForm = {
@@ -234,16 +241,14 @@ const LoginForm = () => (
 
 And once filled out, `onSubmit` will get us the form responses:
 
-
 ```jsx
 const LoginForm = () => (
   <Form
     hideTitle
     instance={instance}
     onSubmit={() => {
-       const model = instance.getModel();         // Get form model
-       console.log(model.serialize());            // Log all form responses
-       axios.post('/submit', model.serialize());  // Send it!
+      console.log(instance.serializeModel());         // Log all form responses
+      axios.post('/submit', model.serializeModel());  // Send it!
     }}
   />
 );
@@ -253,7 +258,7 @@ const LoginForm = () => (
 
 Have a look at the Login Form demo:
 
-<a href="https://codesandbox.io/s/9lnylw51pp">
+<a href="https://codesandbox.io/s/konxynx4o">
   <img alt="Edit react-json-form-engine (Login Form Example)" src="https://codesandbox.io/static/img/play-codesandbox.svg">
 </a>
 
