@@ -128,13 +128,17 @@ If you'd like to use [Font Awesome](https://fontawesome.com), be sure to also in
 
 ## <a id="getting-started">Getting Started</a>
 
-Before we can start rendering, we'll need to build a [Form Definition](#form-definition), which is the skeleton structure that describes how the form should look and behave. The definition must adhere to a strict schema, and can be represented as a JavaScript object or a [JSON Schema](http://json-schema.org). But don't worry about the details yet, we'll get into those.
+First, let's import the API:
+
+```javascript
+import { Form, FormEngine } from 'react-json-form-engine';
+```
+
+Next, we'll need to build a [Form Definition](#form-definition), which is the skeleton structure that describes how the form should look and behave. The definition must adhere to a strict schema, and can be represented as a JavaScript object or a [JSON Schema](http://json-schema.org). But don't worry about the details yet, we'll get into those. 
 
 Once we've built our definition, we'll feed it to the `FormEngine`, which returns an instance:
 
 ```javascript
-import { FormEngine, Form } from 'react-json-form-engine';
-
 const instance = new FormEngine(definition);
 ```
 
@@ -144,6 +148,7 @@ Then, we just pass the instance to the `<Form />` component, and `react-json-for
 <Form
   instance={instance}
   onSubmit={() => {
+    const responses = instance.serializeModel();
     // Do stuff
   }}
 />
