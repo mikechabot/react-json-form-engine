@@ -403,7 +403,9 @@ Have a look at the Child Fields demo:
 
 > Applies to `string`, `boolean`, and `array` field types only.
 
-Note, `boolean` field types only accept a maximum of **two** options; each of which should contain just a `title` property. The first option is considered the affirmative response:
+#### `boolean`
+
+Fields of type `boolean` only accept a maximum of **two** options; each of which should contain just a `title` property. The first option is considered the affirmative response:
 
 ```
 {
@@ -417,13 +419,15 @@ Note, `boolean` field types only accept a maximum of **two** options; each of wh
 }
 ```
 
+#### `string` / `array`
+
 For field types that accept unlimited options (`string`, `array`), you must include both an `id` and `title`. The `ids` of the selected option(s) are stored in the model.
 
 ```js
 {
   id: 'my_arr',
-  title: 'Pick some',
-  type: 'array',
+  title: 'Pick some',  
+  type: 'array',      // Array type allows for multiple selections
   options: [
     { id: "op1", title: "Option 1" },
     { id: "op2", title: "Option 2" },
@@ -433,7 +437,7 @@ For field types that accept unlimited options (`string`, `array`), you must incl
 {
   id: 'my_str',
   title: 'Pick one',
-  type: 'string',
+  type: 'string',    // String type allows for single selection
   options: [
     { id: "op1", title: "Option 1" },
     { id: "op2", title: "Option 2" },
@@ -442,7 +446,7 @@ For field types that accept unlimited options (`string`, `array`), you must incl
 }
 ```
 
-For field controls that render selectable options, like `<Radio />` or `<Checkboxgroup />`, you can include [Field Children](#field-children) on any of the options:
+For field controls that render selectable options, like `<Radio />` (incarnated as a `string` or `boolean`) or `<Checkboxgroup />`, you can include [Field Children](#field-children) on any of the options:
 
 ```javascript
 {
