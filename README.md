@@ -479,6 +479,8 @@ Have a look at the Field Options demo:
 
 ### <a id="field-props-list">Field Props List</a>
 
+Here's the complete list of props that can be passed to [Field Definitions](#field-definition):
+
 | Property        | Type      | Required | Description                                                                                 |
 |-----------------|-----------|----------|---------------------------------------------------------------------------------------------|
 | `id`            | `string`  | Yes      | See [Field ID](#field-id)                                                                   |
@@ -532,7 +534,6 @@ Have a look at the String Transition demo:
   <img alt="Edit react-json-form-engine (String Field Type Transition)" src="https://codesandbox.io/static/img/play-codesandbox.svg">
 </a>
 
-
 ----
 
 #### `boolean`
@@ -568,17 +569,57 @@ Have a look at the Boolean Transition demo:
 
 ### <a id="field-decorators">Field Decorators</a> 
 
-As we've seen above, both field `type` and `options` help drive the rendered Component type. However, you'll often want to explicitly override the default component type in favor of another. 
+Field decorators contain metadata about the fields you've configured in your form definition. Add the `decorators` object to the root of the [Form Definition](#form-definition):
 
-Add the `decorators` object to the root of the [Form Definition](#form-definition); this object will be keyed by [Field ID](#field-id), and can contain the properties `hint` and `component`:
+```js
+  {
+    id: 'my_form'
+    title: 'My Form',
+    sections: [...],
+    decorators: {}
+  }
+```
+The decorators object will be keyed by [Field ID](#field-id), and can contain the properties `hint` and `component`.
+
+#### Hint
+```
+  {
+    id: 'my_form'
+    title: 'My Form',
+    sections: [{
+      ...
+      subsections: [{
+        fields: [{
+          id: 'str_1',
+          type: 'string',
+          title: 'Username'
+        }]
+      }]
+    }],
+    decorators: {
+      str_1: {
+        hint: 'This is some hint text!'
+      }
+    }
+  }
+```
+
+See the Hint Decorator demo here:
+
+
+
+----
+
+#### Component
+
+Every field `type` renders a Default Control (See [Field Type](#field-type)), however you'll often want to explicitly override the default component type in favor of another. In some cases, this occurs automatically (See [Field Type Transitions](#field-type-transitions), but otherwise you'll need to specify a decorator.
 
 ```js
   {
   ...
   sections: [...],
   decorators: {
-    [field.id]: {
-      hint: <hintText>
+    myFild: {
       component: {
         type: <componentType>
       }
@@ -586,11 +627,20 @@ Add the `decorators` object to the root of the [Form Definition](#form-definitio
   }
 ```
 
+| Field Type       | Allowed Controls                             |
+|------------------|----------------------------------------------|
+| `string`         | `<Password />`, `<Textarea />`, `<Radio />`  |
+| `number`         | `<Range />`                                  |
+| `array`          | `<Checkboxgroup />`                          |
+
 | Field Type       | Component Decorator Overrides   | 
 |------------------|---------------------------------|
 | `string`         | `password`, `textarea`, `radio` |
 | `number`         | `range`                         |  
 | `array`          | `checkboxgroup`                 |
+
+
+
 
 [![Edit react-json-form-engine (Component Type Decorators)](https://codesandbox.io/static/img/play-codesandbox.svg)](https://codesandbox.io/s/wqpy6099p7)
 
