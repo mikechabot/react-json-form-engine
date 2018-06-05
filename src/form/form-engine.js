@@ -440,7 +440,7 @@ class FormEngine {
      */
     resetFields(fields) {
         _forEach(fields, field => {
-            if (this.hasModelValue(field[FIELD.ID])) {
+            if (this.hasModelValue(field[FIELD.ID]) && !this.evaluateFieldShowCondition(field)) {
                 this.setModelValue(field[FIELD.ID], NO_VALUE, field);
             }
         });
