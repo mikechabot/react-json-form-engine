@@ -629,7 +629,7 @@ Take a look at the Hint Decorator demo:
 
 #### Component Decorator
 
-Every field `type` renders a Default Control (See [Field Type](#field-type)), however you'll often want to explicitly override the default component type in favor of another. In some cases, this occurs automatically (See [Field Type Transitions](#field-type-transitions), however most times you'll need to specify a component decorator.
+Every field `type` renders a Default Control (See [Field Type](#field-type)), however you'll often want to explicitly override the default component type in favor of another. In some cases, this occurs automatically (See [Field Type Transitions](#field-type-transitions)), however most times you'll need to specify a component decorator.
 
 Let's update `field_1` from a `<Select />` to a `<Checkboxgroup />`:
 
