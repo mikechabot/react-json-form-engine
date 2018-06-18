@@ -313,7 +313,9 @@ Have a look the Simple Form demo:
 
 #### Form Definition Validation
 
-Don't worry about making mistakes with your definition. If the `FormEngine` is instantiated with a malformed definition, the UI will be notified of the failure location:
+Don't worry about making mistakes with your definition. If the `FormEngine` is instantiated with a malformed definition, the UI will be notified of the failure location.
+
+In the case below, our definition was completely missing the `sections` array:
 
 <div align="center">
 <img src='https://raw.githubusercontent.com/mikechabot/react-json-form-engine-storybook/master/src/assets/form-engine-api-check.png' alt='api-check' aria-label='api-check' />
