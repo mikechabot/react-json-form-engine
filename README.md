@@ -153,7 +153,7 @@ Then, we just pass the instance to the `<Form />` component, and `react-json-for
 
 ### <a id="login-form-example">Login Form Example</a>
 
-Let's create a simple login form. Either follow along below, or check out the [codesandbox](#login-example-codesandbox).
+Let's create a simple login form. Either follow along below, or check out the [codesandbox](https://codesandbox.io/s/konxynx4o).
 
 <table>
 <tr>
