@@ -1,13 +1,14 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import FormItemHint from '../helpers/FormItemHint';
-import { Icon } from '../../common';
+import FormControlHint from '../helpers/FormControlHint';
+import { Icon } from '../../util';
 
 const ValidationFieldError = ({ id }) => (
     <span className="has-text-danger">
-        <Icon icon="exclamation-circle" />&nbsp;Error rendering Field with ID: {id}
-        <FormItemHint hint="Check console for additional details. " className="has-text-danger" />
+        <Icon icon="exclamation-circle" />
+        &nbsp;Error rendering Field with ID: {id}
+        <FormControlHint text="Check console for additional details." className="is-danger" />
     </span>
 );
 

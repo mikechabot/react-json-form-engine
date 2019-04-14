@@ -1,68 +1,59 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
+import { Flex } from '../util';
+
 import FormSubsectionTitle from './helpers/FormSubsectionTitle';
-import ValidationResults from './validation/ValidationResults';
 import FormField from './FormField';
-import { Flex } from '../common';
 
 class FormSubsection extends React.Component {
     render() {
-        const { subsection, instance, onUpdate } = this.props;
+        const { subsection, instance, hideTitle, hideSubtitle } = this.props;
+        console.log('Render FormSubsection');
+
+        const hasError = instance.subsectionHasError(subsection);
+
         return (
-            <Flex column={true} flex={1} className="panel" flexShrink={0}>
-                {this._maybeRenderSubsectionTitle(subsection, instance)}
-                <div className="panel-block">
-                    {this._renderSubsectionContent(subsection, instance, onUpdate)}
+            <Flex column={true} flex={1} className="panel" flexShrink={0} height="100%">
+                <FormSubsectionTitle
+                    hasError={hasError}
+                    subsection={subsection}
+                    instance={instance}
+                    hideTitle={hideTitle}
+                    hideSubtitle={hideSubtitle}
+                />
+                <div style={{ width: '100%', height: '100%', padding: '.5em .75em' }}>
+                    {this.renderSubsectionFields(subsection.fields)}
                 </div>
-                {this._maybeRenderValidationMessages(subsection, instance)}
                 {this._maybeRenderSubmitButton()}
             </Flex>
         );
     }
 
-    _renderSubsectionContent(subsection, instance, onUpdate) {
-        const style = { minWidth: '100%' };
-        return (
-            <div style={style}>
-                {subsection.fields.map(this._renderSubsectionField.bind(this, instance, onUpdate))}
-            </div>
+    renderSubsectionFields(fields = []) {
+        return fields.map(fieldDefinition =>
+            this._renderSubsectionField(fieldDefinition, this.props.instance, this.props.onUpdate)
         );
     }
 
-    _renderSubsectionField(instance, onUpdate, fieldDef, index) {
+    _renderSubsectionField(fieldDef, instance, onUpdate) {
         const field = instance.getField(fieldDef.id);
-        if (instance.evaluateFieldShowCondition(field)) {
+        if (instance.isVisible(field)) {
             return (
-                <div key={index} style={{ marginTop: 10 }}>
+                <div
+                    key={field.id}
+                    style={{
+                        paddingBottom: '.75rem'
+                    }}
+                >
                     <FormField
                         id={field.id}
                         field={field}
                         onUpdate={onUpdate}
                         instance={instance}
+                        hasError={instance.fieldHasError(field.id)}
                         value={instance.getModelValue(field.id)}
                     />
-                </div>
-            );
-        }
-    }
-
-    _maybeRenderSubsectionTitle(subsection, instance) {
-        return (
-            <FormSubsectionTitle
-                subsection={subsection}
-                instance={instance}
-                hideTitle={this.props.hideTitle}
-                hideSubtitle={this.props.hideSubtitle}
-            />
-        );
-    }
-
-    _maybeRenderValidationMessages(subsection, instance) {
-        if (instance.subsectionHasError(subsection)) {
-            return (
-                <div className="panel-block">
-                    <ValidationResults instance={instance} subsection={subsection} />
                 </div>
             );
         }
@@ -78,7 +69,6 @@ class FormSubsection extends React.Component {
 FormSubsection.propTypes = {
     instance: PropTypes.object.isRequired,
     subsection: PropTypes.object.isRequired,
-    hasSiblings: PropTypes.bool,
     hideTitle: PropTypes.bool,
     hideSubtitle: PropTypes.bool,
     submitButton: PropTypes.node,

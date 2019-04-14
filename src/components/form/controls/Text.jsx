@@ -4,12 +4,12 @@ import Maybe from 'maybe-baby';
 
 const DEFAULT_TYPE = 'text';
 
-const Text = ({ id, field, value, onUpdate, uiDecorators }) => {
+const Text = ({ id, field, value, onUpdate, uiDecorators, hasError }) => {
     return (
         <input
             name={id}
             id={id}
-            className="input"
+            className={`input ${hasError ? 'is-danger' : ''}`}
             type={__getInputType(uiDecorators)}
             value={value || ''}
             onChange={onUpdate}
@@ -29,10 +29,10 @@ const __getInputType = uiDecorators => {
 Text.propTypes = {
     id: PropTypes.string.isRequired,
     field: PropTypes.object.isRequired,
-    value: PropTypes.string,
-    uiDecorators: PropTypes.object,
+    hasError: PropTypes.bool.isRequired,
     onUpdate: PropTypes.func.isRequired,
-    instance: PropTypes.object.isRequired
+    value: PropTypes.string,
+    uiDecorators: PropTypes.object
 };
 
 export default Text;

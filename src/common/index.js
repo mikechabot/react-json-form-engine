@@ -1,19 +1,16 @@
-import _isEmpty from 'lodash/isEmpty';
+import isEmpty from 'lodash/isEmpty';
+import isNil from 'lodash/isNil';
 
 const EMPTY_STRING = '';
 
-export const __clone = obj => {
+export const clone = obj => {
     if (!obj) return;
     return JSON.parse(JSON.stringify(obj));
 };
 
-export const __hasValue = val => {
-    return val !== undefined && val !== null;
-};
-
-export const __isBlank = val => {
+export const isBlank = val => {
     if (typeof val === 'object' && Array.isArray(val)) {
-        return _isEmpty(val);
+        return isEmpty(val);
     }
-    return val === undefined || val === null || val === EMPTY_STRING;
+    return isNil(val) || val === EMPTY_STRING;
 };

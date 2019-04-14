@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import { Tabs, Tab } from 'react-tabify';
 
 import FormSubsection from './FormSubsection';
-import { Flex, Asterisk } from '../common';
+import { Flex, Asterisk } from '../util';
 
 class FormSection extends React.Component {
     constructor(props) {
@@ -14,8 +14,10 @@ class FormSection extends React.Component {
         const { section } = this.props;
         const { subsections } = section;
 
+        console.log('Render FormSection');
+
         return (
-            <Flex id={section.id} flexShrink={0}>
+            <Flex id={section.id} flexShrink={0} height="100%">
                 {this._renderSubsections(section, subsections)}
             </Flex>
         );
@@ -43,11 +45,12 @@ class FormSection extends React.Component {
         );
     }
 
-    _renderSingleSubsection(subsection, hasSiblings) {
+    _renderSingleSubsection(subsection, isTabbed) {
         return (
             <FormSubsection
-                hideTitle={hasSiblings || this.props.hideTitle}
+                hideTitle={isTabbed || this.props.hideTitle}
                 hideSubtitle={this.props.hideSubtitle}
+                isTabbed={isTabbed}
                 subsection={subsection}
                 instance={this.props.instance}
                 onUpdate={this.props.onUpdate}
@@ -57,15 +60,12 @@ class FormSection extends React.Component {
     }
 
     _getDerivedSubsectionTitle(subsection) {
-        let label = subsection.title;
-        if (this.props.instance.subsectionHasError(subsection)) {
-            label = (
-                <span>
-                    {label} <Asterisk />
-                </span>
-            );
-        }
-        return label;
+        if (!this.props.instance.subsectionHasError(subsection)) return subsection.title;
+        return (
+            <span>
+                {subsection.title} <Asterisk />
+            </span>
+        );
     }
 }
 

@@ -1,25 +1,26 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
 
-import { Icon, Flex } from '../../common';
+import { Flex } from '../../util';
 
 const regex = /^Error: (.+)$/m;
 
 const ValidationAPIError = ({ error }) => {
-    let detail = __parseAPICheckErrorMessage(error);
+    let message = parseAPICheckErrorMessage(error);
     return (
         <div className="panel">
             <div className="panel-heading">
-                <Flex>
-                    <Icon icon="exclamation-triangle" className="has-text-danger" />&nbsp;
-                    {_renderTitle(detail || 'Error initializing FormEngine')}
+                <Flex alignItems="baseline">
+                    <FontAwesomeIcon icon="exclamation-triangle" className="has-text-danger" />&nbsp;
+                    <h3>{message || 'Error initializing FormEngine'}</h3>
                 </Flex>
             </div>
         </div>
     );
 };
 
-const __parseAPICheckErrorMessage = error => {
+const parseAPICheckErrorMessage = error => {
     if (!error) return null;
     if (regex.test(error)) {
         const matches = regex.exec(error);
@@ -28,14 +29,6 @@ const __parseAPICheckErrorMessage = error => {
         }
     }
     return null;
-};
-
-const _renderTitle = title => {
-    return (
-        <div className="alert alert-danger paper-1">
-            <h3>{title}</h3>
-        </div>
-    );
 };
 
 ValidationAPIError.propTypes = {

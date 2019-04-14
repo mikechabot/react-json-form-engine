@@ -1,22 +1,19 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import isNil from 'lodash/isNil';
 
 import ValidationFieldError from '../validation/ValidationFieldError';
-import { Flex } from '../../common';
-
-import { __hasValue } from '../../../common';
+import { Flex } from '../../util';
 
 const Range = ({ id, field, value, onUpdate }) => {
-    if (!__hasValue(field.min) || !__hasValue(field.max)) {
-        console.error(
-            `Field of type "${field.type}" is missing required "min" and/or "max" (id: ${id})`
-        );
+    if (isNil(field.min) || isNil(field.max)) {
+        console.error(`Field of type "${field.type}" is missing required "min" and/or "max" (id: ${id})`);
         return <ValidationFieldError id={field.id} />;
     }
 
     return (
         <Flex column flexShrink={0}>
-            <Flex hAlignCenter>{__hasValue(value) ? value : 'No Value'}</Flex>
+            <Flex hAlignCenter>{!isNil(value) ? value : 'No Value'}</Flex>
             <Flex flex={1}>
                 <MinMaxLabel value={field.min} style={{ marginRight: '0.25rem' }} />
                 <Flex flex={1}>
@@ -25,7 +22,7 @@ const Range = ({ id, field, value, onUpdate }) => {
                         name={id}
                         id={id}
                         type="range"
-                        value={__hasValue(value) ? value : ''}
+                        value={!isNil(value) ? value : ''}
                         max={field.max}
                         min={field.min}
                         onChange={onUpdate}

@@ -2,10 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import Maybe from 'maybe-baby';
 import _isEmpty from 'lodash/isEmpty';
-import _isEqual from 'lodash/isEqual';
 
-import FormItemTitle from './helpers/FormItemTitle';
-import FormItemHint from './helpers/FormItemHint';
+import FormControlTitle from './helpers/FormControlTitle';
+import FormControlHint from './helpers/FormControlHint';
 import ValidationFieldError from './validation/ValidationFieldError';
 
 class FormControl extends React.Component {
@@ -23,7 +22,7 @@ class FormControl extends React.Component {
      */
     shouldComponentUpdate(nextProps) {
         if (!this._hasFieldChildren(nextProps.field)) {
-            return !_isEqual(nextProps, this.props);
+            return nextProps.value !== this.props.value || nextProps.hasError !== this.props.hasError;
         }
         return true;
     }
@@ -37,23 +36,28 @@ class FormControl extends React.Component {
             return <ValidationFieldError id={field.id} />;
         }
 
-        // Assign to uppercase for the JSX compiler
+        console.log('Render FormControl', id);
+
         const Control = component.element;
+
+        const hasError = instance.fieldHasError(id);
 
         return (
             <span>
-                <FormItemTitle field={field} decorators={uiDecorators} instance={instance} />
+                <FormControlTitle field={field} decorators={uiDecorators} />
                 <div className="control">
                     <Control
                         id={id}
                         value={value}
                         field={field}
+                        hasError={hasError}
                         uiDecorators={uiDecorators}
                         onUpdate={onUpdate}
                         instance={instance}
                     />
                 </div>
                 {this._maybeRenderHint(uiDecorators)}
+                {hasError ? this._maybeRenderError(id, instance) : null}
             </span>
         );
     }
@@ -64,8 +68,20 @@ class FormControl extends React.Component {
                 .prop('hint')
                 .isJust()
         ) {
-            return <FormItemHint hint={uiDecorators.hint} />;
+            return <FormControlHint text={uiDecorators.hint} />;
         }
+    }
+
+    _maybeRenderError(id, instance) {
+        const { messages } = instance.getValidationResultByTag(id);
+        return Object.keys(messages).map(key => (
+            <FormControlHint
+                key={key}
+                icon="exclamation-triangle"
+                className="is-danger"
+                text={messages[key].message}
+            />
+        ));
     }
 
     /**
@@ -88,6 +104,7 @@ FormControl.propTypes = {
     id: PropTypes.string.isRequired,
     field: PropTypes.object.isRequired,
     onUpdate: PropTypes.func.isRequired,
+    hasError: PropTypes.bool.isRequired,
     value: PropTypes.oneOfType([
         PropTypes.string,
         PropTypes.number,

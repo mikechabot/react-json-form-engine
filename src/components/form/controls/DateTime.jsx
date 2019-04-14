@@ -3,7 +3,7 @@ import React from 'react';
 import Maybe from 'maybe-baby';
 import DatePicker from 'react-datepicker';
 
-import 'react-datepicker/dist/react-datepicker.css';
+import 'react-datepicker/dist/react-datepicker.min.css';
 
 class DateTime extends React.Component {
     constructor(props) {

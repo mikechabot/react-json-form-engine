@@ -1,9 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
+import isNil from 'lodash/isNil';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import FormChildren from '../FormChildren';
-import { Icon, Flex } from '../../common';
-import { __hasValue } from '../../../common';
+import { Flex } from '../../util';
 
 const Radio = ({ id, value, field, instance, onUpdate }) => {
     if (!field.options) {
@@ -45,9 +46,9 @@ const _renderOption = (field, value, instance, onUpdate, option, index) => {
 
 const _renderOptionIcon = (option, value, isEven) => {
     return _isChecked(option, value, isEven) ? (
-        <Icon prefix="far" icon="dot-circle" />
+        <FontAwesomeIcon icon={['far', 'dot-circle']} />
     ) : (
-        <Icon prefix="far" icon="circle" />
+        <FontAwesomeIcon icon={['far', 'circle']} />
     );
 };
 
@@ -56,7 +57,7 @@ const _handleOnClick = (field, option, onUpdate, isEven) => {
 };
 
 const _isChecked = (option, value, isEven) => {
-    if (!__hasValue(value)) return false;
+    if (isNil(value)) return false;
     if (option.id) return option.id === value;
     return isEven ? value : !value;
 };

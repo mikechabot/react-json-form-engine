@@ -9,18 +9,27 @@
     "modules": true,
     "experimentalObjectRestSpread": true
   },
-  "plugins": [ "react", "prettier"],
-  "extends": [ "eslint:recommended", "standard", "plugin:react/recommended", "prettier" ],
+  "plugins": ["react", "prettier"],
+  "extends": [
+    "eslint:recommended",
+    "standard",
+    "plugin:react/recommended",
+    "prettier"
+  ],
   "rules": {
     "eqeqeq": [2, "always"],
     "indent": [2, 4, { "SwitchCase": 1 }],
     "jsx-quotes": [2, "prefer-double"],
-    "no-console": ["error", { "allow": ["log", "warn", "error", "group", "groupEnd"]}],
+    "no-console": [
+      "error",
+      { "allow": ["log", "warn", "error", "group", "groupEnd"] }
+    ],
     "no-debugger": 2,
     "no-extend-native": 0,
     "no-var": 1,
     "prettier/prettier": "error",
-    "quotes": [2, "single"],
+    //    "quotes": [2, "single"],
+    "quotes": [2, "single", { "avoidEscape": true }],
     "react/prop-types": 1,
     "react/no-find-dom-node": 0,
     "semi": [2, "always"]

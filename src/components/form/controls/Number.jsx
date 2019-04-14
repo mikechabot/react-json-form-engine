@@ -1,10 +1,10 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-const Number = ({ id, field, value, onUpdate }) => {
+const Number = ({ id, field, value, onUpdate, hasError }) => {
     return (
         <input
-            className="input"
+            className={`input ${hasError ? 'is-danger' : ''}`}
             name={id}
             id={id}
             type="number"
@@ -20,9 +20,9 @@ const Number = ({ id, field, value, onUpdate }) => {
 Number.propTypes = {
     id: PropTypes.string.isRequired,
     field: PropTypes.object.isRequired,
-    value: PropTypes.number,
     onUpdate: PropTypes.func.isRequired,
-    instance: PropTypes.object.isRequired
+    hasError: PropTypes.bool.isRequired,
+    value: PropTypes.number
 };
 
 export default Number;

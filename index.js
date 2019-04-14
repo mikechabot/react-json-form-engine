@@ -1,6 +1,6 @@
 'use strict';
 
-const ReactJsonFormEngine = require('./lib/index');
+const ReactJsonFormEngine = require('./dist/index');
 
 module.exports = {
     Form: ReactJsonFormEngine.Form,

@@ -1,17 +1,26 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { DATA_TYPE } from '../../../form/config/form-const';
+import { DATA_TYPE } from '../../../form-engine/config/form-const';
 
-const Select = ({ id, value, field, onUpdate }) => {
+const Select = ({ id, value, field, onUpdate, hasError }) => {
     if (!field.options) {
         console.warn(`${field.type} is missing required "options" (id: ${id})`);
         return <span />;
     }
     const isMultiple = __isFieldTypeArray(field);
     return (
-        <div className={`select ${isMultiple ? 'is-multiple' : ''}`}>
-            <select value={value} id={id} name={id} onChange={onUpdate} multiple={isMultiple}>
+        <div className={`select ${isMultiple ? 'is-multiple' : ''} ${hasError ? 'is-danger' : ''}`}>
+            <select
+                value={value}
+                id={id}
+                name={id}
+                onChange={({ target }) => {
+                    console.log('theeve', target.options);
+                    onUpdate(event);
+                }}
+                multiple={isMultiple}
+            >
                 {_maybeRenderPlaceholder(field, value)}
                 {_renderOptions(field)}
             </select>
@@ -41,8 +50,8 @@ Select.propTypes = {
     id: PropTypes.string.isRequired,
     field: PropTypes.object.isRequired,
     value: PropTypes.oneOfType([PropTypes.array, PropTypes.string]),
+    hasError: PropTypes.bool.isRequired,
     onUpdate: PropTypes.func.isRequired,
-    instance: PropTypes.object.isRequired,
     uiField: PropTypes.object
 };
 

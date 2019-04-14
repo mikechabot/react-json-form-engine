@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import { Icon, Flex } from '../../common';
+import { Icon, Flex } from '../../util';
 
 const DEFAULT_THEME = 'is-dark';
 const className = 'navbar-item is-size-4-desktop is-size-5-tablet is-size-5-mobile';
@@ -17,8 +17,8 @@ const FormTitle = ({ id, label, icon, iconPrefix, theme, controlsRight }) => {
         >
             <div className="navbar-brand">
                 <span className={className}>
-                {_maybeRenderIcon(icon, iconPrefix)}
-                {_renderLabel(label)}
+                    {_maybeRenderIcon(icon, iconPrefix)}
+                    {_renderLabel(label)}
                 </span>
             </div>
             {_maybeRenderControlsRight(controlsRight)}
@@ -30,7 +30,8 @@ const _maybeRenderIcon = (icon, iconPrefix) => {
     if (icon) {
         return (
             <span key="icon">
-                <Icon icon={icon} prefix={iconPrefix} />&nbsp;
+                <Icon icon={icon} prefix={iconPrefix} />
+                &nbsp;
             </span>
         );
     }
@@ -41,9 +42,9 @@ const _renderLabel = label => {
 };
 
 const _maybeRenderControlsRight = controls => {
-  if (controls) {
-    return <div className="navbar-item">{controls}</div>;
-  }
+    if (controls) {
+        return <div className="navbar-item">{controls}</div>;
+    }
 };
 
 FormTitle.propTypes = {

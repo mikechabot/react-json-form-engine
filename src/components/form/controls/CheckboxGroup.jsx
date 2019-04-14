@@ -1,19 +1,20 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import _isEmpty from 'lodash/isEmpty';
+import isEmpty from 'lodash/isEmpty';
+
+import { Flex } from '../../util';
 
 import Checkbox from './Checkbox';
 import ValidationFieldError from '../validation/ValidationFieldError';
 import FormChildren from '../FormChildren';
-import { Flex } from '../../common';
 
 const CheckboxGroup = ({ id, field, value, instance, onUpdate }) => {
-    if (_isEmpty(field.options)) {
-        __logError(id, field);
+    if (isEmpty(field.options)) {
+        console.error(`Field of type "${field.type}" is missing required "options" array (id: ${id})`);
         return <ValidationFieldError id={id} />;
     }
     return (
-        <Flex column={true} style={{ marginBottom: '0.5rem' }}>
+        <Flex column={true}>
             {field.options.map(_renderOption.bind(this, id, value, instance, onUpdate))}
         </Flex>
     );
@@ -26,20 +27,11 @@ const _renderOption = (id, value, instance, onUpdate, option, index) => {
                 id={option.id}
                 option={option}
                 onUpdate={() => onUpdate(option.id, id)}
-                value={_isChecked(value, option.id)}
+                value={!value ? false : value.includes(option.id)}
             />
             <FormChildren field={option} onUpdate={onUpdate} instance={instance} />
         </Flex>
     );
-};
-
-const _isChecked = (value, id) => {
-    if (!value) return false;
-    return value.includes(id);
-};
-
-const __logError = (id, field) => {
-    console.error(`Field of type "${field.type}" is missing required "options" array (id: ${id})`);
 };
 
 CheckboxGroup.propTypes = {
