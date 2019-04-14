@@ -8,7 +8,7 @@ import isNil from 'lodash/isNil';
 
 import ValidationService from './service/validation-service';
 import ExpressionService from './service/expression-service';
-import FormApiService from './/service/form-api-service';
+import FormApiService from './service/form-api-service';
 
 import FormConfig from './config/form-config';
 import FormValidator from './validation/form-validator';
@@ -22,7 +22,7 @@ const { FIELD, DEFINITION } = PROPERTY;
 class FormEngine {
     constructor(definition, model) {
         try {
-            FormApiService.__validateDefinitionShape(definition);
+            FormApiService.validateDefinitionShape(definition);
             this.__isDefinitionValid = true;
         } catch (error) {
             this.__isDefinitionValid = false;
@@ -131,7 +131,10 @@ class FormEngine {
      */
     __decorateField(field, parent) {
         try {
-            FormApiService.__validateFieldShape(field);
+            // Validate the basic shape of the object by ensuring there is
+            // at least an "id", "type", and "title", as well as certain data
+            // type checks (e.g min/max must be numbers, etc.)
+            FormApiService.validateFieldShape(field);
         } catch (error) {
             this.__isDefinitionValid = false;
             this.error = error;
@@ -148,6 +151,17 @@ class FormEngine {
 
         field[FIELD.ACTIONS] = actions;
         field[FIELD.COMPONENT] = component;
+
+        try {
+            // Validate data and component types shape. Ensure that
+            // "array" type fields contain "option" array, "range"
+            // type fields contain min/max, etc.
+            FormApiService.validateFieldTypesShape(field);
+        } catch (error) {
+            this.__isDefinitionValid = false;
+            this.error = error;
+            return;
+        }
 
         // Apply any default decorators
         if (defaultDecorators) {
@@ -218,13 +232,6 @@ class FormEngine {
             .prop('faIcon')
             .prop('prefix')
             .join();
-    }
-    /**
-     * Return whether the form consists only
-     * of one section and one subsection
-     */
-    isSimpleForm() {
-        return this.getSections().count() === 1 && this.getSubsections().count() === 1;
     }
     /**
      * Return whether the form is valid

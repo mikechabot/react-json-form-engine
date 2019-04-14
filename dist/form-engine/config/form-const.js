@@ -3,9 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.default = exports.VALIDATION_MESSAGE = exports.VALIDATION_CONST = exports.PROPERTY = exports.NO_VALUE = exports.COMPONENT_DECORATORS = exports.FORM_STATE = exports.COMPONENT_TYPE = exports.DATA_TYPE = void 0;
-
-var _VALIDATION_MESSAGE;
+exports.default = exports.VALIDATION_CONST = exports.PROPERTY = exports.NO_VALUE = exports.COMPONENT_DECORATORS = exports.FORM_STATE = exports.COMPONENT_TYPE = exports.DATA_TYPE = void 0;
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
 
@@ -102,8 +100,6 @@ var VALIDATION_CONST = {
   }
 };
 exports.VALIDATION_CONST = VALIDATION_CONST;
-var VALIDATION_MESSAGE = (_VALIDATION_MESSAGE = {}, _defineProperty(_VALIDATION_MESSAGE, VALIDATION_CONST.TYPE.MISSING_REQUIRED, 'Missing required value.'), _defineProperty(_VALIDATION_MESSAGE, VALIDATION_CONST.TYPE.INVALID_NUMERIC, 'Invalid numeric value.'), _defineProperty(_VALIDATION_MESSAGE, VALIDATION_CONST.TYPE.INVALID_REGEX, "Value doesn't match the supplied pattern."), _VALIDATION_MESSAGE);
-exports.VALIDATION_MESSAGE = VALIDATION_MESSAGE;
 var _default = {
   DATA_TYPE: DATA_TYPE,
   COMPONENT_TYPE: COMPONENT_TYPE,

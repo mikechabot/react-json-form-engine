@@ -14,12 +14,14 @@ export default {
                         {
                             id: 'username',
                             title: 'Username',
-                            type: 'string'
+                            type: 'string',
+                            required: true
                         },
                         {
                             id: 'password',
                             title: 'Password',
-                            type: 'string'
+                            type: 'string',
+                            required: true
                         },
                         {
                             id: 'rememberMe',

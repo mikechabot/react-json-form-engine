@@ -4,10 +4,6 @@ import PropTypes from 'prop-types';
 import { DATA_TYPE } from '../../../form-engine/config/form-const';
 
 const Select = ({ id, value, field, onUpdate, hasError }) => {
-    if (!field.options) {
-        console.warn(`${field.type} is missing required "options" (id: ${id})`);
-        return <span />;
-    }
     const isMultiple = __isFieldTypeArray(field);
     return (
         <div className={`select ${isMultiple ? 'is-multiple' : ''} ${hasError ? 'is-danger' : ''}`}>

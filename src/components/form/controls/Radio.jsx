@@ -7,10 +7,6 @@ import FormChildren from '../FormChildren';
 import { Flex } from '../../util';
 
 const Radio = ({ id, value, field, instance, onUpdate }) => {
-    if (!field.options) {
-        console.warn(`${field.type} is missing required "options" (id: ${id})`);
-        return <span />;
-    }
     return (
         <Flex column={!field.inline} id={id}>
             {_renderOptions(field, value, instance, onUpdate)}

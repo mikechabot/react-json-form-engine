@@ -57,7 +57,7 @@ var conditionEvaluators = {
   },
   BLANK: function BLANK(service, condition, instance) {
     var value = service.evalExpression(condition.expression, instance);
-    return (0, _common.__isBlank)(value);
+    return (0, _common.isBlank)(value);
   },
   CONTAINS: function CONTAINS(service, condition, instance) {
     var val1 = service.evalExpression(condition.expression1, instance);

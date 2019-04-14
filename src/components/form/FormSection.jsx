@@ -2,50 +2,39 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { Tabs, Tab } from 'react-tabify';
 
-import FormSubsection from './FormSubsection';
 import { Flex, Asterisk } from '../util';
+
+import FormSubsection from './FormSubsection';
 
 class FormSection extends React.Component {
     constructor(props) {
         super(props);
-        this._renderSubsectionTab = this._renderSubsectionTab.bind(this);
-    }
-    render() {
-        const { section } = this.props;
-        const { subsections } = section;
-
-        console.log('Render FormSection');
-
-        return (
-            <Flex id={section.id} flexShrink={0} height="100%">
-                {this._renderSubsections(section, subsections)}
-            </Flex>
-        );
+        this.renderSubsectionTab = this.renderSubsectionTab.bind(this);
     }
 
-    _renderSubsections(section, subsections) {
+    renderSubsections(section, subsections) {
         return subsections.length > 1
-            ? this._renderTabbedSubsections(section, subsections)
-            : this._renderSingleSubsection(subsections[0]);
+            ? this.renderTabbedSubsections(section, subsections)
+            : this.renderSingleSubsection(subsections[0]);
     }
 
-    _renderTabbedSubsections(section, subsections) {
+    renderTabbedSubsections(section, subsections) {
         return (
             <Tabs id={`${section.id}-subsection-tabs`} defaultActiveKey={0}>
-                {subsections.map(this._renderSubsectionTab)}
+                {subsections.map(this.renderSubsectionTab)}
             </Tabs>
         );
     }
 
-    _renderSubsectionTab(subsection, index) {
+    renderSubsectionTab(subsection, index) {
         return (
-            <Tab key={index} eventKey={index} label={this._getDerivedSubsectionTitle(subsection)}>
-                {this._renderSingleSubsection(subsection, true)}
+            <Tab key={index} eventKey={index} label={this.getDerivedSubsectionTitle(subsection)}>
+                {this.renderSingleSubsection(subsection, true)}
             </Tab>
         );
     }
 
-    _renderSingleSubsection(subsection, isTabbed) {
+    renderSingleSubsection(subsection, isTabbed) {
         return (
             <FormSubsection
                 hideTitle={isTabbed || this.props.hideTitle}
@@ -59,12 +48,25 @@ class FormSection extends React.Component {
         );
     }
 
-    _getDerivedSubsectionTitle(subsection) {
+    getDerivedSubsectionTitle(subsection) {
         if (!this.props.instance.subsectionHasError(subsection)) return subsection.title;
         return (
             <span>
                 {subsection.title} <Asterisk />
             </span>
+        );
+    }
+
+    render() {
+        const { section } = this.props;
+        const { subsections } = section;
+
+        console.log('Render FormSection', section.id);
+
+        return (
+            <Flex id={section.id} flexShrink={0} height="100%">
+                {this.renderSubsections(section, subsections)}
+            </Flex>
         );
     }
 }

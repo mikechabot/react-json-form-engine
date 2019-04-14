@@ -185,9 +185,9 @@ function () {
 
   }, {
     key: "addMissingRequired",
-    value: function addMissingRequired(tag, actions) {
+    value: function addMissingRequired(tag, actions, message) {
       if (!this.hasMessageType(tag, MISSING_REQUIRED)) {
-        this.addValidationMessage(tag, MISSING_REQUIRED, ERROR, _formConst.VALIDATION_MESSAGE[MISSING_REQUIRED], actions);
+        this.addValidationMessage(tag, MISSING_REQUIRED, ERROR, message, actions);
       }
     }
   }, {
@@ -206,9 +206,9 @@ function () {
 
   }, {
     key: "addInvalidNumeric",
-    value: function addInvalidNumeric(tag, actions) {
+    value: function addInvalidNumeric(tag, actions, message) {
       if (!this.hasMessageType(tag, INVALID_NUMERIC)) {
-        this.addValidationMessage(tag, INVALID_NUMERIC, ERROR, _formConst.VALIDATION_MESSAGE[INVALID_NUMERIC], actions);
+        this.addValidationMessage(tag, INVALID_NUMERIC, ERROR, message, actions);
       }
     }
   }, {
@@ -227,9 +227,8 @@ function () {
 
   }, {
     key: "addInvalidRegex",
-    value: function addInvalidRegex(tag, actions, pattern) {
+    value: function addInvalidRegex(tag, actions, message) {
       if (!this.hasMessageType(tag, INVALID_REGEX)) {
-        var message = "".concat(_formConst.VALIDATION_MESSAGE[INVALID_REGEX], ": ").concat(pattern);
         this.addValidationMessage(tag, INVALID_REGEX, ERROR, message, actions);
       }
     }

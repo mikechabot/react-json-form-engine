@@ -19,7 +19,8 @@ var Asterisk = function Asterisk(_ref) {
   return _react.default.createElement(_reactFontawesome.FontAwesomeIcon, {
     icon: "asterisk",
     title: message || 'Validation Error',
-    className: "has-text-danger"
+    className: "has-text-danger",
+    size: size || '1x'
   });
 };
 

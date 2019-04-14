@@ -14,3 +14,4 @@ export { default as conditionsArrayForm } from './conditions/conditions-array-fo
 export { default as conditionsNumericForm } from './conditions/conditions-numeric-form';
 export { default as validationsRequiredForm } from './validation/validations-required-form';
 export { default as validationsNumericForm } from './validation/validations-numeric-form';
+export { default as validationsRegexForm } from './validation/validations-regex-form';

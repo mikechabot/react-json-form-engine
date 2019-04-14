@@ -2,15 +2,9 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import isNil from 'lodash/isNil';
 
-import ValidationFieldError from '../validation/ValidationFieldError';
 import { Flex } from '../../util';
 
 const Range = ({ id, field, value, onUpdate }) => {
-    if (isNil(field.min) || isNil(field.max)) {
-        console.error(`Field of type "${field.type}" is missing required "min" and/or "max" (id: ${id})`);
-        return <ValidationFieldError id={field.id} />;
-    }
-
     return (
         <Flex column flexShrink={0}>
             <Flex hAlignCenter>{!isNil(value) ? value : 'No Value'}</Flex>

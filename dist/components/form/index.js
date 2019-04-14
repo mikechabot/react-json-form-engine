@@ -25,6 +25,8 @@ var _FormSection = _interopRequireDefault(require("./FormSection"));
 
 var _FormTitle = _interopRequireDefault(require("./helpers/FormTitle"));
 
+var _reactFontawesome = require("@fortawesome/react-fontawesome");
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = Object.defineProperty && Object.getOwnPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : {}; if (desc.get || desc.set) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; return newObj; } }
@@ -105,7 +107,8 @@ function (_Component) {
         column: true,
         flex: 1,
         flexShrink: 0,
-        overflow: "auto"
+        overflow: "auto",
+        border: "1px solid #dbdbdb"
       }, this._renderFormTitle(instance), this._renderForm(instance.getSections()));
     }
   }, {
@@ -164,13 +167,10 @@ function (_Component) {
   }, {
     key: "_getDerivedSectionTitle",
     value: function _getDerivedSectionTitle(section) {
-      var label = section.title;
-
-      if (this.props.instance.sectionHasError(section)) {
-        label = _react.default.createElement("span", null, label, " ", _react.default.createElement(_Asterisk.default, null));
-      }
-
-      return label;
+      if (!this.props.instance.sectionHasError(section)) return section.title;
+      return _react.default.createElement("span", null, section.title, " ", _react.default.createElement(_reactFontawesome.FontAwesomeIcon, {
+        icon: "exclamation-triangle"
+      }));
     }
   }, {
     key: "_renderSubmitButton",

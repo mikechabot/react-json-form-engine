@@ -11,10 +11,7 @@ const FormControlTitle = ({ field, decorators }) => {
     );
 };
 
-const hideTitle = decorators =>
-    Maybe.of(decorators)
-        .prop('hideControlLabel')
-        .isJust();
+const hideTitle = decorators => Maybe.of(() => decorators.hideControlLabel).isJust();
 
 export default FormControlTitle;
 

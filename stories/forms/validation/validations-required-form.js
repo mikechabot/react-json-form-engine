@@ -12,7 +12,7 @@ export default {
                 {
                     id: 'subsectionRequired',
                     title: 'Make any field required',
-                    subtitle: 'Only display errors once a field is marked as dirty',
+                    subtitle: 'Only display errors once a field is marked as dirty, or the form is submitted',
                     fields: [
                         {
                             id: 'str1',
@@ -44,8 +44,7 @@ export default {
                             id: 'num1',
                             type: 'number',
                             title: 'Number field',
-                            required: true,
-                            pattern: '^3'
+                            required: true
                         }
                     ]
                 }

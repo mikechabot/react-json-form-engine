@@ -1,18 +1,12 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import isEmpty from 'lodash/isEmpty';
 
 import { Flex } from '../../util';
 
 import Checkbox from './Checkbox';
-import ValidationFieldError from '../validation/ValidationFieldError';
 import FormChildren from '../FormChildren';
 
 const CheckboxGroup = ({ id, field, value, instance, onUpdate }) => {
-    if (isEmpty(field.options)) {
-        console.error(`Field of type "${field.type}" is missing required "options" array (id: ${id})`);
-        return <ValidationFieldError id={id} />;
-    }
     return (
         <Flex column={true}>
             {field.options.map(_renderOption.bind(this, id, value, instance, onUpdate))}

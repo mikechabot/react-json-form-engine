@@ -7,36 +7,13 @@ import FormSubsectionTitle from './helpers/FormSubsectionTitle';
 import FormField from './FormField';
 
 class FormSubsection extends React.Component {
-    render() {
-        const { subsection, instance, hideTitle, hideSubtitle } = this.props;
-        console.log('Render FormSubsection');
-
-        const hasError = instance.subsectionHasError(subsection);
-
-        return (
-            <Flex column={true} flex={1} className="panel" flexShrink={0} height="100%">
-                <FormSubsectionTitle
-                    hasError={hasError}
-                    subsection={subsection}
-                    instance={instance}
-                    hideTitle={hideTitle}
-                    hideSubtitle={hideSubtitle}
-                />
-                <div style={{ width: '100%', height: '100%', padding: '.5em .75em' }}>
-                    {this.renderSubsectionFields(subsection.fields)}
-                </div>
-                {this._maybeRenderSubmitButton()}
-            </Flex>
-        );
-    }
-
     renderSubsectionFields(fields = []) {
         return fields.map(fieldDefinition =>
-            this._renderSubsectionField(fieldDefinition, this.props.instance, this.props.onUpdate)
+            this.renderSubsectionField(fieldDefinition, this.props.instance, this.props.onUpdate)
         );
     }
 
-    _renderSubsectionField(fieldDef, instance, onUpdate) {
+    renderSubsectionField(fieldDef, instance, onUpdate) {
         const field = instance.getField(fieldDef.id);
         if (instance.isVisible(field)) {
             return (
@@ -59,10 +36,31 @@ class FormSubsection extends React.Component {
         }
     }
 
-    _maybeRenderSubmitButton() {
+    maybeRenderSubmitButton() {
         if (this.props.submitButton) {
             return <div className="panel-block">{this.props.submitButton}</div>;
         }
+    }
+
+    render() {
+        const { subsection, instance, hideTitle, hideSubtitle } = this.props;
+        console.log('Render FormSubsection', subsection.id);
+
+        return (
+            <Flex column={true} flex={1} className="panel" flexShrink={0} height="100%">
+                <FormSubsectionTitle
+                    hasError={instance.subsectionHasError(subsection)}
+                    subsection={subsection}
+                    instance={instance}
+                    hideTitle={hideTitle}
+                    hideSubtitle={hideSubtitle}
+                />
+                <div style={{ width: '100%', height: '100%', padding: '.5em .75em' }}>
+                    {this.renderSubsectionFields(subsection.fields)}
+                </div>
+                {this.maybeRenderSubmitButton()}
+            </Flex>
+        );
     }
 }
 

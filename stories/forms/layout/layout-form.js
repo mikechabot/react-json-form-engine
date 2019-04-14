@@ -96,7 +96,7 @@ export default {
     ],
     decorators: {
         str2: {
-            hint: 'This subsection doesn\'t have a subtitle',
+            hint: "This subsection doesn't have a subtitle",
             component: {
                 type: 'textarea'
             }

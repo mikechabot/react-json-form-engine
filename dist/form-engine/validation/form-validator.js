@@ -3,7 +3,9 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.default = void 0;
+exports.default = exports.VALIDATION_MESSAGE = void 0;
+
+var _isNil = _interopRequireDefault(require("lodash/isNil"));
 
 var _formConst = require("../config/form-const");
 
@@ -11,9 +13,18 @@ var _validationService = _interopRequireDefault(require("../service/validation-s
 
 var _formValidators = _interopRequireDefault(require("./form-validators"));
 
+var _REQUIRED, _VALIDATION_MESSAGE;
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
 var FIELD = _formConst.PROPERTY.FIELD;
+var NUMBER = _formConst.DATA_TYPE.NUMBER,
+    DATE = _formConst.DATA_TYPE.DATE,
+    BOOLEAN = _formConst.DATA_TYPE.BOOLEAN,
+    ARRAY = _formConst.DATA_TYPE.ARRAY,
+    STRING = _formConst.DATA_TYPE.STRING;
 /**
  * All validation errors are currently tied to
  * the "Submit" button, but this can be extended
@@ -27,6 +38,28 @@ var ACTIONS = {
   SUBMIT: 'SUBMIT'
 };
 
+var isRequired = function isRequired(field) {
+  return "".concat(field.title, " is required.");
+};
+
+var VALIDATION_MESSAGE = (_VALIDATION_MESSAGE = {
+  REQUIRED: (_REQUIRED = {}, _defineProperty(_REQUIRED, STRING, isRequired), _defineProperty(_REQUIRED, NUMBER, isRequired), _defineProperty(_REQUIRED, DATE, isRequired), _defineProperty(_REQUIRED, ARRAY, function (field) {
+    return "".concat(field.title, " required at least one option be selected");
+  }), _defineProperty(_REQUIRED, BOOLEAN, isRequired), _REQUIRED),
+  INVALID_REGEX: function INVALID_REGEX(field) {
+    return "The value must match the supplied pattern: ".concat(field[FIELD.PATTERN]);
+  },
+  NUMERIC: function NUMERIC(field) {
+    if (!(0, _isNil.default)(field.min) && !(0, _isNil.default)(field.max)) {
+      return "Enter a value between ".concat(field.min, " and ").concat(field.max);
+    }
+
+    if (!(0, _isNil.default)(field.min)) return "Enter a value greater than ".concat(field.min);
+    return "Enter a value less than ".concat(field.max);
+  }
+}, _defineProperty(_VALIDATION_MESSAGE, _formConst.VALIDATION_CONST.TYPE.MISSING_REQUIRED, 'This field cannot be empty'), _defineProperty(_VALIDATION_MESSAGE, _formConst.VALIDATION_CONST.TYPE.INVALID_NUMERIC, 'Invalid numeric value'), _VALIDATION_MESSAGE);
+exports.VALIDATION_MESSAGE = VALIDATION_MESSAGE;
+
 var isError = function isError(status) {
   return _validationService.default.isError(status);
 };
@@ -36,7 +69,7 @@ var runValidators = function runValidators(field, value, validationResults) {
 
   if (field[FIELD.REQUIRED]) {
     if (isError(_formValidators.default.checkRequired(field, value))) {
-      validationResults.addMissingRequired(id, ACTIONS.SUBMIT);
+      validationResults.addMissingRequired(id, ACTIONS.SUBMIT, VALIDATION_MESSAGE.REQUIRED[field.type](field));
     } else {
       validationResults.removeMissingRequired(id, ACTIONS.SUBMIT);
     }
@@ -44,7 +77,7 @@ var runValidators = function runValidators(field, value, validationResults) {
 
   if (field[FIELD.TYPE] === _formConst.DATA_TYPE.NUMBER) {
     if (isError(_formValidators.default.checkNumeric(field, value))) {
-      validationResults.addInvalidNumeric(id, ACTIONS.SUBMIT);
+      validationResults.addInvalidNumeric(id, ACTIONS.SUBMIT, VALIDATION_MESSAGE.NUMERIC(field));
     } else {
       validationResults.removeInvalidNumeric(id, ACTIONS.SUBMIT);
     }
@@ -52,7 +85,7 @@ var runValidators = function runValidators(field, value, validationResults) {
 
   if (field[FIELD.PATTERN]) {
     if (isError(_formValidators.default.checkPattern(field, value))) {
-      validationResults.addInvalidRegex(id, ACTIONS.SUBMIT, field[FIELD.PATTERN]);
+      validationResults.addInvalidRegex(id, ACTIONS.SUBMIT, VALIDATION_MESSAGE.INVALID_REGEX(field));
     } else {
       validationResults.removeInvalidRegex(id, ACTIONS.SUBMIT);
     }

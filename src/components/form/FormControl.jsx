@@ -1,30 +1,23 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 import Maybe from 'maybe-baby';
-import _isEmpty from 'lodash/isEmpty';
 
 import FormControlTitle from './helpers/FormControlTitle';
 import FormControlHint from './helpers/FormControlHint';
 import ValidationFieldError from './validation/ValidationFieldError';
 
 class FormControl extends React.Component {
-    /**
-     * Determine if the component should call render() to update itself.
-     *
-     * Right now, we'll always re-render the component if it contains
-     * children. Those components themselves will call this method to
-     * determine if they should re-render themselves. If this becomes
-     * a performance issue, we could potentially before a deep comparison
-     * between the prop trees, but that seems excessive right now.
-     *
-     * @param nextProps
-     * @returns {boolean} true if the component should call render()
-     */
-    shouldComponentUpdate(nextProps) {
-        if (!this._hasFieldChildren(nextProps.field)) {
-            return nextProps.value !== this.props.value || nextProps.hasError !== this.props.hasError;
+    maybeRenderHint(uiDecorators) {
+        if (Maybe.of(() => uiDecorators.hint).isJust()) {
+            return <FormControlHint text={uiDecorators.hint} />;
         }
-        return true;
+    }
+
+    maybeRenderError(id, instance) {
+        const { messages } = instance.getValidationResultByTag(id);
+        return Object.keys(messages).map(key => (
+            <FormControlHint key={key} icon="asterisk" className="is-danger" text={messages[key].message} />
+        ));
     }
 
     render() {
@@ -56,47 +49,10 @@ class FormControl extends React.Component {
                         instance={instance}
                     />
                 </div>
-                {this._maybeRenderHint(uiDecorators)}
-                {hasError ? this._maybeRenderError(id, instance) : null}
+                {this.maybeRenderHint(uiDecorators)}
+                {hasError ? this.maybeRenderError(id, instance) : null}
             </span>
         );
-    }
-
-    _maybeRenderHint(uiDecorators) {
-        if (
-            Maybe.of(uiDecorators)
-                .prop('hint')
-                .isJust()
-        ) {
-            return <FormControlHint text={uiDecorators.hint} />;
-        }
-    }
-
-    _maybeRenderError(id, instance) {
-        const { messages } = instance.getValidationResultByTag(id);
-        return Object.keys(messages).map(key => (
-            <FormControlHint
-                key={key}
-                icon="exclamation-triangle"
-                className="is-danger"
-                text={messages[key].message}
-            />
-        ));
-    }
-
-    /**
-     * Check for child fields, or option fields with children
-     * @param field
-     * @returns {boolean}
-     */
-    _hasFieldChildren(field) {
-        if (!_isEmpty(field.fields)) {
-            return true;
-        }
-        if (!_isEmpty(field.options)) {
-            return field.options.some(option => !_isEmpty(option.fields));
-        }
-        return false;
     }
 }
 

@@ -2,6 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
+import { Asterisk } from '../../util';
 
 const FormSubsectionPanelTitle = ({ subsection, hideTitle, hideSubtitle, instance, hasError }) => {
     if (hideTitle && hideSubtitle) {
@@ -26,14 +27,14 @@ const FormSubsectionPanelTitle = ({ subsection, hideTitle, hideSubtitle, instanc
 const renderTitle = (subsection, instance, hasError) => (
     <div>
         {subsection.title}&nbsp;
-        {hasError ? <FontAwesomeIcon icon="exclamation-triangle" className="has-text-danger" /> : null}
+        {hasError ? <Asterisk /> : null}
     </div>
 );
 
 const renderSubtitle = subsection => {
     if (subsection.subtitle) {
         return (
-            <h2 className="subtitle" style={{ fontSize: '.75em' }}>
+            <h2 className="subtitle" style={{ fontSize: '.75em', marginTop: '.25em' }}>
                 <FontAwesomeIcon icon="angle-right" /> {subsection.subtitle}
             </h2>
         );

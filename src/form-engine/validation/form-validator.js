@@ -26,16 +26,16 @@ export const VALIDATION_MESSAGE = {
         [STRING]: isRequired,
         [NUMBER]: isRequired,
         [DATE]: isRequired,
-        [ARRAY]: field => `${field.title} required at least one option be selected`,
+        [ARRAY]: field => `${field.title} requires at least one option be selected`,
         [BOOLEAN]: isRequired
     },
     INVALID_REGEX: field => `The value must match the supplied pattern: ${field[FIELD.PATTERN]}`,
     NUMERIC: field => {
         if (!isNil(field.min) && !isNil(field.max)) {
-            return `Enter a value between ${field.min} and ${field.max}`;
+            return `${field.title} must be between ${field.min} and ${field.max}`;
         }
-        if (!isNil(field.min)) return `Enter a value greater than ${field.min}`;
-        return `Enter a value less than ${field.max}`;
+        if (!isNil(field.min)) return `${field.title} must be greater than ${field.min}`;
+        return `${field.title} must be less than ${field.max}`;
     },
     [VALIDATION_CONST.TYPE.MISSING_REQUIRED]: 'This field cannot be empty',
     [VALIDATION_CONST.TYPE.INVALID_NUMERIC]: 'Invalid numeric value'

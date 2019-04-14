@@ -51,28 +51,30 @@ function (_React$Component) {
     value: function render() {
       var _this$props = this.props,
           subsection = _this$props.subsection,
-          instance = _this$props.instance;
+          instance = _this$props.instance,
+          hideTitle = _this$props.hideTitle,
+          hideSubtitle = _this$props.hideSubtitle;
       console.log('Render FormSubsection');
       var hasError = instance.subsectionHasError(subsection);
       return _react.default.createElement(_util.Flex, {
         column: true,
         flex: 1,
         className: "panel",
-        flexShrink: 0
+        flexShrink: 0,
+        height: "100%"
       }, _react.default.createElement(_FormSubsectionTitle.default, {
         hasError: hasError,
         subsection: subsection,
         instance: instance,
-        hideTitle: this.props.hideTitle,
-        hideSubtitle: this.props.hideSubtitle
+        hideTitle: hideTitle,
+        hideSubtitle: hideSubtitle
       }), _react.default.createElement("div", {
-        className: "panel-block"
-      }, _react.default.createElement("div", {
         style: {
           width: '100%',
-          height: '100%'
+          height: '100%',
+          padding: '.5em .75em'
         }
-      }, this.renderSubsectionFields(subsection.fields))), this._maybeRenderSubmitButton());
+      }, this.renderSubsectionFields(subsection.fields)), this._maybeRenderSubmitButton());
     }
   }, {
     key: "renderSubsectionFields",
@@ -122,7 +124,6 @@ function (_React$Component) {
 FormSubsection.propTypes = {
   instance: _propTypes.default.object.isRequired,
   subsection: _propTypes.default.object.isRequired,
-  hasSiblings: _propTypes.default.bool,
   hideTitle: _propTypes.default.bool,
   hideSubtitle: _propTypes.default.bool,
   submitButton: _propTypes.default.node,

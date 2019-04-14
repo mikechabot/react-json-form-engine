@@ -19,6 +19,7 @@ export default {
                             type: 'number',
                             title: 'Number field',
                             min: 0,
+                            max: 25
                         }
                     ]
                 }
@@ -27,7 +28,7 @@ export default {
     ],
     decorators: {
         num1: {
-            hint: 'Min: 0, Max: 5. Try entering a value outside the range.'
+            hint: 'Min: 0, Max: 25. Try entering a value outside the range.'
         }
     }
 };

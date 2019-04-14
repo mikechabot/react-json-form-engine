@@ -17,16 +17,16 @@ const FormTitle = ({ id, label, icon, iconPrefix, theme, controlsRight }) => {
         >
             <div className="navbar-brand">
                 <span className={className}>
-                    {_maybeRenderIcon(icon, iconPrefix)}
-                    {_renderLabel(label)}
+                    {maybeRenderIcon(icon, iconPrefix)}
+                    <span key="label">{label}</span>
                 </span>
             </div>
-            {_maybeRenderControlsRight(controlsRight)}
+            {controlsRight ? <div className="navbar-item">{controlsRight}</div> : null}
         </Flex>
     );
 };
 
-const _maybeRenderIcon = (icon, iconPrefix) => {
+const maybeRenderIcon = (icon, iconPrefix) => {
     if (icon) {
         return (
             <span key="icon">
@@ -34,16 +34,6 @@ const _maybeRenderIcon = (icon, iconPrefix) => {
                 &nbsp;
             </span>
         );
-    }
-};
-
-const _renderLabel = label => {
-    return <span key="label">{label}</span>;
-};
-
-const _maybeRenderControlsRight = controls => {
-    if (controls) {
-        return <div className="navbar-item">{controls}</div>;
     }
 };
 

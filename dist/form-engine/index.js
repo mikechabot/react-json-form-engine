@@ -609,7 +609,7 @@ function () {
           return value === false;
 
         case _formConst.DATA_TYPE.STRING:
-          return (0, _common.__isBlank)(value);
+          return (0, _common.isBlank)(value);
 
         case _formConst.DATA_TYPE.ARRAY:
           return (0, _isEmpty.default)(value);

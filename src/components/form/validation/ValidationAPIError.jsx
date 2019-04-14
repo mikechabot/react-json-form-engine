@@ -1,6 +1,6 @@
 import React from 'react';
 import PropTypes from 'prop-types';
-import {FontAwesomeIcon} from '@fortawesome/react-fontawesome';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import { Flex } from '../../util';
 
@@ -11,8 +11,9 @@ const ValidationAPIError = ({ error }) => {
     return (
         <div className="panel">
             <div className="panel-heading">
-                <Flex alignItems="baseline">
-                    <FontAwesomeIcon icon="exclamation-triangle" className="has-text-danger" />&nbsp;
+                <Flex alignItems="center">
+                    <FontAwesomeIcon icon="exclamation-triangle" className="has-text-danger" />
+                    &nbsp;
                     <h3>{message || 'Error initializing FormEngine'}</h3>
                 </Flex>
             </div>

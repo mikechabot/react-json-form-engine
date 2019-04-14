@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.__isBlank = exports.clone = void 0;
+exports.isBlank = exports.clone = void 0;
 
 var _isEmpty = _interopRequireDefault(require("lodash/isEmpty"));
 
@@ -22,7 +22,7 @@ var clone = function clone(obj) {
 
 exports.clone = clone;
 
-var __isBlank = function __isBlank(val) {
+var isBlank = function isBlank(val) {
   if (_typeof(val) === 'object' && Array.isArray(val)) {
     return (0, _isEmpty.default)(val);
   }
@@ -30,4 +30,4 @@ var __isBlank = function __isBlank(val) {
   return (0, _isNil.default)(val) || val === EMPTY_STRING;
 };
 
-exports.__isBlank = __isBlank;
+exports.isBlank = isBlank;

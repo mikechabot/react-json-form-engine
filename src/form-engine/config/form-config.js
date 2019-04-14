@@ -1,6 +1,6 @@
-import _zipObject from 'lodash/zipObject';
-import _keys from 'lodash/keys';
-import _map from 'lodash/map';
+import zipObject from 'lodash/zipObject';
+import keys from 'lodash/keys';
+import map from 'lodash/map';
 import Maybe from 'maybe-baby';
 import { DATA_TYPE, COMPONENT_DECORATORS, COMPONENT_TYPE } from './form-const';
 import { DATA_TYPE_OPERATIONS, COMPONENT_OPERATIONS, OPERATION_TYPES } from './form-operations';
@@ -37,16 +37,15 @@ class FormConfig {
         });
         this.__registerDataType(DATA_TYPE.ARRAY, {
             [COMPONENT_TYPE.SELECT]: require('../../components/form/controls/Select').default,
-            [COMPONENT_TYPE.CHECKBOXGROUP]: require('../../components/form/controls/CheckboxGroup')
-                .default
+            [COMPONENT_TYPE.CHECKBOXGROUP]: require('../../components/form/controls/CheckboxGroup').default
         });
     }
     __registerDataType(type, components) {
         this.typeConfigs[type] = {
             type,
-            [COMPONENT_CONFIGS]: _zipObject(
-                _keys(components),
-                _map(components, (component, key) => {
+            [COMPONENT_CONFIGS]: zipObject(
+                keys(components),
+                map(components, (component, key) => {
                     const config = {
                         dataType: type,
                         component: {
@@ -102,8 +101,9 @@ class FormConfig {
     }
     getComponentTypeByField(field) {
         if (!field) throw new Error('field is required');
-        if (this.hasComponentDecorator(field)) {
-            return this.getComponentDecorator(field);
+        const componentDecorator = this.getComponentDecorator(field);
+        if (componentDecorator.isJust()) {
+            return componentDecorator.join();
         }
         return this.getDefaultComponentTypeByDataType(field);
     }
@@ -125,19 +125,8 @@ class FormConfig {
             }
         }
     }
-    hasComponentDecorator(field) {
-        return Maybe.of(field)
-            .prop('uiDecorators')
-            .prop('component')
-            .prop('type')
-            .isJust();
-    }
     getComponentDecorator(field) {
-        return Maybe.of(field)
-            .prop('uiDecorators')
-            .prop('component')
-            .prop('type')
-            .join();
+        return Maybe.of(() => field.uiDecorators.component.type);
     }
     hasOptions(field) {
         return Maybe.of(field)

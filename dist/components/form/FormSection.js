@@ -86,10 +86,11 @@ function (_React$Component) {
     }
   }, {
     key: "_renderSingleSubsection",
-    value: function _renderSingleSubsection(subsection, hasSiblings) {
+    value: function _renderSingleSubsection(subsection, isTabbed) {
       return _react.default.createElement(_FormSubsection.default, {
-        hideTitle: hasSiblings || this.props.hideTitle,
+        hideTitle: isTabbed || this.props.hideTitle,
         hideSubtitle: this.props.hideSubtitle,
+        isTabbed: isTabbed,
         subsection: subsection,
         instance: this.props.instance,
         onUpdate: this.props.onUpdate,
@@ -99,14 +100,8 @@ function (_React$Component) {
   }, {
     key: "_getDerivedSubsectionTitle",
     value: function _getDerivedSubsectionTitle(subsection) {
-      var label = subsection.title;
-      console.log('_getDerivedSubsectionTitle', subsection.id);
-
-      if (this.props.instance.subsectionHasError(subsection)) {
-        label = _react.default.createElement("span", null, label, " ", _react.default.createElement(_util.Asterisk, null));
-      }
-
-      return label;
+      if (!this.props.instance.subsectionHasError(subsection)) return subsection.title;
+      return _react.default.createElement("span", null, subsection.title, " ", _react.default.createElement(_util.Asterisk, null));
     }
   }]);
 

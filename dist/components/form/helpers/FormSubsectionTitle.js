@@ -29,7 +29,11 @@ var FormSubsectionPanelTitle = function FormSubsectionPanelTitle(_ref) {
 
   if (title || subtitle) {
     return _react.default.createElement("div", {
-      className: "panel-heading"
+      className: "panel-heading",
+      style: {
+        border: 'none',
+        borderBottom: '1px solid #dbdbdb'
+      }
     }, title, subtitle);
   }
 
@@ -38,7 +42,7 @@ var FormSubsectionPanelTitle = function FormSubsectionPanelTitle(_ref) {
 
 var renderTitle = function renderTitle(subsection, instance, hasError) {
   return _react.default.createElement("div", null, subsection.title, "\xA0", hasError ? _react.default.createElement(_reactFontawesome.FontAwesomeIcon, {
-    icon: "asterisk",
+    icon: "exclamation-triangle",
     className: "has-text-danger"
   }) : null);
 };
@@ -52,7 +56,7 @@ var renderSubtitle = function renderSubtitle(subsection) {
       }
     }, _react.default.createElement(_reactFontawesome.FontAwesomeIcon, {
       icon: "angle-right"
-    }), "\xA0", subsection.subtitle);
+    }), " ", subsection.subtitle);
   }
 };
 

@@ -33,7 +33,6 @@ var CheckboxGroup = function CheckboxGroup(_ref) {
   if ((0, _isEmpty.default)(field.options)) {
     console.error("Field of type \"".concat(field.type, "\" is missing required \"options\" array (id: ").concat(id, ")"));
     return _react.default.createElement(_ValidationFieldError.default, {
-      field: field,
       id: id
     });
   }
@@ -56,7 +55,7 @@ var _renderOption = function _renderOption(id, value, instance, _onUpdate, optio
     onUpdate: function onUpdate() {
       return _onUpdate(option.id, id);
     },
-    value: !value ? false : value.includes(id)
+    value: !value ? false : value.includes(option.id)
   }), _react.default.createElement(_FormChildren.default, {
     field: option,
     onUpdate: _onUpdate,

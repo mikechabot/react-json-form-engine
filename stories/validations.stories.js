@@ -1,7 +1,7 @@
 import { storiesOf } from '@storybook/react';
 import { withKnobs } from '@storybook/addon-knobs';
 
-import { validationsRequiredForm, validationsNumericForm } from './forms';
+import { validationsRequiredForm, validationsNumericForm, validationsRegexForm } from './forms';
 
 import { buildFormComponent } from './util';
 
@@ -19,3 +19,4 @@ const addStory = form => {
 
 addStory(validationsRequiredForm);
 addStory(validationsNumericForm);
+addStory(validationsRegexForm);

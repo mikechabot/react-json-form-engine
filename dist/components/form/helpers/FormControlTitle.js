@@ -18,7 +18,7 @@ var FormControlTitle = function FormControlTitle(_ref) {
       decorators = _ref.decorators;
   if (hideTitle(decorators)) return null;
   return _react.default.createElement("div", {
-    className: "label",
+    className: "label is-small",
     htmlFor: field.id
   }, field.title, "\xA0");
 };
@@ -31,6 +31,5 @@ var _default = FormControlTitle;
 exports.default = _default;
 FormControlTitle.propTypes = {
   field: _propTypes.default.object.isRequired,
-  instance: _propTypes.default.object.isRequired,
   decorators: _propTypes.default.object
 };
