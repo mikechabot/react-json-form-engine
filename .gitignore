@@ -12,6 +12,8 @@
 /.idea/*
 *.iml
 
+.storybook
+
 /src/scss/*.css
 
 # misc
