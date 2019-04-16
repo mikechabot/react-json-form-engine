@@ -95,8 +95,7 @@ class FormEngine {
         this.sections.forEachValue(section => {
             section.subsections.forEach(subsection => {
                 subsection.section = section;
-                subsection.fieldIds = this.buildDeepFieldIdList([], subsection.fields);
-                this.__decorateFields(subsection.fields);
+                this.__decorateFields(subsection.fields, subsection);
                 this.subsections.add(subsection.id, subsection);
             });
         });
@@ -108,6 +107,7 @@ class FormEngine {
      */
     __decorateFields(fields, parent) {
         if (Array.isArray(fields) && !isEmpty(fields)) {
+            parent.fieldIdMap = this.buildDeepFieldIdMap({}, fields);
             fields.forEach(field => {
                 this.__decorateField(field, parent);
                 this.__decorateFields(field[FIELD.FIELDS], field);
@@ -335,7 +335,8 @@ class FormEngine {
      * @param id
      * @returns {*}
      */
-    getSection(id) {
+    getSectionById(id) {
+        console.log(this.getSections(), id);
         return this.getSections().find(id);
     }
     /**
@@ -367,14 +368,6 @@ class FormEngine {
      */
     getField(id) {
         return this.getFields().find(id);
-    }
-
-    /**
-     * Get all subsection fields id (including conditional children)
-     * @param subsection
-     */
-    getSubsectionFieldIds(subsection) {
-        return subsection.fieldIds;
     }
 
     /**
@@ -547,15 +540,15 @@ class FormEngine {
     sectionHasError(section) {
         return ValidationService.isError(this.getSectionStatus(section));
     }
-    buildDeepFieldIdList(list = [], fields = []) {
+    buildDeepFieldIdMap(map = {}, fields = []) {
         fields.forEach(field => {
-            list.push(field[FIELD.ID]);
-            this.buildDeepFieldIdList(list, field[FIELD.FIELDS]);
+            map[field[FIELD.ID]] = true;
+            this.buildDeepFieldIdMap(map, field[FIELD.FIELDS]);
             get(field, FIELD.OPTIONS, []).forEach(option => {
-                this.buildDeepFieldIdList(list, option[FIELD.OPTIONS]);
+                this.buildDeepFieldIdMap(map, option[FIELD.OPTIONS]);
             });
         });
-        return list;
+        return map;
     }
 }
 

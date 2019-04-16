@@ -25,7 +25,7 @@ var ValidationAPIError = function ValidationAPIError(_ref) {
   }, _react.default.createElement("div", {
     className: "panel-heading"
   }, _react.default.createElement(_util.Flex, {
-    alignItems: "baseline"
+    alignItems: "center"
   }, _react.default.createElement(_reactFontawesome.FontAwesomeIcon, {
     icon: "exclamation-triangle",
     className: "has-text-danger"

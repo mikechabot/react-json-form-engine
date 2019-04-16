@@ -3,16 +3,26 @@ import PropTypes from 'prop-types';
 import isEmpty from 'lodash/isEmpty';
 import { Tabs, Tab } from 'react-tabify';
 
-import { Asterisk, Flex } from '../util';
+import { Asterisk } from '../util';
 
 import FormSubmitButton from './helpers/FormSubmitButton';
 import ValidationAPIError from './validation/ValidationAPIError';
 import FormSection from './FormSection';
 import FormTitle from './helpers/FormTitle';
 
+import { FormProvider } from '../../context';
+
+if (process.env.NODE_ENV !== 'production') {
+    const { whyDidYouUpdate } = require('why-did-you-update');
+    whyDidYouUpdate(React);
+}
+
 class Form extends Component {
     constructor(props) {
         super(props);
+        this.state = {
+            count: 0
+        };
         this.onUpdate = this.onUpdate.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
         this.renderSectionTabPane = this.renderSectionTabPane.bind(this);
@@ -25,7 +35,8 @@ class Form extends Component {
         }
     }
 
-    renderFormTitle(instance) {
+    renderFormTitle() {
+        const { instance } = this.props;
         if (!this.props.hideTitle) {
             return (
                 <FormTitle
@@ -37,12 +48,6 @@ class Form extends Component {
                 />
             );
         }
-    }
-
-    renderForm(sections) {
-        return sections.count() > 1
-            ? this.renderTabbedSections(sections)
-            : this.renderSingleSection(sections.values()[0]);
     }
 
     renderTabbedSections(sections) {
@@ -69,17 +74,14 @@ class Form extends Component {
         return (
             <FormSection
                 section={section}
-                instance={this.props.instance}
                 onUpdate={this.onUpdate}
-                hideTitle={this.props.hideSectionTitles}
-                hideSubtitle={this.props.hideSectionSubtitles}
                 submitButton={this.props.hideTitle ? this.renderSubmitButton() : null}
             />
         );
     }
 
     getDerivedSectionTitle(section) {
-        if (!this.props.instance.sectionHasError(section)) return section.title;
+        if (!this.state.instance.sectionHasError(section)) return section.title;
         return (
             <span>
                 {section.title} <Asterisk />
@@ -94,8 +96,13 @@ class Form extends Component {
     onSubmit() {
         const { instance, onSubmit } = this.props;
         instance.validateOnSubmit();
-        this.forceUpdate();
+        // this.forceUpdate();
         if (onSubmit) onSubmit();
+    }
+
+    componentDidCatch(error, info) {
+        // You can also log the error to an error reporting service
+        console.log(error);
     }
 
     onUpdate(event, id) {
@@ -110,15 +117,21 @@ class Form extends Component {
         instance.setModelValue(id, value, field);
         instance.validate();
 
-        if (!onUpdate) {
-            this.forceUpdate();
-        } else {
+        const newInstance = { ...instance };
+
+        if (onUpdate) {
             onUpdate({ id, value }); // Notify parent
+        } else {
+            // console.log('setstate');
+            this.setState({ count: this.state.count++ });
         }
     }
 
     render() {
-        const { instance } = this.props;
+        const { instance, hideTitle, hideSectionTitles, hideSectionSubtitles } = this.props;
+
+        console.log('Rendering Form');
+
         // No instance
         if (!instance || isEmpty(instance)) {
             return <em className="has-text-danger">No form instance</em>;
@@ -127,26 +140,31 @@ class Form extends Component {
         if (!instance.isValid()) {
             return <ValidationAPIError error={instance.error} />;
         }
+
+        const sections = instance.getSections();
+
         // No sections
-        if (instance.getSections().isEmpty()) {
+        if (sections.isEmpty()) {
             return <em className="has-text-danger">No sections</em>;
         }
 
-        console.log('Rendering Form');
-
         return (
-            <Flex
-                width={this.props.width}
-                id={`form-${instance.getId()}`}
-                column
-                flex={1}
-                flexShrink={0}
-                overflow="auto"
-                border="1px solid #dbdbdb"
+            <div
+                style={{
+                    display: 'flex',
+                    flexDirection: 'column',
+                    flex: 1,
+                    flexShrink: 0,
+                    border: '1px solid #dbdbdb'
+                }}
             >
                 {this.renderFormTitle(instance)}
-                {this.renderForm(instance.getSections())}
-            </Flex>
+                <FormProvider value={instance}>
+                    {sections.count() > 1
+                        ? this.renderTabbedSections(sections)
+                        : this.renderSingleSection(sections.values()[0])}
+                </FormProvider>
+            </div>
         );
     }
 }

@@ -11,61 +11,21 @@ var _propTypes = _interopRequireDefault(require("prop-types"));
 
 var _FormField = _interopRequireDefault(require("./FormField"));
 
+var _context = require("../../context");
+
 var _formConst = require("../../form-engine/config/form-const");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+var FormChildren = function FormChildren(_ref) {
+  var field = _ref.field,
+      onUpdate = _ref.onUpdate;
+  console.log('Rendering FormChildren for', field.id);
+  if (!field[_formConst.PROPERTY.FIELD.FIELDS]) return null;
+  return _react.default.createElement(_context.FormConsumer, null, function (_ref2) {
+    var instance = _ref2.instance;
 
-function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
-
-function _defineProperties(target, props) { for (var i = 0; i < props.length; i++) { var descriptor = props[i]; descriptor.enumerable = descriptor.enumerable || false; descriptor.configurable = true; if ("value" in descriptor) descriptor.writable = true; Object.defineProperty(target, descriptor.key, descriptor); } }
-
-function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
-
-function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
-
-function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
-
-function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
-
-function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
-
-function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
-
-var FormChildren =
-/*#__PURE__*/
-function (_React$Component) {
-  _inherits(FormChildren, _React$Component);
-
-  function FormChildren() {
-    _classCallCheck(this, FormChildren);
-
-    return _possibleConstructorReturn(this, _getPrototypeOf(FormChildren).apply(this, arguments));
-  }
-
-  _createClass(FormChildren, [{
-    key: "render",
-    value: function render() {
-      var field = this.props.field;
-
-      if (!field || !field[_formConst.PROPERTY.FIELD.FIELDS]) {
-        return null;
-      }
-
-      var fields = field.fields;
-      var _this$props = this.props,
-          instance = _this$props.instance,
-          onUpdate = _this$props.onUpdate;
-      return _react.default.createElement("ul", {
-        style: {
-          marginLeft: '1rem'
-        }
-      }, fields.map(this._renderField.bind(this, instance, onUpdate)));
-    }
-  }, {
-    key: "_renderField",
-    value: function _renderField(instance, onUpdate, child) {
+    var renderField = function renderField(child) {
       if (instance.isVisible(child)) {
         return _react.default.createElement("li", {
           key: child.id,
@@ -73,23 +33,33 @@ function (_React$Component) {
             marginTop: '.75rem'
           }
         }, _react.default.createElement(_FormField.default, {
-          id: child.id,
+          fieldId: child.id,
           field: child,
           value: instance.getModelValue(child.id),
           hasError: instance.fieldHasError(child.id),
-          instance: instance,
           onUpdate: onUpdate
         }));
       }
-    }
-  }]);
+    };
 
-  return FormChildren;
-}(_react.default.Component);
+    return _react.default.createElement("ul", {
+      style: {
+        marginLeft: '1rem'
+      }
+    }, field[_formConst.PROPERTY.FIELD.FIELDS].map(function (child) {
+      return renderField(child);
+    }));
+  });
+};
 
-exports.default = FormChildren;
 FormChildren.propTypes = {
-  field: _propTypes.default.object.isRequired,
-  instance: _propTypes.default.object.isRequired,
+  field: _propTypes.default.shape({
+    id: _propTypes.default.string.isRequired,
+    title: _propTypes.default.string.isRequired,
+    fields: _propTypes.default.array,
+    options: _propTypes.default.array
+  }),
   onUpdate: _propTypes.default.func.isRequired
 };
+var _default = FormChildren;
+exports.default = _default;

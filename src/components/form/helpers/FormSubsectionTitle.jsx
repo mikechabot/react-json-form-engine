@@ -3,50 +3,51 @@ import PropTypes from 'prop-types';
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Asterisk } from '../../util';
+import { FormConsumer } from '../../../context';
 
-const FormSubsectionPanelTitle = ({ subsection, hideTitle, hideSubtitle, instance, hasError }) => {
-    if (hideTitle && hideSubtitle) {
-        return null;
-    }
+const FormSubsectionPanelTitle = ({ subsection }) => {
+    console.log('Rendering FormSubsectionPanelTitle', subsection.id);
+    return (
+        <FormConsumer>
+            {instance => {
+                if (false && false) {
+                    return null;
+                }
 
-    const title = !hideTitle ? renderTitle(subsection, instance, hasError) : null;
-    const subtitle = !hideSubtitle ? renderSubtitle(subsection) : null;
+                const title = false ? null : (
+                    <div>
+                        {subsection.title}&nbsp;
+                        {instance.subsectionHasError(subsection) ? <Asterisk /> : null}
+                    </div>
+                );
 
-    if (title || subtitle) {
-        return (
-            <div className="panel-heading" style={{ border: 'none', borderBottom: '1px solid #dbdbdb' }}>
-                {title}
-                {subtitle}
-            </div>
-        );
-    }
+                const subtitle =
+                    false || !subsection.subtitle ? null : (
+                        <h2 className="subtitle" style={{ fontSize: '.75em', marginTop: '.25em' }}>
+                            <FontAwesomeIcon icon="angle-right" /> {subsection.subtitle}
+                        </h2>
+                    );
 
-    return null;
-};
+                if (title || subtitle) {
+                    return (
+                        <div
+                            className="panel-heading"
+                            style={{ border: 'none', borderBottom: '1px solid #dbdbdb' }}
+                        >
+                            {title}
+                            {subtitle}
+                        </div>
+                    );
+                }
 
-const renderTitle = (subsection, instance, hasError) => (
-    <div>
-        {subsection.title}&nbsp;
-        {hasError ? <Asterisk /> : null}
-    </div>
-);
-
-const renderSubtitle = subsection => {
-    if (subsection.subtitle) {
-        return (
-            <h2 className="subtitle" style={{ fontSize: '.75em', marginTop: '.25em' }}>
-                <FontAwesomeIcon icon="angle-right" /> {subsection.subtitle}
-            </h2>
-        );
-    }
+                return null;
+            }}
+        </FormConsumer>
+    );
 };
 
 FormSubsectionPanelTitle.propTypes = {
-    subsection: PropTypes.object.isRequired,
-    instance: PropTypes.object.isRequired,
-    hasError: PropTypes.bool.isRequired,
-    hideTitle: PropTypes.bool,
-    hideSubtitle: PropTypes.bool
+    subsection: PropTypes.object.isRequired
 };
 
 export default FormSubsectionPanelTitle;

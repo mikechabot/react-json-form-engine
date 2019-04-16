@@ -3,43 +3,51 @@ import PropTypes from 'prop-types';
 
 import FormField from './FormField';
 
+import { FormConsumer } from '../../context';
 import { PROPERTY } from '../../form-engine/config/form-const';
 
-export default class FormChildren extends React.Component {
-    renderField(instance, onUpdate, child) {
-        if (instance.isVisible(child)) {
-            return (
-                <li key={child.id} style={{ marginTop: '.75rem' }}>
-                    <FormField
-                        id={child.id}
-                        field={child}
-                        value={instance.getModelValue(child.id)}
-                        hasError={instance.fieldHasError(child.id)}
-                        instance={instance}
-                        onUpdate={onUpdate}
-                    />
-                </li>
-            );
-        }
-    }
-    render() {
-        const { field } = this.props;
-        if (!field || !field[PROPERTY.FIELD.FIELDS]) {
-            return null;
-        }
+const FormChildren = ({ field, onUpdate }) => {
+    console.log('Rendering FormChildren for', field.id);
 
-        const { fields } = field;
-        const { instance, onUpdate } = this.props;
-        return (
-            <ul style={{ marginLeft: '1rem' }}>
-                {fields.map(this.renderField.bind(this, instance, onUpdate))}
-            </ul>
-        );
-    }
-}
+    if (!field[PROPERTY.FIELD.FIELDS]) return null;
+
+    return (
+        <FormConsumer>
+            {instance => {
+                const renderField = child => {
+                    if (instance.isVisible(child)) {
+                        return (
+                            <li key={child.id} style={{ marginTop: '.75rem' }}>
+                                <FormField
+                                    fieldId={child.id}
+                                    field={child}
+                                    value={instance.getModelValue(child.id)}
+                                    hasError={instance.fieldHasError(child.id)}
+                                    onUpdate={onUpdate}
+                                />
+                            </li>
+                        );
+                    }
+                };
+
+                return (
+                    <ul style={{ marginLeft: '1rem' }}>
+                        {field[PROPERTY.FIELD.FIELDS].map(child => renderField(child))}
+                    </ul>
+                );
+            }}
+        </FormConsumer>
+    );
+};
 
 FormChildren.propTypes = {
-    field: PropTypes.object.isRequired,
-    instance: PropTypes.object.isRequired,
+    field: PropTypes.shape({
+        id: PropTypes.string.isRequired,
+        title: PropTypes.string.isRequired,
+        fields: PropTypes.array,
+        options: PropTypes.array
+    }),
     onUpdate: PropTypes.func.isRequired
 };
+
+export default FormChildren;

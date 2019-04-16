@@ -4,7 +4,12 @@ import PropTypes from 'prop-types';
 import FormControl from './FormControl';
 import FormChildren from './FormChildren';
 import { Flex } from '../util';
-import _isEmpty from 'lodash/isEmpty';
+import isEmpty from 'lodash/isEmpty';
+import { PROPERTY } from '../../form-engine/config/form-const';
+
+const {
+    FIELD: { ID, FIELDS, OPTIONS }
+} = PROPERTY;
 
 class FormField extends Component {
     /**
@@ -31,26 +36,29 @@ class FormField extends Component {
      * @returns {boolean}
      */
     hasFieldChildren(field) {
-        if (!_isEmpty(field.fields)) {
+        if (!isEmpty(field[FIELDS])) {
             return true;
         }
-        if (!_isEmpty(field.options)) {
-            return field.options.some(option => !_isEmpty(option.fields));
+        if (!isEmpty(field[OPTIONS])) {
+            return field[OPTIONS].some(option => !isEmpty(option[FIELDS]));
         }
         return false;
     }
+
     render() {
+        const { field } = this.props;
+        console.log('Rendering FormField', field.id);
         return (
-            <Flex column className="field">
+            <Flex column className="field" id={`field-${field[ID]}`}>
                 <FormControl {...this.props} />
-                <FormChildren {...this.props} />
+                {this.hasFieldChildren(field) ? <FormChildren {...this.props} /> : null}
             </Flex>
         );
     }
 }
 
 FormField.propTypes = {
-    id: PropTypes.string.isRequired,
+    fieldId: PropTypes.string.isRequired,
     field: PropTypes.object.isRequired,
     onUpdate: PropTypes.func.isRequired,
     hasError: PropTypes.bool.isRequired,
@@ -60,8 +68,7 @@ FormField.propTypes = {
         PropTypes.bool,
         PropTypes.array,
         PropTypes.object
-    ]),
-    instance: PropTypes.object.isRequired
+    ])
 };
 
 export default FormField;

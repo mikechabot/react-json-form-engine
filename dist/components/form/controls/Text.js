@@ -34,7 +34,9 @@ var Text = function Text(_ref) {
 };
 
 var __getInputType = function __getInputType(uiDecorators) {
-  return _maybeBaby.default.of(uiDecorators).prop('component').prop('type').orElse(DEFAULT_TYPE).join();
+  return _maybeBaby.default.of(function () {
+    return uiDecorators.component.type;
+  }).orElse(DEFAULT_TYPE).join();
 };
 
 Text.propTypes = {

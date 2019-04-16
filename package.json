@@ -56,7 +56,8 @@
     "eslint-plugin-react": "^7.12.4",
     "eslint-plugin-standard": "^4.0.0",
     "node-sass": "^4.11.0",
-    "prettier": "^1.16.4"
+    "prettier": "^1.16.4",
+    "why-did-you-update": "^1.0.6"
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^1.2.17",

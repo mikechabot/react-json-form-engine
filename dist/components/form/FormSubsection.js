@@ -5,7 +5,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 
-var _react = _interopRequireDefault(require("react"));
+var _react = _interopRequireWildcard(require("react"));
 
 var _propTypes = _interopRequireDefault(require("prop-types"));
 
@@ -15,7 +15,11 @@ var _FormSubsectionTitle = _interopRequireDefault(require("./helpers/FormSubsect
 
 var _FormField = _interopRequireDefault(require("./FormField"));
 
+var _context = require("../../context");
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = Object.defineProperty && Object.getOwnPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : {}; if (desc.get || desc.set) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; return newObj; } }
 
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
@@ -37,8 +41,8 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || func
 
 var FormSubsection =
 /*#__PURE__*/
-function (_React$Component) {
-  _inherits(FormSubsection, _React$Component);
+function (_PureComponent) {
+  _inherits(FormSubsection, _PureComponent);
 
   function FormSubsection() {
     _classCallCheck(this, FormSubsection);
@@ -51,11 +55,27 @@ function (_React$Component) {
     value: function render() {
       var _this$props = this.props,
           subsection = _this$props.subsection,
-          instance = _this$props.instance,
-          hideTitle = _this$props.hideTitle,
-          hideSubtitle = _this$props.hideSubtitle;
-      console.log('Render FormSubsection');
-      var hasError = instance.subsectionHasError(subsection);
+          submitButton = _this$props.submitButton,
+          onUpdate = _this$props.onUpdate;
+      var instance = this.context.instance;
+
+      var renderSubsectionFields = function renderSubsectionFields() {
+        var fields = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
+        return fields.map(function (fieldDefinition) {
+          var field = instance.getField(fieldDefinition.id);
+          if (!instance.isVisible(field)) return null;
+          return _react.default.createElement(_FormField.default, {
+            key: field.id,
+            fieldId: field.id,
+            field: field,
+            onUpdate: onUpdate,
+            hasError: instance.fieldHasError(field.id),
+            value: instance.getModelValue(field.id)
+          });
+        });
+      };
+
+      console.log('Rendering FormSubsection', subsection.id);
       return _react.default.createElement(_util.Flex, {
         column: true,
         flex: 1,
@@ -63,69 +83,25 @@ function (_React$Component) {
         flexShrink: 0,
         height: "100%"
       }, _react.default.createElement(_FormSubsectionTitle.default, {
-        hasError: hasError,
-        subsection: subsection,
-        instance: instance,
-        hideTitle: hideTitle,
-        hideSubtitle: hideSubtitle
+        subsection: subsection
       }), _react.default.createElement("div", {
         style: {
           width: '100%',
           height: '100%',
           padding: '.5em .75em'
         }
-      }, this.renderSubsectionFields(subsection.fields)), this._maybeRenderSubmitButton());
-    }
-  }, {
-    key: "renderSubsectionFields",
-    value: function renderSubsectionFields() {
-      var _this = this;
-
-      var fields = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
-      return fields.map(function (fieldDefinition) {
-        return _this._renderSubsectionField(fieldDefinition, _this.props.instance, _this.props.onUpdate);
-      });
-    }
-  }, {
-    key: "_renderSubsectionField",
-    value: function _renderSubsectionField(fieldDef, instance, onUpdate) {
-      var field = instance.getField(fieldDef.id);
-
-      if (instance.isVisible(field)) {
-        return _react.default.createElement("div", {
-          key: field.id,
-          style: {
-            paddingBottom: '.75rem'
-          }
-        }, _react.default.createElement(_FormField.default, {
-          id: field.id,
-          field: field,
-          onUpdate: onUpdate,
-          instance: instance,
-          hasError: instance.fieldHasError(field.id),
-          value: instance.getModelValue(field.id)
-        }));
-      }
-    }
-  }, {
-    key: "_maybeRenderSubmitButton",
-    value: function _maybeRenderSubmitButton() {
-      if (this.props.submitButton) {
-        return _react.default.createElement("div", {
-          className: "panel-block"
-        }, this.props.submitButton);
-      }
+      }, renderSubsectionFields(subsection.fields)), submitButton ? _react.default.createElement("div", {
+        className: "panel-block"
+      }, submitButton) : null);
     }
   }]);
 
   return FormSubsection;
-}(_react.default.Component);
+}(_react.PureComponent);
 
+FormSubsection.contextType = _context.FormContext;
 FormSubsection.propTypes = {
-  instance: _propTypes.default.object.isRequired,
   subsection: _propTypes.default.object.isRequired,
-  hideTitle: _propTypes.default.bool,
-  hideSubtitle: _propTypes.default.bool,
   submitButton: _propTypes.default.node,
   onUpdate: _propTypes.default.func.isRequired
 };

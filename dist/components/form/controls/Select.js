@@ -20,11 +20,6 @@ var Select = function Select(_ref) {
       onUpdate = _ref.onUpdate,
       hasError = _ref.hasError;
 
-  if (!field.options) {
-    console.warn("".concat(field.type, " is missing required \"options\" (id: ").concat(id, ")"));
-    return _react.default.createElement("span", null);
-  }
-
   var isMultiple = __isFieldTypeArray(field);
 
   return _react.default.createElement("div", {
@@ -35,8 +30,7 @@ var Select = function Select(_ref) {
     name: id,
     onChange: function onChange(_ref2) {
       var target = _ref2.target;
-      console.log('theeve', target.options);
-      onUpdate(event);
+      return onUpdate(target.options);
     },
     multiple: isMultiple
   }, _maybeRenderPlaceholder(field, value), _renderOptions(field)));

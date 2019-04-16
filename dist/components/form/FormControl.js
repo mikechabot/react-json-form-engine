@@ -11,13 +11,13 @@ var _propTypes = _interopRequireDefault(require("prop-types"));
 
 var _maybeBaby = _interopRequireDefault(require("maybe-baby"));
 
-var _isEmpty2 = _interopRequireDefault(require("lodash/isEmpty"));
-
 var _FormControlTitle = _interopRequireDefault(require("./helpers/FormControlTitle"));
 
 var _FormControlHint = _interopRequireDefault(require("./helpers/FormControlHint"));
 
 var _ValidationFieldError = _interopRequireDefault(require("./validation/ValidationFieldError"));
+
+var _context = require("../../context");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -51,108 +51,70 @@ function (_React$Component) {
   }
 
   _createClass(FormControl, [{
-    key: "shouldComponentUpdate",
-
-    /**
-     * Determine if the component should call render() to update itself.
-     *
-     * Right now, we'll always re-render the component if it contains
-     * children. Those components themselves will call this method to
-     * determine if they should re-render themselves. If this becomes
-     * a performance issue, we could potentially before a deep comparison
-     * between the prop trees, but that seems excessive right now.
-     *
-     * @param nextProps
-     * @returns {boolean} true if the component should call render()
-     */
-    value: function shouldComponentUpdate(nextProps) {
-      if (!this._hasFieldChildren(nextProps.field)) {
-        return nextProps.value !== this.props.value || nextProps.hasError !== this.props.hasError;
-      }
-
-      return true;
-    }
-  }, {
-    key: "render",
-    value: function render() {
-      var _this$props = this.props,
-          id = _this$props.id,
-          value = _this$props.value,
-          field = _this$props.field,
-          instance = _this$props.instance,
-          onUpdate = _this$props.onUpdate;
-      var component = field.component,
-          uiDecorators = field.uiDecorators;
-
-      if (!component || !component.element) {
-        console.error("Field of type \"".concat(field.type, "\" is missing required \"component\" (id: ").concat(id, ")"));
-        return _react.default.createElement(_ValidationFieldError.default, {
-          id: field.id
-        });
-      }
-
-      console.log('Render FormControl', id);
-      var Control = component.element;
-      var hasError = instance.fieldHasError(id);
-      return _react.default.createElement("span", null, _react.default.createElement(_FormControlTitle.default, {
-        field: field,
-        decorators: uiDecorators
-      }), _react.default.createElement("div", {
-        className: "control"
-      }, _react.default.createElement(Control, {
-        id: id,
-        value: value,
-        field: field,
-        hasError: hasError,
-        uiDecorators: uiDecorators,
-        onUpdate: onUpdate,
-        instance: instance
-      })), this._maybeRenderHint(uiDecorators), hasError ? this._maybeRenderError(id, instance) : null);
-    }
-  }, {
-    key: "_maybeRenderHint",
-    value: function _maybeRenderHint(uiDecorators) {
-      if (_maybeBaby.default.of(uiDecorators).prop('hint').isJust()) {
+    key: "maybeRenderHint",
+    value: function maybeRenderHint(uiDecorators) {
+      if (_maybeBaby.default.of(function () {
+        return uiDecorators.hint;
+      }).isJust()) {
         return _react.default.createElement(_FormControlHint.default, {
           text: uiDecorators.hint
         });
       }
     }
   }, {
-    key: "_maybeRenderError",
-    value: function _maybeRenderError(id, instance) {
-      var _instance$getValidati = instance.getValidationResultByTag(id),
-          messages = _instance$getValidati.messages;
+    key: "render",
+    value: function render() {
+      var _this = this;
 
-      return Object.keys(messages).map(function (key) {
-        return _react.default.createElement(_FormControlHint.default, {
-          key: key,
-          icon: "exclamation-triangle",
-          className: "is-danger",
-          text: messages[key].message
+      var _this$props = this.props,
+          value = _this$props.value,
+          field = _this$props.field,
+          fieldId = _this$props.fieldId,
+          onUpdate = _this$props.onUpdate,
+          hasError = _this$props.hasError;
+      var component = field.component,
+          uiDecorators = field.uiDecorators;
+
+      if (!component || !component.element) {
+        console.error("Field of type \"".concat(field.type, "\" is missing required \"component\" (id: ").concat(field.id, ")"));
+        return _react.default.createElement(_ValidationFieldError.default, {
+          id: field.id
         });
+      }
+
+      console.log('Render FormControl', field.id);
+      var Control = component.element;
+      return _react.default.createElement(_context.FormConsumer, null, function (_ref) {
+        var instance = _ref.instance;
+
+        var renderErrors = function renderErrors(id) {
+          var _instance$getValidati = instance.getValidationResultByTag(id),
+              messages = _instance$getValidati.messages;
+
+          return Object.keys(messages).map(function (key) {
+            return _react.default.createElement(_FormControlHint.default, {
+              key: key,
+              icon: "asterisk",
+              className: "is-danger",
+              text: messages[key].message
+            });
+          });
+        };
+
+        return _react.default.createElement("span", null, _react.default.createElement(_FormControlTitle.default, {
+          field: field,
+          decorators: uiDecorators
+        }), _react.default.createElement("div", {
+          className: "control"
+        }, _react.default.createElement(Control, {
+          id: fieldId,
+          value: value,
+          field: field,
+          hasError: hasError,
+          uiDecorators: uiDecorators,
+          onUpdate: onUpdate
+        })), _this.maybeRenderHint(uiDecorators), hasError ? renderErrors(id) : null);
       });
-    }
-    /**
-     * Check for child fields, or option fields with children
-     * @param field
-     * @returns {boolean}
-     */
-
-  }, {
-    key: "_hasFieldChildren",
-    value: function _hasFieldChildren(field) {
-      if (!(0, _isEmpty2.default)(field.fields)) {
-        return true;
-      }
-
-      if (!(0, _isEmpty2.default)(field.options)) {
-        return field.options.some(function (option) {
-          return !(0, _isEmpty2.default)(option.fields);
-        });
-      }
-
-      return false;
     }
   }]);
 
@@ -160,12 +122,11 @@ function (_React$Component) {
 }(_react.default.Component);
 
 FormControl.propTypes = {
-  id: _propTypes.default.string.isRequired,
+  fieldId: _propTypes.default.string.isRequired,
   field: _propTypes.default.object.isRequired,
   onUpdate: _propTypes.default.func.isRequired,
   hasError: _propTypes.default.bool.isRequired,
-  value: _propTypes.default.oneOfType([_propTypes.default.string, _propTypes.default.number, _propTypes.default.bool, _propTypes.default.array, _propTypes.default.object]),
-  instance: _propTypes.default.object.isRequired
+  value: _propTypes.default.oneOfType([_propTypes.default.string, _propTypes.default.number, _propTypes.default.bool, _propTypes.default.array, _propTypes.default.object])
 };
 var _default = FormControl;
 exports.default = _default;

@@ -43,7 +43,6 @@ Range.propTypes = {
     field: PropTypes.object.isRequired,
     value: PropTypes.number,
     onUpdate: PropTypes.func.isRequired,
-    instance: PropTypes.object.isRequired
 };
 
 export default Range;

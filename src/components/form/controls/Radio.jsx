@@ -6,19 +6,19 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import FormChildren from '../FormChildren';
 import { Flex } from '../../util';
 
-const Radio = ({ id, value, field, instance, onUpdate }) => {
+const Radio = ({ id, value, field, onUpdate }) => {
     return (
         <Flex column={!field.inline} id={id}>
-            {_renderOptions(field, value, instance, onUpdate)}
+            {_renderOptions(field, value, onUpdate)}
         </Flex>
     );
 };
 
-const _renderOptions = (field, value, instance, onUpdate) => {
-    return field.options.map(_renderOption.bind(null, field, value, instance, onUpdate));
+const _renderOptions = (field, value, onUpdate) => {
+    return field.options.map(_renderOption.bind(null, field, value, onUpdate));
 };
 
-const _renderOption = (field, value, instance, onUpdate, option, index) => {
+const _renderOption = (field, value, onUpdate, option, index) => {
     const isEven = index % 2 === 0;
     return (
         <Flex
@@ -35,7 +35,7 @@ const _renderOption = (field, value, instance, onUpdate, option, index) => {
                 {_renderOptionIcon(option, value, isEven)}&nbsp;
                 <div>{option.title}</div>
             </Flex>
-            <FormChildren field={option} instance={instance} onUpdate={onUpdate} />
+            <FormChildren field={option} onUpdate={onUpdate} />
         </Flex>
     );
 };
@@ -63,7 +63,6 @@ Radio.propTypes = {
     field: PropTypes.object.isRequired,
     value: PropTypes.oneOfType([PropTypes.string, PropTypes.bool]),
     onUpdate: PropTypes.func.isRequired,
-    instance: PropTypes.object.isRequired,
     uiField: PropTypes.object
 };
 

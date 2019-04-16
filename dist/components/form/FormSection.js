@@ -5,17 +5,21 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 
-var _react = _interopRequireDefault(require("react"));
+var _react = _interopRequireWildcard(require("react"));
 
 var _propTypes = _interopRequireDefault(require("prop-types"));
 
 var _reactTabify = require("react-tabify");
 
-var _FormSubsection = _interopRequireDefault(require("./FormSubsection"));
+var _context = require("../../context");
 
 var _util = require("../util");
 
+var _FormSubsection = _interopRequireDefault(require("./FormSubsection"));
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = Object.defineProperty && Object.getOwnPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : {}; if (desc.get || desc.set) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; return newObj; } }
 
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
@@ -27,9 +31,9 @@ function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _d
 
 function _possibleConstructorReturn(self, call) { if (call && (_typeof(call) === "object" || typeof call === "function")) { return call; } return _assertThisInitialized(self); }
 
-function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
-
 function _assertThisInitialized(self) { if (self === void 0) { throw new ReferenceError("this hasn't been initialised - super() hasn't been called"); } return self; }
+
+function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.getPrototypeOf : function _getPrototypeOf(o) { return o.__proto__ || Object.getPrototypeOf(o); }; return _getPrototypeOf(o); }
 
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
 
@@ -37,86 +41,80 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || func
 
 var FormSection =
 /*#__PURE__*/
-function (_React$Component) {
-  _inherits(FormSection, _React$Component);
+function (_Component) {
+  _inherits(FormSection, _Component);
 
-  function FormSection(props) {
-    var _this;
-
+  function FormSection() {
     _classCallCheck(this, FormSection);
 
-    _this = _possibleConstructorReturn(this, _getPrototypeOf(FormSection).call(this, props));
-    _this._renderSubsectionTab = _this._renderSubsectionTab.bind(_assertThisInitialized(_this));
-    return _this;
+    return _possibleConstructorReturn(this, _getPrototypeOf(FormSection).apply(this, arguments));
   }
 
   _createClass(FormSection, [{
+    key: "shouldComponentUpdate",
+    value: function shouldComponentUpdate(nextProps) {
+      debugger;
+      var ise = nextProps.section.title !== this.props.section.title;
+      console.log('SCU', ise);
+      return ise;
+    }
+  }, {
+    key: "componentDidUpdate",
+    value: function componentDidUpdate() {
+      console.log('DidUpdate FormSection', this.props.section.title);
+    }
+  }, {
     key: "render",
     value: function render() {
-      var section = this.props.section;
+      var _this$props = this.props,
+          section = _this$props.section,
+          onUpdate = _this$props.onUpdate,
+          submitButton = _this$props.submitButton;
       var subsections = section.subsections;
-      console.log('Render FormSection');
-      return _react.default.createElement(_util.Flex, {
-        id: section.id,
-        flexShrink: 0,
-        height: "100%"
-      }, this._renderSubsections(section, subsections));
-    }
-  }, {
-    key: "_renderSubsections",
-    value: function _renderSubsections(section, subsections) {
-      return subsections.length > 1 ? this._renderTabbedSubsections(section, subsections) : this._renderSingleSubsection(subsections[0]);
-    }
-  }, {
-    key: "_renderTabbedSubsections",
-    value: function _renderTabbedSubsections(section, subsections) {
-      return _react.default.createElement(_reactTabify.Tabs, {
+      console.log('Rendering FormSection', section.title);
+
+      var getDerivedSubsectionTitle = function getDerivedSubsectionTitle(subsection) {
+        return _react.default.createElement("span", null, subsection.title, " ", _react.default.createElement(_util.Asterisk, null));
+      };
+
+      var renderSingleSubsection = function renderSingleSubsection(subsection, isTabbed) {
+        return _react.default.createElement(_FormSubsection.default, {
+          isTabbed: isTabbed,
+          subsection: subsection,
+          onUpdate: onUpdate,
+          submitButton: submitButton
+        });
+      };
+
+      return _react.default.createElement("div", {
+        style: {
+          display: 'flex',
+          height: '100%',
+          flexShrink: 0
+        }
+      }, subsections.length === 1 ? renderSingleSubsection(subsections[0]) : _react.default.createElement(_reactTabify.Tabs, {
         id: "".concat(section.id, "-subsection-tabs"),
         defaultActiveKey: 0
-      }, subsections.map(this._renderSubsectionTab));
-    }
-  }, {
-    key: "_renderSubsectionTab",
-    value: function _renderSubsectionTab(subsection, index) {
-      return _react.default.createElement(_reactTabify.Tab, {
-        key: index,
-        eventKey: index,
-        label: this._getDerivedSubsectionTitle(subsection)
-      }, this._renderSingleSubsection(subsection, true));
-    }
-  }, {
-    key: "_renderSingleSubsection",
-    value: function _renderSingleSubsection(subsection, isTabbed) {
-      return _react.default.createElement(_FormSubsection.default, {
-        hideTitle: isTabbed || this.props.hideTitle,
-        hideSubtitle: this.props.hideSubtitle,
-        isTabbed: isTabbed,
-        subsection: subsection,
-        instance: this.props.instance,
-        onUpdate: this.props.onUpdate,
-        submitButton: this.props.submitButton
-      });
-    }
-  }, {
-    key: "_getDerivedSubsectionTitle",
-    value: function _getDerivedSubsectionTitle(subsection) {
-      if (!this.props.instance.subsectionHasError(subsection)) return subsection.title;
-      return _react.default.createElement("span", null, subsection.title, " ", _react.default.createElement(_util.Asterisk, null));
+      }, subsections.map(function (subsection, index) {
+        return _react.default.createElement(_reactTabify.Tab, {
+          key: index,
+          eventKey: index,
+          label: getDerivedSubsectionTitle(subsection)
+        }, renderSingleSubsection(subsection, true));
+      })));
     }
   }]);
 
   return FormSection;
-}(_react.default.Component);
+}(_react.Component);
 
+FormSection.contextType = _context.FormContext;
 FormSection.propTypes = {
-  instance: _propTypes.default.object.isRequired,
   section: _propTypes.default.shape({
     id: _propTypes.default.string.isRequired,
     title: _propTypes.default.string.isRequired,
     subsections: _propTypes.default.array.isRequired
   }),
-  hideTitle: _propTypes.default.bool,
-  hideSubtitle: _propTypes.default.bool,
   submitButton: _propTypes.default.node,
   onUpdate: _propTypes.default.func.isRequired
 };

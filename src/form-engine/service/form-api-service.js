@@ -1,13 +1,25 @@
 import Maybe from 'maybe-baby';
 import apiCheck from 'api-check';
-
-import { COMPONENT_TYPE, DATA_TYPE, PROPERTY } from '../config/form-const';
 import isNil from 'lodash/isNil';
 import isEmpty from 'lodash/isEmpty';
+
+import { COMPONENT_TYPE, DATA_TYPE, PROPERTY } from '../config/form-const';
+
 const { FIELD, SECTION, SUBSECTION, DEFINITION } = PROPERTY;
+const { STRING, NUMBER, ARRAY } = DATA_TYPE;
+const { RANGE, RADIO } = COMPONENT_TYPE;
 
 // Configure api-check
 const validator = apiCheck({ output: { prefix: 'FormEngine:' } });
+
+const INVALID_TYPES_MESSAGE = {
+    [RADIO]: `Field combination of data type "${STRING}" and component type "${RADIO}" requires all options have an "id"`,
+    [RANGE]: `Field of component type "${RANGE}" is missing required min/max values`,
+    NUMBER_EQUALS: `Field of data type "${NUMBER}" cannot have an equal min/max value`,
+    NUMBER_DIFF: `Field of data type "${NUMBER}" cannot have a min value less than the max`,
+    ARRAY_OPTIONS: `Field of data type "${ARRAY}" is missing required "options" array`,
+    ARRAY_OPTION_ID: `Field of data type "${ARRAY}" contains an option missing required "id"`
+};
 
 const FormApiService = {
     validateFieldShape(field) {
@@ -69,67 +81,41 @@ const FormApiService = {
         );
     },
     validateFieldTypesShape(field) {
+        const idSuffix = `(id: ${field})`;
+
         if (
             field[FIELD.TYPE] === DATA_TYPE.STRING &&
-            field[FIELD.COMPONENT].type === COMPONENT_TYPE.RADIO &&
+            field[FIELD.COMPONENT].type === RADIO &&
             !field[FIELD.OPTIONS].every(o => !isNil(o[FIELD.ID]))
         ) {
-            throw new Error(
-                `Field combination of data type "${DATA_TYPE.STRING}" and component type "${
-                    COMPONENT_TYPE.RADIO
-                }" contains an option missing required "id" (id: ${field.id})`
-            );
+            throw new Error(`${INVALID_TYPES_MESSAGE.RADIO} ${idSuffix}`);
         }
 
         if (field[FIELD.TYPE] === DATA_TYPE.NUMBER) {
             const hasMax = !isNil(field[FIELD.MAX]);
             const hasMin = !isNil(field[FIELD.MIN]);
 
-            if (field[FIELD.COMPONENT].type === COMPONENT_TYPE.RANGE) {
-                if (!hasMin || !hasMax) {
-                    throw new Error(
-                        `Field of component type "${
-                            COMPONENT_TYPE.RANGE
-                        }" is missing required min/max values (id: ${field.id}) `
-                    );
-                }
+            if (field[FIELD.COMPONENT].type === RANGE && (!hasMin || !hasMax)) {
+                throw new Error(`${INVALID_TYPES_MESSAGE.RANGE} ${idSuffix}`);
             }
 
             if (hasMin && hasMax) {
                 if (field[FIELD.MIN] === field[FIELD.MAX]) {
-                    throw new Error(
-                        `Field of data type "${DATA_TYPE.NUMBER}" cannot have an equal min/max value (id: ${
-                            field.id
-                        }) `
-                    );
+                    throw new Error(`${INVALID_TYPES_MESSAGE.NUMBER_EQUALS} ${idSuffix}`);
                 } else if (field[FIELD.MIN] > field[FIELD.MAX]) {
-                    throw new Error(
-                        `Field of data type "${
-                            DATA_TYPE.NUMBER
-                        }" cannot have a min value less than the max (id: ${field.id}) `
-                    );
+                    throw new Error(`${INVALID_TYPES_MESSAGE.NUMBER_DIFF} ${idSuffix}`);
                 }
             }
         }
 
-        if (field[FIELD.TYPE] === DATA_TYPE.ARRAY) {
+        if (field[FIELD.TYPE] === ARRAY) {
             if (isEmpty(field[FIELD.OPTIONS])) {
-                throw new Error(
-                    `Field of data type "${DATA_TYPE.ARRAY}" is missing required "options" array (id: ${
-                        field.id
-                    })`
-                );
+                throw new Error(`${INVALID_TYPES_MESSAGE.ARRAY_OPTIONS} ${idSuffix}`);
             }
             if (!field[FIELD.OPTIONS].every(o => !isNil(o[FIELD.ID]))) {
-                throw new Error(
-                    `Field of data type "${DATA_TYPE.ARRAY}" contains an option missing required "id" (id: ${
-                        field.id
-                    })`
-                );
+                throw new Error(`${INVALID_TYPES_MESSAGE.ARRAY_OPTION_ID} ${idSuffix}`);
             }
         }
-
-        return { isValid: true };
     }
 };
 

@@ -23,25 +23,18 @@ var Radio = function Radio(_ref) {
   var id = _ref.id,
       value = _ref.value,
       field = _ref.field,
-      instance = _ref.instance,
       onUpdate = _ref.onUpdate;
-
-  if (!field.options) {
-    console.warn("".concat(field.type, " is missing required \"options\" (id: ").concat(id, ")"));
-    return _react.default.createElement("span", null);
-  }
-
   return _react.default.createElement(_util.Flex, {
     column: !field.inline,
     id: id
-  }, _renderOptions(field, value, instance, onUpdate));
+  }, _renderOptions(field, value, onUpdate));
 };
 
-var _renderOptions = function _renderOptions(field, value, instance, onUpdate) {
-  return field.options.map(_renderOption.bind(null, field, value, instance, onUpdate));
+var _renderOptions = function _renderOptions(field, value, onUpdate) {
+  return field.options.map(_renderOption.bind(null, field, value, onUpdate));
 };
 
-var _renderOption = function _renderOption(field, value, instance, onUpdate, option, index) {
+var _renderOption = function _renderOption(field, value, onUpdate, option, index) {
   var isEven = index % 2 === 0;
   return _react.default.createElement(_util.Flex, {
     key: index,
@@ -58,7 +51,6 @@ var _renderOption = function _renderOption(field, value, instance, onUpdate, opt
     onClick: _handleOnClick.bind(null, field, option, onUpdate, isEven)
   }, _renderOptionIcon(option, value, isEven), "\xA0", _react.default.createElement("div", null, option.title)), _react.default.createElement(_FormChildren.default, {
     field: option,
-    instance: instance,
     onUpdate: onUpdate
   }));
 };
@@ -86,7 +78,6 @@ Radio.propTypes = {
   field: _propTypes.default.object.isRequired,
   value: _propTypes.default.oneOfType([_propTypes.default.string, _propTypes.default.bool]),
   onUpdate: _propTypes.default.func.isRequired,
-  instance: _propTypes.default.object.isRequired,
   uiField: _propTypes.default.object
 };
 var _default = Radio;

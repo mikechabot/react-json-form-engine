@@ -23,7 +23,7 @@ var _validationService = _interopRequireDefault(require("./service/validation-se
 
 var _expressionService = _interopRequireDefault(require("./service/expression-service"));
 
-var _formApiService = _interopRequireDefault(require(".//service/form-api-service"));
+var _formApiService = _interopRequireDefault(require("./service/form-api-service"));
 
 var _formConfig = _interopRequireDefault(require("./config/form-config"));
 
@@ -57,7 +57,7 @@ function () {
     _classCallCheck(this, FormEngine);
 
     try {
-      _formApiService.default.__validateDefinitionShape(definition);
+      _formApiService.default.validateDefinitionShape(definition);
 
       this.__isDefinitionValid = true;
     } catch (error) {
@@ -155,8 +155,7 @@ function () {
 
       this.sections.forEachValue(function (section) {
         section.subsections.forEach(function (subsection) {
-          subsection.section = section;
-          subsection.fieldIds = _this3.buildDeepFieldIdList([], subsection.fields);
+          subsection.section = section; // subsection.fieldIds = this.buildDeepFieldIdList([], subsection.fields);
 
           _this3.__decorateFields(subsection.fields);
 
@@ -204,7 +203,10 @@ function () {
     key: "__decorateField",
     value: function __decorateField(field, parent) {
       try {
-        _formApiService.default.__validateFieldShape(field);
+        // Validate the basic shape of the object by ensuring there is
+        // at least an "id", "type", and "title", as well as certain data
+        // type checks (e.g min/max must be numbers, etc.)
+        _formApiService.default.validateFieldShape(field);
       } catch (error) {
         this.__isDefinitionValid = false;
         this.error = error;
@@ -220,7 +222,19 @@ function () {
           defaultDecorators = _FormConfig$getCompon.defaultDecorators;
 
       field[FIELD.ACTIONS] = actions;
-      field[FIELD.COMPONENT] = component; // Apply any default decorators
+      field[FIELD.COMPONENT] = component;
+
+      try {
+        // Validate data and component types shape. Ensure that
+        // "array" type fields contain "option" array, "range"
+        // type fields contain min/max, etc.
+        _formApiService.default.validateFieldTypesShape(field);
+      } catch (error) {
+        this.__isDefinitionValid = false;
+        this.error = error;
+        return;
+      } // Apply any default decorators
+
 
       if (defaultDecorators) {
         field[FIELD.UI_DECORATORS] = _objectSpread({}, field[FIELD.UI_DECORATORS], defaultDecorators);
@@ -301,16 +315,6 @@ function () {
     key: "getFormIconPrefix",
     value: function getFormIconPrefix() {
       return _maybeBaby.default.of(this.definition).prop('faIcon').prop('prefix').join();
-    }
-    /**
-     * Return whether the form consists only
-     * of one section and one subsection
-     */
-
-  }, {
-    key: "isSimpleForm",
-    value: function isSimpleForm() {
-      return this.getSections().count() === 1 && this.getSubsections().count() === 1;
     }
     /**
      * Return whether the form is valid
@@ -454,8 +458,9 @@ function () {
      */
 
   }, {
-    key: "getSection",
-    value: function getSection(id) {
+    key: "getSectionById",
+    value: function getSectionById(id) {
+      console.log(this.getSections(), id);
       return this.getSections().find(id);
     }
     /**
@@ -499,16 +504,6 @@ function () {
     key: "getField",
     value: function getField(id) {
       return this.getFields().find(id);
-    }
-    /**
-     * Get all subsection fields id (including conditional children)
-     * @param subsection
-     */
-
-  }, {
-    key: "getSubsectionFieldIds",
-    value: function getSubsectionFieldIds(subsection) {
-      return subsection.fieldIds;
     }
     /**
      * Determine if the field is a boolean data type

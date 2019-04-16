@@ -1,74 +1,55 @@
-import React from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 import { Flex } from '../util';
 
 import FormSubsectionTitle from './helpers/FormSubsectionTitle';
 import FormField from './FormField';
+import { FormContext } from '../../context';
 
-class FormSubsection extends React.Component {
-    renderSubsectionFields(fields = []) {
-        return fields.map(fieldDefinition =>
-            this.renderSubsectionField(fieldDefinition, this.props.instance, this.props.onUpdate)
-        );
+class FormSubsection extends Component {
+    shouldComponentUpdate(nextProps) {
+        return true;
     }
+    render() {
+        const { subsection, submitButton, onUpdate } = this.props;
+        const instance = this.context;
 
-    renderSubsectionField(fieldDef, instance, onUpdate) {
-        const field = instance.getField(fieldDef.id);
-        if (instance.isVisible(field)) {
-            return (
-                <div
-                    key={field.id}
-                    style={{
-                        paddingBottom: '.75rem'
-                    }}
-                >
+        const renderSubsectionFields = (fields = []) => {
+            return fields.map(fieldDefinition => {
+                const field = instance.getField(fieldDefinition.id);
+                if (!instance.isVisible(field)) return null;
+                return (
                     <FormField
-                        id={field.id}
+                        key={field.id}
+                        fieldId={field.id}
                         field={field}
                         onUpdate={onUpdate}
-                        instance={instance}
                         hasError={instance.fieldHasError(field.id)}
                         value={instance.getModelValue(field.id)}
                     />
-                </div>
-            );
-        }
-    }
+                );
+            });
+        };
 
-    maybeRenderSubmitButton() {
-        if (this.props.submitButton) {
-            return <div className="panel-block">{this.props.submitButton}</div>;
-        }
-    }
-
-    render() {
-        const { subsection, instance, hideTitle, hideSubtitle } = this.props;
-        console.log('Render FormSubsection', subsection.id);
+        console.log('Rendering FormSubsection', subsection.id);
 
         return (
             <Flex column={true} flex={1} className="panel" flexShrink={0} height="100%">
-                <FormSubsectionTitle
-                    hasError={instance.subsectionHasError(subsection)}
-                    subsection={subsection}
-                    instance={instance}
-                    hideTitle={hideTitle}
-                    hideSubtitle={hideSubtitle}
-                />
+                <FormSubsectionTitle subsection={subsection} />
                 <div style={{ width: '100%', height: '100%', padding: '.5em .75em' }}>
-                    {this.renderSubsectionFields(subsection.fields)}
+                    {renderSubsectionFields(subsection.fields)}
                 </div>
-                {this.maybeRenderSubmitButton()}
+                {submitButton ? <div className="panel-block">{submitButton}</div> : null}
             </Flex>
         );
     }
 }
 
+FormSubsection.contextType = FormContext;
+
 FormSubsection.propTypes = {
-    instance: PropTypes.object.isRequired,
     subsection: PropTypes.object.isRequired,
-    hideTitle: PropTypes.bool,
-    hideSubtitle: PropTypes.bool,
     submitButton: PropTypes.node,
     onUpdate: PropTypes.func.isRequired
 };

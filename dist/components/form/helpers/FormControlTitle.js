@@ -24,7 +24,9 @@ var FormControlTitle = function FormControlTitle(_ref) {
 };
 
 var hideTitle = function hideTitle(decorators) {
-  return _maybeBaby.default.of(decorators).prop('hideControlLabel').isJust();
+  return _maybeBaby.default.of(function () {
+    return decorators.hideControlLabel;
+  }).isJust();
 };
 
 var _default = FormControlTitle;

@@ -15,6 +15,10 @@ var _FormChildren = _interopRequireDefault(require("./FormChildren"));
 
 var _util = require("../util");
 
+var _isEmpty = _interopRequireDefault(require("lodash/isEmpty"));
+
+var _formConst = require("../../form-engine/config/form-const");
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = Object.defineProperty && Object.getOwnPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : {}; if (desc.get || desc.set) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; return newObj; } }
@@ -37,10 +41,15 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 
+var _PROPERTY$FIELD = _formConst.PROPERTY.FIELD,
+    ID = _PROPERTY$FIELD.ID,
+    FIELDS = _PROPERTY$FIELD.FIELDS,
+    OPTIONS = _PROPERTY$FIELD.OPTIONS;
+
 var FormField =
 /*#__PURE__*/
-function (_Component) {
-  _inherits(FormField, _Component);
+function (_PureComponent) {
+  _inherits(FormField, _PureComponent);
 
   function FormField() {
     _classCallCheck(this, FormField);
@@ -49,25 +58,65 @@ function (_Component) {
   }
 
   _createClass(FormField, [{
+    key: "hasFieldChildren",
+
+    /**
+     * Determine if the component should call render() to update itself.
+     *
+     * Right now, we'll always re-render the component if it contains
+     * children. Those components themselves will call this method to
+     * determine if they should re-render themselves. If this becomes
+     * a performance issue, we could potentially before a deep comparison
+     * between the prop trees, but that seems excessive right now.
+     *
+     * @param nextProps
+     * @returns {boolean} true if the component should call render()
+     */
+
+    /**
+     * Check for child fields, or option fields with children
+     * @param field
+     * @returns {boolean}
+     */
+    value: function hasFieldChildren(field) {
+      if (!(0, _isEmpty.default)(field[FIELDS])) {
+        console.log('Got children', field.id);
+        return true;
+      }
+
+      if (!(0, _isEmpty.default)(field[OPTIONS])) {
+        console.log('Opts have children', field.id, field[OPTIONS].some(function (option) {
+          return !(0, _isEmpty.default)(option[FIELDS]);
+        }));
+        return field[OPTIONS].some(function (option) {
+          return !(0, _isEmpty.default)(option[FIELDS]);
+        });
+      }
+
+      return false;
+    }
+  }, {
     key: "render",
     value: function render() {
+      var field = this.props.field;
+      console.log('Rendering FormField', field.id);
       return _react.default.createElement(_util.Flex, {
         column: true,
-        className: "field"
-      }, _react.default.createElement(_FormControl.default, this.props), _react.default.createElement(_FormChildren.default, this.props));
+        className: "field",
+        id: "field-".concat(field[ID])
+      }, _react.default.createElement(_FormControl.default, this.props), this.hasFieldChildren(field) ? _react.default.createElement(_FormChildren.default, this.props) : null);
     }
   }]);
 
   return FormField;
-}(_react.Component);
+}(_react.PureComponent);
 
 FormField.propTypes = {
-  id: _propTypes.default.string.isRequired,
+  fieldId: _propTypes.default.string.isRequired,
   field: _propTypes.default.object.isRequired,
   onUpdate: _propTypes.default.func.isRequired,
   hasError: _propTypes.default.bool.isRequired,
-  value: _propTypes.default.oneOfType([_propTypes.default.string, _propTypes.default.number, _propTypes.default.bool, _propTypes.default.array, _propTypes.default.object]),
-  instance: _propTypes.default.object.isRequired
+  value: _propTypes.default.oneOfType([_propTypes.default.string, _propTypes.default.number, _propTypes.default.bool, _propTypes.default.array, _propTypes.default.object])
 };
 var _default = FormField;
 exports.default = _default;

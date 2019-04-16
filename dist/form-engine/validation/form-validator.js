@@ -44,18 +44,18 @@ var isRequired = function isRequired(field) {
 
 var VALIDATION_MESSAGE = (_VALIDATION_MESSAGE = {
   REQUIRED: (_REQUIRED = {}, _defineProperty(_REQUIRED, STRING, isRequired), _defineProperty(_REQUIRED, NUMBER, isRequired), _defineProperty(_REQUIRED, DATE, isRequired), _defineProperty(_REQUIRED, ARRAY, function (field) {
-    return "".concat(field.title, " required at least one option be selected");
+    return "".concat(field.title, " requires at least one option be selected");
   }), _defineProperty(_REQUIRED, BOOLEAN, isRequired), _REQUIRED),
   INVALID_REGEX: function INVALID_REGEX(field) {
     return "The value must match the supplied pattern: ".concat(field[FIELD.PATTERN]);
   },
   NUMERIC: function NUMERIC(field) {
     if (!(0, _isNil.default)(field.min) && !(0, _isNil.default)(field.max)) {
-      return "Enter a value between ".concat(field.min, " and ").concat(field.max);
+      return "".concat(field.title, " must be between ").concat(field.min, " and ").concat(field.max);
     }
 
-    if (!(0, _isNil.default)(field.min)) return "Enter a value greater than ".concat(field.min);
-    return "Enter a value less than ".concat(field.max);
+    if (!(0, _isNil.default)(field.min)) return "".concat(field.title, " must be greater than ").concat(field.min);
+    return "".concat(field.title, " must be less than ").concat(field.max);
   }
 }, _defineProperty(_VALIDATION_MESSAGE, _formConst.VALIDATION_CONST.TYPE.MISSING_REQUIRED, 'This field cannot be empty'), _defineProperty(_VALIDATION_MESSAGE, _formConst.VALIDATION_CONST.TYPE.INVALID_NUMERIC, 'Invalid numeric value'), _VALIDATION_MESSAGE);
 exports.VALIDATION_MESSAGE = VALIDATION_MESSAGE;

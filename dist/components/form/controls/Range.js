@@ -11,8 +11,6 @@ var _propTypes = _interopRequireDefault(require("prop-types"));
 
 var _isNil = _interopRequireDefault(require("lodash/isNil"));
 
-var _ValidationFieldError = _interopRequireDefault(require("../validation/ValidationFieldError"));
-
 var _util = require("../../util");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -22,14 +20,6 @@ var Range = function Range(_ref) {
       field = _ref.field,
       value = _ref.value,
       onUpdate = _ref.onUpdate;
-
-  if ((0, _isNil.default)(field.min) || (0, _isNil.default)(field.max)) {
-    console.error("Field of type \"".concat(field.type, "\" is missing required \"min\" and/or \"max\" (id: ").concat(id, ")"));
-    return _react.default.createElement(_ValidationFieldError.default, {
-      id: field.id
-    });
-  }
-
   return _react.default.createElement(_util.Flex, {
     column: true,
     flexShrink: 0
@@ -79,8 +69,7 @@ Range.propTypes = {
   id: _propTypes.default.string.isRequired,
   field: _propTypes.default.object.isRequired,
   value: _propTypes.default.number,
-  onUpdate: _propTypes.default.func.isRequired,
-  instance: _propTypes.default.object.isRequired
+  onUpdate: _propTypes.default.func.isRequired
 };
 var _default = Range;
 exports.default = _default;

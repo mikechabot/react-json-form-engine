@@ -5,11 +5,11 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 
-var _zipObject2 = _interopRequireDefault(require("lodash/zipObject"));
+var _zipObject = _interopRequireDefault(require("lodash/zipObject"));
 
-var _keys2 = _interopRequireDefault(require("lodash/keys"));
+var _keys = _interopRequireDefault(require("lodash/keys"));
 
-var _map2 = _interopRequireDefault(require("lodash/map"));
+var _map = _interopRequireDefault(require("lodash/map"));
 
 var _maybeBaby = _interopRequireDefault(require("maybe-baby"));
 
@@ -64,7 +64,7 @@ function () {
 
       this.typeConfigs[type] = _defineProperty({
         type: type
-      }, COMPONENT_CONFIGS, (0, _zipObject2.default)((0, _keys2.default)(components), (0, _map2.default)(components, function (component, key) {
+      }, COMPONENT_CONFIGS, (0, _zipObject.default)((0, _keys.default)(components), (0, _map.default)(components, function (component, key) {
         var config = {
           dataType: type,
           component: {
@@ -137,9 +137,10 @@ function () {
     key: "getComponentTypeByField",
     value: function getComponentTypeByField(field) {
       if (!field) throw new Error('field is required');
+      var componentDecorator = this.getComponentDecorator(field);
 
-      if (this.hasComponentDecorator(field)) {
-        return this.getComponentDecorator(field);
+      if (componentDecorator.isJust()) {
+        return componentDecorator.join();
       }
 
       return this.getDefaultComponentTypeByDataType(field);
@@ -172,14 +173,11 @@ function () {
       }
     }
   }, {
-    key: "hasComponentDecorator",
-    value: function hasComponentDecorator(field) {
-      return _maybeBaby.default.of(field).prop('uiDecorators').prop('component').prop('type').isJust();
-    }
-  }, {
     key: "getComponentDecorator",
     value: function getComponentDecorator(field) {
-      return _maybeBaby.default.of(field).prop('uiDecorators').prop('component').prop('type').join();
+      return _maybeBaby.default.of(function () {
+        return field.uiDecorators.component.type;
+      });
     }
   }, {
     key: "hasOptions",

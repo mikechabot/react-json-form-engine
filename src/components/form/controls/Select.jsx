@@ -11,10 +11,7 @@ const Select = ({ id, value, field, onUpdate, hasError }) => {
                 value={value}
                 id={id}
                 name={id}
-                onChange={({ target }) => {
-                    console.log('theeve', target.options);
-                    onUpdate(event);
-                }}
+                onChange={({ target }) => onUpdate(target.options)}
                 multiple={isMultiple}
             >
                 {_maybeRenderPlaceholder(field, value)}

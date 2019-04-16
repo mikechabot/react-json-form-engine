@@ -19,9 +19,7 @@ const Text = ({ id, field, value, onUpdate, uiDecorators, hasError }) => {
 };
 
 const __getInputType = uiDecorators => {
-    return Maybe.of(uiDecorators)
-        .prop('component')
-        .prop('type')
+    return Maybe.of(() => uiDecorators.component.type)
         .orElse(DEFAULT_TYPE)
         .join();
 };
