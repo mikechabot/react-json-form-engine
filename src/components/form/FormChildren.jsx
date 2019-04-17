@@ -1,44 +1,38 @@
-import React from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 import FormField from './FormField';
 
-import { FormConsumer } from '../../context';
 import { PROPERTY } from '../../form-engine/config/form-const';
+import { inject, observer } from 'mobx-react';
 
-const FormChildren = ({ field, onUpdate }) => {
-    console.log('Rendering FormChildren for', field.id);
+@inject('instance')
+@observer
+class FormChildren extends Component {
+    render() {
+        const { instance, onUpdate, field } = this.props;
 
-    if (!field[PROPERTY.FIELD.FIELDS]) return null;
+        console.log('Rendering FormChildren for', field.id);
 
-    return (
-        <FormConsumer>
-            {instance => {
-                const renderField = child => {
-                    if (instance.isVisible(child)) {
-                        return (
-                            <li key={child.id} style={{ marginTop: '.75rem' }}>
-                                <FormField
-                                    fieldId={child.id}
-                                    field={child}
-                                    value={instance.getModelValue(child.id)}
-                                    hasError={instance.fieldHasError(child.id)}
-                                    onUpdate={onUpdate}
-                                />
-                            </li>
-                        );
-                    }
-                };
+        if (!field[PROPERTY.FIELD.FIELDS]) return null;
 
+        const renderField = child => {
+            if (instance.isVisible(child)) {
                 return (
-                    <ul style={{ marginLeft: '1rem' }}>
-                        {field[PROPERTY.FIELD.FIELDS].map(child => renderField(child))}
-                    </ul>
+                    <li key={child.id} style={{ marginTop: '.75rem' }}>
+                        <FormField fieldId={child.id} field={child} onUpdate={onUpdate} />
+                    </li>
                 );
-            }}
-        </FormConsumer>
-    );
-};
+            }
+        };
+
+        return (
+            <ul style={{ marginLeft: '1rem' }}>
+                {field[PROPERTY.FIELD.FIELDS].map(child => renderField(child))}
+            </ul>
+        );
+    }
+}
 
 FormChildren.propTypes = {
     field: PropTypes.shape({

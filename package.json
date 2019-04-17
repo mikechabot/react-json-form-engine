@@ -36,6 +36,8 @@
   "devDependencies": {
     "@babel/cli": "^7.1.5",
     "@babel/core": "^7.1.6",
+    "@babel/plugin-proposal-class-properties": "^7.4.0",
+    "@babel/plugin-proposal-decorators": "^7.4.0",
     "@babel/preset-env": "^7.1.6",
     "@babel/preset-react": "^7.0.0",
     "@storybook/addon-actions": "^5.0.5",
@@ -44,6 +46,7 @@
     "@storybook/addon-options": "^5.0.5",
     "@storybook/addons": "^5.0.5",
     "@storybook/react": "^5.0.5",
+    "babel-eslint": "^10.0.1",
     "babel-loader": "^8.0.5",
     "bulma": "^0.7.4",
     "eslint": "^5.15.3",
@@ -70,12 +73,13 @@
     "glamorous": "^4.13.0",
     "lodash": "^4.17.11",
     "maybe-baby": "^1.1.8",
+    "mobx": "^5.9.4",
+    "mobx-react": "^5.4.3",
     "moment": "^2.24.0",
     "prop-types": "^15.7.2",
     "react": "16.8.6",
     "react-datepicker": "^2.3.0",
     "react-dom": "16.8.6",
-    "react-tabify": "^0.1.24",
-    "sortable-map": "0.0.17"
+    "react-tabify": "^0.1.24"
   }
 }

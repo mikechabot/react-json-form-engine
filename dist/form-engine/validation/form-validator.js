@@ -112,9 +112,11 @@ var _default = {
    */
   validate: function validate(instance, validationResults) {
     var comprehensive = arguments.length > 2 && arguments[2] !== undefined ? arguments[2] : false;
-    instance.getFields().forEachValue(function (field) {
-      // If the field isn't dirty (i.e. not touched), and we
+    var fields = instance.getFields();
+    Object.keys(fields).forEach(function (fieldId) {
+      var field = fields[fieldId]; // If the field isn't dirty (i.e. not touched), and we
       // aren't performing comprehensive validation, just return.
+
       if (!field.dirty && !comprehensive) {
         return;
       } // If the field has a showCondition, but isn't visible

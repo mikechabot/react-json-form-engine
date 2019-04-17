@@ -5,7 +5,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 
-var _sortableMap = _interopRequireDefault(require("sortable-map"));
+var _mobx = require("mobx");
 
 var _maybeBaby = _interopRequireDefault(require("maybe-baby"));
 
@@ -35,6 +35,8 @@ var _common = require("../common");
 
 var _formConst = require("./config/form-const");
 
+var _class;
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
@@ -47,12 +49,25 @@ function _defineProperties(target, props) { for (var i = 0; i < props.length; i+
 
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
 
+function _applyDecoratedDescriptor(target, property, decorators, descriptor, context) { var desc = {}; Object.keys(descriptor).forEach(function (key) { desc[key] = descriptor[key]; }); desc.enumerable = !!desc.enumerable; desc.configurable = !!desc.configurable; if ('value' in desc || desc.initializer) { desc.writable = true; } desc = decorators.slice().reverse().reduce(function (desc, decorator) { return decorator(target, property, desc) || desc; }, desc); if (context && desc.initializer !== void 0) { desc.value = desc.initializer ? desc.initializer.call(context) : void 0; desc.initializer = undefined; } if (desc.initializer === void 0) { Object.defineProperty(target, property, desc); desc = null; } return desc; }
+
 var FIELD = _formConst.PROPERTY.FIELD,
     DEFINITION = _formConst.PROPERTY.DEFINITION;
-
-var FormEngine =
+var FormEngine = (_class =
 /*#__PURE__*/
 function () {
+  _createClass(FormEngine, [{
+    key: "modelValue",
+    value: function modelValue(id) {
+      return this.model[id];
+    }
+  }, {
+    key: "fieldHasError",
+    value: function fieldHasError(id) {
+      return _validationService.default.isError(this.getValidationStatusByTag(id));
+    }
+  }]);
+
   function FormEngine(definition, model) {
     _classCallCheck(this, FormEngine);
 
@@ -70,17 +85,15 @@ function () {
 
     this.decorators = definition.decorators || {}; // UI decorators
 
-    this.showConditionTriggerMap = new _sortableMap.default(); // Map of field ids keyed by trigger id
+    this.showConditionTriggerMap = {}; // Map of field ids keyed by trigger id
 
     this.validationResults = new _validationResults.default(); // Stores validation results
 
-    this.model = new _sortableMap.default(); // Map of form responses keyed by id
+    this.model = {}; // Map of form responses keyed by id
 
-    this.sections = new _sortableMap.default(); // Map of form sections keyed by id
+    this.sections = []; // Array of form sections
 
-    this.subsections = new _sortableMap.default(); // Map of form subsections keyed by id
-
-    this.fields = new _sortableMap.default(); // Map of form fields keyed by ids
+    this.fields = {}; // Map of form fields keyed by ids
 
     this.__initInstance(model);
   }
@@ -124,12 +137,12 @@ function () {
       }
 
       Object.keys(parsed).forEach(function (key) {
-        _this.model.add(key, model[key]);
+        _this.model[key] = model[key];
       });
     }
     /**
      * Don't modify the original definition. Instead, clone each section
-     * into a sortable map; all form instance data will then be
+     * into a map; all form instance data will then be
      * applied from these cloned sections, such as validation errors, etc.
      * @private
      */
@@ -140,11 +153,11 @@ function () {
       var _this2 = this;
 
       this.getDefinitionSections().forEach(function (section) {
-        _this2.sections.add(section.id, (0, _common.clone)(section));
+        _this2.sections.push((0, _common.clone)(section));
       });
     }
     /**
-     * Add each cloned subsection a sortable map
+     * Add each cloned subsection a map
      * @private
      */
 
@@ -153,13 +166,11 @@ function () {
     value: function __initFieldMetadata() {
       var _this3 = this;
 
-      this.sections.forEachValue(function (section) {
+      this.sections.forEach(function (section) {
         section.subsections.forEach(function (subsection) {
-          subsection.section = section; // subsection.fieldIds = this.buildDeepFieldIdList([], subsection.fields);
+          subsection.section = section;
 
-          _this3.__decorateFields(subsection.fields);
-
-          _this3.subsections.add(subsection.id, subsection);
+          _this3.__decorateFields(subsection.fields, subsection);
         });
       });
     }
@@ -251,7 +262,7 @@ function () {
       } // Add the field to fields
 
 
-      this.fields.add(field[FIELD.ID], field);
+      this.fields[field[FIELD.ID]] = field;
     }
     /**
      * Register a field's showCondition with the instance. For any
@@ -274,12 +285,11 @@ function () {
           expression2 = _field$showCondition.expression2;
       [expression, expression1, expression2].forEach(function (_expression) {
         if (_expressionService.default.isFormResponseExpression(_expression)) {
-          var list = _this5.showConditionTriggerMap.find(_expression.id);
+          var list = _this5.showConditionTriggerMap[_expression.id];
 
           if (!list) {
             list = [];
-
-            _this5.showConditionTriggerMap.add(_expression.id, list);
+            _this5.showConditionTriggerMap[_expression.id] = list;
           }
 
           list.push(field[FIELD.ID]);
@@ -357,23 +367,13 @@ function () {
     }
     /**
      * Get form model
-     * @returns {SortableMap}
+     * @returns {*}
      */
 
   }, {
     key: "getModel",
     value: function getModel() {
       return this.model;
-    }
-    /**
-     * Get form model values
-     * @returns {*}
-     */
-
-  }, {
-    key: "getModelValues",
-    value: function getModelValues() {
-      return this.model.findAll();
     }
     /**
      * Serialize the model to json
@@ -383,11 +383,7 @@ function () {
   }, {
     key: "serializeModel",
     value: function serializeModel() {
-      var store = {};
-      this.getModelValues().forEach(function (entry) {
-        store[entry.key] = entry.value;
-      });
-      return JSON.stringify(store);
+      return JSON.stringify(this.model);
     }
     /**
      * Get single model value (e.g. form response)
@@ -397,7 +393,7 @@ function () {
   }, {
     key: "getModelValue",
     value: function getModelValue(id) {
-      return this.model.find(id);
+      return this.model[id];
     }
     /**
      * Determine if the model contains a key
@@ -408,7 +404,7 @@ function () {
   }, {
     key: "hasModelValue",
     value: function hasModelValue(id) {
-      return this.model.has(id);
+      return Boolean(this.getModelValue(id));
     }
     /**
      * Get form decorators
@@ -443,7 +439,7 @@ function () {
     }
     /**
      * Get form sections
-     * @returns {SortableMap|*}
+     * @returns {{}|*}
      */
 
   }, {
@@ -452,41 +448,8 @@ function () {
       return this.sections;
     }
     /**
-     * Get single form section
-     * @param id
-     * @returns {*}
-     */
-
-  }, {
-    key: "getSectionById",
-    value: function getSectionById(id) {
-      console.log(this.getSections(), id);
-      return this.getSections().find(id);
-    }
-    /**
-     * Get form subsections
-     * @returns {SortableMap|*}
-     */
-
-  }, {
-    key: "getSubsections",
-    value: function getSubsections() {
-      return this.subsections;
-    }
-    /**
-     * Get single form subsection
-     * @param id
-     * @returns {*}
-     */
-
-  }, {
-    key: "getSubsection",
-    value: function getSubsection(id) {
-      return this.getSubsections().find(id);
-    }
-    /**
      * Get form fields
-     * @returns {SortableMap|*}
+     * @returns {{}|*}
      */
 
   }, {
@@ -503,7 +466,7 @@ function () {
   }, {
     key: "getField",
     value: function getField(id) {
-      return this.getFields().find(id);
+      return this.fields[id];
     }
     /**
      * Determine if the field is a boolean data type
@@ -533,10 +496,10 @@ function () {
 
       if (value === _formConst.NO_VALUE) {
         field.dirty = false;
-        this.model.delete(id);
+        delete this.model[id];
       } else {
         field.dirty = true;
-        this.model.add(id, value);
+        this.model[id] = value;
       } // Reset children if necessary
 
 
@@ -554,8 +517,8 @@ function () {
       } // Evaluate the show condition of dependent fields if this field is a trigger
 
 
-      if (this.showConditionTriggerMap.has(id)) {
-        this.showConditionTriggerMap.find(id).forEach(function (fieldId) {
+      if (this.showConditionTriggerMap[id]) {
+        this.showConditionTriggerMap[id].forEach(function (fieldId) {
           if (_this6.hasModelValue(fieldId) && !_this6.isVisible(_this6.getField(fieldId))) {
             _this6.setModelValue(fieldId, _formConst.NO_VALUE, _this6.getField(fieldId));
           }
@@ -717,11 +680,6 @@ function () {
       return this.findStatus(section.subsections, this.getSubsectionStatus.bind(this));
     }
   }, {
-    key: "fieldHasError",
-    value: function fieldHasError(id) {
-      return _validationService.default.isError(this.getValidationStatusByTag(id));
-    }
-  }, {
     key: "subsectionHasError",
     value: function subsectionHasError(subsection) {
       return _validationService.default.isError(this.getSubsectionStatus(subsection));
@@ -732,27 +690,30 @@ function () {
       return _validationService.default.isError(this.getSectionStatus(section));
     }
   }, {
-    key: "buildDeepFieldIdList",
-    value: function buildDeepFieldIdList() {
+    key: "buildDeepFieldIdMap",
+    value: function buildDeepFieldIdMap() {
       var _this8 = this;
 
-      var list = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
+      var map = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
       var fields = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : [];
       fields.forEach(function (field) {
-        list.push(field[FIELD.ID]);
+        map[field[FIELD.ID]] = true;
 
-        _this8.buildDeepFieldIdList(list, field[FIELD.FIELDS]);
+        _this8.buildDeepFieldIdMap(map, field[FIELD.FIELDS]);
 
         (0, _get.default)(field, FIELD.OPTIONS, []).forEach(function (option) {
-          _this8.buildDeepFieldIdList(list, option[FIELD.OPTIONS]);
+          _this8.buildDeepFieldIdMap(map, option[FIELD.OPTIONS]);
         });
       });
-      return list;
+      return map;
     }
   }]);
 
   return FormEngine;
-}();
-
+}(), (_applyDecoratedDescriptor(_class.prototype, "setModelValue", [_mobx.action], Object.getOwnPropertyDescriptor(_class.prototype, "setModelValue"), _class.prototype)), _class);
+(0, _mobx.decorate)(FormEngine, {
+  model: _mobx.observable,
+  validationResults: _mobx.observable
+});
 var _default = FormEngine;
 exports.default = _default;

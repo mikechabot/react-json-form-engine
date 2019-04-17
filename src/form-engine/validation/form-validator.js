@@ -95,7 +95,10 @@ export default {
      * @returns {ValidationResults}
      */
     validate(instance, validationResults, comprehensive = false) {
-        instance.getFields().forEachValue(field => {
+        const fields = instance.getFields();
+
+        Object.keys(fields).forEach(fieldId => {
+            const field = fields[fieldId];
             // If the field isn't dirty (i.e. not touched), and we
             // aren't performing comprehensive validation, just return.
             if (!field.dirty && !comprehensive) {

@@ -5,30 +5,21 @@ import { Flex } from '../util';
 
 import FormSubsectionTitle from './helpers/FormSubsectionTitle';
 import FormField from './FormField';
-import { FormContext } from '../../context';
+import { inject, observer } from 'mobx-react';
 
+@inject('instance')
+@observer
 class FormSubsection extends Component {
-    shouldComponentUpdate(nextProps) {
-        return true;
-    }
     render() {
-        const { subsection, submitButton, onUpdate } = this.props;
-        const instance = this.context;
+        const { subsection, submitButton, onUpdate, instance } = this.props;
+
+        console.log(instance);
 
         const renderSubsectionFields = (fields = []) => {
             return fields.map(fieldDefinition => {
                 const field = instance.getField(fieldDefinition.id);
                 if (!instance.isVisible(field)) return null;
-                return (
-                    <FormField
-                        key={field.id}
-                        fieldId={field.id}
-                        field={field}
-                        onUpdate={onUpdate}
-                        hasError={instance.fieldHasError(field.id)}
-                        value={instance.getModelValue(field.id)}
-                    />
-                );
+                return <FormField key={field.id} fieldId={field.id} field={field} onUpdate={onUpdate} />;
             });
         };
 
@@ -45,8 +36,6 @@ class FormSubsection extends Component {
         );
     }
 }
-
-FormSubsection.contextType = FormContext;
 
 FormSubsection.propTypes = {
     subsection: PropTypes.object.isRequired,

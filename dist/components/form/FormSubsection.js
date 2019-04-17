@@ -15,7 +15,9 @@ var _FormSubsectionTitle = _interopRequireDefault(require("./helpers/FormSubsect
 
 var _FormField = _interopRequireDefault(require("./FormField"));
 
-var _context = require("../../context");
+var _mobxReact = require("mobx-react");
+
+var _dec, _class;
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -39,10 +41,10 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 
-var FormSubsection =
+var FormSubsection = (_dec = (0, _mobxReact.inject)('instance'), _dec(_class = (0, _mobxReact.observer)(_class =
 /*#__PURE__*/
-function (_PureComponent) {
-  _inherits(FormSubsection, _PureComponent);
+function (_Component) {
+  _inherits(FormSubsection, _Component);
 
   function FormSubsection() {
     _classCallCheck(this, FormSubsection);
@@ -56,8 +58,9 @@ function (_PureComponent) {
       var _this$props = this.props,
           subsection = _this$props.subsection,
           submitButton = _this$props.submitButton,
-          onUpdate = _this$props.onUpdate;
-      var instance = this.context.instance;
+          onUpdate = _this$props.onUpdate,
+          instance = _this$props.instance;
+      console.log(instance);
 
       var renderSubsectionFields = function renderSubsectionFields() {
         var fields = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
@@ -68,9 +71,7 @@ function (_PureComponent) {
             key: field.id,
             fieldId: field.id,
             field: field,
-            onUpdate: onUpdate,
-            hasError: instance.fieldHasError(field.id),
-            value: instance.getModelValue(field.id)
+            onUpdate: onUpdate
           });
         });
       };
@@ -97,9 +98,7 @@ function (_PureComponent) {
   }]);
 
   return FormSubsection;
-}(_react.PureComponent);
-
-FormSubsection.contextType = _context.FormContext;
+}(_react.Component)) || _class) || _class);
 FormSubsection.propTypes = {
   subsection: _propTypes.default.object.isRequired,
   submitButton: _propTypes.default.node,

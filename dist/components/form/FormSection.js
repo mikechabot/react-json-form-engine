@@ -11,11 +11,13 @@ var _propTypes = _interopRequireDefault(require("prop-types"));
 
 var _reactTabify = require("react-tabify");
 
-var _context = require("../../context");
-
 var _util = require("../util");
 
 var _FormSubsection = _interopRequireDefault(require("./FormSubsection"));
+
+var _mobxReact = require("mobx-react");
+
+var _dec, _class;
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -39,7 +41,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 
-var FormSection =
+var FormSection = (_dec = (0, _mobxReact.inject)('instance'), _dec(_class = (0, _mobxReact.observer)(_class =
 /*#__PURE__*/
 function (_Component) {
   _inherits(FormSection, _Component);
@@ -51,29 +53,19 @@ function (_Component) {
   }
 
   _createClass(FormSection, [{
-    key: "shouldComponentUpdate",
-    value: function shouldComponentUpdate(nextProps) {
-      debugger;
-      var ise = nextProps.section.title !== this.props.section.title;
-      console.log('SCU', ise);
-      return ise;
-    }
-  }, {
-    key: "componentDidUpdate",
-    value: function componentDidUpdate() {
-      console.log('DidUpdate FormSection', this.props.section.title);
-    }
-  }, {
     key: "render",
     value: function render() {
       var _this$props = this.props,
           section = _this$props.section,
           onUpdate = _this$props.onUpdate,
-          submitButton = _this$props.submitButton;
+          submitButton = _this$props.submitButton,
+          instance = _this$props.instance;
       var subsections = section.subsections;
+      console.log(this.props);
       console.log('Rendering FormSection', section.title);
 
       var getDerivedSubsectionTitle = function getDerivedSubsectionTitle(subsection) {
+        if (!instance.subsectionHasError(subsection)) return subsection.title;
         return _react.default.createElement("span", null, subsection.title, " ", _react.default.createElement(_util.Asterisk, null));
       };
 
@@ -106,9 +98,7 @@ function (_Component) {
   }]);
 
   return FormSection;
-}(_react.Component);
-
-FormSection.contextType = _context.FormContext;
+}(_react.Component)) || _class) || _class);
 FormSection.propTypes = {
   section: _propTypes.default.shape({
     id: _propTypes.default.string.isRequired,

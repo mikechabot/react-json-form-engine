@@ -10,33 +10,39 @@ import ValidationAPIError from './validation/ValidationAPIError';
 import FormSection from './FormSection';
 import FormTitle from './helpers/FormTitle';
 
-import { FormProvider } from '../../context';
+import { observer, Provider, inject } from 'mobx-react';
+import { decorate, observable } from 'mobx';
 
-if (process.env.NODE_ENV !== 'production') {
-    const { whyDidYouUpdate } = require('why-did-you-update');
-    whyDidYouUpdate(React);
-}
+// if (process.env.NODE_ENV !== 'production') {
+//     const { whyDidYouUpdate } = require('why-did-you-update');
+//     whyDidYouUpdate(React);
+// }
 
 class Form extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            count: 0
+            instance: props.instance
         };
         this.onUpdate = this.onUpdate.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
         this.renderSectionTabPane = this.renderSectionTabPane.bind(this);
     }
 
+    static getDerivedStateFromError(error) {
+        console.log(error);
+        return { hasError: true };
+    }
+
     componentDidMount() {
-        const { instance } = this.props;
+        const { instance } = this.state;
         if (instance.isValid()) {
             instance.validate();
         }
     }
 
     renderFormTitle() {
-        const { instance } = this.props;
+        const { instance } = this.state;
         if (!this.props.hideTitle) {
             return (
                 <FormTitle
@@ -59,7 +65,7 @@ class Form extends Component {
     }
 
     renderSectionContent(sections) {
-        return sections.values().map(this.renderSectionTabPane);
+        return sections.map(this.renderSectionTabPane);
     }
 
     renderSectionTabPane(section, index) {
@@ -94,9 +100,9 @@ class Form extends Component {
     }
 
     onSubmit() {
-        const { instance, onSubmit } = this.props;
+        const { instance } = this.state;
+        const { onSubmit } = this.props;
         instance.validateOnSubmit();
-        // this.forceUpdate();
         if (onSubmit) onSubmit();
     }
 
@@ -106,31 +112,32 @@ class Form extends Component {
     }
 
     onUpdate(event, id) {
-        const { instance, onUpdate } = this.props;
+        const { instance } = this.state;
+        const { onUpdate } = this.props;
 
         id = id || event.target.id;
         const field = instance.getField(id);
 
         const value = field.actions.onUpdate(event, field, instance.getModelValue(id));
 
-        // Set model value
         instance.setModelValue(id, value, field);
         instance.validate();
 
-        const newInstance = { ...instance };
-
         if (onUpdate) {
             onUpdate({ id, value }); // Notify parent
-        } else {
-            // console.log('setstate');
-            this.setState({ count: this.state.count++ });
         }
     }
 
     render() {
-        const { instance, hideTitle, hideSectionTitles, hideSectionSubtitles } = this.props;
+        const { instance } = this.state;
+        const { hideTitle, hideSectionTitles, hideSectionSubtitles } = this.props;
 
         console.log('Rendering Form');
+
+        if (this.state.hasError) {
+            // You can render any custom fallback UI
+            return <h1>Something went wrong.</h1>;
+        }
 
         // No instance
         if (!instance || isEmpty(instance)) {
@@ -144,7 +151,7 @@ class Form extends Component {
         const sections = instance.getSections();
 
         // No sections
-        if (sections.isEmpty()) {
+        if (isEmpty(sections)) {
             return <em className="has-text-danger">No sections</em>;
         }
 
@@ -159,11 +166,11 @@ class Form extends Component {
                 }}
             >
                 {this.renderFormTitle(instance)}
-                <FormProvider value={instance}>
-                    {sections.count() > 1
+                <Provider instance={instance} color="red">
+                    {sections.length > 1
                         ? this.renderTabbedSections(sections)
-                        : this.renderSingleSection(sections.values()[0])}
-                </FormProvider>
+                        : this.renderSingleSection(sections[0])}
+                </Provider>
             </div>
         );
     }

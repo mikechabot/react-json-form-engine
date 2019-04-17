@@ -23,7 +23,9 @@ var _FormSection = _interopRequireDefault(require("./FormSection"));
 
 var _FormTitle = _interopRequireDefault(require("./helpers/FormTitle"));
 
-var _context = require("../../context");
+var _mobxReact = require("mobx-react");
+
+var _mobx = require("mobx");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -47,13 +49,10 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 
-if (process.env.NODE_ENV !== 'production') {
-  var _require = require('why-did-you-update'),
-      whyDidYouUpdate = _require.whyDidYouUpdate;
-
-  whyDidYouUpdate(_react.default);
-}
-
+// if (process.env.NODE_ENV !== 'production') {
+//     const { whyDidYouUpdate } = require('why-did-you-update');
+//     whyDidYouUpdate(React);
+// }
 var Form =
 /*#__PURE__*/
 function (_Component) {
@@ -66,8 +65,7 @@ function (_Component) {
 
     _this = _possibleConstructorReturn(this, _getPrototypeOf(Form).call(this, props));
     _this.state = {
-      instance: props.instance,
-      count: 0
+      instance: props.instance
     };
     _this.onUpdate = _this.onUpdate.bind(_assertThisInitialized(_this));
     _this.onSubmit = _this.onSubmit.bind(_assertThisInitialized(_this));
@@ -104,14 +102,14 @@ function (_Component) {
     value: function renderTabbedSections(sections) {
       return _react.default.createElement(_reactTabify.Tabs, {
         stacked: true,
-        id: "form-tabs-".concat(this.state.instance.getId()),
+        id: "form-tabs-".concat(this.props.instance.getId()),
         defaultActiveKey: 0
       }, this.renderSectionContent(sections));
     }
   }, {
     key: "renderSectionContent",
     value: function renderSectionContent(sections) {
-      return sections.values().map(this.renderSectionTabPane);
+      return sections.map(this.renderSectionTabPane);
     }
   }, {
     key: "renderSectionTabPane",
@@ -151,8 +149,13 @@ function (_Component) {
       var instance = this.state.instance;
       var onSubmit = this.props.onSubmit;
       instance.validateOnSubmit();
-      this.forceUpdate();
       if (onSubmit) onSubmit();
+    }
+  }, {
+    key: "componentDidCatch",
+    value: function componentDidCatch(error, info) {
+      // You can also log the error to an error reporting service
+      console.log(error);
     }
   }, {
     key: "onUpdate",
@@ -161,8 +164,7 @@ function (_Component) {
       var onUpdate = this.props.onUpdate;
       id = id || event.target.id;
       var field = instance.getField(id);
-      var value = field.actions.onUpdate(event, field, instance.getModelValue(id)); // Set model value
-
+      var value = field.actions.onUpdate(event, field, instance.getModelValue(id));
       instance.setModelValue(id, value, field);
       instance.validate();
 
@@ -171,12 +173,6 @@ function (_Component) {
           id: id,
           value: value
         }); // Notify parent
-      } else {
-        console.log('setstate');
-        this.setState({
-          instance: instance,
-          count: this.state.count++
-        });
       }
     }
   }, {
@@ -187,7 +183,13 @@ function (_Component) {
           hideTitle = _this$props.hideTitle,
           hideSectionTitles = _this$props.hideSectionTitles,
           hideSectionSubtitles = _this$props.hideSectionSubtitles;
-      console.log('Rendering Form'); // No instance
+      console.log('Rendering Form');
+
+      if (this.state.hasError) {
+        // You can render any custom fallback UI
+        return _react.default.createElement("h1", null, "Something went wrong.");
+      } // No instance
+
 
       if (!instance || (0, _isEmpty.default)(instance)) {
         return _react.default.createElement("em", {
@@ -204,7 +206,7 @@ function (_Component) {
 
       var sections = instance.getSections(); // No sections
 
-      if (sections.isEmpty()) {
+      if ((0, _isEmpty.default)(sections)) {
         return _react.default.createElement("em", {
           className: "has-text-danger"
         }, "No sections");
@@ -218,18 +220,18 @@ function (_Component) {
           flexShrink: 0,
           border: '1px solid #dbdbdb'
         }
-      }, this.renderFormTitle(instance), _react.default.createElement(_context.FormProvider, {
-        value: {
-          instance: instance,
-          hideTitle: hideTitle,
-          hideSectionTitles: hideSectionTitles,
-          hideSectionSubtitles: hideSectionSubtitles
-        }
-      }, _react.default.createElement(_FormSection.default, {
-        section: sections.values()[0],
-        onUpdate: this.onUpdate,
-        submitButton: this.props.hideTitle ? this.renderSubmitButton() : null
-      })));
+      }, this.renderFormTitle(instance), _react.default.createElement(_mobxReact.Provider, {
+        instance: instance,
+        color: "red"
+      }, sections.length > 1 ? this.renderTabbedSections(sections) : this.renderSingleSection(sections[0])));
+    }
+  }], [{
+    key: "getDerivedStateFromError",
+    value: function getDerivedStateFromError(error) {
+      console.log(error);
+      return {
+        hasError: true
+      };
     }
   }]);
 

@@ -1,4 +1,5 @@
-import SortableMap from 'sortable-map';
+import { decorate, observable, computed, action } from 'mobx';
+
 import Maybe from 'maybe-baby';
 import isString from 'lodash/isString';
 import includes from 'lodash/includes';
@@ -20,6 +21,14 @@ import { NO_VALUE, PROPERTY, DATA_TYPE, VALIDATION_CONST } from './config/form-c
 const { FIELD, DEFINITION } = PROPERTY;
 
 class FormEngine {
+    modelValue(id) {
+        return this.model[id];
+    }
+
+    fieldHasError(id) {
+        return ValidationService.isError(this.getValidationStatusByTag(id));
+    }
+
     constructor(definition, model) {
         try {
             FormApiService.validateDefinitionShape(definition);
@@ -33,14 +42,13 @@ class FormEngine {
         this.definition = definition; // Form definition
         this.decorators = definition.decorators || {}; // UI decorators
 
-        this.showConditionTriggerMap = new SortableMap(); // Map of field ids keyed by trigger id
+        this.showConditionTriggerMap = {}; // Map of field ids keyed by trigger id
 
         this.validationResults = new ValidationResults(); // Stores validation results
 
-        this.model = new SortableMap(); // Map of form responses keyed by id
-        this.sections = new SortableMap(); // Map of form sections keyed by id
-        this.subsections = new SortableMap(); // Map of form subsections keyed by id
-        this.fields = new SortableMap(); // Map of form fields keyed by ids
+        this.model = {}; // Map of form responses keyed by id
+        this.sections = []; // Array of form sections
+        this.fields = {}; // Map of form fields keyed by ids
 
         this.__initInstance(model);
     }
@@ -73,30 +81,29 @@ class FormEngine {
         }
 
         Object.keys(parsed).forEach(key => {
-            this.model.add(key, model[key]);
+            this.model[key] = model[key];
         });
     }
     /**
      * Don't modify the original definition. Instead, clone each section
-     * into a sortable map; all form instance data will then be
+     * into a map; all form instance data will then be
      * applied from these cloned sections, such as validation errors, etc.
      * @private
      */
     __cloneSections() {
         this.getDefinitionSections().forEach(section => {
-            this.sections.add(section.id, clone(section));
+            this.sections.push(clone(section));
         });
     }
     /**
-     * Add each cloned subsection a sortable map
+     * Add each cloned subsection a map
      * @private
      */
     __initFieldMetadata() {
-        this.sections.forEachValue(section => {
+        this.sections.forEach(section => {
             section.subsections.forEach(subsection => {
                 subsection.section = section;
                 this.__decorateFields(subsection.fields, subsection);
-                this.subsections.add(subsection.id, subsection);
             });
         });
     }
@@ -107,7 +114,6 @@ class FormEngine {
      */
     __decorateFields(fields, parent) {
         if (Array.isArray(fields) && !isEmpty(fields)) {
-            parent.fieldIdMap = this.buildDeepFieldIdMap({}, fields);
             fields.forEach(field => {
                 this.__decorateField(field, parent);
                 this.__decorateFields(field[FIELD.FIELDS], field);
@@ -182,7 +188,7 @@ class FormEngine {
         }
 
         // Add the field to fields
-        this.fields.add(field[FIELD.ID], field);
+        this.fields[field[FIELD.ID]] = field;
     }
     /**
      * Register a field's showCondition with the instance. For any
@@ -197,10 +203,10 @@ class FormEngine {
         const { expression, expression1, expression2 } = field.showCondition;
         [expression, expression1, expression2].forEach(_expression => {
             if (ExpressionService.isFormResponseExpression(_expression)) {
-                let list = this.showConditionTriggerMap.find(_expression.id);
+                let list = this.showConditionTriggerMap[_expression.id];
                 if (!list) {
                     list = [];
-                    this.showConditionTriggerMap.add(_expression.id, list);
+                    this.showConditionTriggerMap[_expression.id] = list;
                 }
                 list.push(field[FIELD.ID]);
             }
@@ -260,19 +266,13 @@ class FormEngine {
     getId() {
         return this.getDefinition()[DEFINITION.ID];
     }
+
     /**
      * Get form model
-     * @returns {SortableMap}
+     * @returns {*}
      */
     getModel() {
         return this.model;
-    }
-    /**
-     * Get form model values
-     * @returns {*}
-     */
-    getModelValues() {
-        return this.model.findAll();
     }
 
     /**
@@ -280,18 +280,14 @@ class FormEngine {
      * @returns {string}
      */
     serializeModel() {
-        let store = {};
-        this.getModelValues().forEach(entry => {
-            store[entry.key] = entry.value;
-        });
-        return JSON.stringify(store);
+        return JSON.stringify(this.model);
     }
     /**
      * Get single model value (e.g. form response)
      * @param id
      */
     getModelValue(id) {
-        return this.model.find(id);
+        return this.model[id];
     }
     /**
      * Determine if the model contains a key
@@ -299,7 +295,7 @@ class FormEngine {
      * @returns {LoDashExplicitWrapper<boolean>|boolean|Assertion}
      */
     hasModelValue(id) {
-        return this.model.has(id);
+        return Boolean(this.getModelValue(id));
     }
     /**
      * Get form decorators
@@ -325,38 +321,15 @@ class FormEngine {
     }
     /**
      * Get form sections
-     * @returns {SortableMap|*}
+     * @returns {{}|*}
      */
     getSections() {
         return this.sections;
     }
-    /**
-     * Get single form section
-     * @param id
-     * @returns {*}
-     */
-    getSectionById(id) {
-        console.log(this.getSections(), id);
-        return this.getSections().find(id);
-    }
-    /**
-     * Get form subsections
-     * @returns {SortableMap|*}
-     */
-    getSubsections() {
-        return this.subsections;
-    }
-    /**
-     * Get single form subsection
-     * @param id
-     * @returns {*}
-     */
-    getSubsection(id) {
-        return this.getSubsections().find(id);
-    }
+
     /**
      * Get form fields
-     * @returns {SortableMap|*}
+     * @returns {{}|*}
      */
     getFields() {
         return this.fields;
@@ -367,7 +340,7 @@ class FormEngine {
      * @returns {*}
      */
     getField(id) {
-        return this.getFields().find(id);
+        return this.fields[id];
     }
 
     /**
@@ -384,16 +357,17 @@ class FormEngine {
      * @param value
      * @param field
      */
+    @action
     setModelValue(id, value, field) {
         // Set or reset the model value
         if (value === this.getModelValue(id)) return;
 
         if (value === NO_VALUE) {
             field.dirty = false;
-            this.model.delete(id);
+            delete this.model[id];
         } else {
             field.dirty = true;
-            this.model.add(id, value);
+            this.model[id] = value;
         }
 
         // Reset children if necessary
@@ -414,8 +388,8 @@ class FormEngine {
         }
 
         // Evaluate the show condition of dependent fields if this field is a trigger
-        if (this.showConditionTriggerMap.has(id)) {
-            this.showConditionTriggerMap.find(id).forEach(fieldId => {
+        if (this.showConditionTriggerMap[id]) {
+            this.showConditionTriggerMap[id].forEach(fieldId => {
                 if (this.hasModelValue(fieldId) && !this.isVisible(this.getField(fieldId))) {
                     this.setModelValue(fieldId, NO_VALUE, this.getField(fieldId));
                 }
@@ -531,9 +505,7 @@ class FormEngine {
     getSectionStatus(section) {
         return this.findStatus(section.subsections, this.getSubsectionStatus.bind(this));
     }
-    fieldHasError(id) {
-        return ValidationService.isError(this.getValidationStatusByTag(id));
-    }
+
     subsectionHasError(subsection) {
         return ValidationService.isError(this.getSubsectionStatus(subsection));
     }
@@ -552,4 +524,8 @@ class FormEngine {
     }
 }
 
+decorate(FormEngine, {
+    model: observable,
+    validationResults: observable
+});
 export default FormEngine;

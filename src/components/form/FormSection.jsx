@@ -2,25 +2,24 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { Tabs, Tab } from 'react-tabify';
 
-import { FormContext } from '../../context';
-
-import { Flex, Asterisk } from '../util';
+import { Asterisk } from '../util';
 import FormSubsection from './FormSubsection';
+import { inject, observer } from 'mobx-react';
 
+@inject('instance')
+@observer
 class FormSection extends Component {
-
-    shouldComponentUpdate(nextProps) {
-        return true;
-    }
-
     render() {
-        const { section, onUpdate, submitButton } = this.props;
+        const { section, onUpdate, submitButton, instance } = this.props;
 
         const { subsections } = section;
+
+        console.log(this.props);
 
         console.log('Rendering FormSection', section.title);
 
         const getDerivedSubsectionTitle = subsection => {
+            if (!instance.subsectionHasError(subsection)) return subsection.title;
             return (
                 <span>
                     {subsection.title} <Asterisk />
@@ -56,8 +55,6 @@ class FormSection extends Component {
         );
     }
 }
-
-FormSection.contextType = FormContext;
 
 FormSection.propTypes = {
     section: PropTypes.shape({

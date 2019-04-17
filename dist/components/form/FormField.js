@@ -48,8 +48,8 @@ var _PROPERTY$FIELD = _formConst.PROPERTY.FIELD,
 
 var FormField =
 /*#__PURE__*/
-function (_PureComponent) {
-  _inherits(FormField, _PureComponent);
+function (_Component) {
+  _inherits(FormField, _Component);
 
   function FormField() {
     _classCallCheck(this, FormField);
@@ -61,33 +61,16 @@ function (_PureComponent) {
     key: "hasFieldChildren",
 
     /**
-     * Determine if the component should call render() to update itself.
-     *
-     * Right now, we'll always re-render the component if it contains
-     * children. Those components themselves will call this method to
-     * determine if they should re-render themselves. If this becomes
-     * a performance issue, we could potentially before a deep comparison
-     * between the prop trees, but that seems excessive right now.
-     *
-     * @param nextProps
-     * @returns {boolean} true if the component should call render()
-     */
-
-    /**
      * Check for child fields, or option fields with children
      * @param field
      * @returns {boolean}
      */
     value: function hasFieldChildren(field) {
       if (!(0, _isEmpty.default)(field[FIELDS])) {
-        console.log('Got children', field.id);
         return true;
       }
 
       if (!(0, _isEmpty.default)(field[OPTIONS])) {
-        console.log('Opts have children', field.id, field[OPTIONS].some(function (option) {
-          return !(0, _isEmpty.default)(option[FIELDS]);
-        }));
         return field[OPTIONS].some(function (option) {
           return !(0, _isEmpty.default)(option[FIELDS]);
         });
@@ -109,13 +92,12 @@ function (_PureComponent) {
   }]);
 
   return FormField;
-}(_react.PureComponent);
+}(_react.Component);
 
 FormField.propTypes = {
   fieldId: _propTypes.default.string.isRequired,
   field: _propTypes.default.object.isRequired,
   onUpdate: _propTypes.default.func.isRequired,
-  hasError: _propTypes.default.bool.isRequired,
   value: _propTypes.default.oneOfType([_propTypes.default.string, _propTypes.default.number, _propTypes.default.bool, _propTypes.default.array, _propTypes.default.object])
 };
 var _default = FormField;

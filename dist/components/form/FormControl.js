@@ -5,7 +5,7 @@ Object.defineProperty(exports, "__esModule", {
 });
 exports.default = void 0;
 
-var _react = _interopRequireDefault(require("react"));
+var _react = _interopRequireWildcard(require("react"));
 
 var _propTypes = _interopRequireDefault(require("prop-types"));
 
@@ -17,9 +17,13 @@ var _FormControlHint = _interopRequireDefault(require("./helpers/FormControlHint
 
 var _ValidationFieldError = _interopRequireDefault(require("./validation/ValidationFieldError"));
 
-var _context = require("../../context");
+var _mobxReact = require("mobx-react");
+
+var _dec, _class;
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = Object.defineProperty && Object.getOwnPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : {}; if (desc.get || desc.set) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; return newObj; } }
 
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
@@ -39,10 +43,10 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 
-var FormControl =
+var FormControl = (_dec = (0, _mobxReact.inject)('instance'), _dec(_class = (0, _mobxReact.observer)(_class =
 /*#__PURE__*/
-function (_React$Component) {
-  _inherits(FormControl, _React$Component);
+function (_Component) {
+  _inherits(FormControl, _Component);
 
   function FormControl() {
     _classCallCheck(this, FormControl);
@@ -64,14 +68,11 @@ function (_React$Component) {
   }, {
     key: "render",
     value: function render() {
-      var _this = this;
-
       var _this$props = this.props,
-          value = _this$props.value,
           field = _this$props.field,
           fieldId = _this$props.fieldId,
           onUpdate = _this$props.onUpdate,
-          hasError = _this$props.hasError;
+          instance = _this$props.instance;
       var component = field.component,
           uiDecorators = field.uiDecorators;
 
@@ -82,45 +83,43 @@ function (_React$Component) {
         });
       }
 
+      var hasError = instance.fieldHasError(fieldId);
+      var value = instance.modelValue(fieldId);
       console.log('Render FormControl', field.id);
       var Control = component.element;
-      return _react.default.createElement(_context.FormConsumer, null, function (_ref) {
-        var instance = _ref.instance;
 
-        var renderErrors = function renderErrors(id) {
-          var _instance$getValidati = instance.getValidationResultByTag(id),
-              messages = _instance$getValidati.messages;
+      var renderErrors = function renderErrors(id) {
+        var _instance$getValidati = instance.getValidationResultByTag(id),
+            messages = _instance$getValidati.messages;
 
-          return Object.keys(messages).map(function (key) {
-            return _react.default.createElement(_FormControlHint.default, {
-              key: key,
-              icon: "asterisk",
-              className: "is-danger",
-              text: messages[key].message
-            });
+        return Object.keys(messages).map(function (key) {
+          return _react.default.createElement(_FormControlHint.default, {
+            key: key,
+            icon: "asterisk",
+            className: "is-danger",
+            text: messages[key].message
           });
-        };
+        });
+      };
 
-        return _react.default.createElement("span", null, _react.default.createElement(_FormControlTitle.default, {
-          field: field,
-          decorators: uiDecorators
-        }), _react.default.createElement("div", {
-          className: "control"
-        }, _react.default.createElement(Control, {
-          id: fieldId,
-          value: value,
-          field: field,
-          hasError: hasError,
-          uiDecorators: uiDecorators,
-          onUpdate: onUpdate
-        })), _this.maybeRenderHint(uiDecorators), hasError ? renderErrors(id) : null);
-      });
+      return _react.default.createElement("span", null, _react.default.createElement(_FormControlTitle.default, {
+        field: field,
+        decorators: uiDecorators
+      }), _react.default.createElement("div", {
+        className: "control"
+      }, _react.default.createElement(Control, {
+        id: fieldId,
+        value: value,
+        field: field,
+        hasError: hasError,
+        uiDecorators: uiDecorators,
+        onUpdate: onUpdate
+      })), this.maybeRenderHint(uiDecorators), hasError ? renderErrors(fieldId) : null);
     }
   }]);
 
   return FormControl;
-}(_react.default.Component);
-
+}(_react.Component)) || _class) || _class);
 FormControl.propTypes = {
   fieldId: _propTypes.default.string.isRequired,
   field: _propTypes.default.object.isRequired,

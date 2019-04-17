@@ -18,4 +18,4 @@ const addStory = (form, options) => {
 };
 
 addStory(nestedFieldsSimpleForm);
-addStory(nestedFieldsComplexForm)
+addStory(nestedFieldsComplexForm);

@@ -5,6 +5,7 @@ import Maybe from 'maybe-baby';
 const DEFAULT_TYPE = 'text';
 
 const Text = ({ id, field, value, onUpdate, uiDecorators, hasError }) => {
+    console.log(typeof value, value)
     return (
         <input
             name={id}
