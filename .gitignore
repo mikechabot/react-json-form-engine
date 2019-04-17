@@ -12,10 +12,6 @@
 /.idea/*
 *.iml
 
-.storybook
-
-/src/scss/*.css
-
 # misc
 .DS_Store
 .env.local
