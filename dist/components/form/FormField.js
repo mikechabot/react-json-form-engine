@@ -45,6 +45,25 @@ var _PROPERTY$FIELD = _formConst.PROPERTY.FIELD,
     ID = _PROPERTY$FIELD.ID,
     FIELDS = _PROPERTY$FIELD.FIELDS,
     OPTIONS = _PROPERTY$FIELD.OPTIONS;
+/**
+ * Check for child fields, or option fields with children
+ * @param field
+ * @returns {boolean}
+ */
+
+function hasFieldChildren(field) {
+  if (!(0, _isEmpty.default)(field[FIELDS])) {
+    return true;
+  }
+
+  if (!(0, _isEmpty.default)(field[OPTIONS])) {
+    return field[OPTIONS].some(function (option) {
+      return !(0, _isEmpty.default)(option[FIELDS]);
+    });
+  }
+
+  return false;
+}
 
 var FormField =
 /*#__PURE__*/
@@ -58,27 +77,6 @@ function (_Component) {
   }
 
   _createClass(FormField, [{
-    key: "hasFieldChildren",
-
-    /**
-     * Check for child fields, or option fields with children
-     * @param field
-     * @returns {boolean}
-     */
-    value: function hasFieldChildren(field) {
-      if (!(0, _isEmpty.default)(field[FIELDS])) {
-        return true;
-      }
-
-      if (!(0, _isEmpty.default)(field[OPTIONS])) {
-        return field[OPTIONS].some(function (option) {
-          return !(0, _isEmpty.default)(option[FIELDS]);
-        });
-      }
-
-      return false;
-    }
-  }, {
     key: "render",
     value: function render() {
       var field = this.props.field;
@@ -87,7 +85,7 @@ function (_Component) {
         column: true,
         className: "field",
         id: "field-".concat(field[ID])
-      }, _react.default.createElement(_FormControl.default, this.props), this.hasFieldChildren(field) ? _react.default.createElement(_FormChildren.default, this.props) : null);
+      }, _react.default.createElement(_FormControl.default, this.props), hasFieldChildren(field) ? _react.default.createElement(_FormChildren.default, this.props) : null);
     }
   }]);
 

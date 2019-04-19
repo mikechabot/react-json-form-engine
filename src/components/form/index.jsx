@@ -1,109 +1,26 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { Provider } from 'mobx-react';
 import isEmpty from 'lodash/isEmpty';
-import { Tabs, Tab } from 'react-tabify';
 
-import { Asterisk } from '../util';
-
-import FormSubmitButton from './helpers/FormSubmitButton';
+import FormConsumer from './FormConsumer';
 import ValidationAPIError from './validation/ValidationAPIError';
-import FormSection from './FormSection';
-import FormTitle from './helpers/FormTitle';
-
-import { observer, Provider, inject } from 'mobx-react';
-import { decorate, observable } from 'mobx';
-
-// if (process.env.NODE_ENV !== 'production') {
-//     const { whyDidYouUpdate } = require('why-did-you-update');
-//     whyDidYouUpdate(React);
-// }
 
 class Form extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            instance: props.instance
+            hasError: false
         };
-        this.onUpdate = this.onUpdate.bind(this);
         this.onSubmit = this.onSubmit.bind(this);
-        this.renderSectionTabPane = this.renderSectionTabPane.bind(this);
-    }
-
-    static getDerivedStateFromError(error) {
-        console.log(error);
-        return { hasError: true };
+        this.onUpdate = this.onUpdate.bind(this);
     }
 
     componentDidMount() {
-        const { instance } = this.state;
+        const { instance } = this.props;
         if (instance.isValid()) {
             instance.validate();
         }
-    }
-
-    renderFormTitle() {
-        const { instance } = this.state;
-        if (!this.props.hideTitle) {
-            return (
-                <FormTitle
-                    id={`form-title-${instance.getId()}`}
-                    iconPrefix={instance.getFormIconPrefix()}
-                    icon={instance.getFormIcon()}
-                    label={instance.getFormTitle()}
-                    controlsRight={this.renderSubmitButton()}
-                />
-            );
-        }
-    }
-
-    renderTabbedSections(sections) {
-        return (
-            <Tabs stacked id={`form-tabs-${this.props.instance.getId()}`} defaultActiveKey={0}>
-                {this.renderSectionContent(sections)}
-            </Tabs>
-        );
-    }
-
-    renderSectionContent(sections) {
-        return sections.map(this.renderSectionTabPane);
-    }
-
-    renderSectionTabPane(section, index) {
-        return (
-            <Tab key={index} eventKey={index} label={this.getDerivedSectionTitle(section)}>
-                {this.renderSingleSection(section)}
-            </Tab>
-        );
-    }
-
-    renderSingleSection(section) {
-        return (
-            <FormSection
-                section={section}
-                onUpdate={this.onUpdate}
-                submitButton={this.props.hideTitle ? this.renderSubmitButton() : null}
-            />
-        );
-    }
-
-    getDerivedSectionTitle(section) {
-        if (!this.state.instance.sectionHasError(section)) return section.title;
-        return (
-            <span>
-                {section.title} <Asterisk />
-            </span>
-        );
-    }
-
-    renderSubmitButton() {
-        return <FormSubmitButton onSubmit={this.onSubmit} label={this.props.submitButtonLabel} />;
-    }
-
-    onSubmit() {
-        const { instance } = this.state;
-        const { onSubmit } = this.props;
-        instance.validateOnSubmit();
-        if (onSubmit) onSubmit();
     }
 
     componentDidCatch(error, info) {
@@ -111,9 +28,19 @@ class Form extends Component {
         console.log(error);
     }
 
+    static getDerivedStateFromError(error) {
+        console.log(error);
+        return { hasError: true };
+    }
+
+    onSubmit() {
+        const { instance, onSubmit } = this.props;
+        instance.validateOnSubmit();
+        if (onSubmit) onSubmit();
+    }
+
     onUpdate(event, id) {
-        const { instance } = this.state;
-        const { onUpdate } = this.props;
+        const { instance, onUpdate } = this.props;
 
         id = id || event.target.id;
         const field = instance.getField(id);
@@ -129,8 +56,7 @@ class Form extends Component {
     }
 
     render() {
-        const { instance } = this.state;
-        const { hideTitle, hideSectionTitles, hideSectionSubtitles } = this.props;
+        const { instance, hideFormTitle, hideSubsectionTitles, hideSubsectionSubtitles } = this.props;
 
         console.log('Rendering Form');
 
@@ -143,35 +69,29 @@ class Form extends Component {
         if (!instance || isEmpty(instance)) {
             return <em className="has-text-danger">No form instance</em>;
         }
+
         // Invalid definition
         if (!instance.isValid()) {
             return <ValidationAPIError error={instance.error} />;
         }
 
-        const sections = instance.getSections();
-
-        // No sections
-        if (isEmpty(sections)) {
+        if (isEmpty(instance.getSections())) {
             return <em className="has-text-danger">No sections</em>;
         }
 
+        console.log(hideSubsectionTitles);
+
         return (
-            <div
-                style={{
-                    display: 'flex',
-                    flexDirection: 'column',
-                    flex: 1,
-                    flexShrink: 0,
-                    border: '1px solid #dbdbdb'
-                }}
+            <Provider
+                instance={instance}
+                onSubmit={this.onSubmit}
+                onUpdate={this.onUpdate}
+                hideFormTitle={hideFormTitle}
+                hideSubsectionTitles={hideSubsectionTitles}
+                hideSubsectionSubtitles={hideSubsectionSubtitles}
             >
-                {this.renderFormTitle(instance)}
-                <Provider instance={instance} color="red">
-                    {sections.length > 1
-                        ? this.renderTabbedSections(sections)
-                        : this.renderSingleSection(sections[0])}
-                </Provider>
-            </div>
+                <FormConsumer />
+            </Provider>
         );
     }
 }
@@ -179,9 +99,9 @@ class Form extends Component {
 Form.propTypes = {
     instance: PropTypes.object.isRequired,
     submitButtonLabel: PropTypes.string,
-    hideTitle: PropTypes.bool,
-    hideSectionTitles: PropTypes.bool,
-    hideSectionSubtitles: PropTypes.bool,
+    hideFormTitle: PropTypes.bool,
+    hideSubsectionTitles: PropTypes.bool,
+    hideSubsectionSubtitles: PropTypes.bool,
     width: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),
     onSubmit: PropTypes.func.isRequired,
     onUpdate: PropTypes.func

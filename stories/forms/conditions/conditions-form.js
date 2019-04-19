@@ -46,6 +46,22 @@ export default {
                                                                     id: 'arr1'
                                                                 }
                                                             }
+                                                        },
+                                                        {
+                                                            id: 'str10',
+                                                            type: 'string',
+                                                            title: 'Grandchild',
+                                                            showCondition: {
+                                                                type: 'CONTAINS',
+                                                                expression1: {
+                                                                    type: 'CONST',
+                                                                    value: 'op1'
+                                                                },
+                                                                expression2: {
+                                                                    type: 'FORM_RESPONSE',
+                                                                    id: 'arr1'
+                                                                }
+                                                            }
                                                         }
                                                     ]
                                                 },
@@ -108,6 +124,22 @@ export default {
                                 },
                                 { title: 'No' }
                             ]
+                        },
+                        {
+                            id: 'str22',
+                            type: 'string',
+                            title: 'Grandchild2',
+                            showCondition: {
+                                type: 'CONTAINS',
+                                expression1: {
+                                    type: 'CONST',
+                                    value: 'op1'
+                                },
+                                expression2: {
+                                    type: 'FORM_RESPONSE',
+                                    id: 'arr1'
+                                }
+                            }
                         },
                         {
                             id: 'str2',

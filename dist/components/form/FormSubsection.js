@@ -60,7 +60,7 @@ function (_Component) {
           submitButton = _this$props.submitButton,
           onUpdate = _this$props.onUpdate,
           instance = _this$props.instance;
-      console.log(instance);
+      console.log('Rendering FormSubsection', subsection.id);
 
       var renderSubsectionFields = function renderSubsectionFields() {
         var fields = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
@@ -76,7 +76,6 @@ function (_Component) {
         });
       };
 
-      console.log('Rendering FormSubsection', subsection.id);
       return _react.default.createElement(_util.Flex, {
         column: true,
         flex: 1,

@@ -16,9 +16,9 @@ export const buildFormComponent = (instance, options = {}) => {
         <Form
             {...height && { height }}
             {...width && { width }}
-            hideTitle={boolean('hideTitle', false)}
-            hideSectionTitles={boolean('hideSectionTitles', false)}
-            hideSectionSubtitles={boolean('hideSectionSubtitles', false)}
+            hideFormTitle={boolean('hideFormTitle', false)}
+            hideSubsectionTitles={boolean('hideSubsectionTitles', false)}
+            hideSubsectionSubtitles={boolean('hideSubsectionSubtitles', false)}
             submitButtonLabel={buttonLabel}
             instance={instance}
             onSubmit={logInstance(instance).action(buttonLabel)}

@@ -1,56 +1,26 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { Tabs, Tab } from 'react-tabify';
-
-import { Asterisk } from '../util';
-import FormSubsection from './FormSubsection';
 import { inject, observer } from 'mobx-react';
 
-@inject('instance')
+import FormSubsection from './FormSubsection';
+import TabbedSubsections from './TabbedSubsections';
+
+@inject('instance', 'hideSubsectionTitles')
 @observer
 class FormSection extends Component {
+    renderSection(section) {
+        if (section.subsections.length > 1) return <TabbedSubsections section={section} />;
+        return <FormSubsection subsection={section.subsections[0]} submitButton={this.props.submitButton} />;
+    }
+
     render() {
-        const { section, onUpdate, submitButton, instance } = this.props;
+        const { section, hideSubsectionTitles } = this.props;
 
-        const { subsections } = section;
-
-        console.log(this.props);
-
-        console.log('Rendering FormSection', section.title);
-
-        const getDerivedSubsectionTitle = subsection => {
-            if (!instance.subsectionHasError(subsection)) return subsection.title;
-            return (
-                <span>
-                    {subsection.title} <Asterisk />
-                </span>
-            );
-        };
-
-        const renderSingleSubsection = (subsection, isTabbed) => {
-            return (
-                <FormSubsection
-                    isTabbed={isTabbed}
-                    subsection={subsection}
-                    onUpdate={onUpdate}
-                    submitButton={submitButton}
-                />
-            );
-        };
+        console.log('Rendering FormSection', section.title, hideSubsectionTitles);
 
         return (
             <div style={{ display: 'flex', height: '100%', flexShrink: 0 }}>
-                {subsections.length === 1 ? (
-                    renderSingleSubsection(subsections[0])
-                ) : (
-                    <Tabs id={`${section.id}-subsection-tabs`} defaultActiveKey={0}>
-                        {subsections.map((subsection, index) => (
-                            <Tab key={index} eventKey={index} label={getDerivedSubsectionTitle(subsection)}>
-                                {renderSingleSubsection(subsection, true)}
-                            </Tab>
-                        ))}
-                    </Tabs>
-                )}
+                {this.renderSection(section)}
             </div>
         );
     }
@@ -62,8 +32,8 @@ FormSection.propTypes = {
         title: PropTypes.string.isRequired,
         subsections: PropTypes.array.isRequired
     }),
-    submitButton: PropTypes.node,
-    onUpdate: PropTypes.func.isRequired
+    hideSubsectionTitles: PropTypes.bool.isRequired,
+    submitButton: PropTypes.node
 };
 
 export default FormSection;

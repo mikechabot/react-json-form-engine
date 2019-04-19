@@ -1,10 +1,9 @@
-import { decorate, observable, computed, action } from 'mobx';
+import { action, decorate, observable } from 'mobx';
 
 import Maybe from 'maybe-baby';
 import isString from 'lodash/isString';
 import includes from 'lodash/includes';
 import isEmpty from 'lodash/isEmpty';
-import get from 'lodash/get';
 import isNil from 'lodash/isNil';
 
 import ValidationService from './service/validation-service';
@@ -21,14 +20,6 @@ import { NO_VALUE, PROPERTY, DATA_TYPE, VALIDATION_CONST } from './config/form-c
 const { FIELD, DEFINITION } = PROPERTY;
 
 class FormEngine {
-    modelValue(id) {
-        return this.model[id];
-    }
-
-    fieldHasError(id) {
-        return ValidationService.isError(this.getValidationStatusByTag(id));
-    }
-
     constructor(definition, model) {
         try {
             FormApiService.validateDefinitionShape(definition);
@@ -45,6 +36,12 @@ class FormEngine {
         this.showConditionTriggerMap = {}; // Map of field ids keyed by trigger id
 
         this.validationResults = new ValidationResults(); // Stores validation results
+
+        this.validationMap = {
+            sections: {},
+            subsections: {},
+            fields: {}
+        };
 
         this.model = {}; // Map of form responses keyed by id
         this.sections = []; // Array of form sections
@@ -283,13 +280,6 @@ class FormEngine {
         return JSON.stringify(this.model);
     }
     /**
-     * Get single model value (e.g. form response)
-     * @param id
-     */
-    getModelValue(id) {
-        return this.model[id];
-    }
-    /**
      * Determine if the model contains a key
      * @param id
      * @returns {LoDashExplicitWrapper<boolean>|boolean|Assertion}
@@ -351,6 +341,11 @@ class FormEngine {
     isBooleanField(field) {
         return field[FIELD.TYPE] === DATA_TYPE.BOOLEAN;
     }
+
+    getModelValue(id) {
+        return this.model[id];
+    }
+
     /**
      * Set a model value
      * @param id
@@ -457,13 +452,23 @@ class FormEngine {
         if (!condition) return false;
         return ExpressionService.evalCondition(condition, this);
     }
-    validate() {
-        this.validationResults = FormValidator.validate(this, this.validationResults);
-        console.log(this.validationResults);
+    validate(comprehensive = false) {
+        this.validationResults = FormValidator.validate(this, this.validationResults, comprehensive);
+        this.rebuildValidationMap();
     }
     validateOnSubmit() {
-        this.validationResults = FormValidator.validate(this, this.validationResults, true);
-        console.log(this.validationResults);
+        this.validate(true);
+    }
+    rebuildValidationMap() {
+        this.sections.forEach(section => {
+            this.validationMap.sections[section[FIELD.ID]] = this.sectionHasError(section);
+            section.subsections.forEach(subsection => {
+                this.validationMap.subsections[subsection[FIELD.ID]] = this.subsectionHasError(subsection);
+            });
+        });
+        Object.keys(this.fields).forEach(id => {
+            this.validationMap.fields[id] = this.fieldHasError(id);
+        });
     }
     hasError() {
         return this.validationResults.hasError();
@@ -505,27 +510,19 @@ class FormEngine {
     getSectionStatus(section) {
         return this.findStatus(section.subsections, this.getSubsectionStatus.bind(this));
     }
-
+    fieldHasError(id) {
+        return ValidationService.isError(this.getValidationStatusByTag(id));
+    }
     subsectionHasError(subsection) {
         return ValidationService.isError(this.getSubsectionStatus(subsection));
     }
     sectionHasError(section) {
         return ValidationService.isError(this.getSectionStatus(section));
     }
-    buildDeepFieldIdMap(map = {}, fields = []) {
-        fields.forEach(field => {
-            map[field[FIELD.ID]] = true;
-            this.buildDeepFieldIdMap(map, field[FIELD.FIELDS]);
-            get(field, FIELD.OPTIONS, []).forEach(option => {
-                this.buildDeepFieldIdMap(map, option[FIELD.OPTIONS]);
-            });
-        });
-        return map;
-    }
 }
 
 decorate(FormEngine, {
     model: observable,
-    validationResults: observable
+    validationMap: observable
 });
 export default FormEngine;

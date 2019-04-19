@@ -7,29 +7,31 @@ import FormSubsectionTitle from './helpers/FormSubsectionTitle';
 import FormField from './FormField';
 import { inject, observer } from 'mobx-react';
 
-@inject('instance')
+@inject('instance', 'hideSubsectionTitles')
 @observer
 class FormSubsection extends Component {
+    renderSubsectionFields(fields = []) {
+        const { instance } = this.props;
+        return fields.map(fieldDefinition => {
+            const field = this.props.instance.getField(fieldDefinition.id);
+            if (!instance.isVisible(field)) return null;
+            return <FormField key={field.id} fieldId={field.id} field={field} />;
+        });
+    }
+
     render() {
-        const { subsection, submitButton, onUpdate, instance } = this.props;
+        const { subsection, submitButton } = this.props;
 
-        console.log(instance);
-
-        const renderSubsectionFields = (fields = []) => {
-            return fields.map(fieldDefinition => {
-                const field = instance.getField(fieldDefinition.id);
-                if (!instance.isVisible(field)) return null;
-                return <FormField key={field.id} fieldId={field.id} field={field} onUpdate={onUpdate} />;
-            });
-        };
-
-        console.log('Rendering FormSubsection', subsection.id);
+        console.log('Rendering FormSubsection', subsection.id, this.props.hideSubsectionTitles);
 
         return (
             <Flex column={true} flex={1} className="panel" flexShrink={0} height="100%">
-                <FormSubsectionTitle subsection={subsection} />
+                <FormSubsectionTitle
+                    subsection={subsection}
+                    hideSubsectionTitles={this.props.hideSubsectionTitles}
+                />
                 <div style={{ width: '100%', height: '100%', padding: '.5em .75em' }}>
-                    {renderSubsectionFields(subsection.fields)}
+                    {this.renderSubsectionFields(subsection.fields)}
                 </div>
                 {submitButton ? <div className="panel-block">{submitButton}</div> : null}
             </Flex>
@@ -39,8 +41,8 @@ class FormSubsection extends Component {
 
 FormSubsection.propTypes = {
     subsection: PropTypes.object.isRequired,
-    submitButton: PropTypes.node,
-    onUpdate: PropTypes.func.isRequired
+    hideSubsectionTitles: PropTypes.bool.isRequired,
+    submitButton: PropTypes.node
 };
 
 export default FormSubsection;

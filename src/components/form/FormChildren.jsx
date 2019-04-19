@@ -20,7 +20,7 @@ class FormChildren extends Component {
             if (instance.isVisible(child)) {
                 return (
                     <li key={child.id} style={{ marginTop: '.75rem' }}>
-                        <FormField fieldId={child.id} field={child} onUpdate={onUpdate} />
+                        <FormField fieldId={child.id} field={child} />
                     </li>
                 );
             }
@@ -40,8 +40,7 @@ FormChildren.propTypes = {
         title: PropTypes.string.isRequired,
         fields: PropTypes.array,
         options: PropTypes.array
-    }),
-    onUpdate: PropTypes.func.isRequired
+    })
 };
 
 export default FormChildren;

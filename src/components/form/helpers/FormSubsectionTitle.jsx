@@ -5,21 +5,23 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Asterisk } from '../../util';
 import { inject, observer } from 'mobx-react';
 
-@inject('instance')
+@inject('instance', 'hideSubsectionTitles')
 @observer
 class FormSubsectionPanelTitle extends Component {
     render() {
-        const { instance, subsection } = this.props;
+        const { instance, subsection, hideSubsectionTitles } = this.props;
+
+        console.log(hideSubsectionTitles);
 
         console.log('Rendering FormSubsectionPanelTitle', subsection.id);
-        if (false && false) {
+        if (hideSubsectionTitles && false) {
             return null;
         }
 
-        const title = false ? null : (
+        const title = hideSubsectionTitles ? null : (
             <div>
                 {subsection.title}&nbsp;
-                {instance.subsectionHasError(subsection) ? <Asterisk /> : null}
+                {instance.validationMap.subsections[subsection.id] ? <Asterisk /> : null}
             </div>
         );
 
@@ -44,7 +46,8 @@ class FormSubsectionPanelTitle extends Component {
 }
 
 FormSubsectionPanelTitle.propTypes = {
-    subsection: PropTypes.object.isRequired
+    subsection: PropTypes.object.isRequired,
+    hideSubsectionTitles: PropTypes.bool.isRequired
 };
 
 export default FormSubsectionPanelTitle;

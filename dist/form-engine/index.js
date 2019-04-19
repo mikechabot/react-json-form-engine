@@ -35,8 +35,6 @@ var _common = require("../common");
 
 var _formConst = require("./config/form-const");
 
-var _class;
-
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
@@ -49,25 +47,12 @@ function _defineProperties(target, props) { for (var i = 0; i < props.length; i+
 
 function _createClass(Constructor, protoProps, staticProps) { if (protoProps) _defineProperties(Constructor.prototype, protoProps); if (staticProps) _defineProperties(Constructor, staticProps); return Constructor; }
 
-function _applyDecoratedDescriptor(target, property, decorators, descriptor, context) { var desc = {}; Object.keys(descriptor).forEach(function (key) { desc[key] = descriptor[key]; }); desc.enumerable = !!desc.enumerable; desc.configurable = !!desc.configurable; if ('value' in desc || desc.initializer) { desc.writable = true; } desc = decorators.slice().reverse().reduce(function (desc, decorator) { return decorator(target, property, desc) || desc; }, desc); if (context && desc.initializer !== void 0) { desc.value = desc.initializer ? desc.initializer.call(context) : void 0; desc.initializer = undefined; } if (desc.initializer === void 0) { Object.defineProperty(target, property, desc); desc = null; } return desc; }
-
 var FIELD = _formConst.PROPERTY.FIELD,
     DEFINITION = _formConst.PROPERTY.DEFINITION;
-var FormEngine = (_class =
+
+var FormEngine =
 /*#__PURE__*/
 function () {
-  _createClass(FormEngine, [{
-    key: "modelValue",
-    value: function modelValue(id) {
-      return this.model[id];
-    }
-  }, {
-    key: "fieldHasError",
-    value: function fieldHasError(id) {
-      return _validationService.default.isError(this.getValidationStatusByTag(id));
-    }
-  }]);
-
   function FormEngine(definition, model) {
     _classCallCheck(this, FormEngine);
 
@@ -479,6 +464,11 @@ function () {
     value: function isBooleanField(field) {
       return field[FIELD.TYPE] === _formConst.DATA_TYPE.BOOLEAN;
     }
+  }, {
+    key: "modelValue",
+    value: function modelValue(id) {
+      return this.model[id];
+    }
     /**
      * Set a model value
      * @param id
@@ -680,6 +670,11 @@ function () {
       return this.findStatus(section.subsections, this.getSubsectionStatus.bind(this));
     }
   }, {
+    key: "fieldHasError",
+    value: function fieldHasError(id) {
+      return _validationService.default.isError(this.getValidationStatusByTag(id));
+    }
+  }, {
     key: "subsectionHasError",
     value: function subsectionHasError(subsection) {
       return _validationService.default.isError(this.getSubsectionStatus(subsection));
@@ -710,7 +705,8 @@ function () {
   }]);
 
   return FormEngine;
-}(), (_applyDecoratedDescriptor(_class.prototype, "setModelValue", [_mobx.action], Object.getOwnPropertyDescriptor(_class.prototype, "setModelValue"), _class.prototype)), _class);
+}();
+
 (0, _mobx.decorate)(FormEngine, {
   model: _mobx.observable,
   validationResults: _mobx.observable

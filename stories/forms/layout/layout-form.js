@@ -18,7 +18,8 @@ export default {
                         {
                             id: 'str1',
                             type: 'string',
-                            title: 'Text field'
+                            title: 'Text field',
+                            required: true
                         }
                     ]
                 },
