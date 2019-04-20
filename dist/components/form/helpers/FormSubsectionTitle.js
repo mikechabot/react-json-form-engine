@@ -15,7 +15,7 @@ var _util = require("../../util");
 
 var _mobxReact = require("mobx-react");
 
-var _dec, _class;
+var _dec, _class, _class2, _temp;
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -39,7 +39,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 
-var FormSubsectionPanelTitle = (_dec = (0, _mobxReact.inject)('instance'), _dec(_class = (0, _mobxReact.observer)(_class =
+var FormSubsectionPanelTitle = (_dec = (0, _mobxReact.inject)('instance', 'hideSubsectionTitles', 'hideSubsectionSubtitles'), _dec(_class = (0, _mobxReact.observer)(_class = (_temp = _class2 =
 /*#__PURE__*/
 function (_Component) {
   _inherits(FormSubsectionPanelTitle, _Component);
@@ -55,15 +55,18 @@ function (_Component) {
     value: function render() {
       var _this$props = this.props,
           instance = _this$props.instance,
-          subsection = _this$props.subsection;
+          subsection = _this$props.subsection,
+          hideSubsectionTitles = _this$props.hideSubsectionTitles,
+          hideSubsectionSubtitles = _this$props.hideSubsectionSubtitles;
+      console.log('FormSubsectionPanelTitle', hideSubsectionTitles);
       console.log('Rendering FormSubsectionPanelTitle', subsection.id);
 
-      if (false && false) {
+      if (hideSubsectionTitles && hideSubsectionSubtitles) {
         return null;
       }
 
-      var title = false ? null : _react.default.createElement("div", null, subsection.title, "\xA0", instance.subsectionHasError(subsection) ? _react.default.createElement(_util.Asterisk, null) : null);
-      var subtitle = false || !subsection.subtitle ? null : _react.default.createElement("h2", {
+      var title = hideSubsectionTitles ? null : _react.default.createElement("div", null, subsection.title, "\xA0", instance.validationMap.subsections[subsection.id] ? _react.default.createElement(_util.Asterisk, null) : null);
+      var subtitle = hideSubsectionSubtitles || !subsection.subtitle ? null : _react.default.createElement("h2", {
         className: "subtitle",
         style: {
           fontSize: '.75em',
@@ -88,9 +91,10 @@ function (_Component) {
   }]);
 
   return FormSubsectionPanelTitle;
-}(_react.Component)) || _class) || _class);
-FormSubsectionPanelTitle.propTypes = {
-  subsection: _propTypes.default.object.isRequired
-};
+}(_react.Component), _class2.propTypes = {
+  subsection: _propTypes.default.object.isRequired,
+  hideSubsectionTitles: _propTypes.default.bool.isRequired,
+  hideSubsectionSubtitles: _propTypes.default.bool.isRequired
+}, _temp)) || _class) || _class);
 var _default = FormSubsectionPanelTitle;
 exports.default = _default;

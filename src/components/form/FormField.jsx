@@ -1,10 +1,11 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import isEmpty from 'lodash/isEmpty';
 
+import { Flex } from '../util';
 import FormControl from './FormControl';
 import FormChildren from './FormChildren';
-import { Flex } from '../util';
-import isEmpty from 'lodash/isEmpty';
+
 import { PROPERTY } from '../../form-engine/config/form-const';
 
 const {
@@ -28,28 +29,20 @@ function hasFieldChildren(field) {
 }
 
 class FormField extends Component {
+    static propTypes = {
+        field: PropTypes.object.isRequired
+    };
+
     render() {
         const { field } = this.props;
-        console.log('Rendering FormField', field.id);
+        if (!field) return null;
         return (
             <Flex column className="field" id={`field-${field[ID]}`}>
-                <FormControl {...this.props} />
-                {hasFieldChildren(field) ? <FormChildren {...this.props} /> : null}
+                <FormControl field={field} />
+                {hasFieldChildren(field) ? <FormChildren field={field} /> : null}
             </Flex>
         );
     }
 }
-
-FormField.propTypes = {
-    fieldId: PropTypes.string.isRequired,
-    field: PropTypes.object.isRequired,
-    value: PropTypes.oneOfType([
-        PropTypes.string,
-        PropTypes.number,
-        PropTypes.bool,
-        PropTypes.array,
-        PropTypes.object
-    ])
-};
 
 export default FormField;

@@ -1,4 +1,4 @@
-import { action, decorate, observable } from 'mobx';
+import { decorate, observable } from 'mobx';
 
 import Maybe from 'maybe-baby';
 import isString from 'lodash/isString';
@@ -54,9 +54,9 @@ class FormEngine {
      * @private
      */
     __initInstance(model) {
-        this.__hydrateModel(model);
         this.__cloneSections();
         this.__initFieldMetadata();
+        this.__hydrateModel(model);
     }
     /**
      * Hydrate the instance mode with existing data
@@ -65,7 +65,6 @@ class FormEngine {
      */
     __hydrateModel(model) {
         if (!model || isEmpty(model)) return;
-
         let parsed = model;
         if (typeof model === 'string') {
             try {
@@ -78,7 +77,7 @@ class FormEngine {
         }
 
         Object.keys(parsed).forEach(key => {
-            this.model[key] = model[key];
+            this.model[key] = parsed[key];
         });
     }
     /**
@@ -240,7 +239,7 @@ class FormEngine {
      * Return whether the form is valid
      * @returns {boolean}
      */
-    isValid() {
+    isValidDefinition() {
         return this.__isDefinitionValid;
     }
     /**
@@ -352,7 +351,6 @@ class FormEngine {
      * @param value
      * @param field
      */
-    @action
     setModelValue(id, value, field) {
         // Set or reset the model value
         if (value === this.getModelValue(id)) return;

@@ -13,9 +13,9 @@ const FormControlTitle = ({ field, decorators }) => {
 
 const hideTitle = decorators => Maybe.of(() => decorators.hideControlLabel).isJust();
 
-export default FormControlTitle;
-
 FormControlTitle.propTypes = {
     field: PropTypes.object.isRequired,
     decorators: PropTypes.object
 };
+
+export default FormControlTitle;

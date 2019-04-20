@@ -13,8 +13,6 @@ var _maybeBaby = _interopRequireDefault(require("maybe-baby"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
-
 var DEFAULT_TYPE = 'text';
 
 var Text = function Text(_ref) {
@@ -24,7 +22,6 @@ var Text = function Text(_ref) {
       onUpdate = _ref.onUpdate,
       uiDecorators = _ref.uiDecorators,
       hasError = _ref.hasError;
-  console.log(_typeof(value), value);
   return _react.default.createElement("input", {
     name: id,
     id: id,

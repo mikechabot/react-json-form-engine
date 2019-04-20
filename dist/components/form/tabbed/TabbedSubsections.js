@@ -9,15 +9,15 @@ var _react = _interopRequireWildcard(require("react"));
 
 var _propTypes = _interopRequireDefault(require("prop-types"));
 
-var _isEmpty = _interopRequireDefault(require("lodash/isEmpty"));
+var _mobxReact = require("mobx-react");
 
-var _util = require("../util");
+var _reactTabify = require("react-tabify");
 
-var _FormControl = _interopRequireDefault(require("./FormControl"));
+var _index = require("../../util/index");
 
-var _FormChildren = _interopRequireDefault(require("./FormChildren"));
+var _FormSubsection = _interopRequireDefault(require("../FormSubsection"));
 
-var _formConst = require("../../form-engine/config/form-const");
+var _dec, _class, _class2, _temp;
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -41,62 +41,58 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 
-var _PROPERTY$FIELD = _formConst.PROPERTY.FIELD,
-    ID = _PROPERTY$FIELD.ID,
-    FIELDS = _PROPERTY$FIELD.FIELDS,
-    OPTIONS = _PROPERTY$FIELD.OPTIONS;
-/**
- * Check for child fields, or option fields with children
- * @param field
- * @returns {boolean}
- */
-
-function hasFieldChildren(field) {
-  if (!(0, _isEmpty.default)(field[FIELDS])) {
-    return true;
-  }
-
-  if (!(0, _isEmpty.default)(field[OPTIONS])) {
-    return field[OPTIONS].some(function (option) {
-      return !(0, _isEmpty.default)(option[FIELDS]);
-    });
-  }
-
-  return false;
-}
-
-var FormField =
+var TabbedSubsections = (_dec = (0, _mobxReact.inject)('instance'), _dec(_class = (0, _mobxReact.observer)(_class = (_temp = _class2 =
 /*#__PURE__*/
 function (_Component) {
-  _inherits(FormField, _Component);
+  _inherits(TabbedSubsections, _Component);
 
-  function FormField() {
-    _classCallCheck(this, FormField);
+  function TabbedSubsections() {
+    _classCallCheck(this, TabbedSubsections);
 
-    return _possibleConstructorReturn(this, _getPrototypeOf(FormField).apply(this, arguments));
+    return _possibleConstructorReturn(this, _getPrototypeOf(TabbedSubsections).apply(this, arguments));
   }
 
-  _createClass(FormField, [{
+  _createClass(TabbedSubsections, [{
+    key: "getDerivedSubsectionTitle",
+    value: function getDerivedSubsectionTitle(subsection) {
+      var instance = this.props.instance;
+      if (!instance.validationMap.subsections[subsection.id]) return subsection.title;
+      return _react.default.createElement("span", null, subsection.title, " ", _react.default.createElement(_index.Asterisk, null));
+    }
+  }, {
     key: "render",
     value: function render() {
-      var field = this.props.field;
-      if (!field) return null;
-      console.log('Rendering FormField', field[ID]);
-      return _react.default.createElement(_util.Flex, {
-        column: true,
-        className: "field",
-        id: "field-".concat(field[ID])
-      }, _react.default.createElement(_FormControl.default, this.props), hasFieldChildren(field) ? _react.default.createElement(_FormChildren.default, {
-        field: field
-      }) : null);
+      var _this = this;
+
+      var section = this.props.section;
+      var subsections = section.subsections;
+      console.log('Rendering FormSection', section.title);
+      return _react.default.createElement(_reactTabify.Tabs, {
+        id: "".concat(section.id, "-subsection-tabs"),
+        defaultActiveKey: 0
+      }, subsections.map(function (subsection, index) {
+        return _react.default.createElement(_reactTabify.Tab, {
+          key: index,
+          eventKey: index,
+          label: _this.getDerivedSubsectionTitle(subsection)
+        }, _react.default.createElement(_FormSubsection.default, {
+          hideSubsectionTitles: true,
+          subsection: subsection,
+          submitButton: _this.props.submitButton
+        }));
+      }));
     }
   }]);
 
-  return FormField;
-}(_react.Component);
-
-FormField.propTypes = {
-  field: _propTypes.default.object.isRequired
-};
-var _default = FormField;
+  return TabbedSubsections;
+}(_react.Component), _class2.propTypes = {
+  instance: _propTypes.default.instanceOf(Object).isRequired,
+  section: _propTypes.default.shape({
+    id: _propTypes.default.string.isRequired,
+    title: _propTypes.default.string.isRequired,
+    subsections: _propTypes.default.array.isRequired
+  }),
+  submitButton: _propTypes.default.node
+}, _temp)) || _class) || _class);
+var _default = TabbedSubsections;
 exports.default = _default;

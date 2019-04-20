@@ -9,15 +9,17 @@ var _react = _interopRequireWildcard(require("react"));
 
 var _propTypes = _interopRequireDefault(require("prop-types"));
 
-var _isEmpty = _interopRequireDefault(require("lodash/isEmpty"));
+var _mobxReact = require("mobx-react");
 
-var _util = require("../util");
+var _FormSubmitButton = _interopRequireDefault(require("./helpers/FormSubmitButton"));
 
-var _FormControl = _interopRequireDefault(require("./FormControl"));
+var _FormSection = _interopRequireDefault(require("./FormSection"));
 
-var _FormChildren = _interopRequireDefault(require("./FormChildren"));
+var _FormTitle = _interopRequireDefault(require("./helpers/FormTitle"));
 
-var _formConst = require("../../form-engine/config/form-const");
+var _TabbedSections = _interopRequireDefault(require("./tabbed/TabbedSections"));
+
+var _dec, _class, _class2, _temp;
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -41,62 +43,71 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 
-var _PROPERTY$FIELD = _formConst.PROPERTY.FIELD,
-    ID = _PROPERTY$FIELD.ID,
-    FIELDS = _PROPERTY$FIELD.FIELDS,
-    OPTIONS = _PROPERTY$FIELD.OPTIONS;
-/**
- * Check for child fields, or option fields with children
- * @param field
- * @returns {boolean}
- */
-
-function hasFieldChildren(field) {
-  if (!(0, _isEmpty.default)(field[FIELDS])) {
-    return true;
-  }
-
-  if (!(0, _isEmpty.default)(field[OPTIONS])) {
-    return field[OPTIONS].some(function (option) {
-      return !(0, _isEmpty.default)(option[FIELDS]);
-    });
-  }
-
-  return false;
-}
-
-var FormField =
+var formContainer = {
+  display: 'flex',
+  flexDirection: 'column',
+  flex: 1,
+  flexShrink: 0,
+  border: '1px solid #dbdbdb'
+};
+var FormConsumer = (_dec = (0, _mobxReact.inject)('instance', 'hideFormTitle'), _dec(_class = (0, _mobxReact.observer)(_class = (_temp = _class2 =
 /*#__PURE__*/
 function (_Component) {
-  _inherits(FormField, _Component);
+  _inherits(FormConsumer, _Component);
 
-  function FormField() {
-    _classCallCheck(this, FormField);
+  function FormConsumer() {
+    _classCallCheck(this, FormConsumer);
 
-    return _possibleConstructorReturn(this, _getPrototypeOf(FormField).apply(this, arguments));
+    return _possibleConstructorReturn(this, _getPrototypeOf(FormConsumer).apply(this, arguments));
   }
 
-  _createClass(FormField, [{
+  _createClass(FormConsumer, [{
+    key: "renderFormTitle",
+    value: function renderFormTitle(instance, hideFormTitle, submitButtonLabel) {
+      if (hideFormTitle) return null;
+      return _react.default.createElement(_FormTitle.default, {
+        id: "form-title-".concat(instance.getId()),
+        iconPrefix: instance.getFormIconPrefix(),
+        icon: instance.getFormIcon(),
+        label: instance.getFormTitle(),
+        controlsRight: _react.default.createElement(_FormSubmitButton.default, {
+          label: submitButtonLabel
+        })
+      });
+    }
+  }, {
+    key: "renderForm",
+    value: function renderForm(instance, hideFormTitle, submitButtonLabel) {
+      var sections = instance.getSections();
+      if (sections.length > 1) return _react.default.createElement(_TabbedSections.default, null);
+      return _react.default.createElement(_FormSection.default, {
+        section: sections[0],
+        submitButton: hideFormTitle ? _react.default.createElement(_FormSubmitButton.default, {
+          label: submitButtonLabel
+        }) : null
+      });
+    }
+  }, {
     key: "render",
     value: function render() {
-      var field = this.props.field;
-      if (!field) return null;
-      console.log('Rendering FormField', field[ID]);
-      return _react.default.createElement(_util.Flex, {
-        column: true,
-        className: "field",
-        id: "field-".concat(field[ID])
-      }, _react.default.createElement(_FormControl.default, this.props), hasFieldChildren(field) ? _react.default.createElement(_FormChildren.default, {
-        field: field
-      }) : null);
+      var _this$props = this.props,
+          instance = _this$props.instance,
+          hideFormTitle = _this$props.hideFormTitle,
+          submitButtonLabel = _this$props.submitButtonLabel;
+      console.log('Rendering FormConsumer');
+      return _react.default.createElement("div", {
+        style: formContainer
+      }, this.renderFormTitle(instance, hideFormTitle, submitButtonLabel), this.renderForm(instance, hideFormTitle, submitButtonLabel));
     }
   }]);
 
-  return FormField;
-}(_react.Component);
-
-FormField.propTypes = {
-  field: _propTypes.default.object.isRequired
-};
-var _default = FormField;
+  return FormConsumer;
+}(_react.Component), _class2.propTypes = {
+  instance: _propTypes.default.instanceOf(Object).isRequired,
+  submitButtonLabel: _propTypes.default.string,
+  hideFormTitle: _propTypes.default.bool,
+  hideSubsectionTitles: _propTypes.default.bool,
+  width: _propTypes.default.oneOfType([_propTypes.default.number, _propTypes.default.string])
+}, _temp)) || _class) || _class);
+var _default = FormConsumer;
 exports.default = _default;

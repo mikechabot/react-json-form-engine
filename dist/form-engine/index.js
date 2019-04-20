@@ -15,8 +15,6 @@ var _includes = _interopRequireDefault(require("lodash/includes"));
 
 var _isEmpty = _interopRequireDefault(require("lodash/isEmpty"));
 
-var _get = _interopRequireDefault(require("lodash/get"));
-
 var _isNil = _interopRequireDefault(require("lodash/isNil"));
 
 var _validationService = _interopRequireDefault(require("./service/validation-service"));
@@ -74,6 +72,11 @@ function () {
 
     this.validationResults = new _validationResults.default(); // Stores validation results
 
+    this.validationMap = {
+      sections: {},
+      subsections: {},
+      fields: {}
+    };
     this.model = {}; // Map of form responses keyed by id
 
     this.sections = []; // Array of form sections
@@ -371,16 +374,6 @@ function () {
       return JSON.stringify(this.model);
     }
     /**
-     * Get single model value (e.g. form response)
-     * @param id
-     */
-
-  }, {
-    key: "getModelValue",
-    value: function getModelValue(id) {
-      return this.model[id];
-    }
-    /**
      * Determine if the model contains a key
      * @param id
      * @returns {LoDashExplicitWrapper<boolean>|boolean|Assertion}
@@ -465,8 +458,8 @@ function () {
       return field[FIELD.TYPE] === _formConst.DATA_TYPE.BOOLEAN;
     }
   }, {
-    key: "modelValue",
-    value: function modelValue(id) {
+    key: "getModelValue",
+    value: function getModelValue(id) {
       return this.model[id];
     }
     /**
@@ -602,14 +595,29 @@ function () {
   }, {
     key: "validate",
     value: function validate() {
-      this.validationResults = _formValidator.default.validate(this, this.validationResults);
-      console.log(this.validationResults);
+      var comprehensive = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : false;
+      this.validationResults = _formValidator.default.validate(this, this.validationResults, comprehensive);
+      this.rebuildValidationMap();
     }
   }, {
     key: "validateOnSubmit",
     value: function validateOnSubmit() {
-      this.validationResults = _formValidator.default.validate(this, this.validationResults, true);
-      console.log(this.validationResults);
+      this.validate(true);
+    }
+  }, {
+    key: "rebuildValidationMap",
+    value: function rebuildValidationMap() {
+      var _this8 = this;
+
+      this.sections.forEach(function (section) {
+        _this8.validationMap.sections[section[FIELD.ID]] = _this8.sectionHasError(section);
+        section.subsections.forEach(function (subsection) {
+          _this8.validationMap.subsections[subsection[FIELD.ID]] = _this8.subsectionHasError(subsection);
+        });
+      });
+      Object.keys(this.fields).forEach(function (id) {
+        _this8.validationMap.fields[id] = _this8.fieldHasError(id);
+      });
     }
   }, {
     key: "hasError",
@@ -684,24 +692,6 @@ function () {
     value: function sectionHasError(section) {
       return _validationService.default.isError(this.getSectionStatus(section));
     }
-  }, {
-    key: "buildDeepFieldIdMap",
-    value: function buildDeepFieldIdMap() {
-      var _this8 = this;
-
-      var map = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : {};
-      var fields = arguments.length > 1 && arguments[1] !== undefined ? arguments[1] : [];
-      fields.forEach(function (field) {
-        map[field[FIELD.ID]] = true;
-
-        _this8.buildDeepFieldIdMap(map, field[FIELD.FIELDS]);
-
-        (0, _get.default)(field, FIELD.OPTIONS, []).forEach(function (option) {
-          _this8.buildDeepFieldIdMap(map, option[FIELD.OPTIONS]);
-        });
-      });
-      return map;
-    }
   }]);
 
   return FormEngine;
@@ -709,7 +699,7 @@ function () {
 
 (0, _mobx.decorate)(FormEngine, {
   model: _mobx.observable,
-  validationResults: _mobx.observable
+  validationMap: _mobx.observable
 });
 var _default = FormEngine;
 exports.default = _default;

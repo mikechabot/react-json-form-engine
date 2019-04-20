@@ -2,10 +2,9 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { observer, inject } from 'mobx-react';
 
-import FormSubmitButton from './helpers/FormSubmitButton';
 import FormSection from './FormSection';
 import FormTitle from './helpers/FormTitle';
-import TabbedForm from './TabbedForm';
+import TabbedSections from './tabbed/TabbedSections';
 
 const formContainer = {
     display: 'flex',
@@ -15,52 +14,28 @@ const formContainer = {
     border: '1px solid #dbdbdb'
 };
 
-@inject('instance', 'hideFormTitle', 'hideSubsectionTitles')
+@inject('instance', 'hideFormTitle', 'hideSubsectionTitles', 'hideSubsectionSubtitles', 'submitButtonLabel')
 @observer
-class Form extends Component {
-    renderFormTitle(instance, hideFormTitle, submitButtonLabel) {
-        if (hideFormTitle) return null;
-        return (
-            <FormTitle
-                id={`form-title-${instance.getId()}`}
-                iconPrefix={instance.getFormIconPrefix()}
-                icon={instance.getFormIcon()}
-                label={instance.getFormTitle()}
-                controlsRight={<FormSubmitButton label={submitButtonLabel} />}
-            />
-        );
-    }
-
-    renderForm(instance, hideFormTitle, submitButtonLabel) {
-        const sections = instance.getSections();
-        if (sections.length > 1) return <TabbedForm />;
-        return (
-            <FormSection
-                section={sections[0]}
-                submitButton={hideFormTitle ? <FormSubmitButton label={submitButtonLabel} /> : null}
-            />
-        );
-    }
+class FormConsumer extends Component {
+    static propTypes = {
+        instance: PropTypes.instanceOf(Object).isRequired,
+        hideFormTitle: PropTypes.bool.isRequired,
+        width: PropTypes.oneOfType([PropTypes.number, PropTypes.string])
+    };
 
     render() {
-        const { instance, hideFormTitle, submitButtonLabel, hideSubsectionTitles } = this.props;
-        console.log('Rendering FormConsumer', hideSubsectionTitles);
-
+        const { instance } = this.props;
         return (
             <div style={formContainer}>
-                {this.renderFormTitle(instance, hideFormTitle, submitButtonLabel)}
-                {this.renderForm(instance, hideFormTitle, submitButtonLabel)}
+                <FormTitle />
+                {instance.sections.length > 1 ? (
+                    <TabbedSections />
+                ) : (
+                    <FormSection section={instance.sections[0]} />
+                )}
             </div>
         );
     }
 }
 
-Form.propTypes = {
-    instance: PropTypes.object.isRequired,
-    submitButtonLabel: PropTypes.string,
-    hideFormTitle: PropTypes.bool,
-    hideSubsectionTitles: PropTypes.bool,
-    width: PropTypes.oneOfType([PropTypes.number, PropTypes.string])
-};
-
-export default Form;
+export default FormConsumer;

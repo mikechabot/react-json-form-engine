@@ -9,6 +9,8 @@ var _react = _interopRequireWildcard(require("react"));
 
 var _propTypes = _interopRequireDefault(require("prop-types"));
 
+var _mobxReact = require("mobx-react");
+
 var _maybeBaby = _interopRequireDefault(require("maybe-baby"));
 
 var _FormControlTitle = _interopRequireDefault(require("./helpers/FormControlTitle"));
@@ -17,9 +19,7 @@ var _FormControlHint = _interopRequireDefault(require("./helpers/FormControlHint
 
 var _ValidationFieldError = _interopRequireDefault(require("./validation/ValidationFieldError"));
 
-var _mobxReact = require("mobx-react");
-
-var _dec, _class;
+var _dec, _class, _class2, _temp;
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -43,7 +43,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 
-var FormControl = (_dec = (0, _mobxReact.inject)('instance'), _dec(_class = (0, _mobxReact.observer)(_class =
+var FormControl = (_dec = (0, _mobxReact.inject)('instance', 'onUpdate'), _dec(_class = (0, _mobxReact.observer)(_class = (_temp = _class2 =
 /*#__PURE__*/
 function (_Component) {
   _inherits(FormControl, _Component);
@@ -66,66 +66,66 @@ function (_Component) {
       }
     }
   }, {
+    key: "renderErrors",
+    value: function renderErrors(id) {
+      var instance = this.props.instance;
+
+      var _instance$getValidati = instance.getValidationResultByTag(id),
+          messages = _instance$getValidati.messages;
+
+      return Object.keys(messages).map(function (key) {
+        return _react.default.createElement(_FormControlHint.default, {
+          key: key,
+          icon: "asterisk",
+          className: "is-danger",
+          text: messages[key].message
+        });
+      });
+    }
+  }, {
     key: "render",
     value: function render() {
       var _this$props = this.props,
           field = _this$props.field,
-          fieldId = _this$props.fieldId,
           onUpdate = _this$props.onUpdate,
           instance = _this$props.instance;
       var component = field.component,
           uiDecorators = field.uiDecorators;
+      var id = field.id,
+          type = field.type;
+      console.log('Render FormControl', id);
 
       if (!component || !component.element) {
-        console.error("Field of type \"".concat(field.type, "\" is missing required \"component\" (id: ").concat(field.id, ")"));
+        console.error("Field of type \"".concat(type, "\" is missing required \"component\" (id: ").concat(id, ")"));
         return _react.default.createElement(_ValidationFieldError.default, {
-          id: field.id
+          id: id
         });
       }
 
-      var hasError = instance.fieldHasError(fieldId);
-      var value = instance.modelValue(fieldId);
-      console.log('Render FormControl', field.id);
+      var hasError = instance.validationMap.fields[id] || false;
+      var value = instance.getModelValue(id);
       var Control = component.element;
-
-      var renderErrors = function renderErrors(id) {
-        var _instance$getValidati = instance.getValidationResultByTag(id),
-            messages = _instance$getValidati.messages;
-
-        return Object.keys(messages).map(function (key) {
-          return _react.default.createElement(_FormControlHint.default, {
-            key: key,
-            icon: "asterisk",
-            className: "is-danger",
-            text: messages[key].message
-          });
-        });
-      };
-
       return _react.default.createElement("span", null, _react.default.createElement(_FormControlTitle.default, {
         field: field,
         decorators: uiDecorators
       }), _react.default.createElement("div", {
         className: "control"
       }, _react.default.createElement(Control, {
-        id: fieldId,
+        id: id,
         value: value,
         field: field,
         hasError: hasError,
         uiDecorators: uiDecorators,
         onUpdate: onUpdate
-      })), this.maybeRenderHint(uiDecorators), hasError ? renderErrors(fieldId) : null);
+      })), this.maybeRenderHint(uiDecorators), hasError ? this.renderErrors(id) : null);
     }
   }]);
 
   return FormControl;
-}(_react.Component)) || _class) || _class);
-FormControl.propTypes = {
-  fieldId: _propTypes.default.string.isRequired,
+}(_react.Component), _class2.propTypes = {
+  instance: _propTypes.default.instanceOf(Object).isRequired,
   field: _propTypes.default.object.isRequired,
-  onUpdate: _propTypes.default.func.isRequired,
-  hasError: _propTypes.default.bool.isRequired,
-  value: _propTypes.default.oneOfType([_propTypes.default.string, _propTypes.default.number, _propTypes.default.bool, _propTypes.default.array, _propTypes.default.object])
-};
+  onUpdate: _propTypes.default.func.isRequired
+}, _temp)) || _class) || _class);
 var _default = FormControl;
 exports.default = _default;

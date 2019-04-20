@@ -5,6 +5,7 @@ import isEmpty from 'lodash/isEmpty';
 
 import FormConsumer from './FormConsumer';
 import ValidationAPIError from './validation/ValidationAPIError';
+import ValidationGenericError from './validation/ValidationGenericError';
 
 class Form extends Component {
     constructor(props) {
@@ -16,21 +17,20 @@ class Form extends Component {
         this.onUpdate = this.onUpdate.bind(this);
     }
 
+    static getDerivedStateFromError(error) {
+        console.log(error);
+        return { hasError: true };
+    }
+
     componentDidMount() {
         const { instance } = this.props;
-        if (instance.isValid()) {
+        if (instance.isValidDefinition()) {
             instance.validate();
         }
     }
 
-    componentDidCatch(error, info) {
-        // You can also log the error to an error reporting service
-        console.log(error);
-    }
-
-    static getDerivedStateFromError(error) {
-        console.log(error);
-        return { hasError: true };
+    componentDidCatch(error) {
+        console.error(error);
     }
 
     onSubmit() {
@@ -56,39 +56,37 @@ class Form extends Component {
     }
 
     render() {
-        const { instance, hideFormTitle, hideSubsectionTitles, hideSubsectionSubtitles } = this.props;
-
-        console.log('Rendering Form');
+        const { instance } = this.props;
 
         if (this.state.hasError) {
-            // You can render any custom fallback UI
-            return <h1>Something went wrong.</h1>;
+            return <ValidationGenericError message="Error during rendering. Check console." />;
         }
 
         // No instance
         if (!instance || isEmpty(instance)) {
-            return <em className="has-text-danger">No form instance</em>;
+            return (
+                <ValidationGenericError message="Missing required form instance. Did you create one with FormEngine?" />
+            );
         }
 
         // Invalid definition
-        if (!instance.isValid()) {
+        if (!instance.isValidDefinition()) {
             return <ValidationAPIError error={instance.error} />;
         }
 
         if (isEmpty(instance.getSections())) {
-            return <em className="has-text-danger">No sections</em>;
+            return <ValidationGenericError message="Form is missing required sections" />;
         }
-
-        console.log(hideSubsectionTitles);
 
         return (
             <Provider
                 instance={instance}
                 onSubmit={this.onSubmit}
                 onUpdate={this.onUpdate}
-                hideFormTitle={hideFormTitle}
-                hideSubsectionTitles={hideSubsectionTitles}
-                hideSubsectionSubtitles={hideSubsectionSubtitles}
+                hideFormTitle={this.props.hideFormTitle}
+                hideSubsectionTitles={this.props.hideSubsectionTitles}
+                hideSubsectionSubtitles={this.props.hideSubsectionSubtitles}
+                submitButtonLabel={this.props.submitButtonLabel}
             >
                 <FormConsumer />
             </Provider>

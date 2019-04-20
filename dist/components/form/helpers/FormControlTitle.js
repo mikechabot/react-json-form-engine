@@ -29,9 +29,9 @@ var hideTitle = function hideTitle(decorators) {
   }).isJust();
 };
 
-var _default = FormControlTitle;
-exports.default = _default;
 FormControlTitle.propTypes = {
   field: _propTypes.default.object.isRequired,
   decorators: _propTypes.default.object
 };
+var _default = FormControlTitle;
+exports.default = _default;

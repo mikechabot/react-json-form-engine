@@ -1,48 +1,51 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { inject, observer } from 'mobx-react';
 
 import { Flex } from '../util';
 
 import FormSubsectionTitle from './helpers/FormSubsectionTitle';
 import FormField from './FormField';
-import { inject, observer } from 'mobx-react';
+import FormSubmitButton from './helpers/FormSubmitButton';
 
-@inject('instance', 'hideSubsectionTitles')
+@inject('instance', 'hideFormTitle', 'hideSubsectionTitles', 'hideSubsectionSubtitles')
 @observer
 class FormSubsection extends Component {
+    static propTypes = {
+        instance: PropTypes.instanceOf(Object).isRequired,
+        subsection: PropTypes.object.isRequired,
+        hideFormTitle: PropTypes.bool.isRequired
+    };
+
     renderSubsectionFields(fields = []) {
         const { instance } = this.props;
         return fields.map(fieldDefinition => {
-            const field = this.props.instance.getField(fieldDefinition.id);
+            const field = instance.getField(fieldDefinition.id);
             if (!instance.isVisible(field)) return null;
-            return <FormField key={field.id} fieldId={field.id} field={field} />;
+            return <FormField key={field.id} field={field} />;
         });
     }
 
+    renderSubmitButton(hideFormTitle) {
+        if (!hideFormTitle) return null;
+        return (
+            <div className="panel-block">
+                <FormSubmitButton />
+            </div>
+        );
+    }
+
     render() {
-        const { subsection, submitButton } = this.props;
-
-        console.log('Rendering FormSubsection', subsection.id, this.props.hideSubsectionTitles);
-
+        const { subsection, hideFormTitle } = this.props;
         return (
             <Flex column={true} flex={1} className="panel" flexShrink={0} height="100%">
-                <FormSubsectionTitle
-                    subsection={subsection}
-                    hideSubsectionTitles={this.props.hideSubsectionTitles}
-                />
+                <FormSubsectionTitle subsection={subsection} />
                 <div style={{ width: '100%', height: '100%', padding: '.5em .75em' }}>
                     {this.renderSubsectionFields(subsection.fields)}
                 </div>
-                {submitButton ? <div className="panel-block">{submitButton}</div> : null}
+                {this.renderSubmitButton(hideFormTitle)}
             </Flex>
         );
     }
 }
-
-FormSubsection.propTypes = {
-    subsection: PropTypes.object.isRequired,
-    hideSubsectionTitles: PropTypes.bool.isRequired,
-    submitButton: PropTypes.node
-};
-
 export default FormSubsection;

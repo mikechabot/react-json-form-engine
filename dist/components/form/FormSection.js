@@ -9,15 +9,9 @@ var _react = _interopRequireWildcard(require("react"));
 
 var _propTypes = _interopRequireDefault(require("prop-types"));
 
-var _reactTabify = require("react-tabify");
-
-var _util = require("../util");
-
 var _FormSubsection = _interopRequireDefault(require("./FormSubsection"));
 
-var _mobxReact = require("mobx-react");
-
-var _dec, _class;
+var _TabbedSubsections = _interopRequireDefault(require("./tabbed/TabbedSubsections"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -41,7 +35,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 
-var FormSection = (_dec = (0, _mobxReact.inject)('instance'), _dec(_class = (0, _mobxReact.observer)(_class =
+var FormSection =
 /*#__PURE__*/
 function (_Component) {
   _inherits(FormSection, _Component);
@@ -53,60 +47,45 @@ function (_Component) {
   }
 
   _createClass(FormSection, [{
+    key: "renderSection",
+    value: function renderSection(section, submitButton) {
+      if (section.subsections.length > 1) {
+        return _react.default.createElement(_TabbedSubsections.default, {
+          section: section
+        });
+      }
+
+      return _react.default.createElement(_FormSubsection.default, {
+        subsection: section.subsections[0],
+        submitButton: submitButton
+      });
+    }
+  }, {
     key: "render",
     value: function render() {
       var _this$props = this.props,
           section = _this$props.section,
-          onUpdate = _this$props.onUpdate,
-          submitButton = _this$props.submitButton,
-          instance = _this$props.instance;
-      var subsections = section.subsections;
-      console.log(this.props);
-      console.log('Rendering FormSection', section.title);
-
-      var getDerivedSubsectionTitle = function getDerivedSubsectionTitle(subsection) {
-        if (!instance.subsectionHasError(subsection)) return subsection.title;
-        return _react.default.createElement("span", null, subsection.title, " ", _react.default.createElement(_util.Asterisk, null));
-      };
-
-      var renderSingleSubsection = function renderSingleSubsection(subsection, isTabbed) {
-        return _react.default.createElement(_FormSubsection.default, {
-          isTabbed: isTabbed,
-          subsection: subsection,
-          onUpdate: onUpdate,
-          submitButton: submitButton
-        });
-      };
-
+          submitButton = _this$props.submitButton;
       return _react.default.createElement("div", {
         style: {
           display: 'flex',
           height: '100%',
           flexShrink: 0
         }
-      }, subsections.length === 1 ? renderSingleSubsection(subsections[0]) : _react.default.createElement(_reactTabify.Tabs, {
-        id: "".concat(section.id, "-subsection-tabs"),
-        defaultActiveKey: 0
-      }, subsections.map(function (subsection, index) {
-        return _react.default.createElement(_reactTabify.Tab, {
-          key: index,
-          eventKey: index,
-          label: getDerivedSubsectionTitle(subsection)
-        }, renderSingleSubsection(subsection, true));
-      })));
+      }, this.renderSection(section, submitButton));
     }
   }]);
 
   return FormSection;
-}(_react.Component)) || _class) || _class);
+}(_react.Component);
+
 FormSection.propTypes = {
   section: _propTypes.default.shape({
     id: _propTypes.default.string.isRequired,
     title: _propTypes.default.string.isRequired,
     subsections: _propTypes.default.array.isRequired
   }),
-  submitButton: _propTypes.default.node,
-  onUpdate: _propTypes.default.func.isRequired
+  submitButton: _propTypes.default.node
 };
 var _default = FormSection;
 exports.default = _default;

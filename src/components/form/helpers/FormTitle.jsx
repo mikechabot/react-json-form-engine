@@ -1,22 +1,30 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { inject, observer } from 'mobx-react';
 
 import { Icon, Flex } from '../../util';
+import FormSubmitButton from './FormSubmitButton';
 
 const DEFAULT_THEME = 'is-dark';
 const className = 'navbar-item is-size-4-desktop is-size-5-tablet is-size-5-mobile';
 
+@inject('instance', 'hideFormTitle')
+@observer
 class FormTitle extends Component {
-    shouldComponentUpdate(nextProps) {
-        return nextProps.label !== this.props.label;
-    }
+    static propTypes = {
+        instance: PropTypes.instanceOf(Object).isRequired,
+        hideFormTitle: PropTypes.bool.isRequired,
+        theme: PropTypes.string
+    };
 
     render() {
-        const { id, theme, iconPrefix, icon, label, controlsRight } = this.props;
-        console.log('Rendering FormTitle', id);
+        const { instance, hideFormTitle, theme } = this.props;
+
+        if (hideFormTitle) return null;
+
         return (
             <Flex
-                id={id}
+                id={`form-title-${instance.getId()}`}
                 vAlignCenter
                 flexShrink={0}
                 justifyContent="space-between"
@@ -24,11 +32,13 @@ class FormTitle extends Component {
             >
                 <div className="navbar-brand">
                     <span className={className}>
-                        {maybeRenderIcon(icon, iconPrefix)}
-                        <span key="label">{label}</span>
+                        {maybeRenderIcon(instance.getFormIcon(), instance.getFormIconPrefix())}
+                        <span key="label">{instance.getFormTitle()}</span>
                     </span>
                 </div>
-                {controlsRight ? <div className="navbar-item">{controlsRight}</div> : null}
+                <div className="navbar-item">
+                    <FormSubmitButton />
+                </div>
             </Flex>
         );
     }
@@ -43,15 +53,6 @@ const maybeRenderIcon = (icon, iconPrefix) => {
             </span>
         );
     }
-};
-
-FormTitle.propTypes = {
-    id: PropTypes.string.isRequired,
-    label: PropTypes.node.isRequired,
-    icon: PropTypes.string,
-    iconPrefix: PropTypes.string,
-    theme: PropTypes.string,
-    controlsRight: PropTypes.node
 };
 
 export default FormTitle;

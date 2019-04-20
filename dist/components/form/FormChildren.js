@@ -9,13 +9,13 @@ var _react = _interopRequireWildcard(require("react"));
 
 var _propTypes = _interopRequireDefault(require("prop-types"));
 
+var _mobxReact = require("mobx-react");
+
 var _FormField = _interopRequireDefault(require("./FormField"));
 
 var _formConst = require("../../form-engine/config/form-const");
 
-var _mobxReact = require("mobx-react");
-
-var _dec, _class;
+var _dec, _class, _class2, _temp;
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -39,7 +39,10 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 
-var FormChildren = (_dec = (0, _mobxReact.inject)('instance'), _dec(_class = (0, _mobxReact.observer)(_class =
+var _PROPERTY$FIELD = _formConst.PROPERTY.FIELD,
+    FIELDS = _PROPERTY$FIELD.FIELDS,
+    ID = _PROPERTY$FIELD.ID;
+var FormChildren = (_dec = (0, _mobxReact.inject)('instance'), _dec(_class = (0, _mobxReact.observer)(_class = (_temp = _class2 =
 /*#__PURE__*/
 function (_Component) {
   _inherits(FormChildren, _Component);
@@ -55,22 +58,19 @@ function (_Component) {
     value: function render() {
       var _this$props = this.props,
           instance = _this$props.instance,
-          onUpdate = _this$props.onUpdate,
           field = _this$props.field;
-      console.log('Rendering FormChildren for', field.id);
-      if (!field[_formConst.PROPERTY.FIELD.FIELDS]) return null;
+      console.log('Rendering FormChildren for', field[ID]);
+      if (!field[FIELDS]) return null;
 
       var renderField = function renderField(child) {
         if (instance.isVisible(child)) {
           return _react.default.createElement("li", {
-            key: child.id,
+            key: child[ID],
             style: {
               marginTop: '.75rem'
             }
           }, _react.default.createElement(_FormField.default, {
-            fieldId: child.id,
-            field: child,
-            onUpdate: onUpdate
+            field: child
           }));
         }
       };
@@ -79,22 +79,21 @@ function (_Component) {
         style: {
           marginLeft: '1rem'
         }
-      }, field[_formConst.PROPERTY.FIELD.FIELDS].map(function (child) {
+      }, field[FIELDS].map(function (child) {
         return renderField(child);
       }));
     }
   }]);
 
   return FormChildren;
-}(_react.Component)) || _class) || _class);
-FormChildren.propTypes = {
+}(_react.Component), _class2.propTypes = {
+  instance: _propTypes.default.instanceOf(Object).isRequired,
   field: _propTypes.default.shape({
     id: _propTypes.default.string.isRequired,
     title: _propTypes.default.string.isRequired,
     fields: _propTypes.default.array,
     options: _propTypes.default.array
-  }),
-  onUpdate: _propTypes.default.func.isRequired
-};
+  })
+}, _temp)) || _class) || _class);
 var _default = FormChildren;
 exports.default = _default;

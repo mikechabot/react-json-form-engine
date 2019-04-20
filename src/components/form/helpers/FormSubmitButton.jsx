@@ -1,21 +1,21 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
-import { inject } from 'mobx-react';
+import { inject, observer } from 'mobx-react';
 
-@inject('onSubmit')
+@inject('onSubmit', 'submitButtonLabel')
+@observer
 class FormSubmitButton extends Component {
+    static propTypes = {
+        onSubmit: PropTypes.func.isRequired,
+        submitButtonLabel: PropTypes.string
+    };
     render() {
         return (
             <button className="button is-link" onClick={this.props.onSubmit}>
-                {this.props.label || 'Submit'}
+                {this.props.submitButtonLabel || 'Submit'}
             </button>
         );
     }
 }
-
-FormSubmitButton.propTypes = {
-    onSubmit: PropTypes.func.isRequired,
-    label: PropTypes.string
-};
 
 export default FormSubmitButton;

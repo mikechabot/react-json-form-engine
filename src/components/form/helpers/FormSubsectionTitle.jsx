@@ -5,16 +5,21 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Asterisk } from '../../util';
 import { inject, observer } from 'mobx-react';
 
-@inject('instance', 'hideSubsectionTitles')
+@inject('instance', 'hideSubsectionTitles', 'hideSubsectionSubtitles')
 @observer
 class FormSubsectionPanelTitle extends Component {
+    static propTypes = {
+        subsection: PropTypes.object.isRequired,
+        hideSubsectionTitles: PropTypes.bool.isRequired,
+        hideSubsectionSubtitles: PropTypes.bool.isRequired
+    };
     render() {
-        const { instance, subsection, hideSubsectionTitles } = this.props;
+        const { instance, subsection, hideSubsectionTitles, hideSubsectionSubtitles } = this.props;
 
-        console.log(hideSubsectionTitles);
+        console.log('FormSubsectionPanelTitle', hideSubsectionTitles);
 
         console.log('Rendering FormSubsectionPanelTitle', subsection.id);
-        if (hideSubsectionTitles && false) {
+        if (hideSubsectionTitles && hideSubsectionSubtitles) {
             return null;
         }
 
@@ -26,7 +31,7 @@ class FormSubsectionPanelTitle extends Component {
         );
 
         const subtitle =
-            false || !subsection.subtitle ? null : (
+            hideSubsectionSubtitles || !subsection.subtitle ? null : (
                 <h2 className="subtitle" style={{ fontSize: '.75em', marginTop: '.25em' }}>
                     <FontAwesomeIcon icon="angle-right" /> {subsection.subtitle}
                 </h2>
@@ -44,10 +49,5 @@ class FormSubsectionPanelTitle extends Component {
         return null;
     }
 }
-
-FormSubsectionPanelTitle.propTypes = {
-    subsection: PropTypes.object.isRequired,
-    hideSubsectionTitles: PropTypes.bool.isRequired
-};
 
 export default FormSubsectionPanelTitle;

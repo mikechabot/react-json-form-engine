@@ -7,13 +7,7 @@ const Select = ({ id, value, field, onUpdate, hasError }) => {
     const isMultiple = __isFieldTypeArray(field);
     return (
         <div className={`select ${isMultiple ? 'is-multiple' : ''} ${hasError ? 'is-danger' : ''}`}>
-            <select
-                value={value}
-                id={id}
-                name={id}
-                onChange={({ target }) => onUpdate(target.options)}
-                multiple={isMultiple}
-            >
+            <select value={value} id={id} name={id} onChange={e => onUpdate(e)} multiple={isMultiple}>
                 {_maybeRenderPlaceholder(field, value)}
                 {_renderOptions(field)}
             </select>

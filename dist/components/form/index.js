@@ -9,23 +9,13 @@ var _react = _interopRequireWildcard(require("react"));
 
 var _propTypes = _interopRequireDefault(require("prop-types"));
 
-var _isEmpty = _interopRequireDefault(require("lodash/isEmpty"));
-
-var _reactTabify = require("react-tabify");
-
-var _util = require("../util");
-
-var _FormSubmitButton = _interopRequireDefault(require("./helpers/FormSubmitButton"));
-
-var _ValidationAPIError = _interopRequireDefault(require("./validation/ValidationAPIError"));
-
-var _FormSection = _interopRequireDefault(require("./FormSection"));
-
-var _FormTitle = _interopRequireDefault(require("./helpers/FormTitle"));
-
 var _mobxReact = require("mobx-react");
 
-var _mobx = require("mobx");
+var _isEmpty = _interopRequireDefault(require("lodash/isEmpty"));
+
+var _FormConsumer = _interopRequireDefault(require("./FormConsumer"));
+
+var _ValidationAPIError = _interopRequireDefault(require("./validation/ValidationAPIError"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -49,10 +39,6 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 
-// if (process.env.NODE_ENV !== 'production') {
-//     const { whyDidYouUpdate } = require('why-did-you-update');
-//     whyDidYouUpdate(React);
-// }
 var Form =
 /*#__PURE__*/
 function (_Component) {
@@ -65,91 +51,21 @@ function (_Component) {
 
     _this = _possibleConstructorReturn(this, _getPrototypeOf(Form).call(this, props));
     _this.state = {
-      instance: props.instance
+      hasError: false
     };
-    _this.onUpdate = _this.onUpdate.bind(_assertThisInitialized(_this));
     _this.onSubmit = _this.onSubmit.bind(_assertThisInitialized(_this));
-    _this.renderSectionTabPane = _this.renderSectionTabPane.bind(_assertThisInitialized(_this));
+    _this.onUpdate = _this.onUpdate.bind(_assertThisInitialized(_this));
     return _this;
   }
 
   _createClass(Form, [{
     key: "componentDidMount",
     value: function componentDidMount() {
-      var instance = this.state.instance;
+      var instance = this.props.instance;
 
       if (instance.isValid()) {
         instance.validate();
       }
-    }
-  }, {
-    key: "renderFormTitle",
-    value: function renderFormTitle() {
-      var instance = this.state.instance;
-
-      if (!this.props.hideTitle) {
-        return _react.default.createElement(_FormTitle.default, {
-          id: "form-title-".concat(instance.getId()),
-          iconPrefix: instance.getFormIconPrefix(),
-          icon: instance.getFormIcon(),
-          label: instance.getFormTitle(),
-          controlsRight: this.renderSubmitButton()
-        });
-      }
-    }
-  }, {
-    key: "renderTabbedSections",
-    value: function renderTabbedSections(sections) {
-      return _react.default.createElement(_reactTabify.Tabs, {
-        stacked: true,
-        id: "form-tabs-".concat(this.props.instance.getId()),
-        defaultActiveKey: 0
-      }, this.renderSectionContent(sections));
-    }
-  }, {
-    key: "renderSectionContent",
-    value: function renderSectionContent(sections) {
-      return sections.map(this.renderSectionTabPane);
-    }
-  }, {
-    key: "renderSectionTabPane",
-    value: function renderSectionTabPane(section, index) {
-      return _react.default.createElement(_reactTabify.Tab, {
-        key: index,
-        eventKey: index,
-        label: this.getDerivedSectionTitle(section)
-      }, this.renderSingleSection(section));
-    }
-  }, {
-    key: "renderSingleSection",
-    value: function renderSingleSection(section) {
-      return _react.default.createElement(_FormSection.default, {
-        section: section,
-        onUpdate: this.onUpdate,
-        submitButton: this.props.hideTitle ? this.renderSubmitButton() : null
-      });
-    }
-  }, {
-    key: "getDerivedSectionTitle",
-    value: function getDerivedSectionTitle(section) {
-      if (!this.state.instance.sectionHasError(section)) return section.title;
-      return _react.default.createElement("span", null, section.title, " ", _react.default.createElement(_util.Asterisk, null));
-    }
-  }, {
-    key: "renderSubmitButton",
-    value: function renderSubmitButton() {
-      return _react.default.createElement(_FormSubmitButton.default, {
-        onSubmit: this.onSubmit,
-        label: this.props.submitButtonLabel
-      });
-    }
-  }, {
-    key: "onSubmit",
-    value: function onSubmit() {
-      var instance = this.state.instance;
-      var onSubmit = this.props.onSubmit;
-      instance.validateOnSubmit();
-      if (onSubmit) onSubmit();
     }
   }, {
     key: "componentDidCatch",
@@ -158,10 +74,20 @@ function (_Component) {
       console.log(error);
     }
   }, {
+    key: "onSubmit",
+    value: function onSubmit() {
+      var _this$props = this.props,
+          instance = _this$props.instance,
+          onSubmit = _this$props.onSubmit;
+      instance.validateOnSubmit();
+      if (onSubmit) onSubmit();
+    }
+  }, {
     key: "onUpdate",
     value: function onUpdate(event, id) {
-      var instance = this.state.instance;
-      var onUpdate = this.props.onUpdate;
+      var _this$props2 = this.props,
+          instance = _this$props2.instance,
+          onUpdate = _this$props2.onUpdate;
       id = id || event.target.id;
       var field = instance.getField(id);
       var value = field.actions.onUpdate(event, field, instance.getModelValue(id));
@@ -178,11 +104,7 @@ function (_Component) {
   }, {
     key: "render",
     value: function render() {
-      var instance = this.state.instance;
-      var _this$props = this.props,
-          hideTitle = _this$props.hideTitle,
-          hideSectionTitles = _this$props.hideSectionTitles,
-          hideSectionSubtitles = _this$props.hideSectionSubtitles;
+      var instance = this.props.instance;
       console.log('Rendering Form');
 
       if (this.state.hasError) {
@@ -204,26 +126,25 @@ function (_Component) {
         });
       }
 
-      var sections = instance.getSections(); // No sections
-
-      if ((0, _isEmpty.default)(sections)) {
+      if ((0, _isEmpty.default)(instance.getSections())) {
         return _react.default.createElement("em", {
           className: "has-text-danger"
         }, "No sections");
       }
 
-      return _react.default.createElement("div", {
-        style: {
-          display: 'flex',
-          flexDirection: 'column',
-          flex: 1,
-          flexShrink: 0,
-          border: '1px solid #dbdbdb'
-        }
-      }, this.renderFormTitle(instance), _react.default.createElement(_mobxReact.Provider, {
+      console.log('********************************');
+      console.log('hideFormTitle', this.props.hideFormTitle);
+      console.log('hideSubsectionTitles', this.props.hideSubsectionTitles);
+      console.log('hideSubsectionSubtitles', this.props.hideSubsectionSubtitles);
+      console.log('********************************');
+      return _react.default.createElement(_mobxReact.Provider, {
         instance: instance,
-        color: "red"
-      }, sections.length > 1 ? this.renderTabbedSections(sections) : this.renderSingleSection(sections[0])));
+        onSubmit: this.onSubmit,
+        onUpdate: this.onUpdate,
+        hideFormTitle: this.props.hideFormTitle,
+        hideSubsectionTitles: this.props.hideSubsectionTitles,
+        hideSubsectionSubtitles: this.props.hideSubsectionSubtitles
+      }, _react.default.createElement(_FormConsumer.default, null));
     }
   }], [{
     key: "getDerivedStateFromError",
@@ -241,9 +162,9 @@ function (_Component) {
 Form.propTypes = {
   instance: _propTypes.default.object.isRequired,
   submitButtonLabel: _propTypes.default.string,
-  hideTitle: _propTypes.default.bool,
-  hideSectionTitles: _propTypes.default.bool,
-  hideSectionSubtitles: _propTypes.default.bool,
+  hideFormTitle: _propTypes.default.bool,
+  hideSubsectionTitles: _propTypes.default.bool,
+  hideSubsectionSubtitles: _propTypes.default.bool,
   width: _propTypes.default.oneOfType([_propTypes.default.number, _propTypes.default.string]),
   onSubmit: _propTypes.default.func.isRequired,
   onUpdate: _propTypes.default.func

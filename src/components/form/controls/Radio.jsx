@@ -35,7 +35,7 @@ const _renderOption = (field, value, onUpdate, option, index) => {
                 {_renderOptionIcon(option, value, isEven)}&nbsp;
                 <div>{option.title}</div>
             </Flex>
-            <FormChildren field={option} onUpdate={onUpdate} />
+            <FormChildren field={option} />
         </Flex>
     );
 };

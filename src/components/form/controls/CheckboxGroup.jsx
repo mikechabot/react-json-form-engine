@@ -19,7 +19,7 @@ const _renderOption = (id, value, onUpdate, option, index) => {
                 onUpdate={() => onUpdate(option.id, id)}
                 value={!value ? false : value.includes(option.id)}
             />
-            <FormChildren field={option} onUpdate={onUpdate} />
+            <FormChildren field={option} />
         </Flex>
     );
 };

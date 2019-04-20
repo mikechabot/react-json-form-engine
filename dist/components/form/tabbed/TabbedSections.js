@@ -9,15 +9,17 @@ var _react = _interopRequireWildcard(require("react"));
 
 var _propTypes = _interopRequireDefault(require("prop-types"));
 
-var _isEmpty = _interopRequireDefault(require("lodash/isEmpty"));
+var _mobxReact = require("mobx-react");
 
-var _util = require("../util");
+var _reactTabify = require("react-tabify");
 
-var _FormControl = _interopRequireDefault(require("./FormControl"));
+var _index = require("../../util/index");
 
-var _FormChildren = _interopRequireDefault(require("./FormChildren"));
+var _FormSubmitButton = _interopRequireDefault(require("../helpers/FormSubmitButton"));
 
-var _formConst = require("../../form-engine/config/form-const");
+var _FormSection = _interopRequireDefault(require("../FormSection"));
+
+var _dec, _class, _class2, _temp;
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -41,62 +43,61 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 
-var _PROPERTY$FIELD = _formConst.PROPERTY.FIELD,
-    ID = _PROPERTY$FIELD.ID,
-    FIELDS = _PROPERTY$FIELD.FIELDS,
-    OPTIONS = _PROPERTY$FIELD.OPTIONS;
-/**
- * Check for child fields, or option fields with children
- * @param field
- * @returns {boolean}
- */
-
-function hasFieldChildren(field) {
-  if (!(0, _isEmpty.default)(field[FIELDS])) {
-    return true;
-  }
-
-  if (!(0, _isEmpty.default)(field[OPTIONS])) {
-    return field[OPTIONS].some(function (option) {
-      return !(0, _isEmpty.default)(option[FIELDS]);
-    });
-  }
-
-  return false;
-}
-
-var FormField =
+var TabbedSections = (_dec = (0, _mobxReact.inject)('instance', 'hideFormTitle'), _dec(_class = (0, _mobxReact.observer)(_class = (_temp = _class2 =
 /*#__PURE__*/
 function (_Component) {
-  _inherits(FormField, _Component);
+  _inherits(TabbedSections, _Component);
 
-  function FormField() {
-    _classCallCheck(this, FormField);
+  function TabbedSections() {
+    _classCallCheck(this, TabbedSections);
 
-    return _possibleConstructorReturn(this, _getPrototypeOf(FormField).apply(this, arguments));
+    return _possibleConstructorReturn(this, _getPrototypeOf(TabbedSections).apply(this, arguments));
   }
 
-  _createClass(FormField, [{
+  _createClass(TabbedSections, [{
+    key: "getDerivedSectionTitle",
+    value: function getDerivedSectionTitle(instance, section) {
+      if (!instance.validationMap.sections[section.id]) return section.title;
+      return _react.default.createElement("span", null, section.title, " ", _react.default.createElement(_index.Asterisk, null));
+    }
+  }, {
+    key: "renderSubmitButton",
+    value: function renderSubmitButton() {
+      return _react.default.createElement(_FormSubmitButton.default, {
+        label: this.props.submitButtonLabel
+      });
+    }
+  }, {
     key: "render",
     value: function render() {
-      var field = this.props.field;
-      if (!field) return null;
-      console.log('Rendering FormField', field[ID]);
-      return _react.default.createElement(_util.Flex, {
-        column: true,
-        className: "field",
-        id: "field-".concat(field[ID])
-      }, _react.default.createElement(_FormControl.default, this.props), hasFieldChildren(field) ? _react.default.createElement(_FormChildren.default, {
-        field: field
-      }) : null);
+      var _this = this;
+
+      var instance = this.props.instance;
+      console.log('Rendering TabbedForm', instance);
+      return _react.default.createElement(_reactTabify.Tabs, {
+        stacked: true,
+        id: "form-tabs-".concat(instance.getId()),
+        defaultActiveKey: 0
+      }, instance.getSections().map(function (section, index) {
+        return _react.default.createElement(_reactTabify.Tab, {
+          key: index,
+          eventKey: index,
+          label: _this.getDerivedSectionTitle(instance, section)
+        }, _react.default.createElement(_FormSection.default, {
+          section: section,
+          isTabbed: true,
+          submitButton: _this.props.hideFormTitle ? _this.renderSubmitButton() : null
+        }));
+      }));
     }
   }]);
 
-  return FormField;
-}(_react.Component);
-
-FormField.propTypes = {
-  field: _propTypes.default.object.isRequired
-};
-var _default = FormField;
+  return TabbedSections;
+}(_react.Component), _class2.propTypes = {
+  instance: _propTypes.default.instanceOf(Object).isRequired,
+  hideFormTitle: _propTypes.default.bool,
+  submitButtonLabel: _propTypes.default.string,
+  width: _propTypes.default.oneOfType([_propTypes.default.number, _propTypes.default.string])
+}, _temp)) || _class) || _class);
+var _default = TabbedSections;
 exports.default = _default;

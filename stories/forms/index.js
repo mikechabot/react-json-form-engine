@@ -1,5 +1,6 @@
 export { default as loginForm } from './examples/example-login-form';
 export { default as simpleForm } from './examples/example-simple-form';
+export { default as rehydratedForm } from './examples/example-rehydrated-form';
 export { default as malformedForm } from './data-types/malformed-form';
 export { default as stringsForm } from './data-types/strings-form';
 export { default as booleansForm } from './data-types/booleans-form';
