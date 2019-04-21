@@ -10,13 +10,22 @@ const {
     FIELD: { FIELDS, ID }
 } = PROPERTY;
 
+const styles = {
+    list: {
+        marginLeft: '1rem'
+    },
+    listItem: {
+        marginTop: '.75rem'
+    }
+};
+
 @inject('instance')
 @observer
 class FormChildren extends Component {
     static propTypes = {
         instance: PropTypes.instanceOf(Object).isRequired,
         field: PropTypes.shape({
-            id: PropTypes.string, // Radio booleans do not have ids
+            id: PropTypes.string,
             title: PropTypes.string.isRequired,
             fields: PropTypes.array,
             options: PropTypes.array
@@ -26,17 +35,19 @@ class FormChildren extends Component {
     render() {
         const { instance, field } = this.props;
         if (!field[FIELDS]) return null;
-        const renderField = child => {
-            if (instance.isVisible(child)) {
-                return (
-                    <li key={child[ID]} style={{ marginTop: '.75rem' }}>
-                        <FormField field={child} />
-                    </li>
-                );
-            }
-        };
-
-        return <ul style={{ marginLeft: '1rem' }}>{field[FIELDS].map(child => renderField(child))}</ul>;
+        return (
+            <ul style={styles.list}>
+                {field[FIELDS].map(child => {
+                    if (instance.isVisible(child)) {
+                        return (
+                            <li key={child[ID]} style={styles.listItem}>
+                                <FormField field={child} />
+                            </li>
+                        );
+                    }
+                })}
+            </ul>
+        );
     }
 }
 

@@ -5,7 +5,7 @@ const Icon = ({ icon, prefix, title, className }) => {
     let iconPrefix = prefix || 'fas';
     return (
         <span title={title}>
-        <i className={`${iconPrefix} fa-${icon} ${className || ''}`} />
+            <i className={`${iconPrefix} fa-${icon} ${className || ''}`} />
         </span>
     );
 };

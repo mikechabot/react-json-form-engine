@@ -62,17 +62,19 @@ function () {
       this.__isDefinitionValid = false;
       this.error = error;
       return;
-    }
+    } // Form definition
 
-    this.definition = definition; // Form definition
 
-    this.decorators = definition.decorators || {}; // UI decorators
+    this.definition = definition; // UI decorators
 
-    this.showConditionTriggerMap = {}; // Map of field ids keyed by trigger id
+    this.decorators = definition.decorators || {}; // Map of field ids keyed by trigger id
 
-    this.validationResults = new _validationResults.default(); // Stores validation results
+    this.showConditionTriggerMap = {}; // Stores validation results
+
+    this.validationResults = new _validationResults.default(); // Observable built from validationResults
 
     this.validationMap = {
+      form: false,
       sections: {},
       subsections: {},
       fields: {}
@@ -94,11 +96,11 @@ function () {
   _createClass(FormEngine, [{
     key: "__initInstance",
     value: function __initInstance(model) {
-      this.__hydrateModel(model);
-
       this.__cloneSections();
 
       this.__initFieldMetadata();
+
+      this.__hydrateModel(model);
     }
     /**
      * Hydrate the instance mode with existing data
@@ -125,7 +127,7 @@ function () {
       }
 
       Object.keys(parsed).forEach(function (key) {
-        _this.model[key] = model[key];
+        _this.model[key] = parsed[key];
       });
     }
     /**
@@ -302,7 +304,11 @@ function () {
   }, {
     key: "getFormIcon",
     value: function getFormIcon() {
-      return _maybeBaby.default.of(this.definition).prop('faIcon').prop('name').join();
+      var _this6 = this;
+
+      return _maybeBaby.default.of(function () {
+        return _this6.definition.faIcon.name;
+      }).join();
     }
     /**
      * Get form icon prefix
@@ -312,7 +318,11 @@ function () {
   }, {
     key: "getFormIconPrefix",
     value: function getFormIconPrefix() {
-      return _maybeBaby.default.of(this.definition).prop('faIcon').prop('prefix').join();
+      var _this7 = this;
+
+      return _maybeBaby.default.of(function () {
+        return _this7.definition.faIcon.prefix;
+      }).join();
     }
     /**
      * Return whether the form is valid
@@ -320,8 +330,8 @@ function () {
      */
 
   }, {
-    key: "isValid",
-    value: function isValid() {
+    key: "isValidDefinition",
+    value: function isValidDefinition() {
       return this.__isDefinitionValid;
     }
     /**
@@ -352,16 +362,6 @@ function () {
     key: "getId",
     value: function getId() {
       return this.getDefinition()[DEFINITION.ID];
-    }
-    /**
-     * Get form model
-     * @returns {*}
-     */
-
-  }, {
-    key: "getModel",
-    value: function getModel() {
-      return this.model;
     }
     /**
      * Serialize the model to json
@@ -457,6 +457,12 @@ function () {
     value: function isBooleanField(field) {
       return field[FIELD.TYPE] === _formConst.DATA_TYPE.BOOLEAN;
     }
+    /**
+     * Get a field's value
+     * @param id
+     * @returns {*}
+     */
+
   }, {
     key: "getModelValue",
     value: function getModelValue(id) {
@@ -472,7 +478,7 @@ function () {
   }, {
     key: "setModelValue",
     value: function setModelValue(id, value, field) {
-      var _this6 = this;
+      var _this8 = this;
 
       // Set or reset the model value
       if (value === this.getModelValue(id)) return;
@@ -493,8 +499,8 @@ function () {
 
       if (field[FIELD.OPTIONS]) {
         field[FIELD.OPTIONS].forEach(function (option) {
-          if (option[FIELD.FIELDS] && (_this6.isBooleanField(field) && !value || !(0, _includes.default)(value, option[FIELD.ID]))) {
-            _this6.resetFields(option[FIELD.FIELDS]);
+          if (option[FIELD.FIELDS] && (_this8.isBooleanField(field) && !value || !(0, _includes.default)(value, option[FIELD.ID]))) {
+            _this8.resetFields(option[FIELD.FIELDS]);
           }
         });
       } // Evaluate the show condition of dependent fields if this field is a trigger
@@ -502,8 +508,8 @@ function () {
 
       if (this.showConditionTriggerMap[id]) {
         this.showConditionTriggerMap[id].forEach(function (fieldId) {
-          if (_this6.hasModelValue(fieldId) && !_this6.isVisible(_this6.getField(fieldId))) {
-            _this6.setModelValue(fieldId, _formConst.NO_VALUE, _this6.getField(fieldId));
+          if (_this8.hasModelValue(fieldId) && !_this8.isVisible(_this8.getField(fieldId))) {
+            _this8.setModelValue(fieldId, _formConst.NO_VALUE, _this8.getField(fieldId));
           }
         });
       }
@@ -516,12 +522,12 @@ function () {
   }, {
     key: "resetFields",
     value: function resetFields(fields) {
-      var _this7 = this;
+      var _this9 = this;
 
       if (fields) {
         fields.forEach(function (field) {
-          if (_this7.hasModelValue(field[FIELD.ID]) && !_this7.isVisible(field)) {
-            _this7.setModelValue(field[FIELD.ID], _formConst.NO_VALUE, field);
+          if (_this9.hasModelValue(field[FIELD.ID]) && !_this9.isVisible(field)) {
+            _this9.setModelValue(field[FIELD.ID], _formConst.NO_VALUE, field);
           }
         });
       }
@@ -562,6 +568,12 @@ function () {
           }
       }
     }
+    /**
+     * Determine whether a field has a showCondition
+     * @param field
+     * @returns {boolean}
+     */
+
   }, {
     key: "hasShowCondition",
     value: function hasShowCondition(field) {
@@ -592,58 +604,82 @@ function () {
       if (!condition) return false;
       return _expressionService.default.evalCondition(condition, this);
     }
+    /**
+     * Validate the form instance
+     * @param comprehensive
+     */
+
   }, {
     key: "validate",
     value: function validate() {
       var comprehensive = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : false;
       this.validationResults = _formValidator.default.validate(this, this.validationResults, comprehensive);
-      this.rebuildValidationMap();
+      this.buildObservableValidationMap();
     }
+    /**
+     * Validate the form instance during form submission
+     */
+
   }, {
     key: "validateOnSubmit",
     value: function validateOnSubmit() {
       this.validate(true);
     }
-  }, {
-    key: "rebuildValidationMap",
-    value: function rebuildValidationMap() {
-      var _this8 = this;
+    /**
+     * Build an observable map based on validationResults.
+     * This map holds all sections, subsections and fields.
+     */
 
+  }, {
+    key: "buildObservableValidationMap",
+    value: function buildObservableValidationMap() {
+      var _this10 = this;
+
+      this.validationMap.form = this.hasError();
       this.sections.forEach(function (section) {
-        _this8.validationMap.sections[section[FIELD.ID]] = _this8.sectionHasError(section);
+        _this10.validationMap.sections[section[FIELD.ID]] = _this10.sectionHasError(section);
         section.subsections.forEach(function (subsection) {
-          _this8.validationMap.subsections[subsection[FIELD.ID]] = _this8.subsectionHasError(subsection);
+          _this10.validationMap.subsections[subsection[FIELD.ID]] = _this10.subsectionHasError(subsection);
         });
       });
       Object.keys(this.fields).forEach(function (id) {
-        _this8.validationMap.fields[id] = _this8.fieldHasError(id);
+        _this10.validationMap.fields[id] = _this10.fieldHasError(id);
       });
     }
-  }, {
-    key: "hasError",
-    value: function hasError() {
-      return this.validationResults.hasError();
-    }
-  }, {
-    key: "getValidationResults",
-    value: function getValidationResults() {
-      return this.validationResults;
-    }
+    /**
+     * Get validation results by field id
+     * @param id
+     * @returns {{status: (*|string), messages: (*|Array)}}
+     */
+
   }, {
     key: "getValidationResultByTag",
     value: function getValidationResultByTag(id) {
       return this.validationResults.getResults(id);
     }
+    /**
+     * Get validation results status (e.g. ERROR, OK) by field id
+     * @param id
+     * @returns {*|string}
+     */
+
   }, {
     key: "getValidationStatusByTag",
     value: function getValidationStatusByTag(id) {
       return this.getValidationResultByTag(id).status;
     }
+    /**
+     * Recursively check for validation statuses, and return
+     * the most severe status
+     * @param id
+     * @returns {*|string}
+     */
+
   }, {
     key: "getDeepValidationStatusByTag",
     value: function getDeepValidationStatusByTag(id) {
       var status = this.getValidationResultByTag(id).status;
-      var newStatus = this.findStatus(this.getField(id)[FIELD.FIELDS], this.getDeepValidationStatusByTag.bind(this), true);
+      var newStatus = this.findValidationStatus(this.getField(id)[FIELD.FIELDS], this.getDeepValidationStatusByTag.bind(this), true);
 
       if (_validationService.default.isMoreSevereStatus(newStatus, status)) {
         status = newStatus;
@@ -651,9 +687,18 @@ function () {
 
       return status;
     }
+    /**
+     * Generically find the validation status of sections, subsections, or fields.
+     * Return the most severe status.
+     * @param list
+     * @param getStatus
+     * @param useId
+     * @returns {string}
+     */
+
   }, {
-    key: "findStatus",
-    value: function findStatus() {
+    key: "findValidationStatus",
+    value: function findValidationStatus() {
       var list = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : [];
       var getStatus = arguments.length > 1 ? arguments[1] : undefined;
       var useId = arguments.length > 2 ? arguments[2] : undefined;
@@ -667,30 +712,70 @@ function () {
       });
       return status;
     }
+    /**
+     * Return the validation status of a subsection
+     * @param subsection
+     * @returns {string}
+     */
+
   }, {
     key: "getSubsectionStatus",
     value: function getSubsectionStatus(subsection) {
-      return this.findStatus(subsection.fields, this.getDeepValidationStatusByTag.bind(this), true);
+      return this.findValidationStatus(subsection.fields, this.getDeepValidationStatusByTag.bind(this), true);
     }
+    /**
+     * Return the validation status of a section
+     * @param section
+     * @returns {string}
+     */
+
   }, {
     key: "getSectionStatus",
     value: function getSectionStatus(section) {
-      return this.findStatus(section.subsections, this.getSubsectionStatus.bind(this));
+      return this.findValidationStatus(section.subsections, this.getSubsectionStatus.bind(this));
     }
+    /**
+     * Determine if a field has a validation error
+     * @param id
+     * @returns {*}
+     */
+
   }, {
     key: "fieldHasError",
     value: function fieldHasError(id) {
       return _validationService.default.isError(this.getValidationStatusByTag(id));
     }
+    /**
+     * Determine if a subsection has a validation error
+     * @param subsection
+     * @returns {*}
+     */
+
   }, {
     key: "subsectionHasError",
     value: function subsectionHasError(subsection) {
       return _validationService.default.isError(this.getSubsectionStatus(subsection));
     }
+    /**
+     * Determine if a section has a validation error
+     * @param section
+     * @returns {*}
+     */
+
   }, {
     key: "sectionHasError",
     value: function sectionHasError(section) {
       return _validationService.default.isError(this.getSectionStatus(section));
+    }
+    /**
+     * Determine if the form instance has a validation error
+     * @returns {boolean}
+     */
+
+  }, {
+    key: "hasError",
+    value: function hasError() {
+      return this.validationResults.hasError();
     }
   }]);
 

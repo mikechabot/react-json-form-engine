@@ -19,19 +19,25 @@ var _util = require("../../util");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
+var styles = {
+  container: {
+    display: 'flex'
+  },
+  containerInline: {
+    display: 'flex',
+    flexDirection: 'column'
+  }
+};
+
 var Radio = function Radio(_ref) {
   var id = _ref.id,
       value = _ref.value,
       field = _ref.field,
       onUpdate = _ref.onUpdate;
-  return _react.default.createElement(_util.Flex, {
-    column: !field.inline,
+  return _react.default.createElement("div", {
+    styles: field.inline ? styles.containerInline : styles.container,
     id: id
-  }, _renderOptions(field, value, onUpdate));
-};
-
-var _renderOptions = function _renderOptions(field, value, onUpdate) {
-  return field.options.map(_renderOption.bind(null, field, value, onUpdate));
+  }, field.options.map(_renderOption.bind(null, field, value, onUpdate)));
 };
 
 var _renderOption = function _renderOption(field, value, onUpdate, option, index) {
@@ -48,26 +54,23 @@ var _renderOption = function _renderOption(field, value, onUpdate, option, index
   }, _react.default.createElement(_util.Flex, {
     cursor: "pointer",
     vAlignCenter: true,
-    onClick: _handleOnClick.bind(null, field, option, onUpdate, isEven)
+    onClick: function onClick() {
+      return onUpdate(option.id || isEven, field.id);
+    }
   }, _renderOptionIcon(option, value, isEven), "\xA0", _react.default.createElement("div", null, option.title)), _react.default.createElement(_FormChildren.default, {
-    field: option,
-    onUpdate: onUpdate
+    field: option
   }));
 };
 
 var _renderOptionIcon = function _renderOptionIcon(option, value, isEven) {
-  return _isChecked(option, value, isEven) ? _react.default.createElement(_reactFontawesome.FontAwesomeIcon, {
+  return isChecked(option, value, isEven) ? _react.default.createElement(_reactFontawesome.FontAwesomeIcon, {
     icon: ['far', 'dot-circle']
   }) : _react.default.createElement(_reactFontawesome.FontAwesomeIcon, {
     icon: ['far', 'circle']
   });
 };
 
-var _handleOnClick = function _handleOnClick(field, option, onUpdate, isEven) {
-  onUpdate(option.id || isEven, field.id);
-};
-
-var _isChecked = function _isChecked(option, value, isEven) {
+var isChecked = function isChecked(option, value, isEven) {
   if ((0, _isNil.default)(value)) return false;
   if (option.id) return option.id === value;
   return isEven ? value : !value;

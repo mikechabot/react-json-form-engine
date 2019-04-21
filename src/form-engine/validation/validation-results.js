@@ -17,16 +17,6 @@ class ValidationResults {
     }
 
     /**
-     * Clear validation results
-     */
-    clear() {
-        this.validationMap = {};
-        this.validationStateMap = {};
-        this.actionMap = {};
-        this.overallStatus = OK;
-    }
-
-    /**
      * Add a validation message to the results object. Validation messages
      * are associated to form fields via the tag property.
      * @param tag
@@ -147,6 +137,11 @@ class ValidationResults {
         }
     }
 
+    /**
+     * Remove a MISSING_REQUIRED error from a tag if it exists
+     * @param tag
+     * @param actions
+     */
     removeMissingRequired(tag, actions) {
         if (this.hasMessageType(tag, MISSING_REQUIRED)) {
             this.removeValidationMessage(tag, MISSING_REQUIRED, ERROR, actions);
@@ -165,6 +160,11 @@ class ValidationResults {
         }
     }
 
+    /**
+     * Remove an INVALID_NUMERIC error from a tag if it exists
+     * @param tag
+     * @param actions
+     */
     removeInvalidNumeric(tag, actions) {
         if (this.hasMessageType(tag, INVALID_NUMERIC)) {
             this.removeValidationMessage(tag, INVALID_NUMERIC, ERROR, actions);
@@ -183,6 +183,11 @@ class ValidationResults {
         }
     }
 
+    /**
+     * Remove an INVALID_REGEX error from a tag if it exists
+     * @param tag
+     * @param actions
+     */
     removeInvalidRegex(tag, actions) {
         if (this.hasMessageType(tag, INVALID_REGEX)) {
             this.removeValidationMessage(tag, INVALID_REGEX, ERROR, actions);

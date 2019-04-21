@@ -9,7 +9,7 @@ var _react = _interopRequireDefault(require("react"));
 
 var _propTypes = _interopRequireDefault(require("prop-types"));
 
-var _FormControlHint = _interopRequireDefault(require("../helpers/FormControlHint"));
+var _FormControlHint = _interopRequireDefault(require("../form/util/FormControlHint"));
 
 var _reactFontawesome = require("@fortawesome/react-fontawesome");
 

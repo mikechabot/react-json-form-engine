@@ -13,9 +13,13 @@ var _mobxReact = require("mobx-react");
 
 var _isEmpty = _interopRequireDefault(require("lodash/isEmpty"));
 
+var _formConst = require("../../form-engine/config/form-const");
+
 var _FormConsumer = _interopRequireDefault(require("./FormConsumer"));
 
-var _ValidationAPIError = _interopRequireDefault(require("./validation/ValidationAPIError"));
+var _ValidationAPIError = _interopRequireDefault(require("../validation/ValidationAPIError"));
+
+var _ValidationGenericError = _interopRequireDefault(require("../validation/ValidationGenericError"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -63,15 +67,14 @@ function (_Component) {
     value: function componentDidMount() {
       var instance = this.props.instance;
 
-      if (instance.isValid()) {
+      if (instance.isValidDefinition()) {
         instance.validate();
       }
     }
   }, {
     key: "componentDidCatch",
-    value: function componentDidCatch(error, info) {
-      // You can also log the error to an error reporting service
-      console.log(error);
+    value: function componentDidCatch(error) {
+      console.error(error);
     }
   }, {
     key: "onSubmit",
@@ -105,45 +108,41 @@ function (_Component) {
     key: "render",
     value: function render() {
       var instance = this.props.instance;
-      console.log('Rendering Form');
 
       if (this.state.hasError) {
-        // You can render any custom fallback UI
-        return _react.default.createElement("h1", null, "Something went wrong.");
+        return _react.default.createElement(_ValidationGenericError.default, {
+          message: _formConst.ERROR_MESSAGE.NO_RENDER
+        });
       } // No instance
 
 
       if (!instance || (0, _isEmpty.default)(instance)) {
-        return _react.default.createElement("em", {
-          className: "has-text-danger"
-        }, "No form instance");
+        return _react.default.createElement(_ValidationGenericError.default, {
+          message: _formConst.ERROR_MESSAGE.NO_INSTANCE
+        });
       } // Invalid definition
 
 
-      if (!instance.isValid()) {
+      if (!instance.isValidDefinition()) {
         return _react.default.createElement(_ValidationAPIError.default, {
-          error: instance.error
+          error: instance.getError()
         });
       }
 
       if ((0, _isEmpty.default)(instance.getSections())) {
-        return _react.default.createElement("em", {
-          className: "has-text-danger"
-        }, "No sections");
+        return _react.default.createElement(_ValidationGenericError.default, {
+          message: _formConst.ERROR_MESSAGE.NO_SECTIONS
+        });
       }
 
-      console.log('********************************');
-      console.log('hideFormTitle', this.props.hideFormTitle);
-      console.log('hideSubsectionTitles', this.props.hideSubsectionTitles);
-      console.log('hideSubsectionSubtitles', this.props.hideSubsectionSubtitles);
-      console.log('********************************');
       return _react.default.createElement(_mobxReact.Provider, {
         instance: instance,
         onSubmit: this.onSubmit,
         onUpdate: this.onUpdate,
         hideFormTitle: this.props.hideFormTitle,
         hideSubsectionTitles: this.props.hideSubsectionTitles,
-        hideSubsectionSubtitles: this.props.hideSubsectionSubtitles
+        hideSubsectionSubtitles: this.props.hideSubsectionSubtitles,
+        submitButtonLabel: this.props.submitButtonLabel
       }, _react.default.createElement(_FormConsumer.default, null));
     }
   }], [{

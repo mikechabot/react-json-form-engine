@@ -3,9 +3,11 @@ import PropTypes from 'prop-types';
 import { Provider } from 'mobx-react';
 import isEmpty from 'lodash/isEmpty';
 
+import { ERROR_MESSAGE } from '../../form-engine/config/form-const';
+
 import FormConsumer from './FormConsumer';
-import ValidationAPIError from './validation/ValidationAPIError';
-import ValidationGenericError from './validation/ValidationGenericError';
+import ValidationAPIError from '../validation/ValidationAPIError';
+import ValidationGenericError from '../validation/ValidationGenericError';
 
 class Form extends Component {
     constructor(props) {
@@ -59,23 +61,21 @@ class Form extends Component {
         const { instance } = this.props;
 
         if (this.state.hasError) {
-            return <ValidationGenericError message="Error during rendering. Check console." />;
+            return <ValidationGenericError message={ERROR_MESSAGE.NO_RENDER} />;
         }
 
         // No instance
         if (!instance || isEmpty(instance)) {
-            return (
-                <ValidationGenericError message="Missing required form instance. Did you create one with FormEngine?" />
-            );
+            return <ValidationGenericError message={ERROR_MESSAGE.NO_INSTANCE} />;
         }
 
         // Invalid definition
         if (!instance.isValidDefinition()) {
-            return <ValidationAPIError error={instance.error} />;
+            return <ValidationAPIError error={instance.getError()} />;
         }
 
         if (isEmpty(instance.getSections())) {
-            return <ValidationGenericError message="Form is missing required sections" />;
+            return <ValidationGenericError message={ERROR_MESSAGE.NO_SECTIONS} />;
         }
 
         return (

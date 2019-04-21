@@ -2,11 +2,15 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import isEmpty from 'lodash/isEmpty';
 
-import { Flex } from '../util';
 import FormControl from './FormControl';
 import FormChildren from './FormChildren';
 
 import { PROPERTY } from '../../form-engine/config/form-const';
+
+const style = {
+    display: 'flex',
+    flexDirection: 'column'
+};
 
 const {
     FIELD: { ID, FIELDS, OPTIONS }
@@ -37,10 +41,10 @@ class FormField extends Component {
         const { field } = this.props;
         if (!field) return null;
         return (
-            <Flex column className="field" id={`field-${field[ID]}`}>
+            <div style={style} className="field" id={`field-${field[ID]}`}>
                 <FormControl field={field} />
                 {hasFieldChildren(field) ? <FormChildren field={field} /> : null}
-            </Flex>
+            </div>
         );
     }
 }

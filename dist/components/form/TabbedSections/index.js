@@ -11,6 +11,12 @@ var _propTypes = _interopRequireDefault(require("prop-types"));
 
 var _mobxReact = require("mobx-react");
 
+var _reactTabify = require("react-tabify");
+
+var _index = require("../../util/index");
+
+var _FormSection = _interopRequireDefault(require("../FormSection"));
+
 var _dec, _class, _class2, _temp;
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
@@ -35,31 +41,53 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 
-var FormSubmitButton = (_dec = (0, _mobxReact.inject)('onSubmit'), _dec(_class = (0, _mobxReact.observer)(_class = (_temp = _class2 =
+var TabbedSections = (_dec = (0, _mobxReact.inject)('instance', 'hideFormTitle', 'hideSubsectionTitles', 'hideSubsectionSubtitles', 'submitButtonLabel'), _dec(_class = (0, _mobxReact.observer)(_class = (_temp = _class2 =
 /*#__PURE__*/
 function (_Component) {
-  _inherits(FormSubmitButton, _Component);
+  _inherits(TabbedSections, _Component);
 
-  function FormSubmitButton() {
-    _classCallCheck(this, FormSubmitButton);
+  function TabbedSections() {
+    _classCallCheck(this, TabbedSections);
 
-    return _possibleConstructorReturn(this, _getPrototypeOf(FormSubmitButton).apply(this, arguments));
+    return _possibleConstructorReturn(this, _getPrototypeOf(TabbedSections).apply(this, arguments));
   }
 
-  _createClass(FormSubmitButton, [{
+  _createClass(TabbedSections, [{
+    key: "getDerivedSectionTitle",
+    value: function getDerivedSectionTitle(instance, section) {
+      if (!instance.validationMap.sections[section.id]) return section.title;
+      return _react.default.createElement("span", null, section.title, " ", _react.default.createElement(_index.Asterisk, null));
+    }
+  }, {
     key: "render",
     value: function render() {
-      return _react.default.createElement("button", {
-        className: "button is-link",
-        onClick: this.props.onSubmit
-      }, this.props.label || 'Submit');
+      var _this = this;
+
+      var instance = this.props.instance;
+      console.log('Rendering TabbedForm', instance);
+      return _react.default.createElement(_reactTabify.Tabs, {
+        stacked: true,
+        id: "form-tabs-".concat(instance.getId()),
+        defaultActiveKey: 0
+      }, instance.getSections().map(function (section, index) {
+        return _react.default.createElement(_reactTabify.Tab, {
+          key: index,
+          eventKey: index,
+          label: _this.getDerivedSectionTitle(instance, section)
+        }, _react.default.createElement(_FormSection.default, {
+          section: section,
+          isTabbed: true
+        }));
+      }));
     }
   }]);
 
-  return FormSubmitButton;
+  return TabbedSections;
 }(_react.Component), _class2.propTypes = {
-  onSubmit: _propTypes.default.func.isRequired,
-  label: _propTypes.default.string
+  instance: _propTypes.default.instanceOf(Object).isRequired,
+  hideFormTitle: _propTypes.default.bool,
+  submitButtonLabel: _propTypes.default.string,
+  width: _propTypes.default.oneOfType([_propTypes.default.number, _propTypes.default.string])
 }, _temp)) || _class) || _class);
-var _default = FormSubmitButton;
+var _default = TabbedSections;
 exports.default = _default;

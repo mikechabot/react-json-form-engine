@@ -6,16 +6,22 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import FormChildren from '../FormChildren';
 import { Flex } from '../../util';
 
-const Radio = ({ id, value, field, onUpdate }) => {
-    return (
-        <Flex column={!field.inline} id={id}>
-            {_renderOptions(field, value, onUpdate)}
-        </Flex>
-    );
+const styles = {
+    container: {
+        display: 'flex'
+    },
+    containerInline: {
+        display: 'flex',
+        flexDirection: 'column'
+    }
 };
 
-const _renderOptions = (field, value, onUpdate) => {
-    return field.options.map(_renderOption.bind(null, field, value, onUpdate));
+const Radio = ({ id, value, field, onUpdate }) => {
+    return (
+        <div styles={field.inline ? styles.containerInline : styles.container} id={id}>
+            {field.options.map(_renderOption.bind(null, field, value, onUpdate))}
+        </div>
+    );
 };
 
 const _renderOption = (field, value, onUpdate, option, index) => {
@@ -30,7 +36,7 @@ const _renderOption = (field, value, onUpdate, option, index) => {
             <Flex
                 cursor="pointer"
                 vAlignCenter={true}
-                onClick={_handleOnClick.bind(null, field, option, onUpdate, isEven)}
+                onClick={() => onUpdate(option.id || isEven, field.id)}
             >
                 {_renderOptionIcon(option, value, isEven)}&nbsp;
                 <div>{option.title}</div>
@@ -41,18 +47,14 @@ const _renderOption = (field, value, onUpdate, option, index) => {
 };
 
 const _renderOptionIcon = (option, value, isEven) => {
-    return _isChecked(option, value, isEven) ? (
+    return isChecked(option, value, isEven) ? (
         <FontAwesomeIcon icon={['far', 'dot-circle']} />
     ) : (
         <FontAwesomeIcon icon={['far', 'circle']} />
     );
 };
 
-const _handleOnClick = (field, option, onUpdate, isEven) => {
-    onUpdate(option.id || isEven, field.id);
-};
-
-const _isChecked = (option, value, isEven) => {
+const isChecked = (option, value, isEven) => {
     if (isNil(value)) return false;
     if (option.id) return option.id === value;
     return isEven ? value : !value;

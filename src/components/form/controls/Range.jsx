@@ -2,17 +2,40 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import isNil from 'lodash/isNil';
 
-import { Flex } from '../../util';
+const styles = {
+    container: {
+        display: 'flex',
+        flexDirection: 'column',
+        flexShrink: 0
+    },
+    noValue: {
+        display: 'flex',
+        justifyContent: 'center'
+    },
+    sliderContainer: {
+        display: 'flex',
+        flex: 1
+    },
+    slider: {
+        width: '100%'
+    },
+    minLabel: {
+        marginRight: '0.25rem'
+    },
+    maxLabel: {
+        marginLeft: '0.25rem'
+    }
+};
 
 const Range = ({ id, field, value, onUpdate }) => {
     return (
-        <Flex column flexShrink={0}>
-            <Flex hAlignCenter>{!isNil(value) ? value : 'No Value'}</Flex>
-            <Flex flex={1}>
-                <MinMaxLabel value={field.min} style={{ marginRight: '0.25rem' }} />
-                <Flex flex={1}>
+        <div styles={styles.container}>
+            <div styles={styles.noValue}>{!isNil(value) ? value : 'No Value'}</div>
+            <div style={styles.sliderContainer}>
+                <MinMaxLabel value={field.min} style={styles.minLabel} />
+                <div style={styles.sliderContainer}>
                     <input
-                        style={{ width: '100%' }}
+                        style={styles.slider}
                         name={id}
                         id={id}
                         type="range"
@@ -21,10 +44,10 @@ const Range = ({ id, field, value, onUpdate }) => {
                         min={field.min}
                         onChange={onUpdate}
                     />
-                </Flex>
-                <MinMaxLabel value={field.max} style={{ marginLeft: '0.25rem' }} />
-            </Flex>
-        </Flex>
+                </div>
+                <MinMaxLabel value={field.max} style={styles.maxLabel} />
+            </div>
+        </div>
     );
 };
 
@@ -42,7 +65,7 @@ Range.propTypes = {
     id: PropTypes.string.isRequired,
     field: PropTypes.object.isRequired,
     value: PropTypes.number,
-    onUpdate: PropTypes.func.isRequired,
+    onUpdate: PropTypes.func.isRequired
 };
 
 export default Range;

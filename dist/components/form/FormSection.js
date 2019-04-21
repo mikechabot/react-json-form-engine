@@ -11,7 +11,7 @@ var _propTypes = _interopRequireDefault(require("prop-types"));
 
 var _FormSubsection = _interopRequireDefault(require("./FormSubsection"));
 
-var _TabbedSubsections = _interopRequireDefault(require("./tabbed/TabbedSubsections"));
+var _TabbedSubsections = _interopRequireDefault(require("./TabbedSubsections"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
@@ -35,6 +35,12 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 
+var style = {
+  display: 'flex',
+  height: '100%',
+  flexShrink: 0
+};
+
 var FormSection =
 /*#__PURE__*/
 function (_Component) {
@@ -47,32 +53,16 @@ function (_Component) {
   }
 
   _createClass(FormSection, [{
-    key: "renderSection",
-    value: function renderSection(section, submitButton) {
-      if (section.subsections.length > 1) {
-        return _react.default.createElement(_TabbedSubsections.default, {
-          section: section
-        });
-      }
-
-      return _react.default.createElement(_FormSubsection.default, {
-        subsection: section.subsections[0],
-        submitButton: submitButton
-      });
-    }
-  }, {
     key: "render",
     value: function render() {
-      var _this$props = this.props,
-          section = _this$props.section,
-          submitButton = _this$props.submitButton;
+      var section = this.props.section;
       return _react.default.createElement("div", {
-        style: {
-          display: 'flex',
-          height: '100%',
-          flexShrink: 0
-        }
-      }, this.renderSection(section, submitButton));
+        style: style
+      }, section.subsections.length > 1 ? _react.default.createElement(_TabbedSubsections.default, {
+        section: section
+      }) : _react.default.createElement(_FormSubsection.default, {
+        subsection: section.subsections[0]
+      }));
     }
   }]);
 
@@ -84,8 +74,7 @@ FormSection.propTypes = {
     id: _propTypes.default.string.isRequired,
     title: _propTypes.default.string.isRequired,
     subsections: _propTypes.default.array.isRequired
-  }),
-  submitButton: _propTypes.default.node
+  }).isRequired
 };
 var _default = FormSection;
 exports.default = _default;

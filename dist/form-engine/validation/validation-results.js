@@ -42,29 +42,17 @@ function () {
     this.overallStatus = {}; // Holds the aggregated status of the results
   }
   /**
-   * Clear validation results
+   * Add a validation message to the results object. Validation messages
+   * are associated to form fields via the tag property.
+   * @param tag
+   * @param type
+   * @param status
+   * @param message
+   * @param actions
    */
 
 
   _createClass(ValidationResults, [{
-    key: "clear",
-    value: function clear() {
-      this.validationMap = {};
-      this.validationStateMap = {};
-      this.actionMap = {};
-      this.overallStatus = OK;
-    }
-    /**
-     * Add a validation message to the results object. Validation messages
-     * are associated to form fields via the tag property.
-     * @param tag
-     * @param type
-     * @param status
-     * @param message
-     * @param actions
-     */
-
-  }, {
     key: "addValidationMessage",
     value: function addValidationMessage(tag, type, status, message, actions) {
       var _this = this;
@@ -190,6 +178,12 @@ function () {
         this.addValidationMessage(tag, MISSING_REQUIRED, ERROR, message, actions);
       }
     }
+    /**
+     * Remove a MISSING_REQUIRED error from a tag if it exists
+     * @param tag
+     * @param actions
+     */
+
   }, {
     key: "removeMissingRequired",
     value: function removeMissingRequired(tag, actions) {
@@ -211,6 +205,12 @@ function () {
         this.addValidationMessage(tag, INVALID_NUMERIC, ERROR, message, actions);
       }
     }
+    /**
+     * Remove an INVALID_NUMERIC error from a tag if it exists
+     * @param tag
+     * @param actions
+     */
+
   }, {
     key: "removeInvalidNumeric",
     value: function removeInvalidNumeric(tag, actions) {
@@ -232,6 +232,12 @@ function () {
         this.addValidationMessage(tag, INVALID_REGEX, ERROR, message, actions);
       }
     }
+    /**
+     * Remove an INVALID_REGEX error from a tag if it exists
+     * @param tag
+     * @param actions
+     */
+
   }, {
     key: "removeInvalidRegex",
     value: function removeInvalidRegex(tag, actions) {

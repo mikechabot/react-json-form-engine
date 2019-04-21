@@ -1,22 +1,8 @@
 import { library } from '@fortawesome/fontawesome-svg-core';
-import { faCheckSquare, faSquare, faCircle, faDotCircle } from '@fortawesome/free-regular-svg-icons';
-import {
-    faAsterisk,
-    faAngleRight,
-    faExclamationTriangle,
-    faQuestionCircle
-} from '@fortawesome/free-solid-svg-icons';
+import { far } from '@fortawesome/free-regular-svg-icons';
+import { fas } from '@fortawesome/free-solid-svg-icons';
 
-library.add(
-    faSquare,
-    faCheckSquare,
-    faAngleRight,
-    faAsterisk,
-    faExclamationTriangle,
-    faCircle,
-    faDotCircle,
-    faQuestionCircle
-);
+library.add(far, fas);
 
 export { default as Asterisk } from './Asterisk';
 export { default as Icon } from './Icon';

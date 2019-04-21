@@ -28,9 +28,8 @@ var Select = function Select(_ref) {
     value: value,
     id: id,
     name: id,
-    onChange: function onChange(_ref2) {
-      var target = _ref2.target;
-      return onUpdate(target.options);
+    onChange: function onChange(e) {
+      return onUpdate(e);
     },
     multiple: isMultiple
   }, _maybeRenderPlaceholder(field, value), _renderOptions(field)));

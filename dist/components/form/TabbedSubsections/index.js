@@ -41,7 +41,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 
-var TabbedSubsections = (_dec = (0, _mobxReact.inject)('instance'), _dec(_class = (0, _mobxReact.observer)(_class = (_temp = _class2 =
+var TabbedSubsections = (_dec = (0, _mobxReact.inject)('instance', 'hideFormTitle', 'hideSubsectionTitles', 'hideSubsectionSubtitles', 'submitButtonLabel'), _dec(_class = (0, _mobxReact.observer)(_class = (_temp = _class2 =
 /*#__PURE__*/
 function (_Component) {
   _inherits(TabbedSubsections, _Component);
@@ -53,8 +53,8 @@ function (_Component) {
   }
 
   _createClass(TabbedSubsections, [{
-    key: "getDerivedSubsectionTitle",
-    value: function getDerivedSubsectionTitle(subsection) {
+    key: "getTabbedTitle",
+    value: function getTabbedTitle(subsection) {
       var instance = this.props.instance;
       if (!instance.validationMap.subsections[subsection.id]) return subsection.title;
       return _react.default.createElement("span", null, subsection.title, " ", _react.default.createElement(_index.Asterisk, null));
@@ -74,8 +74,9 @@ function (_Component) {
         return _react.default.createElement(_reactTabify.Tab, {
           key: index,
           eventKey: index,
-          label: _this.getDerivedSubsectionTitle(subsection)
+          label: _this.getTabbedTitle(subsection)
         }, _react.default.createElement(_FormSubsection.default, {
+          isTabbed: true,
           hideSubsectionTitles: true,
           subsection: subsection,
           submitButton: _this.props.submitButton

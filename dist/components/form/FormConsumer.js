@@ -11,13 +11,11 @@ var _propTypes = _interopRequireDefault(require("prop-types"));
 
 var _mobxReact = require("mobx-react");
 
-var _FormSubmitButton = _interopRequireDefault(require("./helpers/FormSubmitButton"));
+var _FormTitle = _interopRequireDefault(require("./util/FormTitle"));
 
 var _FormSection = _interopRequireDefault(require("./FormSection"));
 
-var _FormTitle = _interopRequireDefault(require("./helpers/FormTitle"));
-
-var _TabbedSections = _interopRequireDefault(require("./tabbed/TabbedSections"));
+var _TabbedSections = _interopRequireDefault(require("./TabbedSections"));
 
 var _dec, _class, _class2, _temp;
 
@@ -43,14 +41,27 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 
-var formContainer = {
+var style = {
   display: 'flex',
   flexDirection: 'column',
   flex: 1,
   flexShrink: 0,
   border: '1px solid #dbdbdb'
 };
-var FormConsumer = (_dec = (0, _mobxReact.inject)('instance', 'hideFormTitle'), _dec(_class = (0, _mobxReact.observer)(_class = (_temp = _class2 =
+
+var FormSections = function FormSections(_ref) {
+  var sections = _ref.sections;
+
+  if (sections.length > 1) {
+    return _react.default.createElement(_TabbedSections.default, null);
+  }
+
+  return _react.default.createElement(_FormSection.default, {
+    section: sections[0]
+  });
+};
+
+var FormConsumer = (_dec = (0, _mobxReact.inject)('instance', 'hideFormTitle', 'hideSubsectionTitles', 'hideSubsectionSubtitles', 'submitButtonLabel'), _dec(_class = (0, _mobxReact.observer)(_class = (_temp = _class2 =
 /*#__PURE__*/
 function (_Component) {
   _inherits(FormConsumer, _Component);
@@ -62,51 +73,21 @@ function (_Component) {
   }
 
   _createClass(FormConsumer, [{
-    key: "renderFormTitle",
-    value: function renderFormTitle(instance, hideFormTitle, submitButtonLabel) {
-      if (hideFormTitle) return null;
-      return _react.default.createElement(_FormTitle.default, {
-        id: "form-title-".concat(instance.getId()),
-        iconPrefix: instance.getFormIconPrefix(),
-        icon: instance.getFormIcon(),
-        label: instance.getFormTitle(),
-        controlsRight: _react.default.createElement(_FormSubmitButton.default, {
-          label: submitButtonLabel
-        })
-      });
-    }
-  }, {
-    key: "renderForm",
-    value: function renderForm(instance, hideFormTitle, submitButtonLabel) {
-      var sections = instance.getSections();
-      if (sections.length > 1) return _react.default.createElement(_TabbedSections.default, null);
-      return _react.default.createElement(_FormSection.default, {
-        section: sections[0],
-        submitButton: hideFormTitle ? _react.default.createElement(_FormSubmitButton.default, {
-          label: submitButtonLabel
-        }) : null
-      });
-    }
-  }, {
     key: "render",
     value: function render() {
-      var _this$props = this.props,
-          instance = _this$props.instance,
-          hideFormTitle = _this$props.hideFormTitle,
-          submitButtonLabel = _this$props.submitButtonLabel;
-      console.log('Rendering FormConsumer');
+      var instance = this.props.instance;
       return _react.default.createElement("div", {
-        style: formContainer
-      }, this.renderFormTitle(instance, hideFormTitle, submitButtonLabel), this.renderForm(instance, hideFormTitle, submitButtonLabel));
+        style: style
+      }, _react.default.createElement(_FormTitle.default, null), _react.default.createElement(FormSections, {
+        sections: instance.getSections()
+      }));
     }
   }]);
 
   return FormConsumer;
 }(_react.Component), _class2.propTypes = {
   instance: _propTypes.default.instanceOf(Object).isRequired,
-  submitButtonLabel: _propTypes.default.string,
-  hideFormTitle: _propTypes.default.bool,
-  hideSubsectionTitles: _propTypes.default.bool,
+  hideFormTitle: _propTypes.default.bool.isRequired,
   width: _propTypes.default.oneOfType([_propTypes.default.number, _propTypes.default.string])
 }, _temp)) || _class) || _class);
 var _default = FormConsumer;

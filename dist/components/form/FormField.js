@@ -11,8 +11,6 @@ var _propTypes = _interopRequireDefault(require("prop-types"));
 
 var _isEmpty = _interopRequireDefault(require("lodash/isEmpty"));
 
-var _util = require("../util");
-
 var _FormControl = _interopRequireDefault(require("./FormControl"));
 
 var _FormChildren = _interopRequireDefault(require("./FormChildren"));
@@ -41,6 +39,10 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 
+var style = {
+  display: 'flex',
+  flexDirection: 'column'
+};
 var _PROPERTY$FIELD = _formConst.PROPERTY.FIELD,
     ID = _PROPERTY$FIELD.ID,
     FIELDS = _PROPERTY$FIELD.FIELDS,
@@ -81,12 +83,13 @@ function (_Component) {
     value: function render() {
       var field = this.props.field;
       if (!field) return null;
-      console.log('Rendering FormField', field[ID]);
-      return _react.default.createElement(_util.Flex, {
-        column: true,
+      return _react.default.createElement("div", {
+        style: style,
         className: "field",
         id: "field-".concat(field[ID])
-      }, _react.default.createElement(_FormControl.default, this.props), hasFieldChildren(field) ? _react.default.createElement(_FormChildren.default, {
+      }, _react.default.createElement(_FormControl.default, {
+        field: field
+      }), hasFieldChildren(field) ? _react.default.createElement(_FormChildren.default, {
         field: field
       }) : null);
     }

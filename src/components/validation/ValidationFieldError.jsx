@@ -1,7 +1,7 @@
 import React from 'react';
 import PropTypes from 'prop-types';
 
-import FormControlHint from '../helpers/FormControlHint';
+import FormControlHint from '../form/util/FormControlHint';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 const ValidationFieldError = ({ id }) => (

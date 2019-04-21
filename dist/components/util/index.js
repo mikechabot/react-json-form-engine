@@ -36,4 +36,4 @@ var _Flex = _interopRequireDefault(require("./Flex"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-_fontawesomeSvgCore.library.add(_freeRegularSvgIcons.faSquare, _freeRegularSvgIcons.faCheckSquare, _freeSolidSvgIcons.faAngleRight, _freeSolidSvgIcons.faAsterisk, _freeSolidSvgIcons.faExclamationTriangle, _freeRegularSvgIcons.faCircle, _freeRegularSvgIcons.faDotCircle, _freeSolidSvgIcons.faQuestionCircle);
+_fontawesomeSvgCore.library.add(_freeRegularSvgIcons.far, _freeSolidSvgIcons.fas);

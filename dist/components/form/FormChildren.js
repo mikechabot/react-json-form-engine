@@ -42,6 +42,14 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || func
 var _PROPERTY$FIELD = _formConst.PROPERTY.FIELD,
     FIELDS = _PROPERTY$FIELD.FIELDS,
     ID = _PROPERTY$FIELD.ID;
+var styles = {
+  list: {
+    marginLeft: '1rem'
+  },
+  listItem: {
+    marginTop: '.75rem'
+  }
+};
 var FormChildren = (_dec = (0, _mobxReact.inject)('instance'), _dec(_class = (0, _mobxReact.observer)(_class = (_temp = _class2 =
 /*#__PURE__*/
 function (_Component) {
@@ -59,28 +67,18 @@ function (_Component) {
       var _this$props = this.props,
           instance = _this$props.instance,
           field = _this$props.field;
-      console.log('Rendering FormChildren for', field[ID]);
       if (!field[FIELDS]) return null;
-
-      var renderField = function renderField(child) {
+      return _react.default.createElement("ul", {
+        style: styles.list
+      }, field[FIELDS].map(function (child) {
         if (instance.isVisible(child)) {
           return _react.default.createElement("li", {
             key: child[ID],
-            style: {
-              marginTop: '.75rem'
-            }
+            style: styles.listItem
           }, _react.default.createElement(_FormField.default, {
             field: child
           }));
         }
-      };
-
-      return _react.default.createElement("ul", {
-        style: {
-          marginLeft: '1rem'
-        }
-      }, field[FIELDS].map(function (child) {
-        return renderField(child);
       }));
     }
   }]);
@@ -89,7 +87,7 @@ function (_Component) {
 }(_react.Component), _class2.propTypes = {
   instance: _propTypes.default.instanceOf(Object).isRequired,
   field: _propTypes.default.shape({
-    id: _propTypes.default.string.isRequired,
+    id: _propTypes.default.string,
     title: _propTypes.default.string.isRequired,
     fields: _propTypes.default.array,
     options: _propTypes.default.array

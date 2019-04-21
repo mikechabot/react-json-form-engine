@@ -2,16 +2,23 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { observer, inject } from 'mobx-react';
 
+import FormTitle from './util/FormTitle';
 import FormSection from './FormSection';
-import FormTitle from './helpers/FormTitle';
-import TabbedSections from './tabbed/TabbedSections';
+import TabbedSections from './TabbedSections';
 
-const formContainer = {
+const style = {
     display: 'flex',
     flexDirection: 'column',
     flex: 1,
     flexShrink: 0,
     border: '1px solid #dbdbdb'
+};
+
+const FormSections = ({ sections }) => {
+    if (sections.length > 1) {
+        return <TabbedSections />;
+    }
+    return <FormSection section={sections[0]} />;
 };
 
 @inject('instance', 'hideFormTitle', 'hideSubsectionTitles', 'hideSubsectionSubtitles', 'submitButtonLabel')
@@ -26,13 +33,9 @@ class FormConsumer extends Component {
     render() {
         const { instance } = this.props;
         return (
-            <div style={formContainer}>
+            <div style={style}>
                 <FormTitle />
-                {instance.sections.length > 1 ? (
-                    <TabbedSections />
-                ) : (
-                    <FormSection section={instance.sections[0]} />
-                )}
+                <FormSections sections={instance.getSections()} />
             </div>
         );
     }

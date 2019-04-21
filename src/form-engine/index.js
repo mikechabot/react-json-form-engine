@@ -30,14 +30,21 @@ class FormEngine {
             return;
         }
 
-        this.definition = definition; // Form definition
-        this.decorators = definition.decorators || {}; // UI decorators
+        // Form definition
+        this.definition = definition;
 
-        this.showConditionTriggerMap = {}; // Map of field ids keyed by trigger id
+        // UI decorators
+        this.decorators = definition.decorators || {};
 
-        this.validationResults = new ValidationResults(); // Stores validation results
+        // Map of field ids keyed by trigger id
+        this.showConditionTriggerMap = {};
 
+        // Stores validation results
+        this.validationResults = new ValidationResults();
+
+        // Observable built from validationResults
         this.validationMap = {
+            form: false,
             sections: {},
             subsections: {},
             fields: {}
@@ -49,6 +56,7 @@ class FormEngine {
 
         this.__initInstance(model);
     }
+
     /**
      * Initialize the form instance
      * @private
@@ -58,6 +66,7 @@ class FormEngine {
         this.__initFieldMetadata();
         this.__hydrateModel(model);
     }
+
     /**
      * Hydrate the instance mode with existing data
      * @param model
@@ -80,6 +89,7 @@ class FormEngine {
             this.model[key] = parsed[key];
         });
     }
+
     /**
      * Don't modify the original definition. Instead, clone each section
      * into a map; all form instance data will then be
@@ -91,6 +101,7 @@ class FormEngine {
             this.sections.push(clone(section));
         });
     }
+
     /**
      * Add each cloned subsection a map
      * @private
@@ -103,6 +114,7 @@ class FormEngine {
             });
         });
     }
+
     /**
      * Decorate an array of fields
      * @param fields
@@ -186,6 +198,7 @@ class FormEngine {
         // Add the field to fields
         this.fields[field[FIELD.ID]] = field;
     }
+
     /**
      * Register a field's showCondition with the instance. For any
      * form response expressions within the condition, add the form
@@ -208,6 +221,7 @@ class FormEngine {
             }
         });
     }
+
     /**
      * Get form title
      * @returns {*}
@@ -215,26 +229,23 @@ class FormEngine {
     getFormTitle() {
         return this.getDefinition().title;
     }
+
     /**
      * Get form icon
      * @returns {*}
      */
     getFormIcon() {
-        return Maybe.of(this.definition)
-            .prop('faIcon')
-            .prop('name')
-            .join();
+        return Maybe.of(() => this.definition.faIcon.name).join();
     }
+
     /**
      * Get form icon prefix
      * @returns {*}
      */
     getFormIconPrefix() {
-        return Maybe.of(this.definition)
-            .prop('faIcon')
-            .prop('prefix')
-            .join();
+        return Maybe.of(() => this.definition.faIcon.prefix).join();
     }
+
     /**
      * Return whether the form is valid
      * @returns {boolean}
@@ -242,6 +253,7 @@ class FormEngine {
     isValidDefinition() {
         return this.__isDefinitionValid;
     }
+
     /**
      * Get form error
      * @returns {*}
@@ -249,6 +261,7 @@ class FormEngine {
     getError() {
         return this.error;
     }
+
     /**
      * Get form definition
      * @returns {*}
@@ -256,19 +269,12 @@ class FormEngine {
     getDefinition() {
         return this.definition;
     }
+
     /**
      * Get the form definition id
      */
     getId() {
         return this.getDefinition()[DEFINITION.ID];
-    }
-
-    /**
-     * Get form model
-     * @returns {*}
-     */
-    getModel() {
-        return this.model;
     }
 
     /**
@@ -278,6 +284,7 @@ class FormEngine {
     serializeModel() {
         return JSON.stringify(this.model);
     }
+
     /**
      * Determine if the model contains a key
      * @param id
@@ -286,6 +293,7 @@ class FormEngine {
     hasModelValue(id) {
         return Boolean(this.getModelValue(id));
     }
+
     /**
      * Get form decorators
      * @returns {*|decorators|{str2, str3, str4}|{}}
@@ -293,6 +301,7 @@ class FormEngine {
     getDecorators() {
         return this.decorators;
     }
+
     /**
      * Get UI decorator by field id
      * @param id
@@ -301,6 +310,7 @@ class FormEngine {
     getCustomUIDecorators(id) {
         return this.getDecorators()[id];
     }
+
     /**
      * Get sections from the definition
      * @returns {*|Array|sections|{id, title, subtitle, sortOrder, subsections}}
@@ -308,6 +318,7 @@ class FormEngine {
     getDefinitionSections() {
         return this.getDefinition().sections;
     }
+
     /**
      * Get form sections
      * @returns {{}|*}
@@ -323,6 +334,7 @@ class FormEngine {
     getFields() {
         return this.fields;
     }
+
     /**
      * Get single form field
      * @param id
@@ -341,6 +353,11 @@ class FormEngine {
         return field[FIELD.TYPE] === DATA_TYPE.BOOLEAN;
     }
 
+    /**
+     * Get a field's value
+     * @param id
+     * @returns {*}
+     */
     getModelValue(id) {
         return this.model[id];
     }
@@ -389,6 +406,7 @@ class FormEngine {
             });
         }
     }
+
     /**
      * Reset a specific list of fields, if they contain a model value
      * @param fields
@@ -402,6 +420,7 @@ class FormEngine {
             });
         }
     }
+
     /**
      * Determine whether to clear the children of a given field
      * based on its value
@@ -428,9 +447,16 @@ class FormEngine {
             }
         }
     }
+
+    /**
+     * Determine whether a field has a showCondition
+     * @param field
+     * @returns {boolean}
+     */
     hasShowCondition(field) {
         return Boolean(field[FIELD.SHOW_CONDITION]);
     }
+
     /**
      * Evaluate the show condition of the field
      * @param field
@@ -441,6 +467,7 @@ class FormEngine {
         if (!this.hasShowCondition(field)) return true;
         return this.evaluateCondition(field[FIELD.SHOW_CONDITION]);
     }
+
     /**
      * Evaluate a condition
      * @param condition
@@ -450,14 +477,29 @@ class FormEngine {
         if (!condition) return false;
         return ExpressionService.evalCondition(condition, this);
     }
+
+    /**
+     * Validate the form instance
+     * @param comprehensive
+     */
     validate(comprehensive = false) {
         this.validationResults = FormValidator.validate(this, this.validationResults, comprehensive);
-        this.rebuildValidationMap();
+        this.buildObservableValidationMap();
     }
+
+    /**
+     * Validate the form instance during form submission
+     */
     validateOnSubmit() {
         this.validate(true);
     }
-    rebuildValidationMap() {
+
+    /**
+     * Build an observable map based on validationResults.
+     * This map holds all sections, subsections and fields.
+     */
+    buildObservableValidationMap() {
+        this.validationMap.form = this.hasError();
         this.sections.forEach(section => {
             this.validationMap.sections[section[FIELD.ID]] = this.sectionHasError(section);
             section.subsections.forEach(subsection => {
@@ -468,21 +510,34 @@ class FormEngine {
             this.validationMap.fields[id] = this.fieldHasError(id);
         });
     }
-    hasError() {
-        return this.validationResults.hasError();
-    }
-    getValidationResults() {
-        return this.validationResults;
-    }
+
+    /**
+     * Get validation results by field id
+     * @param id
+     * @returns {{status: (*|string), messages: (*|Array)}}
+     */
     getValidationResultByTag(id) {
         return this.validationResults.getResults(id);
     }
+
+    /**
+     * Get validation results status (e.g. ERROR, OK) by field id
+     * @param id
+     * @returns {*|string}
+     */
     getValidationStatusByTag(id) {
         return this.getValidationResultByTag(id).status;
     }
+
+    /**
+     * Recursively check for validation statuses, and return
+     * the most severe status
+     * @param id
+     * @returns {*|string}
+     */
     getDeepValidationStatusByTag(id) {
         let status = this.getValidationResultByTag(id).status;
-        const newStatus = this.findStatus(
+        const newStatus = this.findValidationStatus(
             this.getField(id)[FIELD.FIELDS],
             this.getDeepValidationStatusByTag.bind(this),
             true
@@ -492,7 +547,16 @@ class FormEngine {
         }
         return status;
     }
-    findStatus(list = [], getStatus, useId) {
+
+    /**
+     * Generically find the validation status of sections, subsections, or fields.
+     * Return the most severe status.
+     * @param list
+     * @param getStatus
+     * @param useId
+     * @returns {string}
+     */
+    findValidationStatus(list = [], getStatus, useId) {
         let status = VALIDATION_CONST.STATUS.OK;
         list.forEach(entry => {
             const newStatus = getStatus(useId ? entry[FIELD.ID] : entry);
@@ -502,20 +566,62 @@ class FormEngine {
         });
         return status;
     }
+
+    /**
+     * Return the validation status of a subsection
+     * @param subsection
+     * @returns {string}
+     */
     getSubsectionStatus(subsection) {
-        return this.findStatus(subsection.fields, this.getDeepValidationStatusByTag.bind(this), true);
+        return this.findValidationStatus(
+            subsection.fields,
+            this.getDeepValidationStatusByTag.bind(this),
+            true
+        );
     }
+
+    /**
+     * Return the validation status of a section
+     * @param section
+     * @returns {string}
+     */
     getSectionStatus(section) {
-        return this.findStatus(section.subsections, this.getSubsectionStatus.bind(this));
+        return this.findValidationStatus(section.subsections, this.getSubsectionStatus.bind(this));
     }
+
+    /**
+     * Determine if a field has a validation error
+     * @param id
+     * @returns {*}
+     */
     fieldHasError(id) {
         return ValidationService.isError(this.getValidationStatusByTag(id));
     }
+
+    /**
+     * Determine if a subsection has a validation error
+     * @param subsection
+     * @returns {*}
+     */
     subsectionHasError(subsection) {
         return ValidationService.isError(this.getSubsectionStatus(subsection));
     }
+
+    /**
+     * Determine if a section has a validation error
+     * @param section
+     * @returns {*}
+     */
     sectionHasError(section) {
         return ValidationService.isError(this.getSectionStatus(section));
+    }
+
+    /**
+     * Determine if the form instance has a validation error
+     * @returns {boolean}
+     */
+    hasError() {
+        return this.validationResults.hasError();
     }
 }
 

@@ -9,10 +9,6 @@ var _react = _interopRequireWildcard(require("react"));
 
 var _propTypes = _interopRequireDefault(require("prop-types"));
 
-var _reactFontawesome = require("@fortawesome/react-fontawesome");
-
-var _util = require("../../util");
-
 var _mobxReact = require("mobx-react");
 
 var _dec, _class, _class2, _temp;
@@ -39,62 +35,31 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 
-var FormSubsectionPanelTitle = (_dec = (0, _mobxReact.inject)('instance', 'hideSubsectionTitles', 'hideSubsectionSubtitles'), _dec(_class = (0, _mobxReact.observer)(_class = (_temp = _class2 =
+var FormSubmitButton = (_dec = (0, _mobxReact.inject)('onSubmit', 'submitButtonLabel'), _dec(_class = (0, _mobxReact.observer)(_class = (_temp = _class2 =
 /*#__PURE__*/
 function (_Component) {
-  _inherits(FormSubsectionPanelTitle, _Component);
+  _inherits(FormSubmitButton, _Component);
 
-  function FormSubsectionPanelTitle() {
-    _classCallCheck(this, FormSubsectionPanelTitle);
+  function FormSubmitButton() {
+    _classCallCheck(this, FormSubmitButton);
 
-    return _possibleConstructorReturn(this, _getPrototypeOf(FormSubsectionPanelTitle).apply(this, arguments));
+    return _possibleConstructorReturn(this, _getPrototypeOf(FormSubmitButton).apply(this, arguments));
   }
 
-  _createClass(FormSubsectionPanelTitle, [{
+  _createClass(FormSubmitButton, [{
     key: "render",
     value: function render() {
-      var _this$props = this.props,
-          instance = _this$props.instance,
-          subsection = _this$props.subsection,
-          hideSubsectionTitles = _this$props.hideSubsectionTitles,
-          hideSubsectionSubtitles = _this$props.hideSubsectionSubtitles;
-      console.log('FormSubsectionPanelTitle', hideSubsectionTitles);
-      console.log('Rendering FormSubsectionPanelTitle', subsection.id);
-
-      if (hideSubsectionTitles && hideSubsectionSubtitles) {
-        return null;
-      }
-
-      var title = hideSubsectionTitles ? null : _react.default.createElement("div", null, subsection.title, "\xA0", instance.validationMap.subsections[subsection.id] ? _react.default.createElement(_util.Asterisk, null) : null);
-      var subtitle = hideSubsectionSubtitles || !subsection.subtitle ? null : _react.default.createElement("h2", {
-        className: "subtitle",
-        style: {
-          fontSize: '.75em',
-          marginTop: '.25em'
-        }
-      }, _react.default.createElement(_reactFontawesome.FontAwesomeIcon, {
-        icon: "angle-right"
-      }), " ", subsection.subtitle);
-
-      if (title || subtitle) {
-        return _react.default.createElement("div", {
-          className: "panel-heading",
-          style: {
-            border: 'none',
-            borderBottom: '1px solid #dbdbdb'
-          }
-        }, title, subtitle);
-      }
-
-      return null;
+      return _react.default.createElement("button", {
+        className: "button is-link",
+        onClick: this.props.onSubmit
+      }, this.props.submitButtonLabel || 'Submit');
     }
   }]);
 
-  return FormSubsectionPanelTitle;
+  return FormSubmitButton;
 }(_react.Component), _class2.propTypes = {
-  subsection: _propTypes.default.object.isRequired,
-  hideSubsectionTitles: _propTypes.default.bool.isRequired,
-  hideSubsectionSubtitles: _propTypes.default.bool.isRequired
+  onSubmit: _propTypes.default.func.isRequired,
+  submitButtonLabel: _propTypes.default.string
 }, _temp)) || _class) || _class);
-var _default = FormSubsectionPanelTitle;
+var _default = FormSubmitButton;
 exports.default = _default;

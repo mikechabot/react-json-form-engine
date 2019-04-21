@@ -3,9 +3,10 @@ import PropTypes from 'prop-types';
 import { inject, observer } from 'mobx-react';
 import Maybe from 'maybe-baby';
 
-import FormControlTitle from './helpers/FormControlTitle';
-import FormControlHint from './helpers/FormControlHint';
-import ValidationFieldError from './validation/ValidationFieldError';
+import FormControlHint from './util/FormControlHint';
+import ValidationFieldError from '../validation/ValidationFieldError';
+
+const hideTitle = decorators => Maybe.of(() => decorators.hideControlLabel).isJust();
 
 @inject('instance', 'onUpdate')
 @observer
@@ -30,13 +31,20 @@ class FormControl extends Component {
         ));
     }
 
+    renderFormControlTitle(field) {
+        if (hideTitle(field.uiDecorators)) return null;
+        return (
+            <div className="label is-small" htmlFor={field.id}>
+                {field.title}&nbsp;
+            </div>
+        );
+    }
+
     render() {
         const { field, onUpdate, instance } = this.props;
         const { component, uiDecorators } = field;
 
         const { id, type } = field;
-
-        console.log('Render FormControl', id);
 
         if (!component || !component.element) {
             console.error(`Field of type "${type}" is missing required "component" (id: ${id})`);
@@ -46,10 +54,12 @@ class FormControl extends Component {
         const hasError = instance.validationMap.fields[id] || false;
         const value = instance.getModelValue(id);
 
+        console.log('Render FormControl', id);
+
         const Control = component.element;
         return (
-            <span>
-                <FormControlTitle field={field} decorators={uiDecorators} />
+            <React.Fragment>
+                {this.renderFormControlTitle(field)}
                 <div className="control">
                     <Control
                         id={id}
@@ -62,7 +72,7 @@ class FormControl extends Component {
                 </div>
                 {this.maybeRenderHint(uiDecorators)}
                 {hasError ? this.renderErrors(id) : null}
-            </span>
+            </React.Fragment>
         );
     }
 }

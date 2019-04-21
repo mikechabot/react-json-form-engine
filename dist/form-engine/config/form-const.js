@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.default = exports.VALIDATION_CONST = exports.PROPERTY = exports.NO_VALUE = exports.COMPONENT_DECORATORS = exports.FORM_STATE = exports.COMPONENT_TYPE = exports.DATA_TYPE = void 0;
+exports.ERROR_MESSAGE = exports.VALIDATION_CONST = exports.PROPERTY = exports.NO_VALUE = exports.COMPONENT_DECORATORS = exports.FORM_STATE = exports.COMPONENT_TYPE = exports.DATA_TYPE = void 0;
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
 
@@ -100,13 +100,9 @@ var VALIDATION_CONST = {
   }
 };
 exports.VALIDATION_CONST = VALIDATION_CONST;
-var _default = {
-  DATA_TYPE: DATA_TYPE,
-  COMPONENT_TYPE: COMPONENT_TYPE,
-  COMPONENT_DECORATORS: COMPONENT_DECORATORS,
-  FORM_STATE: FORM_STATE,
-  PROPERTY: PROPERTY,
-  NO_VALUE: NO_VALUE,
-  VALIDATION_CONST: VALIDATION_CONST
+var ERROR_MESSAGE = {
+  NO_RENDER: 'Error during rendering. Check console.',
+  NO_INSTANCE: 'Missing required form instance. Did you create one with FormEngine?',
+  NO_SECTIONS: 'Form is missing required sections'
 };
-exports.default = _default;
+exports.ERROR_MESSAGE = ERROR_MESSAGE;

@@ -11,11 +11,11 @@ var _propTypes = _interopRequireDefault(require("prop-types"));
 
 var _mobxReact = require("mobx-react");
 
-var _util = require("../util");
-
-var _FormSubsectionTitle = _interopRequireDefault(require("./helpers/FormSubsectionTitle"));
-
 var _FormField = _interopRequireDefault(require("./FormField"));
+
+var _FormSubsectionTitle = _interopRequireDefault(require("./util/FormSubsectionTitle"));
+
+var _FormSubmitButton = _interopRequireDefault(require("./util/FormSubmitButton"));
 
 var _dec, _class, _class2, _temp;
 
@@ -41,7 +41,26 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 
-var FormSubsection = (_dec = (0, _mobxReact.inject)('instance'), _dec(_class = (0, _mobxReact.observer)(_class = (_temp = _class2 =
+var styles = {
+  container: {
+    display: 'flex',
+    flexDirection: 'column',
+    flex: 1,
+    flexShrink: 0,
+    height: '100%'
+  },
+  fields: {
+    width: '100%',
+    height: '100%',
+    padding: '.5em .75em'
+  },
+  submit: {
+    border: 'none',
+    display: 'flex',
+    justifyContent: 'flex-end'
+  }
+};
+var FormSubsection = (_dec = (0, _mobxReact.inject)('instance', 'hideFormTitle', 'hideSubsectionTitles', 'hideSubsectionSubtitles'), _dec(_class = (0, _mobxReact.observer)(_class = (_temp = _class2 =
 /*#__PURE__*/
 function (_Component) {
   _inherits(FormSubsection, _Component);
@@ -67,37 +86,39 @@ function (_Component) {
       });
     }
   }, {
+    key: "renderSubmit",
+    value: function renderSubmit(hideFormTitle) {
+      if (!hideFormTitle) return null;
+      return _react.default.createElement("div", {
+        className: "panel-block",
+        style: styles.submit
+      }, _react.default.createElement(_FormSubmitButton.default, null));
+    }
+  }, {
     key: "render",
     value: function render() {
       var _this$props = this.props,
           subsection = _this$props.subsection,
-          submitButton = _this$props.submitButton;
-      console.log('Rendering FormSubsection');
-      return _react.default.createElement(_util.Flex, {
-        column: true,
-        flex: 1,
-        className: "panel",
-        flexShrink: 0,
-        height: "100%"
+          hideFormTitle = _this$props.hideFormTitle,
+          isTabbed = _this$props.isTabbed;
+      return _react.default.createElement("div", {
+        style: styles.container,
+        className: "panel"
       }, _react.default.createElement(_FormSubsectionTitle.default, {
-        subsection: subsection
+        subsection: subsection,
+        isTabbed: isTabbed
       }), _react.default.createElement("div", {
-        style: {
-          width: '100%',
-          height: '100%',
-          padding: '.5em .75em'
-        }
-      }, this.renderSubsectionFields(subsection.fields)), submitButton ? _react.default.createElement("div", {
-        className: "panel-block"
-      }, submitButton) : null);
+        style: styles.fields
+      }, this.renderSubsectionFields(subsection.fields)), this.renderSubmit(hideFormTitle));
     }
   }]);
 
   return FormSubsection;
 }(_react.Component), _class2.propTypes = {
+  isTabbed: _propTypes.default.bool,
   instance: _propTypes.default.instanceOf(Object).isRequired,
   subsection: _propTypes.default.object.isRequired,
-  submitButton: _propTypes.default.node
+  hideFormTitle: _propTypes.default.bool.isRequired
 }, _temp)) || _class) || _class);
 var _default = FormSubsection;
 exports.default = _default;

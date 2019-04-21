@@ -5,12 +5,11 @@
   "license": "MIT",
   "main": "index.js",
   "scripts": {
-    "republish": "npm run build && npm run auto-commit && npm version patch && npm publish",
+    "prepublishOnly": "npm run build && git add . && git commit -m \"Packaging assets\" && npm version patch",
     "css-build": "npm run css-build-nested && npm run css-build-compressed",
     "css-build-nested": "node-sass --omit-source-map-url --output-style nested src/sass/react-json-form-engine.scss dist/css/react-json-form-engine.css",
     "css-build-compressed": "node-sass --omit-source-map-url --output-style compressed src/sass/react-json-form-engine.scss dist/css/react-json-form-engine.min.css",
     "build": "rm -rf ./dist && npm run css-build && babel src -d dist",
-    "auto-commit": "git add . && git commit -m \"Packaging assets\"",
     "storybook": "npm run build && start-storybook -p 6006",
     "build-storybook": "npm run build && build-storybook"
   },

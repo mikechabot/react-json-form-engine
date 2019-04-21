@@ -6,7 +6,7 @@ import { Tabs, Tab } from 'react-tabify';
 import { Asterisk } from '../../util/index';
 import FormSubsection from '../FormSubsection';
 
-@inject('instance')
+@inject('instance', 'hideFormTitle', 'hideSubsectionTitles', 'hideSubsectionSubtitles', 'submitButtonLabel')
 @observer
 class TabbedSubsections extends Component {
     static propTypes = {
@@ -19,7 +19,7 @@ class TabbedSubsections extends Component {
         submitButton: PropTypes.node
     };
 
-    getDerivedSubsectionTitle(subsection) {
+    getTabbedTitle(subsection) {
         const { instance } = this.props;
         if (!instance.validationMap.subsections[subsection.id]) return subsection.title;
         return (
@@ -38,8 +38,9 @@ class TabbedSubsections extends Component {
         return (
             <Tabs id={`${section.id}-subsection-tabs`} defaultActiveKey={0}>
                 {subsections.map((subsection, index) => (
-                    <Tab key={index} eventKey={index} label={this.getDerivedSubsectionTitle(subsection)}>
+                    <Tab key={index} eventKey={index} label={this.getTabbedTitle(subsection)}>
                         <FormSubsection
+                            isTabbed={true}
                             hideSubsectionTitles={true}
                             subsection={subsection}
                             submitButton={this.props.submitButton}

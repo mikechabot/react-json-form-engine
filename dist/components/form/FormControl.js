@@ -13,11 +13,9 @@ var _mobxReact = require("mobx-react");
 
 var _maybeBaby = _interopRequireDefault(require("maybe-baby"));
 
-var _FormControlTitle = _interopRequireDefault(require("./helpers/FormControlTitle"));
+var _FormControlHint = _interopRequireDefault(require("./util/FormControlHint"));
 
-var _FormControlHint = _interopRequireDefault(require("./helpers/FormControlHint"));
-
-var _ValidationFieldError = _interopRequireDefault(require("./validation/ValidationFieldError"));
+var _ValidationFieldError = _interopRequireDefault(require("../validation/ValidationFieldError"));
 
 var _dec, _class, _class2, _temp;
 
@@ -42,6 +40,12 @@ function _getPrototypeOf(o) { _getPrototypeOf = Object.setPrototypeOf ? Object.g
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+var hideTitle = function hideTitle(decorators) {
+  return _maybeBaby.default.of(function () {
+    return decorators.hideControlLabel;
+  }).isJust();
+};
 
 var FormControl = (_dec = (0, _mobxReact.inject)('instance', 'onUpdate'), _dec(_class = (0, _mobxReact.observer)(_class = (_temp = _class2 =
 /*#__PURE__*/
@@ -83,6 +87,15 @@ function (_Component) {
       });
     }
   }, {
+    key: "renderFormControlTitle",
+    value: function renderFormControlTitle(field) {
+      if (hideTitle(field.uiDecorators)) return null;
+      return _react.default.createElement("div", {
+        className: "label is-small",
+        htmlFor: field.id
+      }, field.title, "\xA0");
+    }
+  }, {
     key: "render",
     value: function render() {
       var _this$props = this.props,
@@ -93,7 +106,6 @@ function (_Component) {
           uiDecorators = field.uiDecorators;
       var id = field.id,
           type = field.type;
-      console.log('Render FormControl', id);
 
       if (!component || !component.element) {
         console.error("Field of type \"".concat(type, "\" is missing required \"component\" (id: ").concat(id, ")"));
@@ -104,11 +116,9 @@ function (_Component) {
 
       var hasError = instance.validationMap.fields[id] || false;
       var value = instance.getModelValue(id);
+      console.log('Render FormControl', id);
       var Control = component.element;
-      return _react.default.createElement("span", null, _react.default.createElement(_FormControlTitle.default, {
-        field: field,
-        decorators: uiDecorators
-      }), _react.default.createElement("div", {
+      return _react.default.createElement(_react.default.Fragment, null, this.renderFormControlTitle(field), _react.default.createElement("div", {
         className: "control"
       }, _react.default.createElement(Control, {
         id: id,

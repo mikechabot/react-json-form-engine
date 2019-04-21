@@ -9,15 +9,11 @@ var _react = _interopRequireWildcard(require("react"));
 
 var _propTypes = _interopRequireDefault(require("prop-types"));
 
+var _reactFontawesome = require("@fortawesome/react-fontawesome");
+
+var _util = require("../../util");
+
 var _mobxReact = require("mobx-react");
-
-var _reactTabify = require("react-tabify");
-
-var _index = require("../../util/index");
-
-var _FormSubmitButton = _interopRequireDefault(require("../helpers/FormSubmitButton"));
-
-var _FormSection = _interopRequireDefault(require("../FormSection"));
 
 var _dec, _class, _class2, _temp;
 
@@ -43,61 +39,70 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 
-var TabbedSections = (_dec = (0, _mobxReact.inject)('instance', 'hideFormTitle'), _dec(_class = (0, _mobxReact.observer)(_class = (_temp = _class2 =
+var FormSubsectionPanelTitle = (_dec = (0, _mobxReact.inject)('instance', 'hideSubsectionTitles', 'hideSubsectionSubtitles'), _dec(_class = (0, _mobxReact.observer)(_class = (_temp = _class2 =
 /*#__PURE__*/
 function (_Component) {
-  _inherits(TabbedSections, _Component);
+  _inherits(FormSubsectionPanelTitle, _Component);
 
-  function TabbedSections() {
-    _classCallCheck(this, TabbedSections);
+  function FormSubsectionPanelTitle() {
+    _classCallCheck(this, FormSubsectionPanelTitle);
 
-    return _possibleConstructorReturn(this, _getPrototypeOf(TabbedSections).apply(this, arguments));
+    return _possibleConstructorReturn(this, _getPrototypeOf(FormSubsectionPanelTitle).apply(this, arguments));
   }
 
-  _createClass(TabbedSections, [{
-    key: "getDerivedSectionTitle",
-    value: function getDerivedSectionTitle(instance, section) {
-      if (!instance.validationMap.sections[section.id]) return section.title;
-      return _react.default.createElement("span", null, section.title, " ", _react.default.createElement(_index.Asterisk, null));
+  _createClass(FormSubsectionPanelTitle, [{
+    key: "getTitle",
+    value: function getTitle(instance, subsection, isTabbed, hideSubsectionTitles) {
+      if (isTabbed || hideSubsectionTitles) return null;
+      return _react.default.createElement("div", null, subsection.title, "\xA0", instance.validationMap.subsections[subsection.id] ? _react.default.createElement(_util.Asterisk, null) : null);
     }
   }, {
-    key: "renderSubmitButton",
-    value: function renderSubmitButton() {
-      return _react.default.createElement(_FormSubmitButton.default, {
-        label: this.props.submitButtonLabel
-      });
+    key: "getSubsection",
+    value: function getSubsection(subsection, hideSubsectionSubtitles) {
+      if (!subsection.subtitle || hideSubsectionSubtitles) return null;
+      return _react.default.createElement("h2", {
+        className: "subtitle",
+        style: {
+          fontSize: '.75em',
+          marginTop: '.25em'
+        }
+      }, _react.default.createElement(_reactFontawesome.FontAwesomeIcon, {
+        icon: "angle-right"
+      }), " ", subsection.subtitle);
     }
   }, {
     key: "render",
     value: function render() {
-      var _this = this;
+      var _this$props = this.props,
+          instance = _this$props.instance,
+          subsection = _this$props.subsection,
+          isTabbed = _this$props.isTabbed,
+          hideSubsectionTitles = _this$props.hideSubsectionTitles,
+          hideSubsectionSubtitles = _this$props.hideSubsectionSubtitles;
 
-      var instance = this.props.instance;
-      console.log('Rendering TabbedForm', instance);
-      return _react.default.createElement(_reactTabify.Tabs, {
-        stacked: true,
-        id: "form-tabs-".concat(instance.getId()),
-        defaultActiveKey: 0
-      }, instance.getSections().map(function (section, index) {
-        return _react.default.createElement(_reactTabify.Tab, {
-          key: index,
-          eventKey: index,
-          label: _this.getDerivedSectionTitle(instance, section)
-        }, _react.default.createElement(_FormSection.default, {
-          section: section,
-          isTabbed: true,
-          submitButton: _this.props.hideFormTitle ? _this.renderSubmitButton() : null
-        }));
-      }));
+      if (hideSubsectionTitles && hideSubsectionSubtitles) {
+        return null;
+      }
+
+      var title = this.getTitle(instance, subsection, isTabbed, hideSubsectionTitles);
+      var subtitle = this.getSubsection(subsection, hideSubsectionSubtitles);
+      if (!(subtitle || title)) return null;
+      return _react.default.createElement("div", {
+        className: "panel-heading",
+        style: {
+          border: 'none',
+          borderBottom: '1px solid #dbdbdb'
+        }
+      }, title, subtitle);
     }
   }]);
 
-  return TabbedSections;
+  return FormSubsectionPanelTitle;
 }(_react.Component), _class2.propTypes = {
-  instance: _propTypes.default.instanceOf(Object).isRequired,
-  hideFormTitle: _propTypes.default.bool,
-  submitButtonLabel: _propTypes.default.string,
-  width: _propTypes.default.oneOfType([_propTypes.default.number, _propTypes.default.string])
+  isTabbed: _propTypes.default.bool,
+  subsection: _propTypes.default.object.isRequired,
+  hideSubsectionTitles: _propTypes.default.bool.isRequired,
+  hideSubsectionSubtitles: _propTypes.default.bool.isRequired
 }, _temp)) || _class) || _class);
-var _default = TabbedSections;
+var _default = FormSubsectionPanelTitle;
 exports.default = _default;

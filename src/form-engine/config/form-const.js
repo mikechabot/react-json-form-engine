@@ -94,12 +94,8 @@ export const VALIDATION_CONST = {
     }
 };
 
-export default {
-    DATA_TYPE,
-    COMPONENT_TYPE,
-    COMPONENT_DECORATORS,
-    FORM_STATE,
-    PROPERTY,
-    NO_VALUE,
-    VALIDATION_CONST
+export const ERROR_MESSAGE = {
+    NO_RENDER: 'Error during rendering. Check console.',
+    NO_INSTANCE: 'Missing required form instance. Did you create one with FormEngine?',
+    NO_SECTIONS: 'Form is missing required sections'
 };

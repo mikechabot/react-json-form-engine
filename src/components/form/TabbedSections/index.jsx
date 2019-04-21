@@ -5,10 +5,9 @@ import { Tabs, Tab } from 'react-tabify';
 
 import { Asterisk } from '../../util/index';
 
-import FormSubmitButton from '../helpers/FormSubmitButton';
 import FormSection from '../FormSection';
 
-@inject('instance', 'hideFormTitle')
+@inject('instance', 'hideFormTitle', 'hideSubsectionTitles', 'hideSubsectionSubtitles', 'submitButtonLabel')
 @observer
 class TabbedSections extends Component {
     static propTypes = {
@@ -27,10 +26,6 @@ class TabbedSections extends Component {
         );
     }
 
-    renderSubmitButton() {
-        return <FormSubmitButton label={this.props.submitButtonLabel} />;
-    }
-
     render() {
         const { instance } = this.props;
 
@@ -40,11 +35,7 @@ class TabbedSections extends Component {
             <Tabs stacked id={`form-tabs-${instance.getId()}`} defaultActiveKey={0}>
                 {instance.getSections().map((section, index) => (
                     <Tab key={index} eventKey={index} label={this.getDerivedSectionTitle(instance, section)}>
-                        <FormSection
-                            section={section}
-                            isTabbed={true}
-                            submitButton={this.props.hideFormTitle ? this.renderSubmitButton() : null}
-                        />
+                        <FormSection section={section} isTabbed={true} />
                     </Tab>
                 ))}
             </Tabs>
