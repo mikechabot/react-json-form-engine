@@ -4,7 +4,7 @@ const sass = require('node-sass');
 const postcss = require('postcss');
 const prefixer = require('postcss-prefix-selector');
 
-const FILENAME = 'react-json-form-engine';
+const FILENAME = 'styles';
 const RELATIVE_OUTPUT = '/dist/css';
 const INPUT_PATH = path.join(__dirname, `/src/sass/${FILENAME}.scss`);
 const PREFIX = '.__rjfe__';
