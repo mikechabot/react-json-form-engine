@@ -3536,3 +3536,6 @@ a {
 
 .__rjfe__ .hero.is-fullheight-with-navbar {
   min-height: calc(100vh - 3.25rem); }
+
+.__rjfe__ .field:not(:last-child) {
+  margin-bottom: 0.5rem; }

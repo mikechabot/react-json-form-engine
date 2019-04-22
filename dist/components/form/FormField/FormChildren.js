@@ -44,8 +44,8 @@ var _PROPERTY$FIELD = _formConst.PROPERTY.FIELD,
     ID = _PROPERTY$FIELD.ID;
 var styles = {
   list: {
-    marginTop: '0.75rem',
-    marginBottom: '0.25rem',
+    marginTop: '0.50rem',
+    marginBottom: '0.50rem',
     marginLeft: '0.25rem',
     paddingLeft: '0.75rem',
     borderLeft: '3px double #dbdbdb'

@@ -15,15 +15,22 @@ var Info = function Info(_ref) {
   var id = _ref.id,
       field = _ref.field;
   if (!field.content) return null;
-  var _field$content = field.content,
-      header = _field$content.header,
-      text = _field$content.text;
+  var content = field.content,
+      title = field.title;
   return _react.default.createElement("section", {
     className: "container",
     id: id
-  }, header ? _react.default.createElement("h1", {
-    className: "is-size-5"
-  }, header) : null, _react.default.createElement("h2", null, text));
+  }, title ? _react.default.createElement("div", {
+    className: "is-size-6 has-text-weight-semibold",
+    dangerouslySetInnerHTML: {
+      __html: title
+    }
+  }) : null, _react.default.createElement("div", {
+    className: "is-size-7",
+    dangerouslySetInnerHTML: {
+      __html: content
+    }
+  }));
 };
 
 Info.propTypes = {

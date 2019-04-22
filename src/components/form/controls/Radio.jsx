@@ -21,9 +21,6 @@ const styles = {
     optionInline: {
         marginLeft: '0.5rem'
     },
-    option: {
-        marginTop: '0.25rem'
-    },
     optionLabel: {
         cursor: 'pointer',
         display: 'flex',
@@ -45,7 +42,7 @@ function renderOption(field, value, option, index, onUpdate) {
     const isEven = index % 2 === 0;
     const style = {
         ...styles.optionContainer,
-        ...(index === 0 ? {} : field.inline ? styles.optionInline : styles.option)
+        ...(index === 0 ? {} : field.inline ? styles.optionInline : {})
     };
     return (
         <div key={index} style={style} onClick={() => onUpdate(option.id || isEven, field.id)}>

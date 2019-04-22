@@ -9,14 +9,9 @@ const flexColumn = {
     flexDirection: 'column'
 };
 
-const checkbox = {
-    ...flexColumn,
-    ...{ marginTop: '0.25rem' }
-};
-
 function getStyle(index) {
     if (index === 0) return {};
-    return checkbox;
+    return flexColumn;
 }
 
 const CheckboxGroup = ({ id, field, value, onUpdate }) => {

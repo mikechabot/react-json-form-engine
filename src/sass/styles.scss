@@ -18,3 +18,7 @@ $control-radius: none;
 .react-datepicker__input-container > input{
   @extend .input;
 }
+
+.field:not(:last-child) {
+  margin-bottom: 0.5rem;
+}

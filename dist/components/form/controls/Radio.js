@@ -37,9 +37,6 @@ var styles = {
   optionInline: {
     marginLeft: '0.5rem'
   },
-  option: {
-    marginTop: '0.25rem'
-  },
   optionLabel: {
     cursor: 'pointer',
     display: 'flex',
@@ -60,7 +57,7 @@ function getIcon(option, value, isEven) {
 function renderOption(field, value, option, index, onUpdate) {
   var isEven = index % 2 === 0;
 
-  var style = _objectSpread({}, styles.optionContainer, index === 0 ? {} : field.inline ? styles.optionInline : styles.option);
+  var style = _objectSpread({}, styles.optionContainer, index === 0 ? {} : field.inline ? styles.optionInline : {});
 
   return _react.default.createElement("div", {
     key: index,

@@ -53,12 +53,12 @@ var FormApiService = {
     });
   },
   validateFieldTypesShape: function validateFieldTypesShape(field) {
-    var idSuffix = "(id: ".concat(field, ")");
+    var idSuffix = "(id: ".concat(field.id, ")");
 
     if (field[FIELD.TYPE] === _formConst.DATA_TYPE.STRING && field[FIELD.COMPONENT].type === RADIO && !field[FIELD.OPTIONS].every(function (o) {
       return !(0, _isNil.default)(o[FIELD.ID]);
     })) {
-      throw new Error("".concat(INVALID_TYPES_MESSAGE.RADIO, " ").concat(idSuffix));
+      throw new Error("".concat(INVALID_TYPES_MESSAGE[RADIO], " ").concat(idSuffix));
     }
 
     if (field[FIELD.TYPE] === _formConst.DATA_TYPE.NUMBER) {
@@ -66,7 +66,7 @@ var FormApiService = {
       var hasMin = !(0, _isNil.default)(field[FIELD.MIN]);
 
       if (field[FIELD.COMPONENT].type === RANGE && (!hasMin || !hasMax)) {
-        throw new Error("".concat(INVALID_TYPES_MESSAGE.RANGE, " ").concat(idSuffix));
+        throw new Error("".concat(INVALID_TYPES_MESSAGE[RANGE], " ").concat(idSuffix));
       }
 
       if (hasMin && hasMax) {

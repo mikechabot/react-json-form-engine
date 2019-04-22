@@ -12,8 +12,8 @@ const {
 
 const styles = {
     list: {
-        marginTop: '0.75rem',
-        marginBottom: '0.25rem',
+        marginTop: '0.50rem',
+        marginBottom: '0.50rem',
         marginLeft: '0.25rem',
         paddingLeft: '0.75rem',
         borderLeft: '3px double #dbdbdb'

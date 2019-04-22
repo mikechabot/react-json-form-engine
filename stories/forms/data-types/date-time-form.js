@@ -34,7 +34,7 @@ export default {
                         {
                             id: 'date3',
                             type: 'date',
-                            title: 'Date sOnly field'
+                            title: 'Date Only field'
                         }
                     ]
                 }
