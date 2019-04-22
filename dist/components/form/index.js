@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.default = void 0;
+exports["default"] = void 0;
 
 var _react = _interopRequireWildcard(require("react"));
 
@@ -21,9 +21,9 @@ var _ValidationAPIError = _interopRequireDefault(require("../validation/Validati
 
 var _ValidationGenericError = _interopRequireDefault(require("../validation/ValidationGenericError"));
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = Object.defineProperty && Object.getOwnPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : {}; if (desc.get || desc.set) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; return newObj; } }
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = Object.defineProperty && Object.getOwnPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : {}; if (desc.get || desc.set) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj["default"] = obj; return newObj; } }
 
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
@@ -54,9 +54,6 @@ function (_Component) {
     _classCallCheck(this, Form);
 
     _this = _possibleConstructorReturn(this, _getPrototypeOf(Form).call(this, props));
-    _this.state = {
-      hasError: false
-    };
     _this.onSubmit = _this.onSubmit.bind(_assertThisInitialized(_this));
     _this.onUpdate = _this.onUpdate.bind(_assertThisInitialized(_this));
     return _this;
@@ -70,11 +67,6 @@ function (_Component) {
       if (instance.isValidDefinition()) {
         instance.validate();
       }
-    }
-  }, {
-    key: "componentDidCatch",
-    value: function componentDidCatch(error) {
-      console.error(error);
     }
   }, {
     key: "onSubmit",
@@ -107,35 +99,28 @@ function (_Component) {
   }, {
     key: "render",
     value: function render() {
-      var instance = this.props.instance;
+      var instance = this.props.instance; // No instance
 
-      if (this.state.hasError) {
-        return _react.default.createElement(_ValidationGenericError.default, {
-          message: _formConst.ERROR_MESSAGE.NO_RENDER
-        });
-      } // No instance
-
-
-      if (!instance || (0, _isEmpty.default)(instance)) {
-        return _react.default.createElement(_ValidationGenericError.default, {
+      if (!instance || (0, _isEmpty["default"])(instance)) {
+        return _react["default"].createElement(_ValidationGenericError["default"], {
           message: _formConst.ERROR_MESSAGE.NO_INSTANCE
         });
       } // Invalid definition
 
 
       if (!instance.isValidDefinition()) {
-        return _react.default.createElement(_ValidationAPIError.default, {
+        return _react["default"].createElement(_ValidationAPIError["default"], {
           error: instance.getError()
         });
       }
 
-      if ((0, _isEmpty.default)(instance.getSections())) {
-        return _react.default.createElement(_ValidationGenericError.default, {
+      if ((0, _isEmpty["default"])(instance.getSections())) {
+        return _react["default"].createElement(_ValidationGenericError["default"], {
           message: _formConst.ERROR_MESSAGE.NO_SECTIONS
         });
       }
 
-      return _react.default.createElement(_mobxReact.Provider, {
+      return _react["default"].createElement(_mobxReact.Provider, {
         instance: instance,
         onSubmit: this.onSubmit,
         onUpdate: this.onUpdate,
@@ -143,15 +128,7 @@ function (_Component) {
         hideSubsectionTitles: this.props.hideSubsectionTitles,
         hideSubsectionSubtitles: this.props.hideSubsectionSubtitles,
         submitButtonLabel: this.props.submitButtonLabel
-      }, _react.default.createElement(_FormConsumer.default, null));
-    }
-  }], [{
-    key: "getDerivedStateFromError",
-    value: function getDerivedStateFromError(error) {
-      console.log(error);
-      return {
-        hasError: true
-      };
+      }, _react["default"].createElement(_FormConsumer["default"], null));
     }
   }]);
 
@@ -159,14 +136,14 @@ function (_Component) {
 }(_react.Component);
 
 Form.propTypes = {
-  instance: _propTypes.default.object.isRequired,
-  submitButtonLabel: _propTypes.default.string,
-  hideFormTitle: _propTypes.default.bool,
-  hideSubsectionTitles: _propTypes.default.bool,
-  hideSubsectionSubtitles: _propTypes.default.bool,
-  width: _propTypes.default.oneOfType([_propTypes.default.number, _propTypes.default.string]),
-  onSubmit: _propTypes.default.func.isRequired,
-  onUpdate: _propTypes.default.func
+  instance: _propTypes["default"].object.isRequired,
+  submitButtonLabel: _propTypes["default"].string,
+  hideFormTitle: _propTypes["default"].bool,
+  hideSubsectionTitles: _propTypes["default"].bool,
+  hideSubsectionSubtitles: _propTypes["default"].bool,
+  width: _propTypes["default"].oneOfType([_propTypes["default"].number, _propTypes["default"].string]),
+  onSubmit: _propTypes["default"].func.isRequired,
+  onUpdate: _propTypes["default"].func
 };
 var _default = Form;
-exports.default = _default;
+exports["default"] = _default;

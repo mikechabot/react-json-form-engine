@@ -3,61 +3,69 @@ import PropTypes from 'prop-types';
 import isNil from 'lodash/isNil';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-import FormChildren from '../FormChildren';
-import { Flex } from '../../util';
+import FormChildren from '../FormField/FormChildren';
 
 const styles = {
-    container: {
+    containerInline: {
         display: 'flex'
     },
-    containerInline: {
+    container: {
         display: 'flex',
         flexDirection: 'column'
+    },
+    optionContainer: {
+        display: 'flex',
+        flexDirection: 'column',
+        alignContent: 'center'
+    },
+    optionInline: {
+        marginLeft: '0.5rem'
+    },
+    option: {
+        marginTop: '0.25rem'
+    },
+    optionLabel: {
+        cursor: 'pointer',
+        display: 'flex',
+        alignItems: 'center'
     }
 };
 
-const Radio = ({ id, value, field, onUpdate }) => {
-    return (
-        <div styles={field.inline ? styles.containerInline : styles.container} id={id}>
-            {field.options.map(_renderOption.bind(null, field, value, onUpdate))}
-        </div>
-    );
-};
-
-const _renderOption = (field, value, onUpdate, option, index) => {
-    const isEven = index % 2 === 0;
-    return (
-        <Flex
-            key={index}
-            style={index === 0 ? {} : field.inline ? { marginLeft: '0.5rem' } : { marginTop: '0.25rem' }}
-            column
-            vAlignCenter
-        >
-            <Flex
-                cursor="pointer"
-                vAlignCenter={true}
-                onClick={() => onUpdate(option.id || isEven, field.id)}
-            >
-                {_renderOptionIcon(option, value, isEven)}&nbsp;
-                <div>{option.title}</div>
-            </Flex>
-            <FormChildren field={option} />
-        </Flex>
-    );
-};
-
-const _renderOptionIcon = (option, value, isEven) => {
-    return isChecked(option, value, isEven) ? (
-        <FontAwesomeIcon icon={['far', 'dot-circle']} />
-    ) : (
-        <FontAwesomeIcon icon={['far', 'circle']} />
-    );
-};
-
-const isChecked = (option, value, isEven) => {
+function isChecked(option, value, isEven) {
     if (isNil(value)) return false;
     if (option.id) return option.id === value;
     return isEven ? value : !value;
+}
+
+function getIcon(option, value, isEven) {
+    return isChecked(option, value, isEven) ? 'dot-circle' : 'circle';
+}
+
+function renderOption(field, value, option, index, onUpdate) {
+    const isEven = index % 2 === 0;
+    const style = {
+        ...styles.optionContainer,
+        ...(index === 0 ? {} : field.inline ? styles.optionInline : styles.option)
+    };
+    return (
+        <div key={index} style={style} onClick={() => onUpdate(option.id || isEven, field.id)}>
+            <div style={styles.optionLabel}>
+                <FontAwesomeIcon icon={['far', getIcon(option, value, isEven)]} />
+                &nbsp;
+                <div>{option.title}</div>
+            </div>
+            <FormChildren field={option} />
+        </div>
+    );
+}
+
+const Radio = ({ id, value, field, onUpdate }) => {
+    const containerStyle = field.inline ? styles.containerInline : styles.container;
+    return (
+        <div id={id} style={containerStyle}>
+            {field.options.map((option, index) => renderOption(field, value, option, index, onUpdate))}
+        </div>
+    );
 };
 
 Radio.propTypes = {

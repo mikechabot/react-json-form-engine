@@ -59,7 +59,8 @@ const runValidators = (field, value, validationResults) => {
         }
     }
 
-    if (field[FIELD.TYPE] === DATA_TYPE.NUMBER) {
+    // Min/max
+    if (field[FIELD.TYPE] === DATA_TYPE.NUMBER && !isNil(value)) {
         if (isError(Validators.checkNumeric(field, value))) {
             validationResults.addInvalidNumeric(id, ACTIONS.SUBMIT, VALIDATION_MESSAGE.NUMERIC(field));
         } else {

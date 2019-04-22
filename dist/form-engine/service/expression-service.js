@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.default = void 0;
+exports["default"] = void 0;
 
 var _common = require("../../common");
 
@@ -19,7 +19,7 @@ var _forEach = _interopRequireDefault(require("lodash/forEach"));
 
 var _isNil = _interopRequireDefault(require("lodash/isNil"));
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
 function _getConstComparisonCondition(type, val1, val2, orEqualTo) {
   return {
@@ -42,7 +42,7 @@ var conditionEvaluators = {
     var val2 = service.evalExpression(condition.expression2, instance);
     var conditionMet = false;
 
-    if ((0, _isArray.default)(val2) && val2.length === 2) {
+    if ((0, _isArray["default"])(val2) && val2.length === 2) {
       var isGreaterThan = service.evalCondition(_getConstComparisonCondition('GREATER_THAN', val1, val2[0], true), instance);
       var isLessThan = service.evalCondition(_getConstComparisonCondition('LESS_THAN', val1, val2[1], true), instance);
 
@@ -64,15 +64,15 @@ var conditionEvaluators = {
     var val2 = service.evalExpression(condition.expression2, instance);
     var conditionMet = false;
 
-    if (!(0, _isNil.default)(val1) && !(0, _isNil.default)(val2)) {
-      conditionMet = (0, _includes.default)(val2, val1);
+    if (!(0, _isNil["default"])(val1) && !(0, _isNil["default"])(val2)) {
+      conditionMet = (0, _includes["default"])(val2, val1);
     }
 
     return conditionMet;
   },
   EMPTY: function EMPTY(service, condition, instance) {
     var val = service.evalExpression(condition.expression, instance);
-    var conditionMet = (0, _isEmpty.default)(val);
+    var conditionMet = (0, _isEmpty["default"])(val);
     return conditionMet;
   },
   EQUAL: function EQUAL(service, condition, instance) {
@@ -80,7 +80,7 @@ var conditionEvaluators = {
     var val2 = service.evalExpression(condition.expression2, instance);
     var conditionMet = false;
 
-    if (!(0, _isNil.default)(val1) && !(0, _isNil.default)(val2)) {
+    if (!(0, _isNil["default"])(val1) && !(0, _isNil["default"])(val2)) {
       conditionMet = val1 === val2;
     }
 
@@ -90,7 +90,7 @@ var conditionEvaluators = {
   GREATER_THAN: function GREATER_THAN(service, condition, instance) {
     var diff = evalNumberCondition(service, condition, instance);
 
-    if (!(0, _isNil.default)(diff)) {
+    if (!(0, _isNil["default"])(diff)) {
       return condition.orEqualTo ? diff <= 0 : diff < 0;
     }
   },
@@ -98,7 +98,7 @@ var conditionEvaluators = {
   LESS_THAN: function LESS_THAN(service, condition, instance) {
     var diff = evalNumberCondition(service, condition, instance);
 
-    if (!(0, _isNil.default)(diff)) {
+    if (!(0, _isNil["default"])(diff)) {
       return condition.orEqualTo ? diff >= 0 : diff > 0;
     }
   }
@@ -130,16 +130,16 @@ var expressionEvaluators = {
   },
   ADD: function ADD(service, expression, instance) {
     var sum = 0;
-    (0, _forEach.default)(expression.expressions, function (exp) {
+    (0, _forEach["default"])(expression.expressions, function (exp) {
       // TODO: Maybe this becomes FORM_RESPONSE_VALUE?
       var field = instance.getField(exp.id);
       var formResponses = service.evalExpression(exp, instance);
 
-      if (!(0, _isEmpty.default)(formResponses)) {
-        var selections = (0, _filter.default)(field.options, function (option) {
-          return (0, _includes.default)(formResponses, option.id);
+      if (!(0, _isEmpty["default"])(formResponses)) {
+        var selections = (0, _filter["default"])(field.options, function (option) {
+          return (0, _includes["default"])(formResponses, option.id);
         });
-        (0, _forEach.default)(selections, function (selection) {
+        (0, _forEach["default"])(selections, function (selection) {
           var valueToAdd = parseInt(selection.value, 10);
 
           if (!sum) {
@@ -167,7 +167,7 @@ var ExpressionService = {
 
     var conditionMet = evaluator(this, condition, instance);
 
-    if (!(0, _isNil.default)(conditionMet) && condition.not) {
+    if (!(0, _isNil["default"])(conditionMet) && condition.not) {
       conditionMet = !conditionMet;
     }
 
@@ -184,4 +184,4 @@ var ExpressionService = {
   }
 };
 var _default = ExpressionService;
-exports.default = _default;
+exports["default"] = _default;

@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.default = void 0;
+exports["default"] = void 0;
 
 var _react = _interopRequireWildcard(require("react"));
 
@@ -13,15 +13,15 @@ var _mobxReact = require("mobx-react");
 
 var _FormTitle = _interopRequireDefault(require("./util/FormTitle"));
 
-var _FormSection = _interopRequireDefault(require("./FormSection"));
+var _FormSection = _interopRequireDefault(require("./FormSection/"));
 
-var _TabbedSections = _interopRequireDefault(require("./TabbedSections"));
+var _TabbedSections = _interopRequireDefault(require("./FormSection/TabbedSections"));
 
 var _dec, _class, _class2, _temp;
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = Object.defineProperty && Object.getOwnPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : {}; if (desc.get || desc.set) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; return newObj; } }
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = Object.defineProperty && Object.getOwnPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : {}; if (desc.get || desc.set) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj["default"] = obj; return newObj; } }
 
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
@@ -41,26 +41,13 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 
-var style = {
+var styles = {
   display: 'flex',
   flexDirection: 'column',
   flex: 1,
   flexShrink: 0,
   border: '1px solid #dbdbdb'
 };
-
-var FormSections = function FormSections(_ref) {
-  var sections = _ref.sections;
-
-  if (sections.length > 1) {
-    return _react.default.createElement(_TabbedSections.default, null);
-  }
-
-  return _react.default.createElement(_FormSection.default, {
-    section: sections[0]
-  });
-};
-
 var FormConsumer = (_dec = (0, _mobxReact.inject)('instance', 'hideFormTitle', 'hideSubsectionTitles', 'hideSubsectionSubtitles', 'submitButtonLabel'), _dec(_class = (0, _mobxReact.observer)(_class = (_temp = _class2 =
 /*#__PURE__*/
 function (_Component) {
@@ -73,22 +60,32 @@ function (_Component) {
   }
 
   _createClass(FormConsumer, [{
+    key: "renderSections",
+    value: function renderSections(sections) {
+      if (sections.length > 1) {
+        return _react["default"].createElement(_TabbedSections["default"], null);
+      }
+
+      return _react["default"].createElement(_FormSection["default"], {
+        section: sections[0]
+      });
+    }
+  }, {
     key: "render",
     value: function render() {
       var instance = this.props.instance;
-      return _react.default.createElement("div", {
-        style: style
-      }, _react.default.createElement(_FormTitle.default, null), _react.default.createElement(FormSections, {
-        sections: instance.getSections()
-      }));
+      return _react["default"].createElement("div", {
+        style: styles,
+        className: "__rjfe__"
+      }, _react["default"].createElement(_FormTitle["default"], null), this.renderSections(instance.getSections()));
     }
   }]);
 
   return FormConsumer;
 }(_react.Component), _class2.propTypes = {
-  instance: _propTypes.default.instanceOf(Object).isRequired,
-  hideFormTitle: _propTypes.default.bool.isRequired,
-  width: _propTypes.default.oneOfType([_propTypes.default.number, _propTypes.default.string])
+  instance: _propTypes["default"].instanceOf(Object).isRequired,
+  hideFormTitle: _propTypes["default"].bool.isRequired,
+  width: _propTypes["default"].oneOfType([_propTypes["default"].number, _propTypes["default"].string])
 }, _temp)) || _class) || _class);
 var _default = FormConsumer;
-exports.default = _default;
+exports["default"] = _default;

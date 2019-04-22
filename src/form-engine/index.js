@@ -1,6 +1,7 @@
 import { decorate, observable } from 'mobx';
 
 import Maybe from 'maybe-baby';
+import cloneDeep from 'lodash/cloneDeep';
 import isString from 'lodash/isString';
 import includes from 'lodash/includes';
 import isEmpty from 'lodash/isEmpty';
@@ -14,10 +15,10 @@ import FormConfig from './config/form-config';
 import FormValidator from './validation/form-validator';
 import ValidationResults from './validation/validation-results';
 
-import { clone, isBlank } from '../common';
+import { isBlank } from '../common';
 import { NO_VALUE, PROPERTY, DATA_TYPE, VALIDATION_CONST } from './config/form-const';
 
-const { FIELD, DEFINITION } = PROPERTY;
+const { FIELD, SECTION, SUBSECTION, DEFINITION } = PROPERTY;
 
 class FormEngine {
     constructor(definition, model) {
@@ -84,9 +85,15 @@ class FormEngine {
                 parsed = {};
             }
         }
-
         Object.keys(parsed).forEach(key => {
-            this.model[key] = parsed[key];
+            const field = this.fields[key];
+            if (field) {
+                let value = parsed[key];
+                if (field.type === DATA_TYPE.BOOLEAN) {
+                    value = value === 'true';
+                }
+                this.setModelValue(key, value, field);
+            }
         });
     }
 
@@ -98,7 +105,7 @@ class FormEngine {
      */
     __cloneSections() {
         this.getDefinitionSections().forEach(section => {
-            this.sections.push(clone(section));
+            this.sections.push(cloneDeep(section));
         });
     }
 
@@ -108,9 +115,9 @@ class FormEngine {
      */
     __initFieldMetadata() {
         this.sections.forEach(section => {
-            section.subsections.forEach(subsection => {
+            section[SECTION.SUBSECTIONS].forEach(subsection => {
                 subsection.section = section;
-                this.__decorateFields(subsection.fields, subsection);
+                this.__decorateFields(subsection[SUBSECTION.FIELDS], subsection);
             });
         });
     }
@@ -210,12 +217,12 @@ class FormEngine {
      */
     __registerShowCondition(field) {
         const { expression, expression1, expression2 } = field.showCondition;
-        [expression, expression1, expression2].forEach(_expression => {
-            if (ExpressionService.isFormResponseExpression(_expression)) {
-                let list = this.showConditionTriggerMap[_expression.id];
+        [expression, expression1, expression2].forEach(e => {
+            if (ExpressionService.isFormResponseExpression(e)) {
+                let list = this.showConditionTriggerMap[e.id];
                 if (!list) {
                     list = [];
-                    this.showConditionTriggerMap[_expression.id] = list;
+                    this.showConditionTriggerMap[e.id] = list;
                 }
                 list.push(field[FIELD.ID]);
             }
@@ -501,9 +508,11 @@ class FormEngine {
     buildObservableValidationMap() {
         this.validationMap.form = this.hasError();
         this.sections.forEach(section => {
-            this.validationMap.sections[section[FIELD.ID]] = this.sectionHasError(section);
+            this.validationMap.sections[section[SECTION.ID]] = this.sectionHasError(section);
             section.subsections.forEach(subsection => {
-                this.validationMap.subsections[subsection[FIELD.ID]] = this.subsectionHasError(subsection);
+                this.validationMap.subsections[subsection[SUBSECTION.ID]] = this.subsectionHasError(
+                    subsection
+                );
             });
         });
         Object.keys(this.fields).forEach(id => {

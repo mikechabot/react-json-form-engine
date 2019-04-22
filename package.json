@@ -6,10 +6,7 @@
   "main": "index.js",
   "scripts": {
     "prepublishOnly": "npm run build && git add . && git commit -m \"Packaging assets\" && npm version patch",
-    "css-build": "npm run css-build-nested && npm run css-build-compressed",
-    "css-build-nested": "node-sass --omit-source-map-url --output-style nested src/sass/react-json-form-engine.scss dist/css/react-json-form-engine.css",
-    "css-build-compressed": "node-sass --omit-source-map-url --output-style compressed src/sass/react-json-form-engine.scss dist/css/react-json-form-engine.min.css",
-    "build": "rm -rf ./dist && npm run css-build && babel src -d dist",
+    "build": "rm -rf ./dist && node build-css.js && babel src -d dist",
     "storybook": "npm run build && start-storybook -p 6006",
     "build-storybook": "npm run build && build-storybook"
   },
@@ -18,17 +15,21 @@
     "url": "git+https://github.com/mikechabot/react-json-form-engine.git"
   },
   "keywords": [
-    "react",
+    "reactjs",
+    "react forms",
+    "react-forms",
     "forms",
     "json forms",
-    "conditional forms"
+    "json schema forms",
+    "conditional forms",
+    "validate forms",
+    "web forms"
   ],
   "bugs": {
     "url": "https://github.com/mikechabot/react-json-form-engine/issues"
   },
   "homepage": "http://mikechabot.github.io/react-json-form-engine-storybook",
   "peerDependencies": {
-    "bulma": "^0.7.4",
     "react": "^16.8.6",
     "react-dom": "^16.8.6"
   },
@@ -45,9 +46,10 @@
     "@storybook/addon-options": "^5.0.5",
     "@storybook/addons": "^5.0.5",
     "@storybook/react": "^5.0.5",
+    "autoprefixer": "^9.5.1",
     "babel-eslint": "^10.0.1",
-    "babel-loader": "^8.0.5",
     "bulma": "^0.7.4",
+    "core-js": "^3.0.0",
     "eslint": "^5.15.3",
     "eslint-config-prettier": "^4.1.0",
     "eslint-config-standard": "^12.0.0",
@@ -58,8 +60,12 @@
     "eslint-plugin-react": "^7.12.4",
     "eslint-plugin-standard": "^4.0.0",
     "node-sass": "^4.11.0",
+    "postcss": "^7.0.14",
+    "postcss-prefix-selector": "^1.7.1",
+    "postcss-prefixer": "^2.1.1",
     "prettier": "^1.16.4",
-    "why-did-you-update": "^1.0.6"
+    "react": "^16.8.6",
+    "react-dom": "^16.8.6"
   },
   "dependencies": {
     "@fortawesome/fontawesome-svg-core": "^1.2.17",
@@ -67,18 +73,13 @@
     "@fortawesome/free-solid-svg-icons": "^5.8.1",
     "@fortawesome/react-fontawesome": "^0.1.4",
     "api-check": "^7.5.5",
-    "core-js": "^3.0.0",
-    "glamor": "^2.20.40",
-    "glamorous": "^4.13.0",
     "lodash": "^4.17.11",
     "maybe-baby": "^1.1.8",
     "mobx": "^5.9.4",
     "mobx-react": "^5.4.3",
     "moment": "^2.24.0",
     "prop-types": "^15.7.2",
-    "react": "16.8.6",
     "react-datepicker": "^2.3.0",
-    "react-dom": "16.8.6",
     "react-tabify": "^0.1.24"
   }
 }

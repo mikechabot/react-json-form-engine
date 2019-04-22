@@ -5,5 +5,3 @@ import { fas } from '@fortawesome/free-solid-svg-icons';
 library.add(far, fas);
 
 export { default as Asterisk } from './Asterisk';
-export { default as Icon } from './Icon';
-export { default as Flex } from './Flex';

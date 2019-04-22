@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
-import FormSubsection from './FormSubsection';
-import TabbedSubsections from './TabbedSubsections';
+import FormSubsection from '../FormSubsection';
+import TabbedSubsections from '../FormSubsection/TabbedSubsections';
 
 const style = { display: 'flex', height: '100%', flexShrink: 0 };
 
@@ -16,6 +16,7 @@ class FormSection extends Component {
     };
     render() {
         const { section } = this.props;
+        if (!section) return null;
         return (
             <div style={style}>
                 {section.subsections.length > 1 ? (

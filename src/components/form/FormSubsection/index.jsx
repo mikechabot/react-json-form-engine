@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { inject, observer } from 'mobx-react';
 
-import FormField from './FormField';
-import FormSubsectionTitle from './util/FormSubsectionTitle';
-import FormSubmitButton from './util/FormSubmitButton';
+import FormField from '../FormField/';
+import FormSubsectionTitle from '../util/FormSubsectionTitle';
+import FormSubmitButton from '../util/FormSubmitButton';
 
 const styles = {
     container: {
@@ -65,4 +65,5 @@ class FormSubsection extends Component {
         );
     }
 }
+
 export default FormSubsection;

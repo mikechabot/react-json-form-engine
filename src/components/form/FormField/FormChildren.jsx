@@ -2,9 +2,9 @@ import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 import { inject, observer } from 'mobx-react';
 
-import FormField from './FormField';
+import FormField from './';
 
-import { PROPERTY } from '../../form-engine/config/form-const';
+import { PROPERTY } from '../../../form-engine/config/form-const';
 
 const {
     FIELD: { FIELDS, ID }

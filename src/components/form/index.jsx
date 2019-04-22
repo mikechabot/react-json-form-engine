@@ -12,16 +12,8 @@ import ValidationGenericError from '../validation/ValidationGenericError';
 class Form extends Component {
     constructor(props) {
         super(props);
-        this.state = {
-            hasError: false
-        };
         this.onSubmit = this.onSubmit.bind(this);
         this.onUpdate = this.onUpdate.bind(this);
-    }
-
-    static getDerivedStateFromError(error) {
-        console.log(error);
-        return { hasError: true };
     }
 
     componentDidMount() {
@@ -29,10 +21,6 @@ class Form extends Component {
         if (instance.isValidDefinition()) {
             instance.validate();
         }
-    }
-
-    componentDidCatch(error) {
-        console.error(error);
     }
 
     onSubmit() {
@@ -59,10 +47,6 @@ class Form extends Component {
 
     render() {
         const { instance } = this.props;
-
-        if (this.state.hasError) {
-            return <ValidationGenericError message={ERROR_MESSAGE.NO_RENDER} />;
-        }
 
         // No instance
         if (!instance || isEmpty(instance)) {

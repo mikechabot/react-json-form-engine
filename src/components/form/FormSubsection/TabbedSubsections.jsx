@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 import { inject, observer } from 'mobx-react';
 import { Tabs, Tab } from 'react-tabify';
 
-import { Asterisk } from '../../util/index';
-import FormSubsection from '../FormSubsection';
+import { Asterisk } from '../../util';
+import FormSubsection from './';
 
 @inject('instance', 'hideFormTitle', 'hideSubsectionTitles', 'hideSubsectionSubtitles', 'submitButtonLabel')
 @observer
@@ -31,13 +31,10 @@ class TabbedSubsections extends Component {
 
     render() {
         const { section } = this.props;
-        const { subsections } = section;
-
-        console.log('Rendering FormSection', section.title);
-
+        if (!section) return;
         return (
             <Tabs id={`${section.id}-subsection-tabs`} defaultActiveKey={0}>
-                {subsections.map((subsection, index) => (
+                {section.subsections.map((subsection, index) => (
                     <Tab key={index} eventKey={index} label={this.getTabbedTitle(subsection)}>
                         <FormSubsection
                             isTabbed={true}

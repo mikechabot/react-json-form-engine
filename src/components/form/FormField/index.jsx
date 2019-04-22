@@ -5,7 +5,7 @@ import isEmpty from 'lodash/isEmpty';
 import FormControl from './FormControl';
 import FormChildren from './FormChildren';
 
-import { PROPERTY } from '../../form-engine/config/form-const';
+import { PROPERTY } from '../../../form-engine/config/form-const';
 
 const style = {
     display: 'flex',

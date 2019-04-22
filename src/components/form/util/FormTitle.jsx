@@ -6,7 +6,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import FormSubmitButton from './FormSubmitButton';
 
 const DEFAULT_THEME = 'is-dark';
-const className = 'navbar-item is-size-4-desktop is-size-5-tablet is-size-5-mobile';
 
 const styles = {
     container: {
@@ -43,18 +42,10 @@ class FormTitle extends Component {
     renderTitle(instance) {
         return (
             <div className="navbar-brand">
-                <span className={className}>
+                <span className="navbar-item is-size-4-desktop is-size-5-tablet is-size-5-mobile">
                     {this.renderFormIcon(instance)}
                     <span key="label">{instance.getFormTitle()}</span>
                 </span>
-            </div>
-        );
-    }
-
-    renderSubmit() {
-        return (
-            <div className="navbar-item">
-                <FormSubmitButton />
             </div>
         );
     }
@@ -69,7 +60,9 @@ class FormTitle extends Component {
                 className={`navbar ${theme || DEFAULT_THEME}`}
             >
                 {this.renderTitle(instance)}
-                {this.renderSubmit()}
+                <div className="navbar-item">
+                    <FormSubmitButton />
+                </div>
             </div>
         );
     }

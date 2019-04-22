@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.default = void 0;
+exports["default"] = void 0;
 
 var _react = _interopRequireWildcard(require("react"));
 
@@ -17,9 +17,9 @@ var _mobxReact = require("mobx-react");
 
 var _dec, _class, _class2, _temp;
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = Object.defineProperty && Object.getOwnPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : {}; if (desc.get || desc.set) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; return newObj; } }
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = Object.defineProperty && Object.getOwnPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : {}; if (desc.get || desc.set) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj["default"] = obj; return newObj; } }
 
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
@@ -39,34 +39,41 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 
-var FormSubsectionPanelTitle = (_dec = (0, _mobxReact.inject)('instance', 'hideSubsectionTitles', 'hideSubsectionSubtitles'), _dec(_class = (0, _mobxReact.observer)(_class = (_temp = _class2 =
+var styles = {
+  subtitle: {
+    fontSize: '.75em',
+    marginTop: '.25em'
+  },
+  heading: {
+    border: 'none',
+    borderBottom: '1px solid #dbdbdb'
+  }
+};
+var FormSubsectionTitle = (_dec = (0, _mobxReact.inject)('instance', 'hideSubsectionTitles', 'hideSubsectionSubtitles'), _dec(_class = (0, _mobxReact.observer)(_class = (_temp = _class2 =
 /*#__PURE__*/
 function (_Component) {
-  _inherits(FormSubsectionPanelTitle, _Component);
+  _inherits(FormSubsectionTitle, _Component);
 
-  function FormSubsectionPanelTitle() {
-    _classCallCheck(this, FormSubsectionPanelTitle);
+  function FormSubsectionTitle() {
+    _classCallCheck(this, FormSubsectionTitle);
 
-    return _possibleConstructorReturn(this, _getPrototypeOf(FormSubsectionPanelTitle).apply(this, arguments));
+    return _possibleConstructorReturn(this, _getPrototypeOf(FormSubsectionTitle).apply(this, arguments));
   }
 
-  _createClass(FormSubsectionPanelTitle, [{
+  _createClass(FormSubsectionTitle, [{
     key: "getTitle",
     value: function getTitle(instance, subsection, isTabbed, hideSubsectionTitles) {
       if (isTabbed || hideSubsectionTitles) return null;
-      return _react.default.createElement("div", null, subsection.title, "\xA0", instance.validationMap.subsections[subsection.id] ? _react.default.createElement(_util.Asterisk, null) : null);
+      return _react["default"].createElement("div", null, subsection.title, "\xA0", instance.validationMap.subsections[subsection.id] ? _react["default"].createElement(_util.Asterisk, null) : null);
     }
   }, {
     key: "getSubsection",
     value: function getSubsection(subsection, hideSubsectionSubtitles) {
       if (!subsection.subtitle || hideSubsectionSubtitles) return null;
-      return _react.default.createElement("h2", {
+      return _react["default"].createElement("h2", {
         className: "subtitle",
-        style: {
-          fontSize: '.75em',
-          marginTop: '.25em'
-        }
-      }, _react.default.createElement(_reactFontawesome.FontAwesomeIcon, {
+        style: styles.subtitle
+      }, _react["default"].createElement(_reactFontawesome.FontAwesomeIcon, {
         icon: "angle-right"
       }), " ", subsection.subtitle);
     }
@@ -87,22 +94,19 @@ function (_Component) {
       var title = this.getTitle(instance, subsection, isTabbed, hideSubsectionTitles);
       var subtitle = this.getSubsection(subsection, hideSubsectionSubtitles);
       if (!(subtitle || title)) return null;
-      return _react.default.createElement("div", {
+      return _react["default"].createElement("div", {
         className: "panel-heading",
-        style: {
-          border: 'none',
-          borderBottom: '1px solid #dbdbdb'
-        }
+        style: styles.heading
       }, title, subtitle);
     }
   }]);
 
-  return FormSubsectionPanelTitle;
+  return FormSubsectionTitle;
 }(_react.Component), _class2.propTypes = {
-  isTabbed: _propTypes.default.bool,
-  subsection: _propTypes.default.object.isRequired,
-  hideSubsectionTitles: _propTypes.default.bool.isRequired,
-  hideSubsectionSubtitles: _propTypes.default.bool.isRequired
+  isTabbed: _propTypes["default"].bool,
+  subsection: _propTypes["default"].object.isRequired,
+  hideSubsectionTitles: _propTypes["default"].bool.isRequired,
+  hideSubsectionSubtitles: _propTypes["default"].bool.isRequired
 }, _temp)) || _class) || _class);
-var _default = FormSubsectionPanelTitle;
-exports.default = _default;
+var _default = FormSubsectionTitle;
+exports["default"] = _default;

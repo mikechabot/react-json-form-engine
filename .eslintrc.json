@@ -29,7 +29,6 @@
     "no-extend-native": 0,
     "no-var": 1,
     "prettier/prettier": "error",
-    //    "quotes": [2, "single"],
     "quotes": [2, "single", { "avoidEscape": true }],
     "react/prop-types": 1,
     "react/no-find-dom-node": 0,

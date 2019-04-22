@@ -21,13 +21,6 @@ export const COMPONENT_TYPE = {
     LABEL: 'label'
 };
 
-export const FORM_STATE = {
-    SUCCESS: 'success',
-    WARNING: 'warning',
-    ERROR: 'error',
-    OK: 'OK'
-};
-
 export const COMPONENT_DECORATORS = {
     [COMPONENT_TYPE.CHECKBOX]: {
         hideControlLabel: true
@@ -95,7 +88,6 @@ export const VALIDATION_CONST = {
 };
 
 export const ERROR_MESSAGE = {
-    NO_RENDER: 'Error during rendering. Check console.',
     NO_INSTANCE: 'Missing required form instance. Did you create one with FormEngine?',
     NO_SECTIONS: 'Form is missing required sections'
 };

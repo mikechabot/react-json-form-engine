@@ -3,11 +3,11 @@ import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 const ValidationGenericError = ({ message }) => (
-    <React.Fragment>
+    <div className="__rjfe__">
         <FontAwesomeIcon icon="exclamation-triangle" className="has-text-danger" />
         &nbsp;
         <strong className="has-text-danger">{message}</strong>
-    </React.Fragment>
+    </div>
 );
 
 ValidationGenericError.propTypes = {

@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 import Checkbox from './Checkbox';
-import FormChildren from '../FormChildren';
+import FormChildren from '../FormField/FormChildren';
 
 const flexColumn = {
     display: 'flex',

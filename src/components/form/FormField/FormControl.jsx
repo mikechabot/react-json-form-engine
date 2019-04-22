@@ -3,8 +3,8 @@ import PropTypes from 'prop-types';
 import { inject, observer } from 'mobx-react';
 import Maybe from 'maybe-baby';
 
-import FormControlHint from './util/FormControlHint';
-import ValidationFieldError from '../validation/ValidationFieldError';
+import FormControlHint from '../util/FormControlHint';
+import ValidationFieldError from '../../validation/ValidationFieldError';
 
 const hideTitle = decorators => Maybe.of(() => decorators.hideControlLabel).isJust();
 
@@ -51,12 +51,10 @@ class FormControl extends Component {
             return <ValidationFieldError id={id} />;
         }
 
-        const hasError = instance.validationMap.fields[id] || false;
         const value = instance.getModelValue(id);
-
-        console.log('Render FormControl', id);
-
+        const hasError = instance.validationMap.fields[id] || false;
         const Control = component.element;
+
         return (
             <React.Fragment>
                 {this.renderFormControlTitle(field)}

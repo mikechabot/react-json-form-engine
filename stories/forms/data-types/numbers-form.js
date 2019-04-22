@@ -19,15 +19,15 @@ export default {
                             type: 'number',
                             title: 'Number field',
                             placeholder: 'Enter a value',
-                            required: true
+                            min: 0,
+                            max: 100
                         },
                         {
                             id: 'num2',
                             type: 'number',
                             title: 'Range slider',
                             min: 0,
-                            max: 100,
-                            required: true
+                            max: 100
                         }
                     ]
                 }

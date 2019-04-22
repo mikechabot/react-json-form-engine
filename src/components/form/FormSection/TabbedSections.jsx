@@ -3,9 +3,9 @@ import PropTypes from 'prop-types';
 import { observer, inject } from 'mobx-react';
 import { Tabs, Tab } from 'react-tabify';
 
-import { Asterisk } from '../../util/index';
+import { Asterisk } from '../../util';
 
-import FormSection from '../FormSection';
+import FormSection from './';
 
 @inject('instance', 'hideFormTitle', 'hideSubsectionTitles', 'hideSubsectionSubtitles', 'submitButtonLabel')
 @observer
@@ -18,19 +18,16 @@ class TabbedSections extends Component {
     };
 
     getDerivedSectionTitle(instance, section) {
-        if (!instance.validationMap.sections[section.id]) return section.title;
         return (
             <span>
-                {section.title} <Asterisk />
+                {section.title}&nbsp;
+                {instance.validationMap.sections[section.id] ? <Asterisk /> : null}
             </span>
         );
     }
 
     render() {
         const { instance } = this.props;
-
-        console.log('Rendering TabbedForm', instance);
-
         return (
             <Tabs stacked id={`form-tabs-${instance.getId()}`} defaultActiveKey={0}>
                 {instance.getSections().map((section, index) => (

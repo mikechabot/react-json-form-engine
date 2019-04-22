@@ -50,8 +50,7 @@ export default {
                                                                 {
                                                                     id: 'arr2',
                                                                     type: 'array',
-                                                                    title:
-                                                                        'Great-Great-Great-Grandchild 1',
+                                                                    title: 'Great-Great-Great-Grandchild 1',
                                                                     options: [
                                                                         { title: 'Option 1', id: '1' },
                                                                         { title: 'Option 2', id: '2' },

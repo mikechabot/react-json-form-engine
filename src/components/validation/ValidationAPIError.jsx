@@ -23,7 +23,7 @@ function parseAPICheckErrorMessage(error) {
 const ValidationAPIError = ({ error }) => {
     let message = parseAPICheckErrorMessage(error);
     return (
-        <div className="panel">
+        <div className="__rjfe__ panel">
             <div className="panel-heading">
                 <div style={style}>
                     <FontAwesomeIcon icon="exclamation-triangle" className="has-text-danger" />

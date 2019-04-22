@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.ERROR_MESSAGE = exports.VALIDATION_CONST = exports.PROPERTY = exports.NO_VALUE = exports.COMPONENT_DECORATORS = exports.FORM_STATE = exports.COMPONENT_TYPE = exports.DATA_TYPE = void 0;
+exports.ERROR_MESSAGE = exports.VALIDATION_CONST = exports.PROPERTY = exports.NO_VALUE = exports.COMPONENT_DECORATORS = exports.COMPONENT_TYPE = exports.DATA_TYPE = void 0;
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
 
@@ -32,13 +32,6 @@ var COMPONENT_TYPE = {
   LABEL: 'label'
 };
 exports.COMPONENT_TYPE = COMPONENT_TYPE;
-var FORM_STATE = {
-  SUCCESS: 'success',
-  WARNING: 'warning',
-  ERROR: 'error',
-  OK: 'OK'
-};
-exports.FORM_STATE = FORM_STATE;
 
 var COMPONENT_DECORATORS = _defineProperty({}, COMPONENT_TYPE.CHECKBOX, {
   hideControlLabel: true
@@ -101,7 +94,6 @@ var VALIDATION_CONST = {
 };
 exports.VALIDATION_CONST = VALIDATION_CONST;
 var ERROR_MESSAGE = {
-  NO_RENDER: 'Error during rendering. Check console.',
   NO_INSTANCE: 'Missing required form instance. Did you create one with FormEngine?',
   NO_SECTIONS: 'Form is missing required sections'
 };
