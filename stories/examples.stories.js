@@ -5,7 +5,7 @@ import { loginForm, rehydratedForm, simpleForm } from './forms';
 
 import { buildFormComponent } from './util';
 
-import '../dist/css/react-json-form-engine.css';
+import '../dist/css/styles.css';
 import { FormEngine } from '../src';
 
 const stories = storiesOf('Examples', module);
