@@ -50,7 +50,7 @@ It also offers an easy mechanism for serializing all form responses to JSON for 
 
 https://mikechabot.github.io/react-json-form-engine-storybook/
 
-> Storybook repository located [here](https://github.com/mikechabot/react-json-form-engine-storybook)
+> Demo repository located [here](https://github.com/mikechabot/react-json-form-engine-storybook)
 
 ## <a id="installing">Installing</a>
 
