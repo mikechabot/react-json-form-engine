@@ -23,8 +23,7 @@
     "json schema forms",
     "conditional forms",
     "validate forms",
-    "web forms",
-    "json schema"
+    "web forms"
   ],
   "bugs": {
     "url": "https://github.com/mikechabot/react-json-form-engine/issues"
