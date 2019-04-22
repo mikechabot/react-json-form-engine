@@ -285,11 +285,19 @@ class FormEngine {
     }
 
     /**
-     * Return an array of all model values
+     * Return an array of form responses
      * @returns {{[p: string]: undefined}[]}
      */
-    getModelValues() {
+    getModelAsArray() {
         return Object.keys(this.model).map(key => ({ [key]: this.model[key] }));
+    }
+
+    /**
+     * Return the map of form responses
+     * @returns {{}|*}
+     */
+    getModel() {
+        return this.model;
     }
 
     /**
@@ -297,7 +305,7 @@ class FormEngine {
      * @returns {string}
      */
     serializeModel() {
-        return JSON.stringify(this.model);
+        return JSON.stringify(this.getModel());
     }
 
     /**
@@ -376,6 +384,7 @@ class FormEngine {
     getModelValue(id) {
         return this.model[id];
     }
+
 
     /**
      * Set a model value

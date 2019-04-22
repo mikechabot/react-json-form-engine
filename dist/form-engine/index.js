@@ -378,18 +378,28 @@ function () {
       return this.getDefinition()[DEFINITION.ID];
     }
     /**
-     * Return an array of all model values
+     * Return an array of form responses
      * @returns {{[p: string]: undefined}[]}
      */
 
   }, {
-    key: "getModelValues",
-    value: function getModelValues() {
+    key: "getModelAsArray",
+    value: function getModelAsArray() {
       var _this8 = this;
 
       return Object.keys(this.model).map(function (key) {
         return _defineProperty({}, key, _this8.model[key]);
       });
+    }
+    /**
+     * Return the map of form responses
+     * @returns {{}|*}
+     */
+
+  }, {
+    key: "getModel",
+    value: function getModel() {
+      return this.model;
     }
     /**
      * Serialize the model to json
@@ -399,7 +409,7 @@ function () {
   }, {
     key: "serializeModel",
     value: function serializeModel() {
-      return JSON.stringify(this.model);
+      return JSON.stringify(this.getModel());
     }
     /**
      * Determine if the model contains a key

@@ -68,6 +68,7 @@ class Form extends Component {
                 onSubmit={this.onSubmit}
                 onUpdate={this.onUpdate}
                 hideFormTitle={this.props.hideFormTitle}
+                hideFormBorder={this.props.hideFormBorder}
                 hideSubsectionTitles={this.props.hideSubsectionTitles}
                 hideSubsectionSubtitles={this.props.hideSubsectionSubtitles}
                 submitButtonLabel={this.props.submitButtonLabel}
@@ -82,6 +83,7 @@ Form.propTypes = {
     instance: PropTypes.object.isRequired,
     submitButtonLabel: PropTypes.string,
     hideFormTitle: PropTypes.bool,
+    hideFormBorder: PropTypes.bool,
     hideSubsectionTitles: PropTypes.bool,
     hideSubsectionSubtitles: PropTypes.bool,
     width: PropTypes.oneOfType([PropTypes.number, PropTypes.string]),

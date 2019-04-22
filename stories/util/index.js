@@ -17,6 +17,7 @@ export const buildFormComponent = (instance, options = {}) => {
             {...height && { height }}
             {...width && { width }}
             hideFormTitle={boolean('hideFormTitle', false)}
+            hideFormBorder={boolean('hideFormBorder', false)}
             hideSubsectionTitles={boolean('hideSubsectionTitles', false)}
             hideSubsectionSubtitles={boolean('hideSubsectionSubtitles', false)}
             submitButtonLabel={buttonLabel}

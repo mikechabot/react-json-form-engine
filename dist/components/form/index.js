@@ -125,6 +125,7 @@ function (_Component) {
         onSubmit: this.onSubmit,
         onUpdate: this.onUpdate,
         hideFormTitle: this.props.hideFormTitle,
+        hideFormBorder: this.props.hideFormBorder,
         hideSubsectionTitles: this.props.hideSubsectionTitles,
         hideSubsectionSubtitles: this.props.hideSubsectionSubtitles,
         submitButtonLabel: this.props.submitButtonLabel
@@ -139,6 +140,7 @@ Form.propTypes = {
   instance: _propTypes["default"].object.isRequired,
   submitButtonLabel: _propTypes["default"].string,
   hideFormTitle: _propTypes["default"].bool,
+  hideFormBorder: _propTypes["default"].bool,
   hideSubsectionTitles: _propTypes["default"].bool,
   hideSubsectionSubtitles: _propTypes["default"].bool,
   width: _propTypes["default"].oneOfType([_propTypes["default"].number, _propTypes["default"].string]),

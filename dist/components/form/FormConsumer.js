@@ -41,14 +41,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 
-var styles = {
-  display: 'flex',
-  flexDirection: 'column',
-  flex: 1,
-  flexShrink: 0,
-  border: '1px solid #dbdbdb'
-};
-var FormConsumer = (_dec = (0, _mobxReact.inject)('instance', 'hideFormTitle', 'hideSubsectionTitles', 'hideSubsectionSubtitles', 'submitButtonLabel'), _dec(_class = (0, _mobxReact.observer)(_class = (_temp = _class2 =
+var FormConsumer = (_dec = (0, _mobxReact.inject)('instance', 'hideFormTitle', 'hideFormBorder', 'hideSubsectionTitles', 'hideSubsectionSubtitles', 'submitButtonLabel'), _dec(_class = (0, _mobxReact.observer)(_class = (_temp = _class2 =
 /*#__PURE__*/
 function (_Component) {
   _inherits(FormConsumer, _Component);
@@ -71,19 +64,33 @@ function (_Component) {
       });
     }
   }, {
+    key: "getDerivedStyles",
+    value: function getDerivedStyles(hideFormBorder) {
+      return {
+        display: 'flex',
+        flexDirection: 'column',
+        flex: 1,
+        flexShrink: 0,
+        border: hideFormBorder ? 'none' : '1px solid #dbdbdb'
+      };
+    }
+  }, {
     key: "render",
     value: function render() {
-      var instance = this.props.instance;
+      var _this$props = this.props,
+          instance = _this$props.instance,
+          hideFormBorder = _this$props.hideFormBorder;
       return _react["default"].createElement("div", {
-        style: styles,
-        className: "__rjfe__"
+        className: "__rjfe__",
+        style: this.getDerivedStyles(hideFormBorder)
       }, _react["default"].createElement(_FormTitle["default"], null), this.renderSections(instance.getSections()));
     }
   }]);
 
   return FormConsumer;
 }(_react.Component), _class2.propTypes = {
-  instance: _propTypes["default"].instanceOf(Object).isRequired
+  instance: _propTypes["default"].instanceOf(Object).isRequired,
+  hideFormBorder: _propTypes["default"].bool
 }, _temp)) || _class) || _class);
 var _default = FormConsumer;
 exports["default"] = _default;

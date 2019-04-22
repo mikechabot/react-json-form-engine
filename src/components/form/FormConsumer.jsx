@@ -6,19 +6,19 @@ import FormTitle from './util/FormTitle';
 import FormSection from './FormSection/';
 import TabbedSections from './FormSection/TabbedSections';
 
-const styles = {
-    display: 'flex',
-    flexDirection: 'column',
-    flex: 1,
-    flexShrink: 0,
-    border: '1px solid #dbdbdb'
-};
-
-@inject('instance', 'hideFormTitle', 'hideSubsectionTitles', 'hideSubsectionSubtitles', 'submitButtonLabel')
+@inject(
+    'instance',
+    'hideFormTitle',
+    'hideFormBorder',
+    'hideSubsectionTitles',
+    'hideSubsectionSubtitles',
+    'submitButtonLabel'
+)
 @observer
 class FormConsumer extends Component {
     static propTypes = {
-        instance: PropTypes.instanceOf(Object).isRequired
+        instance: PropTypes.instanceOf(Object).isRequired,
+        hideFormBorder: PropTypes.bool
     };
 
     renderSections(sections) {
@@ -28,10 +28,21 @@ class FormConsumer extends Component {
         return <FormSection section={sections[0]} />;
     }
 
+    getDerivedStyles(hideFormBorder) {
+        return {
+            display: 'flex',
+            flexDirection: 'column',
+            flex: 1,
+            flexShrink: 0,
+            border: hideFormBorder ? 'none' : '1px solid #dbdbdb'
+        };
+    }
+
     render() {
-        const { instance } = this.props;
+        const { instance, hideFormBorder } = this.props;
+
         return (
-            <div style={styles} className="__rjfe__">
+            <div className="__rjfe__" style={this.getDerivedStyles(hideFormBorder)}>
                 <FormTitle />
                 {this.renderSections(instance.getSections())}
             </div>
