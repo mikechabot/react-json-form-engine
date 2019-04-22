@@ -1,6 +1,6 @@
 export default {
     id: 'numbersForm',
-    title: 'Numbers Form',
+    title: 'Numbers',
     faIcon: {
         name: 'hashtag'
     },

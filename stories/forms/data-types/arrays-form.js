@@ -1,6 +1,6 @@
 export default {
     id: 'arraysForm',
-    title: 'Arrays Form',
+    title: 'Arrays',
     faIcon: {
         name: 'th-large'
     },

@@ -1,6 +1,6 @@
 export default {
     id: 'stringsForm',
-    title: 'Strings Form',
+    title: 'Strings',
     faIcon: {
         name: 'i-cursor'
     },

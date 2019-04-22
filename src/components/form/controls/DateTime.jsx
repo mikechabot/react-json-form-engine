@@ -5,6 +5,12 @@ import DatePicker from 'react-datepicker';
 
 import 'react-datepicker/dist/react-datepicker.min.css';
 
+const DEFAULT = {
+    TIME_FORMAT: 'h:mm aa',
+    DATE_FORMAT: 'MMMM d, yyyy h:mm aa',
+    TIME_INTERVAL: 15
+};
+
 class DateTime extends React.Component {
     constructor(props) {
         super(props);
@@ -18,28 +24,47 @@ class DateTime extends React.Component {
         const { id, value, field } = this.props;
         const decorators = Maybe.of(field).prop('uiDecorators');
 
-        let props = {};
+        let newProps = {
+            value,
+            timeFormat: decorators
+                .prop('timeFormat')
+                .orElse(DEFAULT.TIME_FORMAT)
+                .join(),
+            dateFormat: decorators
+                .prop('dateFormat')
+                .orElse(DEFAULT.DATE_FORMAT)
+                .join(),
+            timeIntervals: decorators
+                .prop('timeInterval')
+                .orElse(DEFAULT.TIME_INTERVAL)
+                .join()
+        };
+
         if (decorators.isNothing()) {
-            props.timeFormat = 'hh:mm A';
-            props.dateFormat = 'LLL';
-            props = { ...props, ...__getDefaultTimeProps() };
+            newProps = { ...getDefaultProps(), ...newProps };
         } else {
             const options = decorators.join();
             if (options.hideCalendar) {
-                props.showTimeSelectOnly = true;
-                props.dateFormat = 'LT';
-                props = { ...props, ...__getDefaultTimeProps() };
+                newProps = {
+                    ...newProps,
+                    ...getDefaultProps(),
+                    showTimeSelectOnly: true,
+                    dateFormat: newProps.timeFormat
+                };
             }
         }
 
-        return <DatePicker id={id} selected={value} onChange={this.onUpdate} {...props} />;
+        console.log(id, decorators.join(), newProps);
+
+        console.log(value);
+
+        return <DatePicker id={id} selected={value} onChange={this.onUpdate} {...newProps} />;
     }
 }
 
-const __getDefaultTimeProps = () => {
+const getDefaultProps = () => {
     return {
         showTimeSelect: true,
-        timeIntervals: 15,
         timeCaption: 'Time'
     };
 };

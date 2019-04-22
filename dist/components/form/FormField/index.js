@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports["default"] = void 0;
+exports.default = void 0;
 
 var _react = _interopRequireWildcard(require("react"));
 
@@ -17,9 +17,9 @@ var _FormChildren = _interopRequireDefault(require("./FormChildren"));
 
 var _formConst = require("../../../form-engine/config/form-const");
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = Object.defineProperty && Object.getOwnPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : {}; if (desc.get || desc.set) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj["default"] = obj; return newObj; } }
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = Object.defineProperty && Object.getOwnPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : {}; if (desc.get || desc.set) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; return newObj; } }
 
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
@@ -54,13 +54,13 @@ var _PROPERTY$FIELD = _formConst.PROPERTY.FIELD,
  */
 
 function hasFieldChildren(field) {
-  if (!(0, _isEmpty["default"])(field[FIELDS])) {
+  if (!(0, _isEmpty.default)(field[FIELDS])) {
     return true;
   }
 
-  if (!(0, _isEmpty["default"])(field[OPTIONS])) {
+  if (!(0, _isEmpty.default)(field[OPTIONS])) {
     return field[OPTIONS].some(function (option) {
-      return !(0, _isEmpty["default"])(option[FIELDS]);
+      return !(0, _isEmpty.default)(option[FIELDS]);
     });
   }
 
@@ -83,13 +83,13 @@ function (_Component) {
     value: function render() {
       var field = this.props.field;
       if (!field) return null;
-      return _react["default"].createElement("div", {
+      return _react.default.createElement("div", {
         style: style,
         className: "field",
         id: "field-".concat(field[ID])
-      }, _react["default"].createElement(_FormControl["default"], {
+      }, _react.default.createElement(_FormControl.default, {
         field: field
-      }), hasFieldChildren(field) ? _react["default"].createElement(_FormChildren["default"], {
+      }), hasFieldChildren(field) ? _react.default.createElement(_FormChildren.default, {
         field: field
       }) : null);
     }
@@ -99,7 +99,7 @@ function (_Component) {
 }(_react.Component);
 
 FormField.propTypes = {
-  field: _propTypes["default"].object.isRequired
+  field: _propTypes.default.object.isRequired
 };
 var _default = FormField;
-exports["default"] = _default;
+exports.default = _default;

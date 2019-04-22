@@ -8,7 +8,13 @@ $control-radius: none;
 @import "../../node_modules/bulma/sass/utilities/_all.sass";
 @import "../../node_modules/bulma/sass/base/_all.sass";
 @import "../../node_modules/bulma/sass/elements/button.sass";
+@import "../../node_modules/bulma/sass/elements/content.sass";
 @import "../../node_modules/bulma/sass/elements/form.sass";
 @import "../../node_modules/bulma/sass/elements/title.sass";
 @import "../../node_modules/bulma/sass/components/panel.sass";
 @import "../../node_modules/bulma/sass/components/navbar.sass";
+
+// Override react-datepicker with Bulma
+.react-datepicker__input-container > input{
+  @extend .input;
+}

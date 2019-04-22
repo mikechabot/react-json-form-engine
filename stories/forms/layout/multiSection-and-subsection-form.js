@@ -1,6 +1,6 @@
 export default {
-    id: 'layoutForm',
-    title: 'Layout Form',
+    id: 'multiSectionAndSubsection',
+    title: 'Multi-Section/Subsections',
     faIcon: {
         name: 'object-group',
         prefix: 'far'

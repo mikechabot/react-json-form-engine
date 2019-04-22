@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports["default"] = void 0;
+exports.default = void 0;
 
 var _react = _interopRequireWildcard(require("react"));
 
@@ -19,9 +19,9 @@ var _ = _interopRequireDefault(require("./"));
 
 var _dec, _class, _class2, _temp;
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = Object.defineProperty && Object.getOwnPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : {}; if (desc.get || desc.set) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj["default"] = obj; return newObj; } }
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = Object.defineProperty && Object.getOwnPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : {}; if (desc.get || desc.set) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; return newObj; } }
 
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
@@ -55,7 +55,7 @@ function (_Component) {
   _createClass(TabbedSections, [{
     key: "getDerivedSectionTitle",
     value: function getDerivedSectionTitle(instance, section) {
-      return _react["default"].createElement("span", null, section.title, "\xA0", instance.validationMap.sections[section.id] ? _react["default"].createElement(_util.Asterisk, null) : null);
+      return _react.default.createElement("span", null, section.title, "\xA0", instance.validationMap.sections[section.id] ? _react.default.createElement(_util.Asterisk, null) : null);
     }
   }, {
     key: "render",
@@ -63,16 +63,16 @@ function (_Component) {
       var _this = this;
 
       var instance = this.props.instance;
-      return _react["default"].createElement(_reactTabify.Tabs, {
+      return _react.default.createElement(_reactTabify.Tabs, {
         stacked: true,
         id: "form-tabs-".concat(instance.getId()),
         defaultActiveKey: 0
       }, instance.getSections().map(function (section, index) {
-        return _react["default"].createElement(_reactTabify.Tab, {
+        return _react.default.createElement(_reactTabify.Tab, {
           key: index,
           eventKey: index,
           label: _this.getDerivedSectionTitle(instance, section)
-        }, _react["default"].createElement(_["default"], {
+        }, _react.default.createElement(_.default, {
           section: section,
           isTabbed: true
         }));
@@ -82,9 +82,9 @@ function (_Component) {
 
   return TabbedSections;
 }(_react.Component), _class2.propTypes = {
-  instance: _propTypes["default"].instanceOf(Object).isRequired,
-  hideFormTitle: _propTypes["default"].bool,
-  submitButtonLabel: _propTypes["default"].string
+  instance: _propTypes.default.instanceOf(Object).isRequired,
+  hideFormTitle: _propTypes.default.bool,
+  submitButtonLabel: _propTypes.default.string
 }, _temp)) || _class) || _class);
 var _default = TabbedSections;
-exports["default"] = _default;
+exports.default = _default;

@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports["default"] = void 0;
+exports.default = void 0;
 
 var _propTypes = _interopRequireDefault(require("prop-types"));
 
@@ -15,7 +15,7 @@ var _reactDatepicker = _interopRequireDefault(require("react-datepicker"));
 
 require("react-datepicker/dist/react-datepicker.min.css");
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
@@ -40,6 +40,12 @@ function _assertThisInitialized(self) { if (self === void 0) { throw new Referen
 function _inherits(subClass, superClass) { if (typeof superClass !== "function" && superClass !== null) { throw new TypeError("Super expression must either be null or a function"); } subClass.prototype = Object.create(superClass && superClass.prototype, { constructor: { value: subClass, writable: true, configurable: true } }); if (superClass) _setPrototypeOf(subClass, superClass); }
 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
+
+var DEFAULT = {
+  TIME_FORMAT: 'h:mm aa',
+  DATE_FORMAT: 'MMMM d, yyyy h:mm aa',
+  TIME_INTERVAL: 15
+};
 
 var DateTime =
 /*#__PURE__*/
@@ -69,48 +75,53 @@ function (_React$Component) {
           value = _this$props.value,
           field = _this$props.field;
 
-      var decorators = _maybeBaby["default"].of(field).prop('uiDecorators');
+      var decorators = _maybeBaby.default.of(field).prop('uiDecorators');
 
-      var props = {};
+      var newProps = {
+        value: value,
+        timeFormat: decorators.prop('timeFormat').orElse(DEFAULT.TIME_FORMAT).join(),
+        dateFormat: decorators.prop('dateFormat').orElse(DEFAULT.DATE_FORMAT).join(),
+        timeIntervals: decorators.prop('timeInterval').orElse(DEFAULT.TIME_INTERVAL).join()
+      };
 
       if (decorators.isNothing()) {
-        props.timeFormat = 'hh:mm A';
-        props.dateFormat = 'LLL';
-        props = _objectSpread({}, props, __getDefaultTimeProps());
+        newProps = _objectSpread({}, getDefaultProps(), newProps);
       } else {
         var options = decorators.join();
 
         if (options.hideCalendar) {
-          props.showTimeSelectOnly = true;
-          props.dateFormat = 'LT';
-          props = _objectSpread({}, props, __getDefaultTimeProps());
+          newProps = _objectSpread({}, newProps, getDefaultProps(), {
+            showTimeSelectOnly: true,
+            dateFormat: newProps.timeFormat
+          });
         }
       }
 
-      return _react["default"].createElement(_reactDatepicker["default"], _extends({
+      console.log(id, decorators.join(), newProps);
+      console.log(value);
+      return _react.default.createElement(_reactDatepicker.default, _extends({
         id: id,
         selected: value,
         onChange: this.onUpdate
-      }, props));
+      }, newProps));
     }
   }]);
 
   return DateTime;
-}(_react["default"].Component);
+}(_react.default.Component);
 
-var __getDefaultTimeProps = function __getDefaultTimeProps() {
+var getDefaultProps = function getDefaultProps() {
   return {
     showTimeSelect: true,
-    timeIntervals: 15,
     timeCaption: 'Time'
   };
 };
 
 DateTime.propTypes = {
-  id: _propTypes["default"].string.isRequired,
-  field: _propTypes["default"].object.isRequired,
-  onUpdate: _propTypes["default"].func.isRequired,
-  value: _propTypes["default"].object
+  id: _propTypes.default.string.isRequired,
+  field: _propTypes.default.object.isRequired,
+  onUpdate: _propTypes.default.func.isRequired,
+  value: _propTypes.default.object
 };
 var _default = DateTime;
-exports["default"] = _default;
+exports.default = _default;

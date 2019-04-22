@@ -3,7 +3,7 @@ import React from 'react';
 import { storiesOf } from '@storybook/react';
 import { withKnobs } from '@storybook/addon-knobs';
 
-import { layoutForm } from './forms';
+import { multiSectionForm, multiSubsectionForm, multiSectionAndSubsection } from './forms';
 
 import { buildFormComponent } from './util';
 
@@ -25,4 +25,6 @@ const addStory = form => {
     stories.add(form.title, () => <div style={wrapperStyle}>{buildFormComponent(instance)}</div>);
 };
 
-addStory(layoutForm);
+addStory(multiSectionForm);
+addStory(multiSubsectionForm);
+addStory(multiSectionAndSubsection);

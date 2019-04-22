@@ -1,7 +1,14 @@
 import { storiesOf } from '@storybook/react';
 import { withKnobs } from '@storybook/addon-knobs';
 
-import { malformedForm, stringsForm, booleansForm, arraysForm, numbersForm, dateTimeForm } from './forms';
+import {
+    stringsForm,
+    booleansForm,
+    arraysForm,
+    numbersForm,
+    dateTimeForm,
+    infoForm
+} from './forms';
 
 import { buildFormComponent } from './util';
 
@@ -18,8 +25,8 @@ const addStory = form => {
 };
 
 addStory(stringsForm);
-addStory(malformedForm);
 addStory(booleansForm);
 addStory(arraysForm);
 addStory(numbersForm);
 addStory(dateTimeForm);
+addStory(infoForm);

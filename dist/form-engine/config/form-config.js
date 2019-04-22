@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports["default"] = void 0;
+exports.default = void 0;
 
 var _zipObject = _interopRequireDefault(require("lodash/zipObject"));
 
@@ -17,7 +17,7 @@ var _formConst = require("./form-const");
 
 var _formOperations = require("./form-operations");
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
@@ -40,21 +40,23 @@ var FormConfig =
 /*#__PURE__*/
 function () {
   function FormConfig() {
-    var _this$__registerDataT, _this$__registerDataT2, _this$__registerDataT3, _this$__registerDataT5;
+    var _this$__registerDataT2, _this$__registerDataT3, _this$__registerDataT4, _this$__registerDataT6;
 
     _classCallCheck(this, FormConfig);
 
     this.typeConfigs = {};
 
-    this.__registerDataType(_formConst.DATA_TYPE.STRING, (_this$__registerDataT = {}, _defineProperty(_this$__registerDataT, _formConst.COMPONENT_TYPE.TEXT, require('../../components/form/controls/Text')["default"]), _defineProperty(_this$__registerDataT, _formConst.COMPONENT_TYPE.PASSWORD, require('../../components/form/controls/Text')["default"]), _defineProperty(_this$__registerDataT, _formConst.COMPONENT_TYPE.TEXTAREA, require('../../components/form/controls/Textarea')["default"]), _defineProperty(_this$__registerDataT, _formConst.COMPONENT_TYPE.SELECT, require('../../components/form/controls/Select')["default"]), _defineProperty(_this$__registerDataT, _formConst.COMPONENT_TYPE.RADIO, require('../../components/form/controls/Radio')["default"]), _this$__registerDataT));
+    this.__registerDataType(_formConst.DATA_TYPE.INFO, _defineProperty({}, _formConst.COMPONENT_TYPE.INFO, require('../../components/form/controls/Info').default));
 
-    this.__registerDataType(_formConst.DATA_TYPE.BOOLEAN, (_this$__registerDataT2 = {}, _defineProperty(_this$__registerDataT2, _formConst.COMPONENT_TYPE.CHECKBOX, require('../../components/form/controls/Checkbox')["default"]), _defineProperty(_this$__registerDataT2, _formConst.COMPONENT_TYPE.RADIO, require('../../components/form/controls/Radio')["default"]), _this$__registerDataT2));
+    this.__registerDataType(_formConst.DATA_TYPE.STRING, (_this$__registerDataT2 = {}, _defineProperty(_this$__registerDataT2, _formConst.COMPONENT_TYPE.TEXT, require('../../components/form/controls/Text').default), _defineProperty(_this$__registerDataT2, _formConst.COMPONENT_TYPE.PASSWORD, require('../../components/form/controls/Text').default), _defineProperty(_this$__registerDataT2, _formConst.COMPONENT_TYPE.TEXTAREA, require('../../components/form/controls/Textarea').default), _defineProperty(_this$__registerDataT2, _formConst.COMPONENT_TYPE.SELECT, require('../../components/form/controls/Select').default), _defineProperty(_this$__registerDataT2, _formConst.COMPONENT_TYPE.RADIO, require('../../components/form/controls/Radio').default), _this$__registerDataT2));
 
-    this.__registerDataType(_formConst.DATA_TYPE.NUMBER, (_this$__registerDataT3 = {}, _defineProperty(_this$__registerDataT3, _formConst.COMPONENT_TYPE.NUMBER, require('../../components/form/controls/Number')["default"]), _defineProperty(_this$__registerDataT3, _formConst.COMPONENT_TYPE.RANGE, require('../../components/form/controls/Range')["default"]), _this$__registerDataT3));
+    this.__registerDataType(_formConst.DATA_TYPE.BOOLEAN, (_this$__registerDataT3 = {}, _defineProperty(_this$__registerDataT3, _formConst.COMPONENT_TYPE.CHECKBOX, require('../../components/form/controls/Checkbox').default), _defineProperty(_this$__registerDataT3, _formConst.COMPONENT_TYPE.RADIO, require('../../components/form/controls/Radio').default), _this$__registerDataT3));
 
-    this.__registerDataType(_formConst.DATA_TYPE.DATE, _defineProperty({}, _formConst.COMPONENT_TYPE.DATE, require('../../components/form/controls/DateTime')["default"]));
+    this.__registerDataType(_formConst.DATA_TYPE.NUMBER, (_this$__registerDataT4 = {}, _defineProperty(_this$__registerDataT4, _formConst.COMPONENT_TYPE.NUMBER, require('../../components/form/controls/Number').default), _defineProperty(_this$__registerDataT4, _formConst.COMPONENT_TYPE.RANGE, require('../../components/form/controls/Range').default), _this$__registerDataT4));
 
-    this.__registerDataType(_formConst.DATA_TYPE.ARRAY, (_this$__registerDataT5 = {}, _defineProperty(_this$__registerDataT5, _formConst.COMPONENT_TYPE.SELECT, require('../../components/form/controls/Select')["default"]), _defineProperty(_this$__registerDataT5, _formConst.COMPONENT_TYPE.CHECKBOXGROUP, require('../../components/form/controls/CheckboxGroup')["default"]), _this$__registerDataT5));
+    this.__registerDataType(_formConst.DATA_TYPE.DATE, _defineProperty({}, _formConst.COMPONENT_TYPE.DATE, require('../../components/form/controls/DateTime').default));
+
+    this.__registerDataType(_formConst.DATA_TYPE.ARRAY, (_this$__registerDataT6 = {}, _defineProperty(_this$__registerDataT6, _formConst.COMPONENT_TYPE.SELECT, require('../../components/form/controls/Select').default), _defineProperty(_this$__registerDataT6, _formConst.COMPONENT_TYPE.CHECKBOXGROUP, require('../../components/form/controls/CheckboxGroup').default), _this$__registerDataT6));
   }
 
   _createClass(FormConfig, [{
@@ -64,7 +66,7 @@ function () {
 
       this.typeConfigs[type] = _defineProperty({
         type: type
-      }, COMPONENT_CONFIGS, (0, _zipObject["default"])((0, _keys["default"])(components), (0, _map["default"])(components, function (component, key) {
+      }, COMPONENT_CONFIGS, (0, _zipObject.default)((0, _keys.default)(components), (0, _map.default)(components, function (component, key) {
         var config = {
           dataType: type,
           component: {
@@ -166,6 +168,9 @@ function () {
         case _formConst.DATA_TYPE.ARRAY:
           return _formConst.COMPONENT_TYPE.SELECT;
 
+        case _formConst.DATA_TYPE.INFO:
+          return _formConst.COMPONENT_TYPE.INFO;
+
         default:
           {
             console.warn("Unmapped data type: \"".concat(field.type, "\""));
@@ -175,14 +180,14 @@ function () {
   }, {
     key: "getComponentDecorator",
     value: function getComponentDecorator(field) {
-      return _maybeBaby["default"].of(function () {
+      return _maybeBaby.default.of(function () {
         return field.uiDecorators.component.type;
       });
     }
   }, {
     key: "hasOptions",
     value: function hasOptions(field) {
-      return _maybeBaby["default"].of(field).prop('options').isJust();
+      return _maybeBaby.default.of(field).prop('options').isJust();
     }
   }, {
     key: "_getOperation",
@@ -197,6 +202,7 @@ function () {
         return field[operation];
       }
 
+      if (componentType === _formConst.COMPONENT_TYPE.INFO) return;
       console.warn("Unmapped operations for field/component type: ".concat(fieldType, "/").concat(componentType));
     }
   }, {
@@ -224,4 +230,4 @@ function () {
 
 var _default = new FormConfig();
 
-exports["default"] = _default;
+exports.default = _default;

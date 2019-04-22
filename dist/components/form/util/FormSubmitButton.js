@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports["default"] = void 0;
+exports.default = void 0;
 
 var _react = _interopRequireWildcard(require("react"));
 
@@ -13,9 +13,9 @@ var _mobxReact = require("mobx-react");
 
 var _dec, _class, _class2, _temp;
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = Object.defineProperty && Object.getOwnPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : {}; if (desc.get || desc.set) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj["default"] = obj; return newObj; } }
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = Object.defineProperty && Object.getOwnPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : {}; if (desc.get || desc.set) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; return newObj; } }
 
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
@@ -49,7 +49,7 @@ function (_Component) {
   _createClass(FormSubmitButton, [{
     key: "render",
     value: function render() {
-      return _react["default"].createElement("button", {
+      return _react.default.createElement("button", {
         className: "button is-link",
         onClick: this.props.onSubmit
       }, this.props.submitButtonLabel || 'Submit');
@@ -58,8 +58,8 @@ function (_Component) {
 
   return FormSubmitButton;
 }(_react.Component), _class2.propTypes = {
-  onSubmit: _propTypes["default"].func.isRequired,
-  submitButtonLabel: _propTypes["default"].string
+  onSubmit: _propTypes.default.func.isRequired,
+  submitButtonLabel: _propTypes.default.string
 }, _temp)) || _class) || _class);
 var _default = FormSubmitButton;
-exports["default"] = _default;
+exports.default = _default;

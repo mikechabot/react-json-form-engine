@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports["default"] = void 0;
+exports.default = void 0;
 
 var _isEmpty = _interopRequireDefault(require("lodash/isEmpty"));
 
@@ -15,7 +15,7 @@ var _formConst = require("../config/form-const");
 
 var _REQUIRED;
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
@@ -40,20 +40,20 @@ function getStatus(errorCondition) {
 
 var VALIDATORS = {
   REQUIRED: (_REQUIRED = {}, _defineProperty(_REQUIRED, ARRAY, function (field, value) {
-    return getStatus((0, _isEmpty["default"])(value));
+    return getStatus((0, _isEmpty.default)(value));
   }), _defineProperty(_REQUIRED, BOOLEAN, function (field, value) {
     if (!field.options) return OK;
-    return getStatus((0, _isNil["default"])(value));
+    return getStatus((0, _isNil.default)(value));
   }), _defineProperty(_REQUIRED, DATE, function (field, value) {
     return getStatus((0, _common.isBlank)(value));
   }), _defineProperty(_REQUIRED, NUMBER, function (field, value) {
-    return field.dirty ? getStatus(Number.isNaN(value)) : getStatus((0, _isNil["default"])(value));
+    return field.dirty ? getStatus(Number.isNaN(value)) : getStatus((0, _isNil.default)(value));
   }), _defineProperty(_REQUIRED, STRING, function (field, value) {
     return getStatus((0, _common.isBlank)(value));
   }), _REQUIRED),
   NUMERIC: _defineProperty({}, NUMBER, function (field, value) {
-    if ((0, _isNil["default"])(field.min) && (0, _isNil["default"])(field.max)) return OK;
-    if (!field.dirty) return getStatus((0, _isNil["default"])(value));
+    if ((0, _isNil.default)(field.min) && (0, _isNil.default)(field.max)) return OK;
+    if (!field.dirty) return getStatus((0, _isNil.default)(value));
     return getStatus(value < field.min || value > field.max);
   })
 };
@@ -104,4 +104,4 @@ var _default = {
     return getStatus(!field.pattern.test(value));
   }
 };
-exports["default"] = _default;
+exports.default = _default;

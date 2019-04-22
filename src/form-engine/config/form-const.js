@@ -3,7 +3,8 @@ export const DATA_TYPE = {
     STRING: 'string',
     BOOLEAN: 'boolean',
     NUMBER: 'number',
-    DATE: 'date'
+    DATE: 'date',
+    INFO: 'info'
 };
 
 export const COMPONENT_TYPE = {
@@ -18,11 +19,15 @@ export const COMPONENT_TYPE = {
     SELECT: 'select',
     DATE: 'date',
     SUM: 'sum',
-    LABEL: 'label'
+    LABEL: 'label',
+    INFO: 'info'
 };
 
 export const COMPONENT_DECORATORS = {
     [COMPONENT_TYPE.CHECKBOX]: {
+        hideControlLabel: true
+    },
+    [COMPONENT_TYPE.INFO]: {
         hideControlLabel: true
     }
 };

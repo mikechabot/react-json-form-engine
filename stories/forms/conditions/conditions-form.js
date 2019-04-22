@@ -1,6 +1,6 @@
 export default {
     id: 'conditionsForm',
-    title: 'Conditions Form',
+    title: 'Basic Conditions',
     faIcon: {
         name: 'code'
     },
@@ -182,7 +182,7 @@ export default {
                             title: 'Select a date',
                             fields: [
                                 {
-                                    id: 'str2',
+                                    id: 'str3',
                                     type: 'string',
                                     title: 'Field',
                                     showCondition: {

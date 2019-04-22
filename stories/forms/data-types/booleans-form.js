@@ -1,6 +1,6 @@
 export default {
     id: 'boolForm',
-    title: 'Booleans Form',
+    title: 'Booleans',
     faIcon: {
         name: 'adjust'
     },

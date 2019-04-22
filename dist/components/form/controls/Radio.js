@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports["default"] = void 0;
+exports.default = void 0;
 
 var _react = _interopRequireDefault(require("react"));
 
@@ -15,7 +15,7 @@ var _reactFontawesome = require("@fortawesome/react-fontawesome");
 
 var _FormChildren = _interopRequireDefault(require("../FormField/FormChildren"));
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
 
@@ -48,7 +48,7 @@ var styles = {
 };
 
 function isChecked(option, value, isEven) {
-  if ((0, _isNil["default"])(value)) return false;
+  if ((0, _isNil.default)(value)) return false;
   if (option.id) return option.id === value;
   return isEven ? value : !value;
 }
@@ -62,17 +62,17 @@ function renderOption(field, value, option, index, onUpdate) {
 
   var style = _objectSpread({}, styles.optionContainer, index === 0 ? {} : field.inline ? styles.optionInline : styles.option);
 
-  return _react["default"].createElement("div", {
+  return _react.default.createElement("div", {
     key: index,
     style: style,
     onClick: function onClick() {
       return onUpdate(option.id || isEven, field.id);
     }
-  }, _react["default"].createElement("div", {
+  }, _react.default.createElement("div", {
     style: styles.optionLabel
-  }, _react["default"].createElement(_reactFontawesome.FontAwesomeIcon, {
+  }, _react.default.createElement(_reactFontawesome.FontAwesomeIcon, {
     icon: ['far', getIcon(option, value, isEven)]
-  }), "\xA0", _react["default"].createElement("div", null, option.title)), _react["default"].createElement(_FormChildren["default"], {
+  }), "\xA0", _react.default.createElement("div", null, option.title)), _react.default.createElement(_FormChildren.default, {
     field: option
   }));
 }
@@ -83,7 +83,7 @@ var Radio = function Radio(_ref) {
       field = _ref.field,
       onUpdate = _ref.onUpdate;
   var containerStyle = field.inline ? styles.containerInline : styles.container;
-  return _react["default"].createElement("div", {
+  return _react.default.createElement("div", {
     id: id,
     style: containerStyle
   }, field.options.map(function (option, index) {
@@ -92,11 +92,11 @@ var Radio = function Radio(_ref) {
 };
 
 Radio.propTypes = {
-  id: _propTypes["default"].string.isRequired,
-  field: _propTypes["default"].object.isRequired,
-  value: _propTypes["default"].oneOfType([_propTypes["default"].string, _propTypes["default"].bool]),
-  onUpdate: _propTypes["default"].func.isRequired,
-  uiField: _propTypes["default"].object
+  id: _propTypes.default.string.isRequired,
+  field: _propTypes.default.object.isRequired,
+  value: _propTypes.default.oneOfType([_propTypes.default.string, _propTypes.default.bool]),
+  onUpdate: _propTypes.default.func.isRequired,
+  uiField: _propTypes.default.object
 };
 var _default = Radio;
-exports["default"] = _default;
+exports.default = _default;

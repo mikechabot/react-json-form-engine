@@ -1,6 +1,6 @@
 export default {
     id: 'arrayConditions',
-    title: 'Array Conditions Form',
+    title: 'Array Conditions',
     faIcon: {
         name: 'code'
     },

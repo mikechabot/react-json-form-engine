@@ -17,6 +17,9 @@ const COMPONENT_CONFIGS = 'componentConfigs';
 class FormConfig {
     constructor() {
         this.typeConfigs = {};
+        this.__registerDataType(DATA_TYPE.INFO, {
+            [COMPONENT_TYPE.INFO]: require('../../components/form/controls/Info').default
+        });
         this.__registerDataType(DATA_TYPE.STRING, {
             [COMPONENT_TYPE.TEXT]: require('../../components/form/controls/Text').default,
             [COMPONENT_TYPE.PASSWORD]: require('../../components/form/controls/Text').default,
@@ -120,6 +123,8 @@ class FormConfig {
                 return COMPONENT_TYPE.DATE;
             case DATA_TYPE.ARRAY:
                 return COMPONENT_TYPE.SELECT;
+            case DATA_TYPE.INFO:
+                return COMPONENT_TYPE.INFO;
             default: {
                 console.warn(`Unmapped data type: "${field.type}"`);
             }
@@ -140,6 +145,7 @@ class FormConfig {
         } else if (field && field[operation]) {
             return field[operation];
         }
+        if (componentType === COMPONENT_TYPE.INFO) return;
         console.warn(`Unmapped operations for field/component type: ${fieldType}/${componentType}`);
     }
     _getOperations(fieldType, componentType) {

@@ -1,7 +1,7 @@
 import { storiesOf } from '@storybook/react';
 import { withKnobs } from '@storybook/addon-knobs';
 
-import { loginForm, rehydratedForm, simpleForm } from './forms';
+import { loginForm, rehydratedForm, simpleForm, malformedForm } from './forms';
 
 import { buildFormComponent } from './util';
 
@@ -22,3 +22,4 @@ const json = '{"str1": "Rehydrated!", "bool1": "true", "num1": 10, "arr1": ["op1
 addStory(simpleForm);
 addStory(loginForm, { submitButtonLabel: 'Login' });
 addStory(rehydratedForm, {}, json);
+addStory(malformedForm);

@@ -165,10 +165,14 @@ class FormEngine {
         field[FIELD.PARENT] = parent;
         field[FIELD.UI_DECORATORS] = this.getCustomUIDecorators(field[FIELD.ID]);
 
-        const { actions, component, defaultDecorators } = FormConfig.getComponentConfig(
+        const config = FormConfig.getComponentConfig(
             field[FIELD.TYPE],
             FormConfig.getComponentTypeByField(field)
         );
+
+        console.log(field, config.actions);
+
+        const { actions, component, defaultDecorators } = config
 
         field[FIELD.ACTIONS] = actions;
         field[FIELD.COMPONENT] = component;
@@ -523,7 +527,7 @@ class FormEngine {
      * This map holds all sections, subsections and fields.
      */
     buildObservableValidationMap() {
-        this.validationMap.form = this.hasError();
+        this.validationMap.form = this.validationResults.hasError();
         this.sections.forEach(section => {
             this.validationMap.sections[section[SECTION.ID]] = this.sectionHasError(section);
             section.subsections.forEach(subsection => {
@@ -640,14 +644,6 @@ class FormEngine {
      */
     sectionHasError(section) {
         return ValidationService.isError(this.getSectionStatus(section));
-    }
-
-    /**
-     * Determine if the form instance has a validation error
-     * @returns {boolean}
-     */
-    hasError() {
-        return this.validationResults.hasError();
     }
 }
 

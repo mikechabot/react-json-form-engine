@@ -28,7 +28,8 @@ const FormApiService = {
                 validator.shape({
                     [FIELD.ID]: validator.oneOfType([validator.string, validator.number]),
                     [FIELD.TYPE]: validator.string,
-                    [FIELD.TITLE]: validator.string,
+                    [FIELD.TITLE]:
+                        field.type === DATA_TYPE.INFO ? validator.string.optional : validator.string,
                     [FIELD.SUBTITLE]: validator.string.optional,
                     [FIELD.OPTIONS]: validator.array.optional,
                     [FIELD.FIELDS]: validator.array.optional,
@@ -81,14 +82,14 @@ const FormApiService = {
         );
     },
     validateFieldTypesShape(field) {
-        const idSuffix = `(id: ${field})`;
+        const idSuffix = `(id: ${field.id})`;
 
         if (
             field[FIELD.TYPE] === DATA_TYPE.STRING &&
             field[FIELD.COMPONENT].type === RADIO &&
             !field[FIELD.OPTIONS].every(o => !isNil(o[FIELD.ID]))
         ) {
-            throw new Error(`${INVALID_TYPES_MESSAGE.RADIO} ${idSuffix}`);
+            throw new Error(`${INVALID_TYPES_MESSAGE[RADIO]} ${idSuffix}`);
         }
 
         if (field[FIELD.TYPE] === DATA_TYPE.NUMBER) {
@@ -96,7 +97,7 @@ const FormApiService = {
             const hasMin = !isNil(field[FIELD.MIN]);
 
             if (field[FIELD.COMPONENT].type === RANGE && (!hasMin || !hasMax)) {
-                throw new Error(`${INVALID_TYPES_MESSAGE.RANGE} ${idSuffix}`);
+                throw new Error(`${INVALID_TYPES_MESSAGE[RANGE]} ${idSuffix}`);
             }
 
             if (hasMin && hasMax) {

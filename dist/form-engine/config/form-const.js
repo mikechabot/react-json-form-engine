@@ -14,7 +14,8 @@ var DATA_TYPE = {
   STRING: 'string',
   BOOLEAN: 'boolean',
   NUMBER: 'number',
-  DATE: 'date'
+  DATE: 'date',
+  INFO: 'info'
 };
 exports.DATA_TYPE = DATA_TYPE;
 var COMPONENT_TYPE = {
@@ -29,7 +30,8 @@ var COMPONENT_TYPE = {
   SELECT: 'select',
   DATE: 'date',
   SUM: 'sum',
-  LABEL: 'label'
+  LABEL: 'label',
+  INFO: 'info'
 };
 exports.COMPONENT_TYPE = COMPONENT_TYPE;
 
