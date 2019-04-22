@@ -285,6 +285,14 @@ class FormEngine {
     }
 
     /**
+     * Return an array of all model values
+     * @returns {{[p: string]: undefined}[]}
+     */
+    getModelValues() {
+        return Object.keys(this.model).map(key => ({ [key]: this.model[key] }));
+    }
+
+    /**
      * Serialize the model to json
      * @returns {string}
      */

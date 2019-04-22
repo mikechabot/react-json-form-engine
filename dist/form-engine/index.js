@@ -378,6 +378,20 @@ function () {
       return this.getDefinition()[DEFINITION.ID];
     }
     /**
+     * Return an array of all model values
+     * @returns {{[p: string]: undefined}[]}
+     */
+
+  }, {
+    key: "getModelValues",
+    value: function getModelValues() {
+      var _this8 = this;
+
+      return Object.keys(this.model).map(function (key) {
+        return _defineProperty({}, key, _this8.model[key]);
+      });
+    }
+    /**
      * Serialize the model to json
      * @returns {string}
      */
@@ -492,7 +506,7 @@ function () {
   }, {
     key: "setModelValue",
     value: function setModelValue(id, value, field) {
-      var _this8 = this;
+      var _this9 = this;
 
       // Set or reset the model value
       if (value === this.getModelValue(id)) return;
@@ -513,8 +527,8 @@ function () {
 
       if (field[FIELD.OPTIONS]) {
         field[FIELD.OPTIONS].forEach(function (option) {
-          if (option[FIELD.FIELDS] && (_this8.isBooleanField(field) && !value || !(0, _includes["default"])(value, option[FIELD.ID]))) {
-            _this8.resetFields(option[FIELD.FIELDS]);
+          if (option[FIELD.FIELDS] && (_this9.isBooleanField(field) && !value || !(0, _includes["default"])(value, option[FIELD.ID]))) {
+            _this9.resetFields(option[FIELD.FIELDS]);
           }
         });
       } // Evaluate the show condition of dependent fields if this field is a trigger
@@ -522,8 +536,8 @@ function () {
 
       if (this.showConditionTriggerMap[id]) {
         this.showConditionTriggerMap[id].forEach(function (fieldId) {
-          if (_this8.hasModelValue(fieldId) && !_this8.isVisible(_this8.getField(fieldId))) {
-            _this8.setModelValue(fieldId, _formConst.NO_VALUE, _this8.getField(fieldId));
+          if (_this9.hasModelValue(fieldId) && !_this9.isVisible(_this9.getField(fieldId))) {
+            _this9.setModelValue(fieldId, _formConst.NO_VALUE, _this9.getField(fieldId));
           }
         });
       }
@@ -536,12 +550,12 @@ function () {
   }, {
     key: "resetFields",
     value: function resetFields(fields) {
-      var _this9 = this;
+      var _this10 = this;
 
       if (fields) {
         fields.forEach(function (field) {
-          if (_this9.hasModelValue(field[FIELD.ID]) && !_this9.isVisible(field)) {
-            _this9.setModelValue(field[FIELD.ID], _formConst.NO_VALUE, field);
+          if (_this10.hasModelValue(field[FIELD.ID]) && !_this10.isVisible(field)) {
+            _this10.setModelValue(field[FIELD.ID], _formConst.NO_VALUE, field);
           }
         });
       }
@@ -647,17 +661,17 @@ function () {
   }, {
     key: "buildObservableValidationMap",
     value: function buildObservableValidationMap() {
-      var _this10 = this;
+      var _this11 = this;
 
       this.validationMap.form = this.hasError();
       this.sections.forEach(function (section) {
-        _this10.validationMap.sections[section[SECTION.ID]] = _this10.sectionHasError(section);
+        _this11.validationMap.sections[section[SECTION.ID]] = _this11.sectionHasError(section);
         section.subsections.forEach(function (subsection) {
-          _this10.validationMap.subsections[subsection[SUBSECTION.ID]] = _this10.subsectionHasError(subsection);
+          _this11.validationMap.subsections[subsection[SUBSECTION.ID]] = _this11.subsectionHasError(subsection);
         });
       });
       Object.keys(this.fields).forEach(function (id) {
-        _this10.validationMap.fields[id] = _this10.fieldHasError(id);
+        _this11.validationMap.fields[id] = _this11.fieldHasError(id);
       });
     }
     /**

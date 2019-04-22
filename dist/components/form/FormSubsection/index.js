@@ -118,7 +118,7 @@ function (_Component) {
   isTabbed: _propTypes["default"].bool,
   instance: _propTypes["default"].instanceOf(Object).isRequired,
   subsection: _propTypes["default"].object.isRequired,
-  hideFormTitle: _propTypes["default"].bool.isRequired
+  hideFormTitle: _propTypes["default"].bool
 }, _temp)) || _class) || _class);
 var _default = FormSubsection;
 exports["default"] = _default;

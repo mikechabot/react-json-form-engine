@@ -104,7 +104,7 @@ function (_Component) {
   return FormTitle;
 }(_react.Component), _class2.propTypes = {
   instance: _propTypes["default"].instanceOf(Object).isRequired,
-  hideFormTitle: _propTypes["default"].bool.isRequired,
+  hideFormTitle: _propTypes["default"].bool,
   theme: _propTypes["default"].string
 }, _temp)) || _class) || _class);
 var _default = FormTitle;

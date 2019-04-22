@@ -77,8 +77,7 @@ function (_Component) {
         }, _react["default"].createElement(_["default"], {
           isTabbed: true,
           hideSubsectionTitles: true,
-          subsection: subsection,
-          submitButton: _this.props.submitButton
+          subsection: subsection
         }));
       }));
     }
@@ -91,8 +90,7 @@ function (_Component) {
     id: _propTypes["default"].string.isRequired,
     title: _propTypes["default"].string.isRequired,
     subsections: _propTypes["default"].array.isRequired
-  }),
-  submitButton: _propTypes["default"].node
+  })
 }, _temp)) || _class) || _class);
 var _default = TabbedSubsections;
 exports["default"] = _default;

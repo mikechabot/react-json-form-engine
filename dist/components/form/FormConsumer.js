@@ -83,9 +83,7 @@ function (_Component) {
 
   return FormConsumer;
 }(_react.Component), _class2.propTypes = {
-  instance: _propTypes["default"].instanceOf(Object).isRequired,
-  hideFormTitle: _propTypes["default"].bool.isRequired,
-  width: _propTypes["default"].oneOfType([_propTypes["default"].number, _propTypes["default"].string])
+  instance: _propTypes["default"].instanceOf(Object).isRequired
 }, _temp)) || _class) || _class);
 var _default = FormConsumer;
 exports["default"] = _default;

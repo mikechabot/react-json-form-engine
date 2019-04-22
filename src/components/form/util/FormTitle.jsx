@@ -24,7 +24,7 @@ const styles = {
 class FormTitle extends Component {
     static propTypes = {
         instance: PropTypes.instanceOf(Object).isRequired,
-        hideFormTitle: PropTypes.bool.isRequired,
+        hideFormTitle: PropTypes.bool,
         theme: PropTypes.string
     };
 

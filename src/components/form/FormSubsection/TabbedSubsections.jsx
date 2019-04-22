@@ -15,8 +15,7 @@ class TabbedSubsections extends Component {
             id: PropTypes.string.isRequired,
             title: PropTypes.string.isRequired,
             subsections: PropTypes.array.isRequired
-        }),
-        submitButton: PropTypes.node
+        })
     };
 
     getTabbedTitle(subsection) {
@@ -36,12 +35,7 @@ class TabbedSubsections extends Component {
             <Tabs id={`${section.id}-subsection-tabs`} defaultActiveKey={0}>
                 {section.subsections.map((subsection, index) => (
                     <Tab key={index} eventKey={index} label={this.getTabbedTitle(subsection)}>
-                        <FormSubsection
-                            isTabbed={true}
-                            hideSubsectionTitles={true}
-                            subsection={subsection}
-                            submitButton={this.props.submitButton}
-                        />
+                        <FormSubsection isTabbed={true} hideSubsectionTitles={true} subsection={subsection} />
                     </Tab>
                 ))}
             </Tabs>

@@ -33,7 +33,7 @@ class FormSubsection extends Component {
         isTabbed: PropTypes.bool,
         instance: PropTypes.instanceOf(Object).isRequired,
         subsection: PropTypes.object.isRequired,
-        hideFormTitle: PropTypes.bool.isRequired
+        hideFormTitle: PropTypes.bool
     };
 
     renderSubsectionFields(fields = []) {

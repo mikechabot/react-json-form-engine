@@ -18,9 +18,7 @@ const styles = {
 @observer
 class FormConsumer extends Component {
     static propTypes = {
-        instance: PropTypes.instanceOf(Object).isRequired,
-        hideFormTitle: PropTypes.bool.isRequired,
-        width: PropTypes.oneOfType([PropTypes.number, PropTypes.string])
+        instance: PropTypes.instanceOf(Object).isRequired
     };
 
     renderSections(sections) {

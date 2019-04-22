@@ -13,8 +13,7 @@ class TabbedSections extends Component {
     static propTypes = {
         instance: PropTypes.instanceOf(Object).isRequired,
         hideFormTitle: PropTypes.bool,
-        submitButtonLabel: PropTypes.string,
-        width: PropTypes.oneOfType([PropTypes.number, PropTypes.string])
+        submitButtonLabel: PropTypes.string
     };
 
     getDerivedSectionTitle(instance, section) {
