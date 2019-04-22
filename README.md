@@ -630,3 +630,13 @@ Coming soon!
 ## <a id="conditions">Conditions</a>
 
 Coming soon!
+
+## <a id="serialize">Serialize</a>
+
+Easily serialize the form's responses by calling `serializeModel` on the instance:
+
+```js
+const json = instance.serializeModel();
+```
+
+> Note: Use `getModel()` to retrieve the map of form responses keyed by field id, or `getModelAsArray()` to get form responses an array (e.g. [{fooId: 'bar'}])
