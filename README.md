@@ -10,9 +10,9 @@ Build lightning fast web forms from JSON.
 <br/>
 :heart: Rehydratable 
 
-While other libraries might utilize [react-redux](https://github.com/reduxjs/react-redux), `refs`, or `context` for complex form managagement, `react-json-form-engine` relies on React as little as possible, and offloads its core logic to plain JavaScript. The result is scalable, lightning fast performance with neglible reliance on the React lifecycle.
+While other libraries might utilize [react-redux](https://github.com/reduxjs/react-redux), [`refs`](https://reactjs.org/docs/refs-and-the-dom.html), or [Context](https://reactjs.org/docs/context.html) for complex form management, `react-json-form-engine` relies on React as little as possible, and offloads its core logic to plain JavaScript, while utilzing [mobx](https://mobx.js.org/) bindings for rendering. The result is scalable, lightning-fast performance with neglible reliance on the React lifecycle.
 
-Before proceeding, it's important to note that this library was designed to manage large forms (multi-section and multi-subsection), that may contain complex field dependencies (e.g Only show the **Select Guardian** field if the **Age** response is less than `18`). This may or may not be for you, but it can also handle simple forms with extreme ease.
+Before proceeding, it's important to note that this library was designed to manage large, multi-section forms, that may contain complex field dependencies (e.g Only show the **Select Guardian** field if the **Age** response is less than `18`). This may or may not be for you, but it can also handle simple forms with extreme ease.
 
 It also offers an easy mechanism for serializing all form responses to JSON for persistence. The reverse also stands, as any form can be easily rehydrated from historical data, and returned to its previous state.
 
@@ -58,67 +58,14 @@ Requires React 15.0.0+
 
 `$ npm install --save react-json-form-engine`
 
-> Note: This library renders [Bulma](https://bulma.io/documentation/overview/start/) semantics; you'll need to include the styles on your own for everything to look nice. You can either install it with npm, or have it served from a CDN.
+> Note: This library renders [Bulma](https://bulma.io/documentation/overview/start/) semantics; you'll need to import the styles for everything to look nice.
 
-> Note: [Font Awesome](https://fontawesome.com) is supported.
+```js
+// Import the styles
+import 'react-json-form-engine/dist/styles.css';
 
-#### Bulma via CDN
-
-```html
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.1/css/bulma.min.css">
-```
-
-#### Bulma via npm 
-
-`$ npm install --save bulma`
-
-1. If your project supports Sass/SCSS, Bulma can be over easily overriden:
-
-  ```scss
-  /* my-awesome-styles.scss */
-  
-  // 1. Import the initial variables
-  @import "../sass/utilities/initial-variables";
-  @import "../sass/utilities/functions";
-
-  // 2. Set your own initial variables
-  $blue: #72d0eb;
-
-  // 3. Import the rest of Bulma
-  @import "../bulma";
-  ```
-
-2. Depending on your build pipeline, either import the compiled CSS, or uncompiled SCSS.
- 
-  ```js
-  // App.js
-  import './scss/my-awesome-styles.scss';
- ```
-
-#### Font Awesome
-
-If you'd like to use [Font Awesome](https://fontawesome.com), be sure to also include the icon pack:
-
-```html
-<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css">
-```
-
-### Starter Template
-
-```html
-<!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="utf-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>react-json-form-engine</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.1/css/bulma.min.css">
-    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css">
-  </head>
-  <body>
-    <div id="root"></div>
-  </body>
-</html>
+// Import the API
+import { Form, FormEngine } from 'react-json-form-engine';
 ```
 
 ----
