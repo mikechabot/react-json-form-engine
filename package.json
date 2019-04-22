@@ -5,7 +5,7 @@
   "license": "MIT",
   "main": "index.js",
   "scripts": {
-    "prepublishOnly": "npm run build && git add . && git commit -m \"Packaging assets\" && npm version patch",
+    "prepublishOnly": "npm run build && git add . && git commit -m \"Packaging assets\" && npm version patch && git push origin",
     "build": "rm -rf ./dist && node build-css.js && babel src -d dist",
     "storybook": "npm run build && start-storybook -p 6006",
     "build-storybook": "npm run build && build-storybook"
