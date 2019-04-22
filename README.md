@@ -639,4 +639,4 @@ Easily serialize the form's responses by calling `serializeModel` on the instanc
 const json = instance.serializeModel();
 ```
 
-> Note: Use `getModel()` to get the form's responses as a map (e.g. `{fooId: 'bar', bazId: 'qux'}`, or `getModelAsArray()` to get form responses an array (e.g. `[{fooId: 'bar'}, {bazId: 'qux'}]`)
+> Note: Use `getModel()` to get a map of form responses (e.g. `{fooId: 'bar', bazId: 'qux'})`, or `getModelAsArray()` for form responses as an array (e.g. `[{fooId: 'bar'}, {bazId: 'qux'}]`).
