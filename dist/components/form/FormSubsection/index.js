@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.default = void 0;
+exports["default"] = void 0;
 
 var _react = _interopRequireWildcard(require("react"));
 
@@ -19,9 +19,9 @@ var _FormSubmitButton = _interopRequireDefault(require("../util/FormSubmitButton
 
 var _dec, _class, _class2, _temp;
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = Object.defineProperty && Object.getOwnPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : {}; if (desc.get || desc.set) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; return newObj; } }
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = Object.defineProperty && Object.getOwnPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : {}; if (desc.get || desc.set) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj["default"] = obj; return newObj; } }
 
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
@@ -79,7 +79,7 @@ function (_Component) {
       return fields.map(function (fieldDefinition) {
         var field = instance.getField(fieldDefinition.id);
         if (!instance.isVisible(field)) return null;
-        return _react.default.createElement(_FormField.default, {
+        return _react["default"].createElement(_FormField["default"], {
           key: field.id,
           field: field
         });
@@ -89,10 +89,10 @@ function (_Component) {
     key: "renderSubmit",
     value: function renderSubmit(hideFormTitle) {
       if (!hideFormTitle) return null;
-      return _react.default.createElement("div", {
+      return _react["default"].createElement("div", {
         className: "panel-block",
         style: styles.submit
-      }, _react.default.createElement(_FormSubmitButton.default, null));
+      }, _react["default"].createElement(_FormSubmitButton["default"], null));
     }
   }, {
     key: "render",
@@ -101,13 +101,13 @@ function (_Component) {
           subsection = _this$props.subsection,
           hideFormTitle = _this$props.hideFormTitle,
           isTabbed = _this$props.isTabbed;
-      return _react.default.createElement("div", {
+      return _react["default"].createElement("div", {
         style: styles.container,
         className: "panel"
-      }, _react.default.createElement(_FormSubsectionTitle.default, {
+      }, _react["default"].createElement(_FormSubsectionTitle["default"], {
         subsection: subsection,
         isTabbed: isTabbed
-      }), _react.default.createElement("div", {
+      }), _react["default"].createElement("div", {
         style: styles.fields
       }, this.renderSubsectionFields(subsection.fields)), this.renderSubmit(hideFormTitle));
     }
@@ -115,10 +115,10 @@ function (_Component) {
 
   return FormSubsection;
 }(_react.Component), _class2.propTypes = {
-  isTabbed: _propTypes.default.bool,
-  instance: _propTypes.default.instanceOf(Object).isRequired,
-  subsection: _propTypes.default.object.isRequired,
-  hideFormTitle: _propTypes.default.bool
+  isTabbed: _propTypes["default"].bool,
+  instance: _propTypes["default"].instanceOf(Object).isRequired,
+  subsection: _propTypes["default"].object.isRequired,
+  hideFormTitle: _propTypes["default"].bool
 }, _temp)) || _class) || _class);
 var _default = FormSubsection;
-exports.default = _default;
+exports["default"] = _default;

@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.default = void 0;
+exports["default"] = void 0;
 
 var _react = _interopRequireWildcard(require("react"));
 
@@ -19,9 +19,9 @@ var _ValidationFieldError = _interopRequireDefault(require("../../validation/Val
 
 var _dec, _class, _class2, _temp;
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = Object.defineProperty && Object.getOwnPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : {}; if (desc.get || desc.set) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; return newObj; } }
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = Object.defineProperty && Object.getOwnPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : {}; if (desc.get || desc.set) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj["default"] = obj; return newObj; } }
 
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
@@ -42,7 +42,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 
 var hideTitle = function hideTitle(decorators) {
-  return _maybeBaby.default.of(function () {
+  return _maybeBaby["default"].of(function () {
     return decorators.hideControlLabel;
   }).isJust();
 };
@@ -61,10 +61,10 @@ function (_Component) {
   _createClass(FormControl, [{
     key: "maybeRenderHint",
     value: function maybeRenderHint(uiDecorators) {
-      if (_maybeBaby.default.of(function () {
+      if (_maybeBaby["default"].of(function () {
         return uiDecorators.hint;
       }).isJust()) {
-        return _react.default.createElement(_FormControlHint.default, {
+        return _react["default"].createElement(_FormControlHint["default"], {
           text: uiDecorators.hint
         });
       }
@@ -78,7 +78,7 @@ function (_Component) {
           messages = _instance$getValidati.messages;
 
       return Object.keys(messages).map(function (key) {
-        return _react.default.createElement(_FormControlHint.default, {
+        return _react["default"].createElement(_FormControlHint["default"], {
           key: key,
           icon: "asterisk",
           className: "is-danger",
@@ -90,7 +90,7 @@ function (_Component) {
     key: "renderFormControlTitle",
     value: function renderFormControlTitle(field) {
       if (hideTitle(field.uiDecorators)) return null;
-      return _react.default.createElement("div", {
+      return _react["default"].createElement("div", {
         className: "label is-small",
         htmlFor: field.id
       }, field.title, "\xA0");
@@ -109,7 +109,7 @@ function (_Component) {
 
       if (!component || !component.element) {
         console.error("Field of type \"".concat(type, "\" is missing required \"component\" (id: ").concat(id, ")"));
-        return _react.default.createElement(_ValidationFieldError.default, {
+        return _react["default"].createElement(_ValidationFieldError["default"], {
           id: id
         });
       }
@@ -117,9 +117,9 @@ function (_Component) {
       var value = instance.getModelValue(id);
       var hasError = instance.validationMap.fields[id] || false;
       var Control = component.element;
-      return _react.default.createElement(_react.default.Fragment, null, this.renderFormControlTitle(field), _react.default.createElement("div", {
+      return _react["default"].createElement(_react["default"].Fragment, null, this.renderFormControlTitle(field), _react["default"].createElement("div", {
         className: "control"
-      }, _react.default.createElement(Control, {
+      }, _react["default"].createElement(Control, {
         id: id,
         value: value,
         field: field,
@@ -132,9 +132,9 @@ function (_Component) {
 
   return FormControl;
 }(_react.Component), _class2.propTypes = {
-  instance: _propTypes.default.instanceOf(Object).isRequired,
-  field: _propTypes.default.object.isRequired,
-  onUpdate: _propTypes.default.func.isRequired
+  instance: _propTypes["default"].instanceOf(Object).isRequired,
+  field: _propTypes["default"].object.isRequired,
+  onUpdate: _propTypes["default"].func.isRequired
 }, _temp)) || _class) || _class);
 var _default = FormControl;
-exports.default = _default;
+exports["default"] = _default;

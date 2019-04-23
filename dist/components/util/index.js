@@ -6,7 +6,7 @@ Object.defineProperty(exports, "__esModule", {
 Object.defineProperty(exports, "Asterisk", {
   enumerable: true,
   get: function get() {
-    return _Asterisk.default;
+    return _Asterisk["default"];
   }
 });
 
@@ -18,6 +18,6 @@ var _freeSolidSvgIcons = require("@fortawesome/free-solid-svg-icons");
 
 var _Asterisk = _interopRequireDefault(require("./Asterisk"));
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
 _fontawesomeSvgCore.library.add(_freeRegularSvgIcons.far, _freeSolidSvgIcons.fas);

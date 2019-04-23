@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.default = void 0;
+exports["default"] = void 0;
 
 var _react = _interopRequireDefault(require("react"));
 
@@ -11,7 +11,7 @@ var _propTypes = _interopRequireDefault(require("prop-types"));
 
 var _formConst = require("../../../form-engine/config/form-const");
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
 var Select = function Select(_ref) {
   var id = _ref.id,
@@ -22,9 +22,9 @@ var Select = function Select(_ref) {
 
   var isMultiple = __isFieldTypeArray(field);
 
-  return _react.default.createElement("div", {
+  return _react["default"].createElement("div", {
     className: "select ".concat(isMultiple ? 'is-multiple' : '', " ").concat(hasError ? 'is-danger' : '')
-  }, _react.default.createElement("select", {
+  }, _react["default"].createElement("select", {
     value: value,
     id: id,
     name: id,
@@ -37,7 +37,7 @@ var Select = function Select(_ref) {
 
 var _maybeRenderPlaceholder = function _maybeRenderPlaceholder(field, value) {
   if (!value && !__isFieldTypeArray(field)) {
-    return _react.default.createElement("option", {
+    return _react["default"].createElement("option", {
       value: ""
     }, field.placeholder || '-- select value --');
   }
@@ -45,7 +45,7 @@ var _maybeRenderPlaceholder = function _maybeRenderPlaceholder(field, value) {
 
 var _renderOptions = function _renderOptions(field) {
   return field.options.map(function (option, index) {
-    return _react.default.createElement("option", {
+    return _react["default"].createElement("option", {
       key: index,
       value: option.id
     }, option.title);
@@ -57,12 +57,12 @@ var __isFieldTypeArray = function __isFieldTypeArray(field) {
 };
 
 Select.propTypes = {
-  id: _propTypes.default.string.isRequired,
-  field: _propTypes.default.object.isRequired,
-  value: _propTypes.default.oneOfType([_propTypes.default.array, _propTypes.default.string]),
-  hasError: _propTypes.default.bool.isRequired,
-  onUpdate: _propTypes.default.func.isRequired,
-  uiField: _propTypes.default.object
+  id: _propTypes["default"].string.isRequired,
+  field: _propTypes["default"].object.isRequired,
+  value: _propTypes["default"].oneOfType([_propTypes["default"].array, _propTypes["default"].string]),
+  hasError: _propTypes["default"].bool.isRequired,
+  onUpdate: _propTypes["default"].func.isRequired,
+  uiField: _propTypes["default"].object
 };
 var _default = Select;
-exports.default = _default;
+exports["default"] = _default;

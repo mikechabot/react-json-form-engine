@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import PropTypes from 'prop-types';
+import { inject, observer } from 'mobx-react';
 import isEmpty from 'lodash/isEmpty';
 
 import FormControl from './FormControl';
@@ -13,37 +14,39 @@ const style = {
 };
 
 const {
-    FIELD: { ID, FIELDS, OPTIONS }
+    FIELD: { ID, FIELDS }
 } = PROPERTY;
 
-/**
- * Check for child fields, or option fields with children
- * @param field
- * @returns {boolean}
- */
-
-function hasFieldChildren(field) {
-    if (!isEmpty(field[FIELDS])) {
-        return true;
-    }
-    if (!isEmpty(field[OPTIONS])) {
-        return field[OPTIONS].some(option => !isEmpty(option[FIELDS]));
-    }
-    return false;
-}
-
+@inject('instance')
+@observer
 class FormField extends Component {
     static propTypes = {
-        field: PropTypes.object.isRequired
+        field: PropTypes.instanceOf(Object).isRequired,
+        instance: PropTypes.instanceOf(Object).isRequired
     };
 
+    getDerivedStyles(hasVisibleChildren) {
+        return {
+            ...style,
+            marginBottom: hasVisibleChildren ? 0 : '0.5rem'
+        };
+    }
+
     render() {
-        const { field } = this.props;
+        const { field, instance } = this.props;
         if (!field) return null;
+
+        const hasChildren = !isEmpty(field[FIELDS]);
+        const hasVisibleChildren = hasChildren && field[FIELDS].some(c => instance.isVisible(c));
+
         return (
-            <div style={style} className="field" id={`field-${field[ID]}`}>
-                <FormControl field={field} />
-                {hasFieldChildren(field) ? <FormChildren field={field} /> : null}
+            <div
+                style={this.getDerivedStyles(hasVisibleChildren)}
+                className="field"
+                id={`field-${field[ID]}`}
+            >
+                <FormControl field={field} hasChildren={hasChildren} />
+                <FormChildren field={field} />
             </div>
         );
     }

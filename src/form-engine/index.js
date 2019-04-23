@@ -172,7 +172,7 @@ class FormEngine {
 
         console.log(field, config.actions);
 
-        const { actions, component, defaultDecorators } = config
+        const { actions, component, defaultDecorators } = config;
 
         field[FIELD.ACTIONS] = actions;
         field[FIELD.COMPONENT] = component;
@@ -388,7 +388,6 @@ class FormEngine {
     getModelValue(id) {
         return this.model[id];
     }
-
 
     /**
      * Set a model value

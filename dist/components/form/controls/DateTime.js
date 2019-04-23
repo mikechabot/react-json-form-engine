@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.default = void 0;
+exports["default"] = void 0;
 
 var _propTypes = _interopRequireDefault(require("prop-types"));
 
@@ -15,7 +15,7 @@ var _reactDatepicker = _interopRequireDefault(require("react-datepicker"));
 
 require("react-datepicker/dist/react-datepicker.min.css");
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
@@ -75,7 +75,7 @@ function (_React$Component) {
           value = _this$props.value,
           field = _this$props.field;
 
-      var decorators = _maybeBaby.default.of(field).prop('uiDecorators');
+      var decorators = _maybeBaby["default"].of(field).prop('uiDecorators');
 
       var newProps = {
         value: value,
@@ -99,7 +99,7 @@ function (_React$Component) {
 
       console.log(id, decorators.join(), newProps);
       console.log(value);
-      return _react.default.createElement(_reactDatepicker.default, _extends({
+      return _react["default"].createElement(_reactDatepicker["default"], _extends({
         id: id,
         selected: value,
         onChange: this.onUpdate
@@ -108,7 +108,7 @@ function (_React$Component) {
   }]);
 
   return DateTime;
-}(_react.default.Component);
+}(_react["default"].Component);
 
 var getDefaultProps = function getDefaultProps() {
   return {
@@ -118,10 +118,10 @@ var getDefaultProps = function getDefaultProps() {
 };
 
 DateTime.propTypes = {
-  id: _propTypes.default.string.isRequired,
-  field: _propTypes.default.object.isRequired,
-  onUpdate: _propTypes.default.func.isRequired,
-  value: _propTypes.default.object
+  id: _propTypes["default"].string.isRequired,
+  field: _propTypes["default"].object.isRequired,
+  onUpdate: _propTypes["default"].func.isRequired,
+  value: _propTypes["default"].object
 };
 var _default = DateTime;
-exports.default = _default;
+exports["default"] = _default;

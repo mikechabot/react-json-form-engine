@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.default = void 0;
+exports["default"] = void 0;
 
 var _react = _interopRequireWildcard(require("react"));
 
@@ -17,9 +17,9 @@ var _formConst = require("../../../form-engine/config/form-const");
 
 var _dec, _class, _class2, _temp;
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = Object.defineProperty && Object.getOwnPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : {}; if (desc.get || desc.set) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; return newObj; } }
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = Object.defineProperty && Object.getOwnPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : {}; if (desc.get || desc.set) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj["default"] = obj; return newObj; } }
 
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
@@ -85,14 +85,14 @@ function (_Component) {
       }
 
       var length = field[FIELDS].length;
-      return _react.default.createElement("ul", {
+      return _react["default"].createElement("ul", {
         style: styles.list
       }, field[FIELDS].map(function (child, index) {
         if (instance.isVisible(child)) {
-          return _react.default.createElement("li", {
+          return _react["default"].createElement("li", {
             key: child[ID],
             style: _this.getListItemStyle(index, length)
-          }, _react.default.createElement(_.default, {
+          }, _react["default"].createElement(_["default"], {
             field: child
           }));
         }
@@ -102,13 +102,13 @@ function (_Component) {
 
   return FormChildren;
 }(_react.Component), _class2.propTypes = {
-  instance: _propTypes.default.instanceOf(Object).isRequired,
-  field: _propTypes.default.shape({
-    id: _propTypes.default.string,
-    title: _propTypes.default.string.isRequired,
-    fields: _propTypes.default.array,
-    options: _propTypes.default.array
+  instance: _propTypes["default"].instanceOf(Object).isRequired,
+  field: _propTypes["default"].shape({
+    id: _propTypes["default"].string,
+    title: _propTypes["default"].string.isRequired,
+    fields: _propTypes["default"].array,
+    options: _propTypes["default"].array
   })
 }, _temp)) || _class) || _class);
 var _default = FormChildren;
-exports.default = _default;
+exports["default"] = _default;

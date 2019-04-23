@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.default = void 0;
+exports["default"] = void 0;
 
 var _mobx = require("mobx");
 
@@ -35,7 +35,7 @@ var _common = require("../common");
 
 var _formConst = require("./config/form-const");
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
 function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
 
@@ -59,7 +59,7 @@ function () {
     _classCallCheck(this, FormEngine);
 
     try {
-      _formApiService.default.validateDefinitionShape(definition);
+      _formApiService["default"].validateDefinitionShape(definition);
 
       this.__isDefinitionValid = true;
     } catch (error) {
@@ -75,7 +75,7 @@ function () {
 
     this.showConditionTriggerMap = {}; // Stores validation results
 
-    this.validationResults = new _validationResults.default(); // Observable built from validationResults
+    this.validationResults = new _validationResults["default"](); // Observable built from validationResults
 
     this.validationMap = {
       form: false,
@@ -117,7 +117,7 @@ function () {
     value: function __hydrateModel(model) {
       var _this = this;
 
-      if (!model || (0, _isEmpty.default)(model)) return;
+      if (!model || (0, _isEmpty["default"])(model)) return;
       var parsed = model;
 
       if (typeof model === 'string') {
@@ -157,7 +157,7 @@ function () {
       var _this2 = this;
 
       this.getDefinitionSections().forEach(function (section) {
-        _this2.sections.push((0, _cloneDeep.default)(section));
+        _this2.sections.push((0, _cloneDeep["default"])(section));
       });
     }
     /**
@@ -189,13 +189,13 @@ function () {
     value: function __decorateFields(fields, parent) {
       var _this4 = this;
 
-      if (Array.isArray(fields) && !(0, _isEmpty.default)(fields)) {
+      if (Array.isArray(fields) && !(0, _isEmpty["default"])(fields)) {
         fields.forEach(function (field) {
           _this4.__decorateField(field, parent);
 
           _this4.__decorateFields(field[FIELD.FIELDS], field);
 
-          if (Array.isArray(field[FIELD.OPTIONS]) && !(0, _isEmpty.default)(field[FIELD.OPTIONS])) {
+          if (Array.isArray(field[FIELD.OPTIONS]) && !(0, _isEmpty["default"])(field[FIELD.OPTIONS])) {
             field[FIELD.OPTIONS].forEach(function (option) {
               option[FIELD.PARENT] = field;
 
@@ -221,7 +221,7 @@ function () {
         // Validate the basic shape of the object by ensuring there is
         // at least an "id", "type", and "title", as well as certain data
         // type checks (e.g min/max must be numbers, etc.)
-        _formApiService.default.validateFieldShape(field);
+        _formApiService["default"].validateFieldShape(field);
       } catch (error) {
         this.__isDefinitionValid = false;
         this.error = error;
@@ -231,7 +231,7 @@ function () {
       field[FIELD.PARENT] = parent;
       field[FIELD.UI_DECORATORS] = this.getCustomUIDecorators(field[FIELD.ID]);
 
-      var config = _formConfig.default.getComponentConfig(field[FIELD.TYPE], _formConfig.default.getComponentTypeByField(field));
+      var config = _formConfig["default"].getComponentConfig(field[FIELD.TYPE], _formConfig["default"].getComponentTypeByField(field));
 
       console.log(field, config.actions);
       var actions = config.actions,
@@ -244,7 +244,7 @@ function () {
         // Validate data and component types shape. Ensure that
         // "array" type fields contain "option" array, "range"
         // type fields contain min/max, etc.
-        _formApiService.default.validateFieldTypesShape(field);
+        _formApiService["default"].validateFieldTypesShape(field);
       } catch (error) {
         this.__isDefinitionValid = false;
         this.error = error;
@@ -257,7 +257,7 @@ function () {
       } // Convert string pattern to RegEx if specified
 
 
-      if ((0, _isString.default)(field[FIELD.PATTERN])) {
+      if ((0, _isString["default"])(field[FIELD.PATTERN])) {
         field[FIELD.PATTERN] = new RegExp(field[FIELD.PATTERN]);
       } // Register a show condition if specified
 
@@ -289,7 +289,7 @@ function () {
           expression1 = _field$showCondition.expression1,
           expression2 = _field$showCondition.expression2;
       [expression, expression1, expression2].forEach(function (e) {
-        if (_expressionService.default.isFormResponseExpression(e)) {
+        if (_expressionService["default"].isFormResponseExpression(e)) {
           var list = _this5.showConditionTriggerMap[e.id];
 
           if (!list) {
@@ -321,7 +321,7 @@ function () {
     value: function getFormIcon() {
       var _this6 = this;
 
-      return _maybeBaby.default.of(function () {
+      return _maybeBaby["default"].of(function () {
         return _this6.definition.faIcon.name;
       }).join();
     }
@@ -335,7 +335,7 @@ function () {
     value: function getFormIconPrefix() {
       var _this7 = this;
 
-      return _maybeBaby.default.of(function () {
+      return _maybeBaby["default"].of(function () {
         return _this7.definition.faIcon.prefix;
       }).join();
     }
@@ -538,7 +538,7 @@ function () {
 
       if (field[FIELD.OPTIONS]) {
         field[FIELD.OPTIONS].forEach(function (option) {
-          if (option[FIELD.FIELDS] && (_this9.isBooleanField(field) && !value || !(0, _includes.default)(value, option[FIELD.ID]))) {
+          if (option[FIELD.FIELDS] && (_this9.isBooleanField(field) && !value || !(0, _includes["default"])(value, option[FIELD.ID]))) {
             _this9.resetFields(option[FIELD.FIELDS]);
           }
         });
@@ -586,7 +586,7 @@ function () {
 
       switch (field[FIELD.TYPE]) {
         case _formConst.DATA_TYPE.DATE:
-          return (0, _isNil.default)(value);
+          return (0, _isNil["default"])(value);
 
         case _formConst.DATA_TYPE.NUMBER:
           return Number.isNaN(value);
@@ -598,7 +598,7 @@ function () {
           return (0, _common.isBlank)(value);
 
         case _formConst.DATA_TYPE.ARRAY:
-          return (0, _isEmpty.default)(value);
+          return (0, _isEmpty["default"])(value);
 
         default:
           {
@@ -641,7 +641,7 @@ function () {
     key: "evaluateCondition",
     value: function evaluateCondition(condition) {
       if (!condition) return false;
-      return _expressionService.default.evalCondition(condition, this);
+      return _expressionService["default"].evalCondition(condition, this);
     }
     /**
      * Validate the form instance
@@ -652,7 +652,7 @@ function () {
     key: "validate",
     value: function validate() {
       var comprehensive = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : false;
-      this.validationResults = _formValidator.default.validate(this, this.validationResults, comprehensive);
+      this.validationResults = _formValidator["default"].validate(this, this.validationResults, comprehensive);
       this.buildObservableValidationMap();
     }
     /**
@@ -720,7 +720,7 @@ function () {
       var status = this.getValidationResultByTag(id).status;
       var newStatus = this.findValidationStatus(this.getField(id)[FIELD.FIELDS], this.getDeepValidationStatusByTag.bind(this), true);
 
-      if (_validationService.default.isMoreSevereStatus(newStatus, status)) {
+      if (_validationService["default"].isMoreSevereStatus(newStatus, status)) {
         status = newStatus;
       }
 
@@ -745,7 +745,7 @@ function () {
       list.forEach(function (entry) {
         var newStatus = getStatus(useId ? entry[FIELD.ID] : entry);
 
-        if (_validationService.default.isMoreSevereStatus(newStatus, status)) {
+        if (_validationService["default"].isMoreSevereStatus(newStatus, status)) {
           status = newStatus;
         }
       });
@@ -782,7 +782,7 @@ function () {
   }, {
     key: "fieldHasError",
     value: function fieldHasError(id) {
-      return _validationService.default.isError(this.getValidationStatusByTag(id));
+      return _validationService["default"].isError(this.getValidationStatusByTag(id));
     }
     /**
      * Determine if a subsection has a validation error
@@ -793,7 +793,7 @@ function () {
   }, {
     key: "subsectionHasError",
     value: function subsectionHasError(subsection) {
-      return _validationService.default.isError(this.getSubsectionStatus(subsection));
+      return _validationService["default"].isError(this.getSubsectionStatus(subsection));
     }
     /**
      * Determine if a section has a validation error
@@ -804,7 +804,7 @@ function () {
   }, {
     key: "sectionHasError",
     value: function sectionHasError(section) {
-      return _validationService.default.isError(this.getSectionStatus(section));
+      return _validationService["default"].isError(this.getSectionStatus(section));
     }
   }]);
 
@@ -816,4 +816,4 @@ function () {
   validationMap: _mobx.observable
 });
 var _default = FormEngine;
-exports.default = _default;
+exports["default"] = _default;

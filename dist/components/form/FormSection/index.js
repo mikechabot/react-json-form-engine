@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.default = void 0;
+exports["default"] = void 0;
 
 var _react = _interopRequireWildcard(require("react"));
 
@@ -13,9 +13,9 @@ var _FormSubsection = _interopRequireDefault(require("../FormSubsection"));
 
 var _TabbedSubsections = _interopRequireDefault(require("../FormSubsection/TabbedSubsections"));
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = Object.defineProperty && Object.getOwnPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : {}; if (desc.get || desc.set) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; return newObj; } }
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = Object.defineProperty && Object.getOwnPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : {}; if (desc.get || desc.set) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj["default"] = obj; return newObj; } }
 
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
@@ -43,8 +43,8 @@ var style = {
 
 var FormSection =
 /*#__PURE__*/
-function (_Component) {
-  _inherits(FormSection, _Component);
+function (_PureComponent) {
+  _inherits(FormSection, _PureComponent);
 
   function FormSection() {
     _classCallCheck(this, FormSection);
@@ -57,25 +57,25 @@ function (_Component) {
     value: function render() {
       var section = this.props.section;
       if (!section) return null;
-      return _react.default.createElement("div", {
+      return _react["default"].createElement("div", {
         style: style
-      }, section.subsections.length > 1 ? _react.default.createElement(_TabbedSubsections.default, {
+      }, section.subsections.length > 1 ? _react["default"].createElement(_TabbedSubsections["default"], {
         section: section
-      }) : _react.default.createElement(_FormSubsection.default, {
+      }) : _react["default"].createElement(_FormSubsection["default"], {
         subsection: section.subsections[0]
       }));
     }
   }]);
 
   return FormSection;
-}(_react.Component);
+}(_react.PureComponent);
 
 FormSection.propTypes = {
-  section: _propTypes.default.shape({
-    id: _propTypes.default.string.isRequired,
-    title: _propTypes.default.string.isRequired,
-    subsections: _propTypes.default.array.isRequired
+  section: _propTypes["default"].shape({
+    id: _propTypes["default"].string.isRequired,
+    title: _propTypes["default"].string.isRequired,
+    subsections: _propTypes["default"].array.isRequired
   }).isRequired
 };
 var _default = FormSection;
-exports.default = _default;
+exports["default"] = _default;

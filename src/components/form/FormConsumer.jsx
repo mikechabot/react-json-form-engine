@@ -6,6 +6,13 @@ import FormTitle from './util/FormTitle';
 import FormSection from './FormSection/';
 import TabbedSections from './FormSection/TabbedSections';
 
+const style = {
+    display: 'flex',
+    flexDirection: 'column',
+    flex: 1,
+    flexShrink: 0
+};
+
 @inject(
     'instance',
     'hideFormTitle',
@@ -30,10 +37,7 @@ class FormConsumer extends Component {
 
     getDerivedStyles(hideFormBorder) {
         return {
-            display: 'flex',
-            flexDirection: 'column',
-            flex: 1,
-            flexShrink: 0,
+            ...style,
             border: hideFormBorder ? 'none' : '1px solid #dbdbdb'
         };
     }

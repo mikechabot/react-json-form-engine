@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.default = void 0;
+exports["default"] = void 0;
 
 var _react = _interopRequireWildcard(require("react"));
 
@@ -19,11 +19,15 @@ var _TabbedSections = _interopRequireDefault(require("./FormSection/TabbedSectio
 
 var _dec, _class, _class2, _temp;
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = Object.defineProperty && Object.getOwnPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : {}; if (desc.get || desc.set) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; return newObj; } }
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = Object.defineProperty && Object.getOwnPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : {}; if (desc.get || desc.set) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj["default"] = obj; return newObj; } }
 
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
+
+function _objectSpread(target) { for (var i = 1; i < arguments.length; i++) { var source = arguments[i] != null ? arguments[i] : {}; var ownKeys = Object.keys(source); if (typeof Object.getOwnPropertySymbols === 'function') { ownKeys = ownKeys.concat(Object.getOwnPropertySymbols(source).filter(function (sym) { return Object.getOwnPropertyDescriptor(source, sym).enumerable; })); } ownKeys.forEach(function (key) { _defineProperty(target, key, source[key]); }); } return target; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -41,6 +45,12 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 
+var style = {
+  display: 'flex',
+  flexDirection: 'column',
+  flex: 1,
+  flexShrink: 0
+};
 var FormConsumer = (_dec = (0, _mobxReact.inject)('instance', 'hideFormTitle', 'hideFormBorder', 'hideSubsectionTitles', 'hideSubsectionSubtitles', 'submitButtonLabel'), _dec(_class = (0, _mobxReact.observer)(_class = (_temp = _class2 =
 /*#__PURE__*/
 function (_Component) {
@@ -56,23 +66,19 @@ function (_Component) {
     key: "renderSections",
     value: function renderSections(sections) {
       if (sections.length > 1) {
-        return _react.default.createElement(_TabbedSections.default, null);
+        return _react["default"].createElement(_TabbedSections["default"], null);
       }
 
-      return _react.default.createElement(_FormSection.default, {
+      return _react["default"].createElement(_FormSection["default"], {
         section: sections[0]
       });
     }
   }, {
     key: "getDerivedStyles",
     value: function getDerivedStyles(hideFormBorder) {
-      return {
-        display: 'flex',
-        flexDirection: 'column',
-        flex: 1,
-        flexShrink: 0,
+      return _objectSpread({}, style, {
         border: hideFormBorder ? 'none' : '1px solid #dbdbdb'
-      };
+      });
     }
   }, {
     key: "render",
@@ -80,17 +86,17 @@ function (_Component) {
       var _this$props = this.props,
           instance = _this$props.instance,
           hideFormBorder = _this$props.hideFormBorder;
-      return _react.default.createElement("div", {
+      return _react["default"].createElement("div", {
         className: "__rjfe__",
         style: this.getDerivedStyles(hideFormBorder)
-      }, _react.default.createElement(_FormTitle.default, null), this.renderSections(instance.getSections()));
+      }, _react["default"].createElement(_FormTitle["default"], null), this.renderSections(instance.getSections()));
     }
   }]);
 
   return FormConsumer;
 }(_react.Component), _class2.propTypes = {
-  instance: _propTypes.default.instanceOf(Object).isRequired,
-  hideFormBorder: _propTypes.default.bool
+  instance: _propTypes["default"].instanceOf(Object).isRequired,
+  hideFormBorder: _propTypes["default"].bool
 }, _temp)) || _class) || _class);
 var _default = FormConsumer;
-exports.default = _default;
+exports["default"] = _default;

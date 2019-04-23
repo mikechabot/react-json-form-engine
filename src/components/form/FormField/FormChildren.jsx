@@ -14,7 +14,7 @@ const styles = {
     list: {
         marginTop: '0.50rem',
         marginBottom: '0.50rem',
-        marginLeft: '0.25rem',
+        marginLeft: '0.30rem',
         paddingLeft: '0.75rem',
         borderLeft: '3px double #dbdbdb'
     }
@@ -33,24 +33,17 @@ class FormChildren extends Component {
         })
     };
 
-    getListItemStyle(index, length) {
-        if (index === 0) return styles.firstListItem;
-        if (index === length - 1) return styles.lastListItem;
-        return styles.listItem;
-    }
-
     render() {
         const { instance, field } = this.props;
         if (!field[FIELDS] || !field[FIELDS].some(child => instance.isVisible(child))) {
             return null;
         }
-        const length = field[FIELDS].length;
         return (
             <ul style={styles.list}>
-                {field[FIELDS].map((child, index) => {
+                {field[FIELDS].map(child => {
                     if (instance.isVisible(child)) {
                         return (
-                            <li key={child[ID]} style={this.getListItemStyle(index, length)}>
+                            <li key={child[ID]}>
                                 <FormField field={child} />
                             </li>
                         );

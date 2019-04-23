@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.default = void 0;
+exports["default"] = void 0;
 
 var _isEmpty = _interopRequireDefault(require("lodash/isEmpty"));
 
@@ -11,7 +11,7 @@ var _validationService = _interopRequireDefault(require("../service/validation-s
 
 var _formConst = require("../config/form-const");
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
 function _classCallCheck(instance, Constructor) { if (!(instance instanceof Constructor)) { throw new TypeError("Cannot call a class as a function"); } }
 
@@ -87,7 +87,7 @@ function () {
         actions.forEach(function (action) {
           var currentStatus = _this.actionMap[action] || OK;
 
-          if (_validationService.default.isMoreSevereStatus(status, currentStatus)) {
+          if (_validationService["default"].isMoreSevereStatus(status, currentStatus)) {
             _this.actionMap[action] = status;
           }
         });
@@ -99,11 +99,11 @@ function () {
       var messages = this.validationMap[tag];
       delete messages[type];
 
-      if ((0, _isEmpty.default)(messages)) {
+      if ((0, _isEmpty["default"])(messages)) {
         delete this.validationMap[tag];
         delete this.validationStateMap[tag]; // Reset the overallStatus if no errors are detected
 
-        if ((0, _isEmpty.default)(this.validationMap) && (0, _isEmpty.default)(this.validationStateMap)) {
+        if ((0, _isEmpty["default"])(this.validationMap) && (0, _isEmpty["default"])(this.validationStateMap)) {
           this.overallStatus = OK;
         }
       }
@@ -155,11 +155,11 @@ function () {
       Object.keys(this.validationMap).forEach(function (key) {
         var messages = _this2.validationMap[key]; // Get most severe status for tag
 
-        var status = _validationService.default.getMostSevereStatus(messages);
+        var status = _validationService["default"].getMostSevereStatus(messages);
 
         _this2.validationStateMap[key] = status; // Update overall status of more severe
 
-        if (_validationService.default.isMoreSevereStatus(status, overallStatus)) {
+        if (_validationService["default"].isMoreSevereStatus(status, overallStatus)) {
           _this2.overallStatus = status;
         }
       });
@@ -261,4 +261,4 @@ function () {
 }();
 
 var _default = ValidationResults;
-exports.default = _default;
+exports["default"] = _default;

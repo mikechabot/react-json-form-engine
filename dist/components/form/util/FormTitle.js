@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.default = void 0;
+exports["default"] = void 0;
 
 var _react = _interopRequireWildcard(require("react"));
 
@@ -17,9 +17,9 @@ var _FormSubmitButton = _interopRequireDefault(require("./FormSubmitButton"));
 
 var _dec, _class, _class2, _temp;
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
-function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = Object.defineProperty && Object.getOwnPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : {}; if (desc.get || desc.set) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj.default = obj; return newObj; } }
+function _interopRequireWildcard(obj) { if (obj && obj.__esModule) { return obj; } else { var newObj = {}; if (obj != null) { for (var key in obj) { if (Object.prototype.hasOwnProperty.call(obj, key)) { var desc = Object.defineProperty && Object.getOwnPropertyDescriptor ? Object.getOwnPropertyDescriptor(obj, key) : {}; if (desc.get || desc.set) { Object.defineProperty(newObj, key, desc); } else { newObj[key] = obj[key]; } } } } newObj["default"] = obj; return newObj; } }
 
 function _typeof(obj) { if (typeof Symbol === "function" && typeof Symbol.iterator === "symbol") { _typeof = function _typeof(obj) { return typeof obj; }; } else { _typeof = function _typeof(obj) { return obj && typeof Symbol === "function" && obj.constructor === Symbol && obj !== Symbol.prototype ? "symbol" : typeof obj; }; } return _typeof(obj); }
 
@@ -66,7 +66,7 @@ function (_Component) {
     key: "renderFormIcon",
     value: function renderFormIcon(instance) {
       if (instance.getFormIcon()) {
-        return _react.default.createElement(_reactFontawesome.FontAwesomeIcon, {
+        return _react["default"].createElement(_reactFontawesome.FontAwesomeIcon, {
           icon: [instance.getFormIconPrefix(), instance.getFormIcon()],
           style: styles.formIcon
         });
@@ -75,11 +75,11 @@ function (_Component) {
   }, {
     key: "renderTitle",
     value: function renderTitle(instance) {
-      return _react.default.createElement("div", {
+      return _react["default"].createElement("div", {
         className: "navbar-brand"
-      }, _react.default.createElement("span", {
+      }, _react["default"].createElement("span", {
         className: "navbar-item is-size-4-desktop is-size-5-tablet is-size-5-mobile"
-      }, this.renderFormIcon(instance), _react.default.createElement("span", {
+      }, this.renderFormIcon(instance), _react["default"].createElement("span", {
         key: "label"
       }, instance.getFormTitle())));
     }
@@ -91,21 +91,21 @@ function (_Component) {
           hideFormTitle = _this$props.hideFormTitle,
           theme = _this$props.theme;
       if (hideFormTitle) return null;
-      return _react.default.createElement("div", {
+      return _react["default"].createElement("div", {
         id: "form-title-".concat(instance.getId()),
         style: styles.container,
         className: "navbar ".concat(theme || DEFAULT_THEME)
-      }, this.renderTitle(instance), _react.default.createElement("div", {
+      }, this.renderTitle(instance), _react["default"].createElement("div", {
         className: "navbar-item"
-      }, _react.default.createElement(_FormSubmitButton.default, null)));
+      }, _react["default"].createElement(_FormSubmitButton["default"], null)));
     }
   }]);
 
   return FormTitle;
 }(_react.Component), _class2.propTypes = {
-  instance: _propTypes.default.instanceOf(Object).isRequired,
-  hideFormTitle: _propTypes.default.bool,
-  theme: _propTypes.default.string
+  instance: _propTypes["default"].instanceOf(Object).isRequired,
+  hideFormTitle: _propTypes["default"].bool,
+  theme: _propTypes["default"].string
 }, _temp)) || _class) || _class);
 var _default = FormTitle;
-exports.default = _default;
+exports["default"] = _default;

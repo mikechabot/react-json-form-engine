@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.default = exports.VALIDATION_MESSAGE = void 0;
+exports["default"] = exports.VALIDATION_MESSAGE = void 0;
 
 var _isNil = _interopRequireDefault(require("lodash/isNil"));
 
@@ -15,7 +15,7 @@ var _formValidators = _interopRequireDefault(require("./form-validators"));
 
 var _REQUIRED, _VALIDATION_MESSAGE;
 
-function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { default: obj }; }
+function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
 function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
 
@@ -50,25 +50,25 @@ var VALIDATION_MESSAGE = (_VALIDATION_MESSAGE = {
     return "The value must match the supplied pattern: ".concat(field[FIELD.PATTERN]);
   },
   NUMERIC: function NUMERIC(field) {
-    if (!(0, _isNil.default)(field.min) && !(0, _isNil.default)(field.max)) {
+    if (!(0, _isNil["default"])(field.min) && !(0, _isNil["default"])(field.max)) {
       return "".concat(field.title, " must be between ").concat(field.min, " and ").concat(field.max);
     }
 
-    if (!(0, _isNil.default)(field.min)) return "".concat(field.title, " must be greater than ").concat(field.min);
+    if (!(0, _isNil["default"])(field.min)) return "".concat(field.title, " must be greater than ").concat(field.min);
     return "".concat(field.title, " must be less than ").concat(field.max);
   }
 }, _defineProperty(_VALIDATION_MESSAGE, _formConst.VALIDATION_CONST.TYPE.MISSING_REQUIRED, 'This field cannot be empty'), _defineProperty(_VALIDATION_MESSAGE, _formConst.VALIDATION_CONST.TYPE.INVALID_NUMERIC, 'Invalid numeric value'), _VALIDATION_MESSAGE);
 exports.VALIDATION_MESSAGE = VALIDATION_MESSAGE;
 
 var isError = function isError(status) {
-  return _validationService.default.isError(status);
+  return _validationService["default"].isError(status);
 };
 
 var runValidators = function runValidators(field, value, validationResults) {
   var id = field[FIELD.ID]; // Check required status
 
   if (field[FIELD.REQUIRED]) {
-    if (isError(_formValidators.default.checkRequired(field, value))) {
+    if (isError(_formValidators["default"].checkRequired(field, value))) {
       validationResults.addMissingRequired(id, ACTIONS.SUBMIT, VALIDATION_MESSAGE.REQUIRED[field.type](field));
     } else {
       validationResults.removeMissingRequired(id, ACTIONS.SUBMIT);
@@ -76,8 +76,8 @@ var runValidators = function runValidators(field, value, validationResults) {
   } // Min/max
 
 
-  if (field[FIELD.TYPE] === _formConst.DATA_TYPE.NUMBER && !(0, _isNil.default)(value)) {
-    if (isError(_formValidators.default.checkNumeric(field, value))) {
+  if (field[FIELD.TYPE] === _formConst.DATA_TYPE.NUMBER && !(0, _isNil["default"])(value)) {
+    if (isError(_formValidators["default"].checkNumeric(field, value))) {
       validationResults.addInvalidNumeric(id, ACTIONS.SUBMIT, VALIDATION_MESSAGE.NUMERIC(field));
     } else {
       validationResults.removeInvalidNumeric(id, ACTIONS.SUBMIT);
@@ -85,7 +85,7 @@ var runValidators = function runValidators(field, value, validationResults) {
   }
 
   if (field[FIELD.PATTERN]) {
-    if (isError(_formValidators.default.checkPattern(field, value))) {
+    if (isError(_formValidators["default"].checkPattern(field, value))) {
       validationResults.addInvalidRegex(id, ACTIONS.SUBMIT, VALIDATION_MESSAGE.INVALID_REGEX(field));
     } else {
       validationResults.removeInvalidRegex(id, ACTIONS.SUBMIT);
@@ -137,4 +137,4 @@ var _default = {
     return validationResults;
   }
 };
-exports.default = _default;
+exports["default"] = _default;
