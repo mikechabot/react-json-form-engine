@@ -638,7 +638,7 @@ Easily serialize the form's responses by calling `serializeModel` on the instanc
 ```js
 const json = instance.serializeModel();
 ```
-To access the model without serializing, use the below:
+To access the model without serialization, use the below:
 ```js
 const map = instance.getModel();           // {fooId: 'bar', bazId: 'qux'}
 const array = instance.getModelAsArray();  // [{fooId: 'bar'}, {bazId: 'qux'}]
