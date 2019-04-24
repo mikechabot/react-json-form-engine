@@ -40,6 +40,14 @@ It also offers a mechanism for serializing all form responses to JSON for persis
 - [Getting Started](#getting-started)
   - [Login Form Example](#login-form-example)
 - [Form Engine](#form-engine)
+  - [Form Definition](#form-definition)
+  - [Field Definition](#field-definition)
+  - [Field Type](#field-type)
+  - [Field Children](#field-children)
+  - [Field Options](#field-options)
+  - [Field Props List](#field-props-list)
+  - [Field Type Transitions](#field-type-transitions)
+  - [Field Decorators](#field-decorators)
 - [Validation](#validation)
 - [Conditions](#conditions)
 - [Serialize](#serialize)
@@ -293,6 +301,8 @@ Field definitions also adhere to a strict schema. At minimum, they must contain 
 
 Determines the *data type* of the response value stored in the model, and which Default Control to render. To override the default and render an Allowed Control instead, use a [Field Decorator](#field-decorators).
 
+Note, the `info` field is the only field type that does not accept input from the end-user; its purpose is to provide a place for the form author to render informational content, such as instructions, to the end-user. This field type utilizes `dangerouslySetInnerHTML` meaning you're able to render pure HTML. *Be aware of XSS concerns.*
+
 | Field Type       | Default Control   | Allowed Controls                                          | Supports `options`? |
 |------------------|-------------------|-----------------------------------------------------------|---------------------|
 | `string`         | `<Text />`        | `<Password />`, `<Textarea />`, `<Select />`, `<Radio />` | Yes**               |
@@ -300,9 +310,11 @@ Determines the *data type* of the response value stored in the model, and which 
 | `number`         | `<Number />`      | `<Range />`                                               | No                  |
 | `array`          | `<Select />`      | `<Checkboxgroup />`                                       | Yes                 |
 | `date`           | `<DateTime />`    | N/A                                                       | No                  |
+| `info`**         | `<section /> `    | N/A                                                       | No                  |
 
 > ** Some field types will *automatically* transition from their Default Control to another Allowed Control if an `options` array is present in the field definition. (See [Field Type Transitions](#field-type-transitions)). However, in most cases, you must use a 
 [Field Decorator](#field-decorators) to use another Allowed Control.
+
 ----
 
 ### <a id="field-children">Field Children</a>
