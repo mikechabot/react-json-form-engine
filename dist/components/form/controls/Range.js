@@ -13,21 +13,13 @@ var _isNil = _interopRequireDefault(require("lodash/isNil"));
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
-var styles = {
-  container: {
-    display: 'flex',
-    flexDirection: 'column',
-    flexShrink: 0
-  }
-};
-
 var Range = function Range(_ref) {
   var id = _ref.id,
       field = _ref.field,
       value = _ref.value,
       onUpdate = _ref.onUpdate;
   return _react["default"].createElement("div", {
-    style: styles.container
+    className: "range-container"
   }, _react["default"].createElement("div", {
     className: "is-size-7 has-text-weight-bold range-no-value"
   }, !(0, _isNil["default"])(value) ? value : 'No Value'), _react["default"].createElement("div", {

@@ -14,7 +14,7 @@ function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "d
 var Info = function Info(_ref) {
   var id = _ref.id,
       field = _ref.field;
-  if (!field.content) return null;
+  if (!field.content && !field.title) return null;
   var content = field.content,
       title = field.title;
   return _react["default"].createElement("section", {
@@ -25,12 +25,12 @@ var Info = function Info(_ref) {
     dangerouslySetInnerHTML: {
       __html: title
     }
-  }) : null, _react["default"].createElement("div", {
+  }) : null, content ? _react["default"].createElement("div", {
     className: "is-size-7",
     dangerouslySetInnerHTML: {
       __html: content
     }
-  }));
+  }) : null);
 };
 
 Info.propTypes = {

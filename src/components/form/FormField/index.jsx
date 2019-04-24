@@ -22,7 +22,7 @@ class FormField extends Component {
 
     getDerivedStyles(hasVisibleChildren) {
         return {
-            marginBottom: hasVisibleChildren ? 0 : '0.5rem'
+            marginBottom: hasVisibleChildren ? 0 : '0.75rem'
         };
     }
 

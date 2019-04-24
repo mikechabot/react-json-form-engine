@@ -61,7 +61,7 @@ function (_Component) {
     key: "getDerivedStyles",
     value: function getDerivedStyles(hasVisibleChildren) {
       return {
-        marginBottom: hasVisibleChildren ? 0 : '0.5rem'
+        marginBottom: hasVisibleChildren ? 0 : '0.75rem'
       };
     }
   }, {
