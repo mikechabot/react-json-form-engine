@@ -2,7 +2,7 @@ import React from 'react';
 import PropTypes from 'prop-types';
 
 const Info = ({ id, field }) => {
-    if (!field.content) return null;
+    if (!field.content && !field.title) return null;
     const { content, title } = field;
     return (
         <section className="container" id={id}>
@@ -12,7 +12,7 @@ const Info = ({ id, field }) => {
                     dangerouslySetInnerHTML={{ __html: title }}
                 />
             ) : null}
-            <div className="is-size-7" dangerouslySetInnerHTML={{ __html: content }} />
+            {content ? <div className="is-size-7" dangerouslySetInnerHTML={{ __html: content }} /> : null}
         </section>
     );
 };

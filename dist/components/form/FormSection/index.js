@@ -35,16 +35,10 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 
-var style = {
-  display: 'flex',
-  height: '100%',
-  flexShrink: 0
-};
-
 var FormSection =
 /*#__PURE__*/
-function (_PureComponent) {
-  _inherits(FormSection, _PureComponent);
+function (_Component) {
+  _inherits(FormSection, _Component);
 
   function FormSection() {
     _classCallCheck(this, FormSection);
@@ -58,7 +52,7 @@ function (_PureComponent) {
       var section = this.props.section;
       if (!section) return null;
       return _react["default"].createElement("div", {
-        style: style
+        className: "form-section"
       }, section.subsections.length > 1 ? _react["default"].createElement(_TabbedSubsections["default"], {
         section: section
       }) : _react["default"].createElement(_FormSubsection["default"], {
@@ -68,7 +62,7 @@ function (_PureComponent) {
   }]);
 
   return FormSection;
-}(_react.PureComponent);
+}(_react.Component);
 
 FormSection.propTypes = {
   section: _propTypes["default"].shape({

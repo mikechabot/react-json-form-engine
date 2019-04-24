@@ -97,8 +97,6 @@ function (_React$Component) {
         }
       }
 
-      console.log(id, decorators.join(), newProps);
-      console.log(value);
       return _react["default"].createElement(_reactDatepicker["default"], _extends({
         id: id,
         selected: value,

@@ -1,12 +1,10 @@
-import React, { PureComponent } from 'react';
+import React, { Component } from 'react';
 import PropTypes from 'prop-types';
 
 import FormSubsection from '../FormSubsection';
 import TabbedSubsections from '../FormSubsection/TabbedSubsections';
 
-const style = { display: 'flex', height: '100%', flexShrink: 0 };
-
-class FormSection extends PureComponent {
+class FormSection extends Component {
     static propTypes = {
         section: PropTypes.shape({
             id: PropTypes.string.isRequired,
@@ -18,7 +16,7 @@ class FormSection extends PureComponent {
         const { section } = this.props;
         if (!section) return null;
         return (
-            <div style={style}>
+            <div className="form-section">
                 {section.subsections.length > 1 ? (
                     <TabbedSubsections section={section} />
                 ) : (

@@ -18,23 +18,6 @@ var styles = {
     display: 'flex',
     flexDirection: 'column',
     flexShrink: 0
-  },
-  noValue: {
-    display: 'flex',
-    justifyContent: 'center'
-  },
-  sliderContainer: {
-    display: 'flex',
-    flex: 1
-  },
-  slider: {
-    width: '100%'
-  },
-  minLabel: {
-    marginRight: '0.25rem'
-  },
-  maxLabel: {
-    marginLeft: '0.25rem'
   }
 };
 
@@ -44,18 +27,18 @@ var Range = function Range(_ref) {
       value = _ref.value,
       onUpdate = _ref.onUpdate;
   return _react["default"].createElement("div", {
-    styles: styles.container
+    style: styles.container
   }, _react["default"].createElement("div", {
-    styles: styles.noValue
+    className: "is-size-7 has-text-weight-bold range-no-value"
   }, !(0, _isNil["default"])(value) ? value : 'No Value'), _react["default"].createElement("div", {
-    style: styles.sliderContainer
+    className: "range-slider-container"
   }, _react["default"].createElement(MinMaxLabel, {
     value: field.min,
-    style: styles.minLabel
+    className: "m-r-xs"
   }), _react["default"].createElement("div", {
-    style: styles.sliderContainer
+    className: "range-slider-container"
   }, _react["default"].createElement("input", {
-    style: styles.slider,
+    className: "range-slider",
     name: id,
     id: id,
     type: "range",
@@ -65,16 +48,15 @@ var Range = function Range(_ref) {
     onChange: onUpdate
   })), _react["default"].createElement(MinMaxLabel, {
     value: field.max,
-    style: styles.maxLabel
+    className: "m-l-xs"
   })));
 };
 
 var MinMaxLabel = function MinMaxLabel(_ref2) {
   var value = _ref2.value,
-      style = _ref2.style;
+      className = _ref2.className;
   return _react["default"].createElement("div", {
-    style: style,
-    className: "is-size-7"
+    className: "is-size-7 ".concat(className)
   }, value);
 };
 

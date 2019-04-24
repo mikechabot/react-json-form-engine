@@ -41,25 +41,6 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 
-var styles = {
-  container: {
-    display: 'flex',
-    flexDirection: 'column',
-    flex: 1,
-    flexShrink: 0,
-    height: '100%'
-  },
-  fields: {
-    width: '100%',
-    height: '100%',
-    padding: '.5em .75em'
-  },
-  submit: {
-    border: 'none',
-    display: 'flex',
-    justifyContent: 'flex-end'
-  }
-};
 var FormSubsection = (_dec = (0, _mobxReact.inject)('instance', 'hideFormTitle', 'hideSubsectionTitles', 'hideSubsectionSubtitles'), _dec(_class = (0, _mobxReact.observer)(_class = (_temp = _class2 =
 /*#__PURE__*/
 function (_Component) {
@@ -90,8 +71,7 @@ function (_Component) {
     value: function renderSubmit(hideFormTitle) {
       if (!hideFormTitle) return null;
       return _react["default"].createElement("div", {
-        className: "panel-block",
-        style: styles.submit
+        className: "panel-block form-submit-button"
       }, _react["default"].createElement(_FormSubmitButton["default"], null));
     }
   }, {
@@ -102,13 +82,13 @@ function (_Component) {
           hideFormTitle = _this$props.hideFormTitle,
           isTabbed = _this$props.isTabbed;
       return _react["default"].createElement("div", {
-        style: styles.container,
-        className: "panel"
+        className: "panel form-subsection",
+        s: true
       }, _react["default"].createElement(_FormSubsectionTitle["default"], {
         subsection: subsection,
         isTabbed: isTabbed
       }), _react["default"].createElement("div", {
-        style: styles.fields
+        className: "form-subsection-fields"
       }, this.renderSubsectionFields(subsection.fields)), this.renderSubmit(hideFormTitle));
     }
   }]);

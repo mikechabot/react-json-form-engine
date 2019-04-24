@@ -40,17 +40,6 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 
 var DEFAULT_THEME = 'is-dark';
-var styles = {
-  container: {
-    display: 'flex',
-    alignItems: 'center',
-    flexShrink: 0,
-    justifyContent: 'space-between'
-  },
-  formIcon: {
-    marginRight: '0.5em'
-  }
-};
 var FormTitle = (_dec = (0, _mobxReact.inject)('instance', 'hideFormTitle', 'submitButtonLabel'), _dec(_class = (0, _mobxReact.observer)(_class = (_temp = _class2 =
 /*#__PURE__*/
 function (_Component) {
@@ -68,7 +57,7 @@ function (_Component) {
       if (instance.getFormIcon()) {
         return _react["default"].createElement(_reactFontawesome.FontAwesomeIcon, {
           icon: [instance.getFormIconPrefix(), instance.getFormIcon()],
-          style: styles.formIcon
+          className: "m-r-sm"
         });
       }
     }
@@ -93,8 +82,7 @@ function (_Component) {
       if (hideFormTitle) return null;
       return _react["default"].createElement("div", {
         id: "form-title-".concat(instance.getId()),
-        style: styles.container,
-        className: "navbar ".concat(theme || DEFAULT_THEME)
+        className: "navbar ".concat(theme || DEFAULT_THEME, " form-title")
       }, this.renderTitle(instance), _react["default"].createElement("div", {
         className: "navbar-item"
       }, _react["default"].createElement(_FormSubmitButton["default"], null)));

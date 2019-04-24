@@ -2,11 +2,6 @@ import React from 'react';
 import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
-const style = {
-    display: 'flex',
-    alignItems: 'center'
-};
-
 const regex = /^Error: (.+)$/m;
 
 function parseAPICheckErrorMessage(error) {
@@ -25,7 +20,7 @@ const ValidationAPIError = ({ error }) => {
     return (
         <div className="__rjfe__ panel">
             <div className="panel-heading">
-                <div style={style}>
+                <div className="validation-api-error">
                     <FontAwesomeIcon icon="exclamation-triangle" className="has-text-danger" />
                     &nbsp;
                     <h3>{message || 'Error initializing FormEngine'}</h3>

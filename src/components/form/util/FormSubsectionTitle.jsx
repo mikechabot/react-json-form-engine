@@ -5,17 +5,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Asterisk } from '../../util';
 import { inject, observer } from 'mobx-react';
 
-const styles = {
-    subtitle: {
-        fontSize: '.75em',
-        marginTop: '.25em'
-    },
-    heading: {
-        border: 'none',
-        borderBottom: '1px solid #dbdbdb'
-    }
-};
-
 @inject('instance', 'hideSubsectionTitles', 'hideSubsectionSubtitles')
 @observer
 class FormSubsectionTitle extends Component {
@@ -39,7 +28,7 @@ class FormSubsectionTitle extends Component {
     getSubsection(subsection, hideSubsectionSubtitles) {
         if (!subsection.subtitle || hideSubsectionSubtitles) return null;
         return (
-            <h2 className="subtitle" style={styles.subtitle}>
+            <h2 className="subtitle is-size-7 m-t-xs">
                 <FontAwesomeIcon icon="angle-right" /> {subsection.subtitle}
             </h2>
         );
@@ -58,7 +47,7 @@ class FormSubsectionTitle extends Component {
         if (!(subtitle || title)) return null;
 
         return (
-            <div className="panel-heading" style={styles.heading}>
+            <div className="panel-heading">
                 {title}
                 {subtitle}
             </div>

@@ -42,15 +42,6 @@ function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || func
 var _PROPERTY$FIELD = _formConst.PROPERTY.FIELD,
     FIELDS = _PROPERTY$FIELD.FIELDS,
     ID = _PROPERTY$FIELD.ID;
-var styles = {
-  list: {
-    marginTop: '0.50rem',
-    marginBottom: '0.50rem',
-    marginLeft: '0.25rem',
-    paddingLeft: '0.75rem',
-    borderLeft: '3px double #dbdbdb'
-  }
-};
 var FormChildren = (_dec = (0, _mobxReact.inject)('instance'), _dec(_class = (0, _mobxReact.observer)(_class = (_temp = _class2 =
 /*#__PURE__*/
 function (_Component) {
@@ -63,17 +54,8 @@ function (_Component) {
   }
 
   _createClass(FormChildren, [{
-    key: "getListItemStyle",
-    value: function getListItemStyle(index, length) {
-      if (index === 0) return styles.firstListItem;
-      if (index === length - 1) return styles.lastListItem;
-      return styles.listItem;
-    }
-  }, {
     key: "render",
     value: function render() {
-      var _this = this;
-
       var _this$props = this.props,
           instance = _this$props.instance,
           field = _this$props.field;
@@ -84,14 +66,12 @@ function (_Component) {
         return null;
       }
 
-      var length = field[FIELDS].length;
       return _react["default"].createElement("ul", {
-        style: styles.list
-      }, field[FIELDS].map(function (child, index) {
+        className: "form-children"
+      }, field[FIELDS].map(function (child) {
         if (instance.isVisible(child)) {
           return _react["default"].createElement("li", {
-            key: child[ID],
-            style: _this.getListItemStyle(index, length)
+            key: child[ID]
           }, _react["default"].createElement(_["default"], {
             field: child
           }));

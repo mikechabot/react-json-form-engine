@@ -6,13 +6,6 @@ import FormTitle from './util/FormTitle';
 import FormSection from './FormSection/';
 import TabbedSections from './FormSection/TabbedSections';
 
-const style = {
-    display: 'flex',
-    flexDirection: 'column',
-    flex: 1,
-    flexShrink: 0
-};
-
 @inject(
     'instance',
     'hideFormTitle',
@@ -37,8 +30,8 @@ class FormConsumer extends Component {
 
     getDerivedStyles(hideFormBorder) {
         return {
-            ...style,
-            border: hideFormBorder ? 'none' : '1px solid #dbdbdb'
+            border: hideFormBorder ? 'none' : '1px solid #dbdbdb',
+            borderTop: 'none'
         };
     }
 
@@ -46,9 +39,11 @@ class FormConsumer extends Component {
         const { instance, hideFormBorder } = this.props;
 
         return (
-            <div className="__rjfe__" style={this.getDerivedStyles(hideFormBorder)}>
+            <div className="__rjfe__ rjfe-form-consumer">
                 <FormTitle />
-                {this.renderSections(instance.getSections())}
+                <div className="form-sections" style={this.getDerivedStyles(hideFormBorder)}>
+                    {this.renderSections(instance.getSections())}
+                </div>
             </div>
         );
     }

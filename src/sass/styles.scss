@@ -19,6 +19,193 @@ $control-radius: none;
   @extend .input;
 }
 
+/**
+  Override Bulma
+ */
+
+$gray-border: #dbdbdb;
+
 .field:not(:last-child) {
   margin-bottom: 0;
+}
+
+.panel-heading {
+  border: none;
+  border-bottom: 1px solid $gray-border;
+}
+
+/**
+  Custom mixins
+ */
+
+@mixin flex-box {
+  display: flex;
+}
+
+@mixin flex($n) {
+  flex: $n;
+}
+
+@mixin flex-shrink($n) {
+  flex-shrink: $n;
+}
+
+@mixin flex-column {
+  @include flex-box;
+  flex-direction: column;
+}
+
+@mixin max-height {
+  height: 100%;
+}
+
+@mixin max-width {
+  width: 100%;
+}
+
+.flex-box {
+  @include flex-box;
+}
+
+.flex-column {
+  @include flex-column;
+}
+
+@mixin max-flex-column {
+  @include flex-column;
+  @include flex(1);
+  @include flex-shrink(0);
+}
+
+// Excluded selector in build-css
+.rjfe-form-consumer {
+  @include max-flex-column;
+}
+
+.form-sections {
+  @include max-flex-column;
+}
+
+.form-title {
+  @include flex-box;
+  @include flex-shrink(0);
+  justify-content: space-between;
+  align-items: center;
+}
+
+.form-control-hint {
+  @include flex-box;
+  align-items: center;
+}
+
+.form-subsection {
+  @include flex-column;
+  @include flex(1);
+  @include flex-shrink(0);
+  @include max-height;
+}
+
+.form-submit-button {
+  @include flex-box;
+  border: none;
+  justify-content: flex-end;
+}
+
+.form-subsection-fields {
+  @include max-width;
+  @include max-height;
+  padding: .5em .75em;
+}
+
+.form-section {
+  @include flex-box;
+  @include max-height;
+  @include flex-shrink(0);
+}
+
+.form-children {
+  margin: .5rem 0 .5rem .3rem;
+  padding-left: .75rem;
+  border-left: 3px double $gray-border;
+}
+
+.validation-api-error {
+  @include flex-box;
+  align-items: center;
+}
+
+.radio-option-container {
+  @include flex-column;
+  align-content: center;
+}
+
+.radio-option-label {
+  @include flex-box;
+  align-items: center;
+  cursor: pointer;
+}
+
+.range-container {
+  @include flex-column;
+  @include flex-shrink(0);
+}
+
+.range-slider {
+  @include max-width;
+}
+
+.range-slider-container {
+  @include flex-box;
+  @include flex(1);
+}
+
+.range-no-value {
+  @include flex-box;
+  justify-content: center;
+}
+
+$sizeUnit: rem;
+$marginKey: 'm';
+$paddingKey: 'p';
+$separator: '-';
+$sizes: (
+  ('none', 0),
+  ('xxs', 0.125),
+  ('xs', 0.25),
+  ('sm', 0.5),
+  ('md', 1),
+  ('lg', 2),
+  ('xl', 4),
+  ('xxl', 8),
+);
+$positions: (
+  ('t', 'top'),
+  ('r', 'right'),
+  ('b', 'bottom'),
+  ('l', 'left')
+);
+
+@function sizeValue($key, $value) {
+  @return if($key == 'none', 0, $value + $sizeUnit);
+}
+
+@each $size in $sizes {
+  $sizeKey: nth($size, 1);
+  $sizeValue: nth($size, 2);
+  .#{$marginKey}#{$separator}#{$sizeKey} {
+    margin: sizeValue($sizeKey, $sizeValue);
+  }
+  .#{$paddingKey}#{$separator}#{$sizeKey} {
+    padding: sizeValue($sizeKey, $sizeValue);
+  }
+  @each $position in $positions {
+    $posKey: nth($position, 1);
+    $posValue: nth($position, 2);
+    .#{$marginKey}#{$separator}#{$posKey}#{$separator}#{$sizeKey} {
+      margin-#{$posValue}: sizeValue($sizeKey, $sizeValue);
+    }
+    .#{$paddingKey}#{$separator}#{$posKey}#{$separator}#{$sizeKey} {
+      padding-#{$posValue}: sizeValue($sizeKey, $sizeValue);
+    }
+  }
 }

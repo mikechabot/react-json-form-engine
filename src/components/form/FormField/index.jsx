@@ -8,11 +8,6 @@ import FormChildren from './FormChildren';
 
 import { PROPERTY } from '../../../form-engine/config/form-const';
 
-const style = {
-    display: 'flex',
-    flexDirection: 'column'
-};
-
 const {
     FIELD: { ID, FIELDS }
 } = PROPERTY;
@@ -27,7 +22,6 @@ class FormField extends Component {
 
     getDerivedStyles(hasVisibleChildren) {
         return {
-            ...style,
             marginBottom: hasVisibleChildren ? 0 : '0.5rem'
         };
     }

@@ -7,18 +7,6 @@ import FormSubmitButton from './FormSubmitButton';
 
 const DEFAULT_THEME = 'is-dark';
 
-const styles = {
-    container: {
-        display: 'flex',
-        alignItems: 'center',
-        flexShrink: 0,
-        justifyContent: 'space-between'
-    },
-    formIcon: {
-        marginRight: '0.5em'
-    }
-};
-
 @inject('instance', 'hideFormTitle', 'submitButtonLabel')
 @observer
 class FormTitle extends Component {
@@ -33,7 +21,7 @@ class FormTitle extends Component {
             return (
                 <FontAwesomeIcon
                     icon={[instance.getFormIconPrefix(), instance.getFormIcon()]}
-                    style={styles.formIcon}
+                    className="m-r-sm"
                 />
             );
         }
@@ -56,8 +44,7 @@ class FormTitle extends Component {
         return (
             <div
                 id={`form-title-${instance.getId()}`}
-                style={styles.container}
-                className={`navbar ${theme || DEFAULT_THEME}`}
+                className={`navbar ${theme || DEFAULT_THEME} form-title`}
             >
                 {this.renderTitle(instance)}
                 <div className="navbar-item">

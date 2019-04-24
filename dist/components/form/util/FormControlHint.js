@@ -19,11 +19,7 @@ var FormControlHint = function FormControlHint(_ref) {
       className = _ref.className;
   var derivedClassName = className || 'has-text-grey-light';
   return _react["default"].createElement("div", {
-    style: {
-      display: 'flex',
-      alignItems: 'center'
-    },
-    className: "help ".concat(derivedClassName)
+    className: "help ".concat(derivedClassName, " form-control-hint")
   }, _react["default"].createElement(_reactFontawesome.FontAwesomeIcon, {
     icon: icon || 'question-circle'
   }), "\xA0", text);

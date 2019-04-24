@@ -11,16 +11,6 @@ const {
     FIELD: { ID, FIELDS, OPTIONS }
 } = PROPERTY;
 
-const flexColumn = {
-    display: 'flex',
-    flexDirection: 'column'
-};
-
-const optionStyle = {
-    ...flexColumn,
-    marginBottom: '0.25rem'
-};
-
 @inject('instance')
 @observer
 class CheckboxGroup extends Component {
@@ -28,21 +18,21 @@ class CheckboxGroup extends Component {
         return !isEmpty(option[FIELDS]);
     }
 
-    getDerivedStyle(index, length, hasVisibleChildren) {
-        if (index === length - 1 || hasVisibleChildren) return {};
-        return optionStyle;
+    getDerivedClass(index, length, hasVisibleChildren) {
+        if (index === length - 1 || hasVisibleChildren) return '';
+        return 'flex-column m-b-xs';
     }
 
     render() {
         const { id, field, value, onUpdate, instance } = this.props;
         const length = field[OPTIONS].length;
         return (
-            <div style={flexColumn}>
+            <div className="flex-column">
                 {field[OPTIONS].map((o, index) => {
                     const hasChildren = this.hasChildren(o);
                     const hasVisibleChildren = hasChildren && o[FIELDS].some(c => instance.isVisible(c));
                     return (
-                        <div key={index} style={this.getDerivedStyle(index, length, hasVisibleChildren)}>
+                        <div key={index} className={this.getDerivedClass(index, length, hasVisibleChildren)}>
                             <Checkbox
                                 id={o[ID]}
                                 option={o}

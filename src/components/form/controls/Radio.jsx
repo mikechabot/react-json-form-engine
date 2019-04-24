@@ -5,29 +5,6 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 
 import FormChildren from '../FormField/FormChildren';
 
-const styles = {
-    containerInline: {
-        display: 'flex'
-    },
-    container: {
-        display: 'flex',
-        flexDirection: 'column'
-    },
-    optionContainer: {
-        display: 'flex',
-        flexDirection: 'column',
-        alignContent: 'center'
-    },
-    optionInline: {
-        marginLeft: '0.5rem'
-    },
-    optionLabel: {
-        cursor: 'pointer',
-        display: 'flex',
-        alignItems: 'center'
-    }
-};
-
 function isChecked(option, value, isEven) {
     if (isNil(value)) return false;
     if (option.id) return option.id === value;
@@ -40,13 +17,13 @@ function getIcon(option, value, isEven) {
 
 function renderOption(field, value, option, index, onUpdate) {
     const isEven = index % 2 === 0;
-    const style = {
-        ...styles.optionContainer,
-        ...(index === 0 ? {} : field.inline ? styles.optionInline : {})
-    };
     return (
-        <div key={index} style={style} onClick={() => onUpdate(option.id || isEven, field.id)}>
-            <div style={styles.optionLabel}>
+        <div
+            key={index}
+            className={`radio-option-container ${index === 0 ? '' : field.inline ? 'm-l-sm' : ''}`}
+            onClick={() => onUpdate(option.id || isEven, field.id)}
+        >
+            <div className="radio-option-label">
                 <FontAwesomeIcon icon={['far', getIcon(option, value, isEven)]} />
                 &nbsp;
                 <div>{option.title}</div>
@@ -57,9 +34,8 @@ function renderOption(field, value, option, index, onUpdate) {
 }
 
 const Radio = ({ id, value, field, onUpdate }) => {
-    const containerStyle = field.inline ? styles.containerInline : styles.container;
     return (
-        <div id={id} style={containerStyle}>
+        <div id={id} className={field.inline ? 'flex-box' : 'flex-column'}>
             {field.options.map((option, index) => renderOption(field, value, option, index, onUpdate))}
         </div>
     );

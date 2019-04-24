@@ -8,7 +8,17 @@ const FILENAME = 'styles';
 const RELATIVE_OUTPUT = '/dist/css';
 const INPUT_PATH = path.join(__dirname, `/src/sass/${FILENAME}.scss`);
 const PREFIX = '.__rjfe__';
-const EXCLUDED_SELECTORS = ['*', '*::before', '*::after', 'html', 'body', 'a', 'a:hover'];
+
+const EXCLUDED_SELECTORS = [
+    '*',
+    '*::before',
+    '*::after',
+    'html',
+    'body',
+    'a',
+    'a:hover',
+    '.rjfe-form-consumer'
+];
 
 const outputs = [
     { filepath: path.join(__dirname, `${RELATIVE_OUTPUT}/${FILENAME}.css`), style: 'nested' },

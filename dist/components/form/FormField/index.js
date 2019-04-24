@@ -9,6 +9,8 @@ var _react = _interopRequireWildcard(require("react"));
 
 var _propTypes = _interopRequireDefault(require("prop-types"));
 
+var _mobxReact = require("mobx-react");
+
 var _isEmpty = _interopRequireDefault(require("lodash/isEmpty"));
 
 var _FormControl = _interopRequireDefault(require("./FormControl"));
@@ -16,6 +18,8 @@ var _FormControl = _interopRequireDefault(require("./FormControl"));
 var _FormChildren = _interopRequireDefault(require("./FormChildren"));
 
 var _formConst = require("../../../form-engine/config/form-const");
+
+var _dec, _class, _class2, _temp;
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
@@ -39,35 +43,10 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 
-var style = {
-  display: 'flex',
-  flexDirection: 'column'
-};
 var _PROPERTY$FIELD = _formConst.PROPERTY.FIELD,
     ID = _PROPERTY$FIELD.ID,
-    FIELDS = _PROPERTY$FIELD.FIELDS,
-    OPTIONS = _PROPERTY$FIELD.OPTIONS;
-/**
- * Check for child fields, or option fields with children
- * @param field
- * @returns {boolean}
- */
-
-function hasFieldChildren(field) {
-  if (!(0, _isEmpty["default"])(field[FIELDS])) {
-    return true;
-  }
-
-  if (!(0, _isEmpty["default"])(field[OPTIONS])) {
-    return field[OPTIONS].some(function (option) {
-      return !(0, _isEmpty["default"])(option[FIELDS]);
-    });
-  }
-
-  return false;
-}
-
-var FormField =
+    FIELDS = _PROPERTY$FIELD.FIELDS;
+var FormField = (_dec = (0, _mobxReact.inject)('instance'), _dec(_class = (0, _mobxReact.observer)(_class = (_temp = _class2 =
 /*#__PURE__*/
 function (_Component) {
   _inherits(FormField, _Component);
@@ -79,27 +58,40 @@ function (_Component) {
   }
 
   _createClass(FormField, [{
+    key: "getDerivedStyles",
+    value: function getDerivedStyles(hasVisibleChildren) {
+      return {
+        marginBottom: hasVisibleChildren ? 0 : '0.5rem'
+      };
+    }
+  }, {
     key: "render",
     value: function render() {
-      var field = this.props.field;
+      var _this$props = this.props,
+          field = _this$props.field,
+          instance = _this$props.instance;
       if (!field) return null;
+      var hasChildren = !(0, _isEmpty["default"])(field[FIELDS]);
+      var hasVisibleChildren = hasChildren && field[FIELDS].some(function (c) {
+        return instance.isVisible(c);
+      });
       return _react["default"].createElement("div", {
-        style: style,
+        style: this.getDerivedStyles(hasVisibleChildren),
         className: "field",
         id: "field-".concat(field[ID])
       }, _react["default"].createElement(_FormControl["default"], {
+        field: field,
+        hasChildren: hasChildren
+      }), _react["default"].createElement(_FormChildren["default"], {
         field: field
-      }), hasFieldChildren(field) ? _react["default"].createElement(_FormChildren["default"], {
-        field: field
-      }) : null);
+      }));
     }
   }]);
 
   return FormField;
-}(_react.Component);
-
-FormField.propTypes = {
-  field: _propTypes["default"].object.isRequired
-};
+}(_react.Component), _class2.propTypes = {
+  field: _propTypes["default"].instanceOf(Object).isRequired,
+  instance: _propTypes["default"].instanceOf(Object).isRequired
+}, _temp)) || _class) || _class);
 var _default = FormField;
 exports["default"] = _default;

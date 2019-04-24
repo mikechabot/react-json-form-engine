@@ -6,26 +6,6 @@ import FormField from '../FormField/';
 import FormSubsectionTitle from '../util/FormSubsectionTitle';
 import FormSubmitButton from '../util/FormSubmitButton';
 
-const styles = {
-    container: {
-        display: 'flex',
-        flexDirection: 'column',
-        flex: 1,
-        flexShrink: 0,
-        height: '100%'
-    },
-    fields: {
-        width: '100%',
-        height: '100%',
-        padding: '.5em .75em'
-    },
-    submit: {
-        border: 'none',
-        display: 'flex',
-        justifyContent: 'flex-end'
-    }
-};
-
 @inject('instance', 'hideFormTitle', 'hideSubsectionTitles', 'hideSubsectionSubtitles')
 @observer
 class FormSubsection extends Component {
@@ -48,7 +28,7 @@ class FormSubsection extends Component {
     renderSubmit(hideFormTitle) {
         if (!hideFormTitle) return null;
         return (
-            <div className="panel-block" style={styles.submit}>
+            <div className="panel-block form-submit-button">
                 <FormSubmitButton />
             </div>
         );
@@ -57,9 +37,9 @@ class FormSubsection extends Component {
     render() {
         const { subsection, hideFormTitle, isTabbed } = this.props;
         return (
-            <div style={styles.container} className="panel">
+            <div className="panel form-subsection"s>
                 <FormSubsectionTitle subsection={subsection} isTabbed={isTabbed} />
-                <div style={styles.fields}>{this.renderSubsectionFields(subsection.fields)}</div>
+                <div className="form-subsection-fields">{this.renderSubsectionFields(subsection.fields)}</div>
                 {this.renderSubmit(hideFormTitle)}
             </div>
         );

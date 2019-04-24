@@ -7,7 +7,7 @@ const FormControlHint = ({ text, icon, className }) => {
     let derivedClassName = className || 'has-text-grey-light';
 
     return (
-        <div style={{ display: 'flex', alignItems: 'center' }} className={`help ${derivedClassName}`}>
+        <div className={`help ${derivedClassName} form-control-hint`}>
             <FontAwesomeIcon icon={icon || 'question-circle'} />
             &nbsp;{text}
         </div>

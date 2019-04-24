@@ -54,10 +54,6 @@ class DateTime extends React.Component {
             }
         }
 
-        console.log(id, decorators.join(), newProps);
-
-        console.log(value);
-
         return <DatePicker id={id} selected={value} onChange={this.onUpdate} {...newProps} />;
     }
 }

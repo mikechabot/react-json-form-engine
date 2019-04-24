@@ -39,16 +39,6 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 
-var styles = {
-  subtitle: {
-    fontSize: '.75em',
-    marginTop: '.25em'
-  },
-  heading: {
-    border: 'none',
-    borderBottom: '1px solid #dbdbdb'
-  }
-};
 var FormSubsectionTitle = (_dec = (0, _mobxReact.inject)('instance', 'hideSubsectionTitles', 'hideSubsectionSubtitles'), _dec(_class = (0, _mobxReact.observer)(_class = (_temp = _class2 =
 /*#__PURE__*/
 function (_Component) {
@@ -71,8 +61,7 @@ function (_Component) {
     value: function getSubsection(subsection, hideSubsectionSubtitles) {
       if (!subsection.subtitle || hideSubsectionSubtitles) return null;
       return _react["default"].createElement("h2", {
-        className: "subtitle",
-        style: styles.subtitle
+        className: "subtitle is-size-7 m-t-xs"
       }, _react["default"].createElement(_reactFontawesome.FontAwesomeIcon, {
         icon: "angle-right"
       }), " ", subsection.subtitle);
@@ -95,8 +84,7 @@ function (_Component) {
       var subtitle = this.getSubsection(subsection, hideSubsectionSubtitles);
       if (!(subtitle || title)) return null;
       return _react["default"].createElement("div", {
-        className: "panel-heading",
-        style: styles.heading
+        className: "panel-heading"
       }, title, subtitle);
     }
   }]);

@@ -13,10 +13,6 @@ var _reactFontawesome = require("@fortawesome/react-fontawesome");
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
 
-var style = {
-  display: 'flex',
-  alignItems: 'center'
-};
 var regex = /^Error: (.+)$/m;
 
 function parseAPICheckErrorMessage(error) {
@@ -41,7 +37,7 @@ var ValidationAPIError = function ValidationAPIError(_ref) {
   }, _react["default"].createElement("div", {
     className: "panel-heading"
   }, _react["default"].createElement("div", {
-    style: style
+    className: "validation-api-error"
   }, _react["default"].createElement(_reactFontawesome.FontAwesomeIcon, {
     icon: "exclamation-triangle",
     className: "has-text-danger"

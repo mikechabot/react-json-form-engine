@@ -10,16 +10,6 @@ const {
     FIELD: { FIELDS, ID }
 } = PROPERTY;
 
-const styles = {
-    list: {
-        marginTop: '0.50rem',
-        marginBottom: '0.50rem',
-        marginLeft: '0.30rem',
-        paddingLeft: '0.75rem',
-        borderLeft: '3px double #dbdbdb'
-    }
-};
-
 @inject('instance')
 @observer
 class FormChildren extends Component {
@@ -39,7 +29,7 @@ class FormChildren extends Component {
             return null;
         }
         return (
-            <ul style={styles.list}>
+            <ul className="form-children">
                 {field[FIELDS].map(child => {
                     if (instance.isVisible(child)) {
                         return (
