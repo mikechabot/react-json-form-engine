@@ -295,13 +295,13 @@ Determines the *data type* of the response value stored in the model, and which 
 
 | Field Type       | Default Control   | Allowed Controls                                          | Supports `options`? |
 |------------------|-------------------|-----------------------------------------------------------|---------------------|
-| `string`         | `<Text />`        | `<Password />`, `<Textarea />`, `<Select />`, `<Radio />` | Yes*                |
-| `boolean`        | `<Checkbox />`    | `<Radio />`                                               | Yes*                |
+| `string`         | `<Text />`        | `<Password />`, `<Textarea />`, `<Select />`, `<Radio />` | Yes**               |
+| `boolean`        | `<Checkbox />`    | `<Radio />`                                               | Yes**               |
 | `number`         | `<Number />`      | `<Range />`                                               | No                  |
 | `array`          | `<Select />`      | `<Checkboxgroup />`                                       | Yes                 |
 | `date`           | `<DateTime />`    | N/A                                                       | No                  |
 
-> * Some field types will *automatically* transition from their Default Control to another Allowed Control if an `options` array is present in the field definition. (See [Field Type Transitions](#field-type-transitions)). However, in most cases, you must use a 
+> ** Some field types will *automatically* transition from their Default Control to another Allowed Control if an `options` array is present in the field definition. (See [Field Type Transitions](#field-type-transitions)). However, in most cases, you must use a 
 [Field Decorator](#field-decorators) to use another Allowed Control.
 ----
 
