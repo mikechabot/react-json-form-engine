@@ -10,11 +10,11 @@ Build lightning fast web forms from JSON.
 <br/>
 :heart: Rehydratable 
 
-While other libraries might utilize [react-redux](https://github.com/reduxjs/react-redux), [`refs`](https://reactjs.org/docs/refs-and-the-dom.html), or [Context](https://reactjs.org/docs/context.html) for complex form management, `react-json-form-engine` relies on React as little as possible, and offloads its core logic to plain JavaScript, while utilzing [mobx](https://mobx.js.org/) bindings for rendering. The result is scalable, lightning-fast performance with neglible reliance on the React lifecycle.
+While other libraries might utilize [react-redux](https://github.com/reduxjs/react-redux), [`refs`](https://reactjs.org/docs/refs-and-the-dom.html), or [Context](https://reactjs.org/docs/context.html) for form state management, `react-json-form-engine` relies on React as little as possible, and offloads its core logic to plain JavaScript, while utilzing [mobx](https://mobx.js.org/) bindings for rendering. The result is scalable, lightning-fast performance with neglible reliance on the React lifecycle.
 
-Before proceeding, it's important to note that this library was designed to manage large, multi-section forms, that may contain complex field dependencies (e.g Only show the **Select Guardian** field if the **Age** response is less than `18`). This may or may not be for you, but it can also handle simple forms with extreme ease.
+It's important to note that this library was designed to manage large, multi-section forms, that may contain conditional logic (e.g. Show field `Foo` based on the response given in field `Bar`). This may or may not be for you, but it can also handle simple forms with extreme ease.
 
-It also offers an easy mechanism for serializing all form responses to JSON for persistence. The reverse also stands, as any form can be easily rehydrated from historical data, and returned to its previous state.
+It also offers a mechanism for serializing all form responses to JSON for persistence. The reverse also stands, as any form can be easily rehydrated from historical data, and returned to its previous state.
 
 <div align="center">  
   <a href="https://travis-ci.org/mikechabot/react-json-form-engine">
@@ -62,7 +62,7 @@ Requires React 15.0.0+
 
 ```js
 // Import the styles
-import 'react-json-form-engine/dist/styles.css';
+import 'react-json-form-engine/dist/styles.min.css';
 
 // Import the API
 import { Form, FormEngine } from 'react-json-form-engine';
@@ -191,7 +191,7 @@ const LoginForm = () => (
     submitButtonLabel="Login"
     instance={instance}
     onSubmit={() => {
-      console.log(instance.getModelValues());   // Get form responses
+      console.log(instance.getModel());         // Get form responses
       console.log(instance.serializeModel());   // Serialize form responses
     }}
   />
