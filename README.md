@@ -195,7 +195,7 @@ And once filled out, `onSubmit` will get us the form responses:
 ```jsx
 const LoginForm = () => (
   <Form
-    hideTitle
+    hideFormTitle
     submitButtonLabel="Login"
     instance={instance}
     onSubmit={() => {
@@ -465,6 +465,7 @@ Here's the complete list of props that can be passed to [Field Definitions](#fie
 | `max`           | `number`  | Yes*     | Maximum value. (Used for `number` field types)                                              |
 | `hideTime`      | `boolean` | No       | Only show the Date in Date/Time. (Used for `date` field types)                              |
 | `hideCalendar`  | `boolean` | No       | Only show the Time in Data/Time. (Used for `date` field types)                              |
+| `content`  | `string` | No       | Informational content to be displayed to the end-user. Utilizes `dangerouslySetInnerHTML`. (Used for `info` field types)                              |
 
 > `min` and `max` are only required for `<Range />` component types.
 
