@@ -129,7 +129,9 @@ function (_Component) {
         hideSubsectionTitles: this.props.hideSubsectionTitles,
         hideSubsectionSubtitles: this.props.hideSubsectionSubtitles,
         submitButtonLabel: this.props.submitButtonLabel
-      }, _react["default"].createElement(_FormConsumer["default"], null));
+      }, _react["default"].createElement(_FormConsumer["default"], {
+        width: this.props.width
+      }));
     }
   }]);
 

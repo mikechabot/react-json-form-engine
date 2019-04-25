@@ -36,10 +36,10 @@ class FormConsumer extends Component {
     }
 
     render() {
-        const { instance, hideFormBorder } = this.props;
+        const { instance, hideFormBorder, width } = this.props;
 
         return (
-            <div className="__rjfe__ rjfe-form-consumer">
+            <div className="__rjfe__ rjfe-form-consumer" style={width ? { width: this.props.width } : {}}>
                 <FormTitle />
                 <div className="form-sections" style={this.getDerivedStyles(hideFormBorder)}>
                     {this.renderSections(instance.getSections())}

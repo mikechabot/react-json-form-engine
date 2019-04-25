@@ -73,7 +73,7 @@ class Form extends Component {
                 hideSubsectionSubtitles={this.props.hideSubsectionSubtitles}
                 submitButtonLabel={this.props.submitButtonLabel}
             >
-                <FormConsumer />
+                <FormConsumer width={this.props.width} />
             </Provider>
         );
     }
