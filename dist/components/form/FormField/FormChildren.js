@@ -85,7 +85,7 @@ function (_Component) {
   instance: _propTypes["default"].instanceOf(Object).isRequired,
   field: _propTypes["default"].shape({
     id: _propTypes["default"].string,
-    title: _propTypes["default"].string.isRequired,
+    title: _propTypes["default"].string,
     fields: _propTypes["default"].array,
     options: _propTypes["default"].array
   })

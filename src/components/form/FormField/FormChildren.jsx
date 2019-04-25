@@ -17,7 +17,7 @@ class FormChildren extends Component {
         instance: PropTypes.instanceOf(Object).isRequired,
         field: PropTypes.shape({
             id: PropTypes.string,
-            title: PropTypes.string.isRequired,
+            title: PropTypes.string,
             fields: PropTypes.array,
             options: PropTypes.array
         })

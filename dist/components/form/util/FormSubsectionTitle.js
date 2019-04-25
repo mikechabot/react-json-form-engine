@@ -99,8 +99,8 @@ function (_Component) {
 }(_react.Component), _class2.propTypes = {
   isTabbed: _propTypes["default"].bool,
   subsection: _propTypes["default"].object.isRequired,
-  hideSubsectionTitles: _propTypes["default"].bool.isRequired,
-  hideSubsectionSubtitles: _propTypes["default"].bool.isRequired
+  hideSubsectionTitles: _propTypes["default"].bool,
+  hideSubsectionSubtitles: _propTypes["default"].bool
 }, _temp)) || _class) || _class);
 var _default = FormSubsectionTitle;
 exports["default"] = _default;

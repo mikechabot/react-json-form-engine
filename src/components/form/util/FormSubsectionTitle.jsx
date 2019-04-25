@@ -16,8 +16,8 @@ class FormSubsectionTitle extends Component {
     static propTypes = {
         isTabbed: PropTypes.bool,
         subsection: PropTypes.object.isRequired,
-        hideSubsectionTitles: PropTypes.bool.isRequired,
-        hideSubsectionSubtitles: PropTypes.bool.isRequired
+        hideSubsectionTitles: PropTypes.bool,
+        hideSubsectionSubtitles: PropTypes.bool
     };
 
     getTitle(instance, subsection, isTabbed, hideSubsectionTitles) {
