@@ -37,6 +37,7 @@ It also offers a mechanism for serializing all form responses to JSON for persis
 
 - [Live Demo](#live-demo)
 - [Installing](#installing)
+- [Storybook](#storybook)
 - [Getting Started](#getting-started)
   - [Login Form Example](#login-form-example)
 - [Form Engine](#form-engine)
@@ -56,9 +57,7 @@ It also offers a mechanism for serializing all form responses to JSON for persis
 
 ## <a id="live-demo">Live Demo</a>
 
-https://mikechabot.github.io/react-json-form-engine-storybook/
-
-> Demo repository located [here](https://github.com/mikechabot/react-json-form-engine-storybook)
+https://mikechabot.github.io/react-json-form-engine-demo/
 
 ## <a id="installing">Installing</a>
 
@@ -75,6 +74,20 @@ import 'react-json-form-engine/dist/css/styles.min.css';
 // Import the API
 import { Form, FormEngine } from 'react-json-form-engine';
 ```
+
+----
+
+## <a id="storybook">Storybook</a>
+
+To run the `react-json-form-engine` [storybook](https://storybook.js.org/):
+
+```bash
+$ git clone https://github.com/mikechabot/react-json-form-engine.git
+$ npm install
+$ npm run storybook
+```
+
+Available at http://localhost:6006/
 
 ----
 
