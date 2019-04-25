@@ -265,10 +265,10 @@ Don't worry about making mistakes with your definition. If the `FormEngine` is i
 In the case below, our definition was completely missing the `sections` array:
 
 <div align="center">
-<img src='https://raw.githubusercontent.com/mikechabot/react-json-form-engine-storybook/master/src/assets/form-engine-api-check.png' alt='api-check' aria-label='api-check' />
+<img src='https://raw.githubusercontent.com/mikechabot/react-json-form-engine-demo/master/src/assets/form-engine-api-check.png' alt='api-check' aria-label='api-check' />
 </div>
 
-Have a look at the [Malformed Form](https://mikechabot.github.io/react-json-form-engine-storybook/?path=/story/examples--malformed-form) demo on storybook.
+Have a look at the [Malformed Form](https://mikechabot.github.io/react-json-form-engine-demo/?path=/story/examples--malformed-form) demo on storybook.
 
 ----
 
