@@ -20,17 +20,17 @@ var Info = function Info(_ref) {
   return _react["default"].createElement("section", {
     className: "container",
     id: id
-  }, title ? _react["default"].createElement("div", {
+  }, title ? _react["default"].createElement("div", null, _react["default"].createElement("div", {
     className: "is-size-6 has-text-weight-semibold",
     dangerouslySetInnerHTML: {
       __html: title
     }
-  }) : null, content ? _react["default"].createElement("div", {
+  })) : null, content ? _react["default"].createElement("div", null, _react["default"].createElement("div", {
     className: "is-size-7",
     dangerouslySetInnerHTML: {
       __html: content
     }
-  }) : null);
+  })) : null);
 };
 
 Info.propTypes = {

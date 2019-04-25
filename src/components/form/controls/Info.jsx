@@ -7,12 +7,18 @@ const Info = ({ id, field }) => {
     return (
         <section className="container" id={id}>
             {title ? (
-                <div
-                    className="is-size-6 has-text-weight-semibold"
-                    dangerouslySetInnerHTML={{ __html: title }}
-                />
+                <div>
+                    <div
+                        className="is-size-6 has-text-weight-semibold"
+                        dangerouslySetInnerHTML={{ __html: title }}
+                    />
+                </div>
             ) : null}
-            {content ? <div className="is-size-7" dangerouslySetInnerHTML={{ __html: content }} /> : null}
+            {content ? (
+                <div>
+                    <div className="is-size-7" dangerouslySetInnerHTML={{ __html: content }} />
+                </div>
+            ) : null}
         </section>
     );
 };
