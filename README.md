@@ -59,6 +59,8 @@ It also offers a mechanism for serializing all form responses to JSON for persis
 
 https://mikechabot.github.io/react-json-form-engine-demo/
 
+https://mikechabot.github.io/react-json-form-engine-storybook
+
 ## <a id="installing">Installing</a>
 
 Requires React 15.0.0+
@@ -79,7 +81,7 @@ import { Form, FormEngine } from 'react-json-form-engine';
 
 ## <a id="storybook">Storybook</a>
 
-To run the `react-json-form-engine` [storybook](https://storybook.js.org/):
+To run the `react-json-form-engine` [storybook](https://storybook.js.org/) locally:
 
 ```bash
 $ git clone https://github.com/mikechabot/react-json-form-engine.git
