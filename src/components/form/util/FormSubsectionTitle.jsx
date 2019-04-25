@@ -4,6 +4,11 @@ import PropTypes from 'prop-types';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome';
 import { Asterisk } from '../../util';
 import { inject, observer } from 'mobx-react';
+import { PROPERTY } from '../../../form-engine/config/form-const';
+
+const {
+    SUBSECTION: { ID, TITLE, SUBTITLE }
+} = PROPERTY;
 
 @inject('instance', 'hideSubsectionTitles', 'hideSubsectionSubtitles')
 @observer
@@ -19,17 +24,17 @@ class FormSubsectionTitle extends Component {
         if (isTabbed || hideSubsectionTitles) return null;
         return (
             <div>
-                {subsection.title}&nbsp;
-                {instance.validationMap.subsections[subsection.id] ? <Asterisk /> : null}
+                {subsection[TITLE]}&nbsp;
+                {instance.subsectionHasError(subsection[ID]) ? <Asterisk /> : null}
             </div>
         );
     }
 
     getSubsection(subsection, hideSubsectionSubtitles) {
-        if (!subsection.subtitle || hideSubsectionSubtitles) return null;
+        if (!subsection[SUBTITLE] || hideSubsectionSubtitles) return null;
         return (
             <h2 className="subtitle is-size-7 m-t-xs">
-                <FontAwesomeIcon icon="angle-right" /> {subsection.subtitle}
+                <FontAwesomeIcon icon="angle-right" /> {subsection[SUBTITLE]}
             </h2>
         );
     }

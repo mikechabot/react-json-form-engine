@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.ERROR_MESSAGE = exports.VALIDATION_CONST = exports.PROPERTY = exports.NO_VALUE = exports.COMPONENT_DECORATORS = exports.COMPONENT_TYPE = exports.DATA_TYPE = void 0;
+exports.ERROR_MESSAGE = exports.VALIDATION_CONST = exports.PROPERTY = exports.NO_VALUE = exports.COMMON_PROPERTY = exports.COMPONENT_DECORATORS = exports.COMPONENT_TYPE = exports.DATA_TYPE = void 0;
 
 var _COMPONENT_DECORATORS;
 
@@ -50,6 +50,7 @@ var COMMON_PROPERTY = {
   TYPE: 'type',
   SORT_ORDER: 'sortOrder'
 };
+exports.COMMON_PROPERTY = COMMON_PROPERTY;
 var NO_VALUE = undefined;
 exports.NO_VALUE = NO_VALUE;
 var PROPERTY = {

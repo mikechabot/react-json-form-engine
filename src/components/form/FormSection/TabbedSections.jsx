@@ -6,6 +6,11 @@ import { Tabs, Tab } from 'react-tabify';
 import { Asterisk } from '../../util';
 
 import FormSection from './';
+import { PROPERTY } from '../../../form-engine/config/form-const';
+
+const {
+    SECTION: { ID, TITLE }
+} = PROPERTY;
 
 @inject('instance', 'hideFormTitle', 'hideSubsectionTitles', 'hideSubsectionSubtitles', 'submitButtonLabel')
 @observer
@@ -19,8 +24,8 @@ class TabbedSections extends Component {
     getDerivedSectionTitle(instance, section) {
         return (
             <span>
-                {section.title}&nbsp;
-                {instance.validationMap.sections[section.id] ? <Asterisk /> : null}
+                {section[TITLE]}&nbsp;
+                {instance.sectionHasError(section[ID]) ? <Asterisk /> : null}
             </span>
         );
     }

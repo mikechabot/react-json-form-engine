@@ -17,6 +17,8 @@ var _util = require("../../util");
 
 var _ = _interopRequireDefault(require("./"));
 
+var _formConst = require("../../../form-engine/config/form-const");
+
 var _dec, _class, _class2, _temp;
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
@@ -41,6 +43,9 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 
+var ID = _formConst.COMMON_PROPERTY.ID,
+    TITLE = _formConst.COMMON_PROPERTY.TITLE;
+var SUBSECTIONS = _formConst.PROPERTY.SECTION.SUBSECTIONS;
 var TabbedSubsections = (_dec = (0, _mobxReact.inject)('instance', 'hideFormTitle', 'hideSubsectionTitles', 'hideSubsectionSubtitles', 'submitButtonLabel'), _dec(_class = (0, _mobxReact.observer)(_class = (_temp = _class2 =
 /*#__PURE__*/
 function (_Component) {
@@ -56,8 +61,8 @@ function (_Component) {
     key: "getTabbedTitle",
     value: function getTabbedTitle(subsection) {
       var instance = this.props.instance;
-      if (!instance.validationMap.subsections[subsection.id]) return subsection.title;
-      return _react["default"].createElement("span", null, subsection.title, " ", _react["default"].createElement(_util.Asterisk, null));
+      if (!instance.subsectionHasError(subsection[ID])) return subsection[TITLE];
+      return _react["default"].createElement("span", null, subsection[TITLE], " ", _react["default"].createElement(_util.Asterisk, null));
     }
   }, {
     key: "render",
@@ -67,9 +72,9 @@ function (_Component) {
       var section = this.props.section;
       if (!section) return;
       return _react["default"].createElement(_reactTabify.Tabs, {
-        id: "".concat(section.id, "-subsection-tabs"),
+        id: "".concat(section[ID], "-subsection-tabs"),
         defaultActiveKey: 0
-      }, section.subsections.map(function (subsection, index) {
+      }, section[SUBSECTIONS].map(function (subsection, index) {
         return _react["default"].createElement(_reactTabify.Tab, {
           key: index,
           eventKey: index,

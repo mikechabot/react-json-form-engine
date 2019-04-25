@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports.COMPONENT_OPERATIONS = exports.DATA_TYPE_OPERATIONS = exports.OPERATION_TYPES = void 0;
+exports.COMPONENT_TYPE_OPERATIONS = exports.DATA_TYPE_OPERATIONS = exports.OPERATION_TYPES = void 0;
 
 var _formConst = require("./form-const");
 
@@ -22,6 +22,11 @@ function _arrayWithoutHoles(arr) { if (Array.isArray(arr)) { for (var i = 0, arr
 var OPERATION_TYPES = {
   ON_UPDATE: 'onUpdate'
 };
+/**
+ * Basic operations by data type
+ * @type {{[p: string]: }}
+ */
+
 exports.OPERATION_TYPES = OPERATION_TYPES;
 var DATA_TYPE_OPERATIONS = (_DATA_TYPE_OPERATIONS = {}, _defineProperty(_DATA_TYPE_OPERATIONS, _formConst.DATA_TYPE.STRING, {
   onUpdate: function onUpdate(_ref) {
@@ -58,12 +63,17 @@ var DATA_TYPE_OPERATIONS = (_DATA_TYPE_OPERATIONS = {}, _defineProperty(_DATA_TY
     });
   }
 }), _DATA_TYPE_OPERATIONS);
+/**
+ * Basic operations by component type
+ * @type {{[p: string]: undefined}}
+ */
+
 exports.DATA_TYPE_OPERATIONS = DATA_TYPE_OPERATIONS;
 
-var COMPONENT_OPERATIONS = _defineProperty({}, _formConst.COMPONENT_TYPE.RADIO, {
+var COMPONENT_TYPE_OPERATIONS = _defineProperty({}, _formConst.COMPONENT_TYPE.RADIO, {
   onUpdate: function onUpdate(value) {
     return value;
   }
 });
 
-exports.COMPONENT_OPERATIONS = COMPONENT_OPERATIONS;
+exports.COMPONENT_TYPE_OPERATIONS = COMPONENT_TYPE_OPERATIONS;

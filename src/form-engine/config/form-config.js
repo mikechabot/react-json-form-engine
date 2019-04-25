@@ -1,9 +1,8 @@
-import zipObject from 'lodash/zipObject';
-import keys from 'lodash/keys';
-import map from 'lodash/map';
 import Maybe from 'maybe-baby';
+import zipObject from 'lodash/zipObject';
+
 import { DATA_TYPE, COMPONENT_DECORATORS, COMPONENT_TYPE } from './form-const';
-import { DATA_TYPE_OPERATIONS, COMPONENT_OPERATIONS, OPERATION_TYPES } from './form-operations';
+import { DATA_TYPE_OPERATIONS, COMPONENT_TYPE_OPERATIONS, OPERATION_TYPES } from './form-operations';
 
 const COMPONENT_CONFIGS = 'componentConfigs';
 
@@ -16,7 +15,7 @@ const COMPONENT_CONFIGS = 'componentConfigs';
  */
 class FormConfig {
     constructor() {
-        this.typeConfigs = {};
+        this.dataTypeConfigurations = {};
         this.__registerDataType(DATA_TYPE.INFO, {
             [COMPONENT_TYPE.INFO]: require('../../components/form/controls/Info').default
         });
@@ -43,24 +42,39 @@ class FormConfig {
             [COMPONENT_TYPE.CHECKBOXGROUP]: require('../../components/form/controls/CheckboxGroup').default
         });
     }
-    __registerDataType(type, components) {
-        this.typeConfigs[type] = {
-            type,
+
+    /**
+     * Register a data type with dataTypeConfigurations map.
+     * The map is keyed by data type, and contains a map of "componentConfigs",
+     * which control the component type, the component element, and any action
+     * operations associated with that data/component type.
+     * @param dataType
+     * @param componentMap
+     * @private
+     */
+    __registerDataType(dataType, componentMap) {
+        const componentTypes = Object.keys(componentMap);
+        this.dataTypeConfigurations[dataType] = {
+            dataType,
             [COMPONENT_CONFIGS]: zipObject(
-                keys(components),
-                map(components, (component, key) => {
+                componentTypes,
+                componentTypes.map(componentType => {
                     const config = {
-                        dataType: type,
+                        dataType: dataType,
                         component: {
-                            type: key,
-                            element: component
+                            type: componentType,
+                            element: componentMap[componentType]
                         },
                         actions: {
-                            onUpdate: this._getOperation(type, key, OPERATION_TYPES.ON_UPDATE)
+                            onUpdate: this.getOperationsByOperationType(
+                                dataType,
+                                componentType,
+                                OPERATION_TYPES.ON_UPDATE
+                            )
                         }
                     };
-                    if (this._hasDecorators(key)) {
-                        config.defaultDecorators = this._getDefaultDecorators(key);
+                    if (this.hasDefaultDecorators(componentType)) {
+                        config.defaultDecorators = this.getDefaultDecorators(componentType);
                     }
                     return config;
                 })
@@ -68,55 +82,60 @@ class FormConfig {
         };
     }
     /**
-     * Return a typeConfig, which is a map of React components and metadata keyed by component type
-     * @param type
-     * @returns {*}
-     */
-    getTypeConfig(type) {
-        if (!type) throw new Error('Type cannot be null/undefined');
-        if (this.typeConfigs[type]) {
-            return this.typeConfigs[type];
-        }
-        console.warn(`Unmapped data type: ${type}`);
-    }
-    /**
-     * Given a data type, Return a map of React components keyed by component type
+     * Given a data type, return a map of React components keyed by component type
      * @param dataType
      * @returns {TResult|_.Dictionary<any>|Object|*}
      */
-    getComponentConfigsByDataType(dataType) {
-        const typeConfig = this.getTypeConfig(dataType);
-        if (typeConfig) return this.getComponentConfigsByTypeConfig(typeConfig);
-        console.warn(`Unmapped data type: ${dataType}`);
-    }
-    getComponentConfigsByTypeConfig(typeConfig) {
-        if (typeConfig && typeConfig[COMPONENT_CONFIGS]) {
-            return typeConfig[COMPONENT_CONFIGS];
+    getComponentConfigurationByDataType(dataType) {
+        if (!dataType) throw new Error('Type cannot be null/undefined');
+        if (!this.dataTypeConfigurations[dataType]) {
+            throw new Error(`Unmapped data type config: ${dataType}`);
         }
-        console.warn(`Unmapped type config: ${typeConfig}`);
+        return this.dataTypeConfigurations[dataType][COMPONENT_CONFIGS];
     }
-    getComponentConfig(dataType, componentType) {
-        const components = this.getComponentConfigsByDataType(dataType);
-        if (components && components[componentType]) {
-            return components[componentType];
-        }
+
+    /**
+     * Return a component configuration given a combination of data type
+     * and component type
+     * @param dataType
+     * @param componentType
+     * @returns {*}
+     */
+    getComponentConfigurationByTypes(dataType, componentType) {
+        const components = this.getComponentConfigurationByDataType(dataType) || {};
+        if (components[componentType]) return components[componentType];
         console.warn(`Unmapped component type "${componentType}" for data type: "${dataType}"`);
     }
+
+    /**
+     * Given a field definition, return the component type that should be rendered.
+     * If a user specifies an Allowed Control override within a decorator, use that,
+     * otherwise return the Default Control for the data type.
+     * @param field
+     * @returns {*}
+     */
     getComponentTypeByField(field) {
-        if (!field) throw new Error('field is required');
-        const componentDecorator = this.getComponentDecorator(field);
+        if (!field) throw new Error('field cannot be null/undefined');
+        const componentDecorator = this.getComponentDecoratorFromField(field);
         if (componentDecorator.isJust()) {
             return componentDecorator.join();
         }
-        return this.getDefaultComponentTypeByDataType(field);
+        return this.getDefaultComponentTypeByField(field);
     }
-    getDefaultComponentTypeByDataType(field) {
-        if (!field) throw new Error('field is required');
+
+    /**
+     * Return the default component type
+     * @param field
+     * @returns {string}
+     */
+    getDefaultComponentTypeByField(field) {
+        if (!field) throw new Error('field cannot be null/undefined');
+        const hasOptions = Maybe.of(() => field.options).isJust();
         switch (field.type) {
             case DATA_TYPE.BOOLEAN:
-                return this.hasOptions(field) ? COMPONENT_TYPE.RADIO : COMPONENT_TYPE.CHECKBOX;
+                return hasOptions ? COMPONENT_TYPE.RADIO : COMPONENT_TYPE.CHECKBOX;
             case DATA_TYPE.STRING:
-                return this.hasOptions(field) ? COMPONENT_TYPE.SELECT : COMPONENT_TYPE.TEXT;
+                return hasOptions ? COMPONENT_TYPE.SELECT : COMPONENT_TYPE.TEXT;
             case DATA_TYPE.NUMBER:
                 return COMPONENT_TYPE.NUMBER;
             case DATA_TYPE.DATE:
@@ -126,38 +145,71 @@ class FormConfig {
             case DATA_TYPE.INFO:
                 return COMPONENT_TYPE.INFO;
             default: {
-                console.warn(`Unmapped data type: "${field.type}"`);
+                console.warn(`Unmapped component by field data type: "${field.type}"`);
             }
         }
     }
-    getComponentDecorator(field) {
+
+    /**
+     * Return a monad containing field decorators than may be a part of
+     * the form definition
+     * @param field
+     * @returns {Maybe}
+     */
+    getComponentDecoratorFromField(field) {
         return Maybe.of(() => field.uiDecorators.component.type);
     }
-    hasOptions(field) {
-        return Maybe.of(field)
-            .prop('options')
-            .isJust();
-    }
-    _getOperation(fieldType, componentType, operation) {
-        const { field, component } = this._getOperations(fieldType, componentType);
-        if (component && component[operation]) {
-            return component[operation];
-        } else if (field && field[operation]) {
-            return field[operation];
-        }
+
+    /**
+     * Data types and component types maintain a set of specific operation
+     * functions that control their interaction with the DOM. For example
+     * a "number" data type will return "event.target.valueAsNumber", where
+     * as a "string" data type will simply return "event.target.value".
+     * @param dataType
+     * @param componentType
+     * @param operationType
+     * @returns {*}
+     */
+    getOperationsByOperationType(dataType, componentType, operationType) {
+        // dataType/componentType of INFO has no end-user operations
         if (componentType === COMPONENT_TYPE.INFO) return;
-        console.warn(`Unmapped operations for field/component type: ${fieldType}/${componentType}`);
+
+        // Return the operation function for the given dataType of componentType
+        const { field, component } = this.getFieldAndComponentOperations(dataType, componentType);
+        if (component[operationType]) return component[operationType];
+        if (field[operationType]) return field[operationType];
+
+        console.warn(`Unmapped operations for field/component type: ${dataType}/${componentType}`);
     }
-    _getOperations(fieldType, componentType) {
+
+    /**
+     * Get field and/or component operation functions (e.g. onUpdate)
+     * @param fieldType
+     * @param componentType
+     * @returns {{field: (()|{}), component: (undefined|{})}}
+     */
+    getFieldAndComponentOperations(dataType, componentType) {
         return {
-            field: DATA_TYPE_OPERATIONS[fieldType],
-            component: COMPONENT_OPERATIONS[componentType]
+            field: DATA_TYPE_OPERATIONS[dataType] || {},
+            component: COMPONENT_TYPE_OPERATIONS[componentType] || {}
         };
     }
-    _hasDecorators(componentType) {
-        return !!this._getDefaultDecorators(componentType);
+
+    /**
+     * Check if a component type has default decorators
+     * @param componentType
+     * @returns {boolean}
+     */
+    hasDefaultDecorators(componentType) {
+        return Boolean(this.getDefaultDecorators(componentType));
     }
-    _getDefaultDecorators(componentType) {
+
+    /**
+     * Get the default decorators for a component
+     * @param componentType
+     * @returns {}
+     */
+    getDefaultDecorators(componentType) {
         return COMPONENT_DECORATORS[componentType];
     }
 }

@@ -231,9 +231,8 @@ function () {
       field[FIELD.PARENT] = parent;
       field[FIELD.UI_DECORATORS] = this.getCustomUIDecorators(field[FIELD.ID]);
 
-      var config = _formConfig["default"].getComponentConfig(field[FIELD.TYPE], _formConfig["default"].getComponentTypeByField(field));
+      var config = _formConfig["default"].getComponentConfigurationByTypes(field[FIELD.TYPE], _formConfig["default"].getComponentTypeByField(field));
 
-      console.log(field, config.actions);
       var actions = config.actions,
           component = config.component,
           defaultDecorators = config.defaultDecorators;
@@ -288,13 +287,13 @@ function () {
           expression = _field$showCondition.expression,
           expression1 = _field$showCondition.expression1,
           expression2 = _field$showCondition.expression2;
-      [expression, expression1, expression2].forEach(function (e) {
-        if (_expressionService["default"].isFormResponseExpression(e)) {
-          var list = _this5.showConditionTriggerMap[e.id];
+      [expression, expression1, expression2].forEach(function (ex) {
+        if (_expressionService["default"].isFormResponseExpression(ex)) {
+          var list = _this5.showConditionTriggerMap[ex[FIELD.ID]];
 
           if (!list) {
             list = [];
-            _this5.showConditionTriggerMap[e.id] = list;
+            _this5.showConditionTriggerMap[ex[FIELD.ID]] = list;
           }
 
           list.push(field[FIELD.ID]);
@@ -654,6 +653,7 @@ function () {
       var comprehensive = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : false;
       this.validationResults = _formValidator["default"].validate(this, this.validationResults, comprehensive);
       this.buildObservableValidationMap();
+      return this.validationResults.hasError();
     }
     /**
      * Validate the form instance during form submission
@@ -666,7 +666,8 @@ function () {
     }
     /**
      * Build an observable map based on validationResults.
-     * This map holds all sections, subsections and fields.
+     * This map holds all sections, subsections and fields,
+     * and the overall status of the form itself.
      */
 
   }, {
@@ -676,13 +677,13 @@ function () {
 
       this.validationMap.form = this.validationResults.hasError();
       this.sections.forEach(function (section) {
-        _this11.validationMap.sections[section[SECTION.ID]] = _this11.sectionHasError(section);
+        _this11.validationMap.sections[section[SECTION.ID]] = _validationService["default"].isError(_this11.getSectionStatus(section));
         section.subsections.forEach(function (subsection) {
-          _this11.validationMap.subsections[subsection[SUBSECTION.ID]] = _this11.subsectionHasError(subsection);
+          _this11.validationMap.subsections[subsection[SUBSECTION.ID]] = _validationService["default"].isError(_this11.getSubsectionStatus(subsection));
         });
       });
       Object.keys(this.fields).forEach(function (id) {
-        _this11.validationMap.fields[id] = _this11.fieldHasError(id);
+        _this11.validationMap.fields[id] = _validationService["default"].isError(_this11.getValidationStatusByTag(id));
       });
     }
     /**
@@ -782,7 +783,7 @@ function () {
   }, {
     key: "fieldHasError",
     value: function fieldHasError(id) {
-      return _validationService["default"].isError(this.getValidationStatusByTag(id));
+      return this.validationMap.fields[id] || false;
     }
     /**
      * Determine if a subsection has a validation error
@@ -792,8 +793,8 @@ function () {
 
   }, {
     key: "subsectionHasError",
-    value: function subsectionHasError(subsection) {
-      return _validationService["default"].isError(this.getSubsectionStatus(subsection));
+    value: function subsectionHasError(subsectionId) {
+      return this.validationMap.subsections[subsectionId] || false;
     }
     /**
      * Determine if a section has a validation error
@@ -803,8 +804,8 @@ function () {
 
   }, {
     key: "sectionHasError",
-    value: function sectionHasError(section) {
-      return _validationService["default"].isError(this.getSectionStatus(section));
+    value: function sectionHasError(sectionId) {
+      return this.validationMap.sections[sectionId] || false;
     }
   }]);
 

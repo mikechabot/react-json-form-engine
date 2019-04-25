@@ -25,8 +25,8 @@ class Form extends Component {
 
     onSubmit() {
         const { instance, onSubmit } = this.props;
-        instance.validateOnSubmit();
-        if (onSubmit) onSubmit();
+        const hasErrors = instance.validateOnSubmit();
+        if (onSubmit) onSubmit(hasErrors);
     }
 
     onUpdate(event, id) {

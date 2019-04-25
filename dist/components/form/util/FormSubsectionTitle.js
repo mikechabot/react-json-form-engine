@@ -15,6 +15,8 @@ var _util = require("../../util");
 
 var _mobxReact = require("mobx-react");
 
+var _formConst = require("../../../form-engine/config/form-const");
+
 var _dec, _class, _class2, _temp;
 
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
@@ -39,6 +41,10 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 
+var _PROPERTY$SUBSECTION = _formConst.PROPERTY.SUBSECTION,
+    ID = _PROPERTY$SUBSECTION.ID,
+    TITLE = _PROPERTY$SUBSECTION.TITLE,
+    SUBTITLE = _PROPERTY$SUBSECTION.SUBTITLE;
 var FormSubsectionTitle = (_dec = (0, _mobxReact.inject)('instance', 'hideSubsectionTitles', 'hideSubsectionSubtitles'), _dec(_class = (0, _mobxReact.observer)(_class = (_temp = _class2 =
 /*#__PURE__*/
 function (_Component) {
@@ -54,17 +60,17 @@ function (_Component) {
     key: "getTitle",
     value: function getTitle(instance, subsection, isTabbed, hideSubsectionTitles) {
       if (isTabbed || hideSubsectionTitles) return null;
-      return _react["default"].createElement("div", null, subsection.title, "\xA0", instance.validationMap.subsections[subsection.id] ? _react["default"].createElement(_util.Asterisk, null) : null);
+      return _react["default"].createElement("div", null, subsection[TITLE], "\xA0", instance.subsectionHasError(subsection[ID]) ? _react["default"].createElement(_util.Asterisk, null) : null);
     }
   }, {
     key: "getSubsection",
     value: function getSubsection(subsection, hideSubsectionSubtitles) {
-      if (!subsection.subtitle || hideSubsectionSubtitles) return null;
+      if (!subsection[SUBTITLE] || hideSubsectionSubtitles) return null;
       return _react["default"].createElement("h2", {
         className: "subtitle is-size-7 m-t-xs"
       }, _react["default"].createElement(_reactFontawesome.FontAwesomeIcon, {
         icon: "angle-right"
-      }), " ", subsection.subtitle);
+      }), " ", subsection[SUBTITLE]);
     }
   }, {
     key: "render",

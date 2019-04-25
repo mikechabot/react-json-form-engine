@@ -165,12 +165,10 @@ class FormEngine {
         field[FIELD.PARENT] = parent;
         field[FIELD.UI_DECORATORS] = this.getCustomUIDecorators(field[FIELD.ID]);
 
-        const config = FormConfig.getComponentConfig(
+        const config = FormConfig.getComponentConfigurationByTypes(
             field[FIELD.TYPE],
             FormConfig.getComponentTypeByField(field)
         );
-
-        console.log(field, config.actions);
 
         const { actions, component, defaultDecorators } = config;
 
@@ -221,12 +219,12 @@ class FormEngine {
      */
     __registerShowCondition(field) {
         const { expression, expression1, expression2 } = field.showCondition;
-        [expression, expression1, expression2].forEach(e => {
-            if (ExpressionService.isFormResponseExpression(e)) {
-                let list = this.showConditionTriggerMap[e.id];
+        [expression, expression1, expression2].forEach(ex => {
+            if (ExpressionService.isFormResponseExpression(ex)) {
+                let list = this.showConditionTriggerMap[ex[FIELD.ID]];
                 if (!list) {
                     list = [];
-                    this.showConditionTriggerMap[e.id] = list;
+                    this.showConditionTriggerMap[ex[FIELD.ID]] = list;
                 }
                 list.push(field[FIELD.ID]);
             }
@@ -512,6 +510,7 @@ class FormEngine {
     validate(comprehensive = false) {
         this.validationResults = FormValidator.validate(this, this.validationResults, comprehensive);
         this.buildObservableValidationMap();
+        return this.validationResults.hasError();
     }
 
     /**
@@ -523,20 +522,23 @@ class FormEngine {
 
     /**
      * Build an observable map based on validationResults.
-     * This map holds all sections, subsections and fields.
+     * This map holds all sections, subsections and fields,
+     * and the overall status of the form itself.
      */
     buildObservableValidationMap() {
         this.validationMap.form = this.validationResults.hasError();
         this.sections.forEach(section => {
-            this.validationMap.sections[section[SECTION.ID]] = this.sectionHasError(section);
+            this.validationMap.sections[section[SECTION.ID]] = ValidationService.isError(
+                this.getSectionStatus(section)
+            );
             section.subsections.forEach(subsection => {
-                this.validationMap.subsections[subsection[SUBSECTION.ID]] = this.subsectionHasError(
-                    subsection
+                this.validationMap.subsections[subsection[SUBSECTION.ID]] = ValidationService.isError(
+                    this.getSubsectionStatus(subsection)
                 );
             });
         });
         Object.keys(this.fields).forEach(id => {
-            this.validationMap.fields[id] = this.fieldHasError(id);
+            this.validationMap.fields[id] = ValidationService.isError(this.getValidationStatusByTag(id));
         });
     }
 
@@ -624,7 +626,7 @@ class FormEngine {
      * @returns {*}
      */
     fieldHasError(id) {
-        return ValidationService.isError(this.getValidationStatusByTag(id));
+        return this.validationMap.fields[id] || false;
     }
 
     /**
@@ -632,8 +634,8 @@ class FormEngine {
      * @param subsection
      * @returns {*}
      */
-    subsectionHasError(subsection) {
-        return ValidationService.isError(this.getSubsectionStatus(subsection));
+    subsectionHasError(subsectionId) {
+        return this.validationMap.subsections[subsectionId] || false;
     }
 
     /**
@@ -641,8 +643,8 @@ class FormEngine {
      * @param section
      * @returns {*}
      */
-    sectionHasError(section) {
-        return ValidationService.isError(this.getSectionStatus(section));
+    sectionHasError(sectionId) {
+        return this.validationMap.sections[sectionId] || false;
     }
 }
 

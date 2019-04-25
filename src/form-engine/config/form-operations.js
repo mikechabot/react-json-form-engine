@@ -4,6 +4,10 @@ export const OPERATION_TYPES = {
     ON_UPDATE: 'onUpdate'
 };
 
+/**
+ * Basic operations by data type
+ * @type {{[p: string]: }}
+ */
 export const DATA_TYPE_OPERATIONS = {
     [DATA_TYPE.STRING]: {
         onUpdate: ({ target }) => target.value
@@ -29,7 +33,11 @@ export const DATA_TYPE_OPERATIONS = {
     }
 };
 
-export const COMPONENT_OPERATIONS = {
+/**
+ * Basic operations by component type
+ * @type {{[p: string]: undefined}}
+ */
+export const COMPONENT_TYPE_OPERATIONS = {
     [COMPONENT_TYPE.RADIO]: {
         onUpdate: value => value
     }

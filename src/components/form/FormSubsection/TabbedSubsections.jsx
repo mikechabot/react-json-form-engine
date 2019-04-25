@@ -5,6 +5,12 @@ import { Tabs, Tab } from 'react-tabify';
 
 import { Asterisk } from '../../util';
 import FormSubsection from './';
+import { COMMON_PROPERTY, PROPERTY } from '../../../form-engine/config/form-const';
+
+const { ID, TITLE } = COMMON_PROPERTY;
+const {
+    SECTION: { SUBSECTIONS }
+} = PROPERTY;
 
 @inject('instance', 'hideFormTitle', 'hideSubsectionTitles', 'hideSubsectionSubtitles', 'submitButtonLabel')
 @observer
@@ -20,10 +26,10 @@ class TabbedSubsections extends Component {
 
     getTabbedTitle(subsection) {
         const { instance } = this.props;
-        if (!instance.validationMap.subsections[subsection.id]) return subsection.title;
+        if (!instance.subsectionHasError(subsection[ID])) return subsection[TITLE];
         return (
             <span>
-                {subsection.title} <Asterisk />
+                {subsection[TITLE]} <Asterisk />
             </span>
         );
     }
@@ -32,8 +38,8 @@ class TabbedSubsections extends Component {
         const { section } = this.props;
         if (!section) return;
         return (
-            <Tabs id={`${section.id}-subsection-tabs`} defaultActiveKey={0}>
-                {section.subsections.map((subsection, index) => (
+            <Tabs id={`${section[ID]}-subsection-tabs`} defaultActiveKey={0}>
+                {section[SUBSECTIONS].map((subsection, index) => (
                     <Tab key={index} eventKey={index} label={this.getTabbedTitle(subsection)}>
                         <FormSubsection isTabbed={true} hideSubsectionTitles={true} subsection={subsection} />
                     </Tab>

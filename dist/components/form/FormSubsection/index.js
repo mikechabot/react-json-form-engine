@@ -82,8 +82,7 @@ function (_Component) {
           hideFormTitle = _this$props.hideFormTitle,
           isTabbed = _this$props.isTabbed;
       return _react["default"].createElement("div", {
-        className: "panel form-subsection",
-        s: true
+        className: "panel form-subsection"
       }, _react["default"].createElement(_FormSubsectionTitle["default"], {
         subsection: subsection,
         isTabbed: isTabbed

@@ -74,8 +74,8 @@ function (_Component) {
       var _this$props = this.props,
           instance = _this$props.instance,
           onSubmit = _this$props.onSubmit;
-      instance.validateOnSubmit();
-      if (onSubmit) onSubmit();
+      var hasErrors = instance.validateOnSubmit();
+      if (onSubmit) onSubmit(hasErrors);
     }
   }, {
     key: "onUpdate",

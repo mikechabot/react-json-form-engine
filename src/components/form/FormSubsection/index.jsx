@@ -37,7 +37,7 @@ class FormSubsection extends Component {
     render() {
         const { subsection, hideFormTitle, isTabbed } = this.props;
         return (
-            <div className="panel form-subsection"s>
+            <div className="panel form-subsection">
                 <FormSubsectionTitle subsection={subsection} isTabbed={isTabbed} />
                 <div className="form-subsection-fields">{this.renderSubsectionFields(subsection.fields)}</div>
                 {this.renderSubmit(hideFormTitle)}

@@ -115,7 +115,7 @@ function (_Component) {
       }
 
       var value = instance.getModelValue(id);
-      var hasError = instance.validationMap.fields[id] || false;
+      var hasError = instance.fieldHasError(id);
       var Control = component.element;
       return _react["default"].createElement(_react["default"].Fragment, null, this.renderFormControlTitle(field), _react["default"].createElement("div", {
         className: "control"

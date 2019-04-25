@@ -52,7 +52,7 @@ class FormControl extends Component {
         }
 
         const value = instance.getModelValue(id);
-        const hasError = instance.validationMap.fields[id] || false;
+        const hasError = instance.fieldHasError(id);
         const Control = component.element;
 
         return (

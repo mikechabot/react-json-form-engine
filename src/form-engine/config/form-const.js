@@ -32,7 +32,7 @@ export const COMPONENT_DECORATORS = {
     }
 };
 
-const COMMON_PROPERTY = {
+export const COMMON_PROPERTY = {
     ID: 'id',
     TITLE: 'title',
     SUBTITLE: 'subtitle',
