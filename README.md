@@ -70,7 +70,7 @@ Requires React 15.0.0+
 
 ```js
 // Import the styles
-import 'react-json-form-engine/dist/styles.min.css';
+import 'react-json-form-engine/dist/css/styles.min.css';
 
 // Import the API
 import { Form, FormEngine } from 'react-json-form-engine';
