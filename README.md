@@ -59,7 +59,7 @@ It also offers a mechanism for serializing all form responses to JSON for persis
 
 https://mikechabot.github.io/react-json-form-engine-demo/
 
-https://mikechabot.github.io/react-json-form-engine-storybook
+https://mikechabot.github.io/react-json-form-engine-storybook/
 
 ## <a id="installing">Installing</a>
 
