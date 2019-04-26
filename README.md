@@ -716,7 +716,7 @@ Conditionally show any field by giving it a `showCondition`. Take a look at the 
   type: 'string',
   title: 'Conditional Field',
   showCondition: {...}
-  }
+}
 ```
 
 A `showCondition` contains a `type` and one or more `expressions`, which also contain a `type`. Expressions are evaluated against one another, or the form model itself to conditionally show a field (e.g. Show field `Foo` based on the response given in field `Bar`).
