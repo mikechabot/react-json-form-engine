@@ -731,7 +731,7 @@ A `showCondition` contains a `type` and one or more `expressions`, which also co
 | `EMPTY`        | Determine if a `FORM_RESPONSE` is empty***                       |
 | `EQUAL`        | Determine if a `FORM_RESPONSE` is equal to a `CONST` value       |
 | `GREATER_THAN` | Determine if a `FORM_RESPONSE` is greater than a `CONST` value   |
-| `LESS_THAN`    | Determine if `FORM_RESPONSE` is less than a `CONST` value         |
+| `LESS_THAN`    | Determine if a `FORM_RESPONSE` is less than a `CONST` value         |
 
 > ** Blank is defined as an empty array or string, undefined, or null.
 
