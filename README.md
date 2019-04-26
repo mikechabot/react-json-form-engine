@@ -744,6 +744,8 @@ A `showCondition` contains a `type` and one or more `expressions`, which also co
 | `CONST`         | A constant `value`                            |
 | `FORM_RESPONSE` | References a field `id` in the form instance  |
 
+----
+
 #### Condition Example
 
 The following `checkboxgroup` has three option fields. The **second** option has child fields; if this option is selected, a `string` field is rendered underneath it. 
