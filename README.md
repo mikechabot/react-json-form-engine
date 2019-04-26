@@ -653,11 +653,11 @@ Add `min: <number>` or `max: <number>` or both to any `number` type field:
 
 ```js
 {
-    id: 'age',
-    type: 'number',
-    title: 'Age',
-    min: 0,
-    max: 120
+  id: 'age',
+  type: 'number',
+  title: 'Age',
+  min: 0,
+  max: 120
 }
 ```
 > Note `min`/`max` values are only validated once the field is marked as dirty, that is, the user inputs a value.
@@ -672,10 +672,10 @@ Add `pattern: <regex>` to any `string` or `number` field:
 
 ```js
 {
-    id: 'myRegEx',
-    type: 'string',
-    title: 'My Field',
-    pattern: '^foobar$',
+  id: 'myRegEx',
+  type: 'string',
+  title: 'My Field',
+  pattern: '^foobar$',
 }
 ```
 
@@ -694,13 +694,13 @@ Validators can be combined. The following `number` field will only pass validati
 
 ```js
 {
-    id: 'num1',
-    type: 'number',
-    title: 'Number Regex',
-    pattern: '^3',
-    required: true,
-    min: 0,
-    max: 300
+  id: 'num1',
+  type: 'number',
+  title: 'Number Regex',
+  pattern: '^3',
+  required: true,
+  min: 0,
+  max: 300
 }
 ```
 
