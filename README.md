@@ -710,24 +710,30 @@ Validators can be combined. The following `number` field will only pass validati
 
 Conditionally show any field by giving it a `showCondition`. Take a look at the [Array Conditions](http://localhost:6006/?path=/story/conditions--array-conditions) demo before moving on.
 
-`showConditions` contain a `type` and one or more `expressions`, which are evaluated against each other, or the form model itself (e.g. Show field `Foo` based on the response given in field `Bar`).
+A `showCondition` contains a `type` and one or more `expressions`, which also contain a `type`. Expressions are evaluated against one another, or the form model itself (e.g. Show field `Foo` based on the response given in field `Bar`).
 
 #### Condition Types
 
-| Type           | Uses                                                                                    | 
-|----------------|-----------------------------------------------------------------------------------------|
-| `BETWEEN`      | Determine if a `FORM_RESPONSE` is between a `CONST` value                               |
-| `BLANK`        | Determine if a `FORM_RESPONSE` is blank (i.e. empty array or string, undefined, or null |
-| `CONTAINS`     | Determine if a `FORM_RESPONSE` contains a `CONST` value                                 |
-| `EMPTY`        | Determine if a `FORM_RESPONSE` is empty (i.e. empty array, undefined or null            |
-| `EQUAL`        | Determine if a `FORM_RESPONSE` is equal to a `CONST` value                              |
-| `GREATER_THAN` | Determine if a `FORM_RESPONSE` is greater than a `CONST` value                          |
-| `LESS_THAN`    | Determie if `FORM_RESPONSE` is less than a `CONST` value                                |
+| Type           | Uses                                                             | 
+|----------------|------------------------------------------------------------------|
+| `BETWEEN`      | Determine if a `FORM_RESPONSE` is between a `CONST` value        |
+| `BLANK`        | Determine if a `FORM_RESPONSE` is blank**                        |
+| `CONTAINS`     | Determine if a `FORM_RESPONSE` contains a `CONST` value          |
+| `EMPTY`        | Determine if a `FORM_RESPONSE` is empty***                       |
+| `EQUAL`        | Determine if a `FORM_RESPONSE` is equal to a `CONST` value       |
+| `GREATER_THAN` | Determine if a `FORM_RESPONSE` is greater than a `CONST` value   |
+| `LESS_THAN`    | Determie if `FORM_RESPONSE` is less than a `CONST` value         |
 
-The following **evaluation types** are available.
+> ** Blank is defined as an empty array or string, undefined, or null.
 
-1. `CONST`
-1. `FORM_RESPONSE`
+> *** Empty is defined as an empty array or string.
+
+#### Evaluation Types
+
+| Type            | Uses                                                      | 
+|-----------------|-----------------------------------------------------------|
+| `CONST`         | A constant value                                          |
+| `FORM_RESPONSE` | A form response value (i.e. lives in instance.getModel()  |
 
 
 
