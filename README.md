@@ -604,13 +604,15 @@ Take a look at a component override in the [Arrays](https://mikechabot.github.io
 
 ## <a id="validation">Validation</a>
 
-Three types of validation are support:
+Three types of validation are supported.
 
 | Type               | Supported Data Types    |
 |--------------------|-------------------------|
 | Required           | All                     |
 | Numeric (min/max)  | `number`                | 
 | Regular Expression | `string`, `number`      |
+
+Take a look at the [Validation](http://localhost:6006/?path=/story/validations--required-validation) demos on storybook.
 
 ----
 
