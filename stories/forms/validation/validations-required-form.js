@@ -31,7 +31,7 @@ export default {
                         {
                             id: 'array1',
                             type: 'array',
-                            title: 'Multiselect',
+                            title: 'Option Group',
                             required: true,
                             options: [
                                 { id: 'op1', title: 'Option 1' },

@@ -15,6 +15,11 @@ export default {
                     subtitle: 'Display an error if out-of-range',
                     fields: [
                         {
+                            id: 'info',
+                            type: 'info',
+                            content: 'Numeric validations are only enforced once a field is marked as dirty.'
+                        },
+                        {
                             id: 'num1',
                             type: 'number',
                             title: 'Number field',
