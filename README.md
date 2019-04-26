@@ -50,6 +50,9 @@ It also offers a mechanism for serializing all form responses to JSON for persis
   - [Field Type Transitions](#field-type-transitions)
   - [Field Decorators](#field-decorators)
 - [Validation](#validation)
+  - [Required](#required-validation)
+  - [Numeric](#numeric-validation)
+  - [Regular Expression](#regex-validation)
 - [Conditions](#conditions)
 - [Serialize](#serialize)
 
@@ -97,7 +100,7 @@ Available at http://localhost:6006/
 
 First, let's import the API:
 
-```javascript
+```js
 import { Form, FormEngine } from 'react-json-form-engine';
 ```
 
@@ -129,7 +132,7 @@ Let's create a simple login form. Either follow along below, or check out the [s
 
 Here's our definition, which is a rather simple one. It consists of just a single section with a single subsection, which houses three fields. Note, we're also using a [Field Decorator](#field-decorators) to ensure `user_pass` renders as a password field:
 
-```javascript
+```js
 const loginForm = {
   id: "login_form",
   title: "Welcome to Foo!",
@@ -232,25 +235,25 @@ Form definitions adhere to a strict schema. They must contain at least **one sec
 ```js
 // The most minimal form possible
 export default {
-    id: <string>,
-    title: <string>,
-    sections: [
+  id: <string>,
+  title: <string>,
+  sections: [
+    {
+      id: <string>,
+      title: <string>,
+      subsections: [
         {
-            id: <string>,
-            title: <string>,
-            subsections: [
-                {
-                    id: <string>,
-                    title: <string>,
-                    fields: [
-                        {
-                            ...
-                        }
-                    ]
-                }
-            ]
+          id: <string>,
+          title: <string>,
+          fields: [
+            {
+                ...
+            }
+          ]
         }
-    ]
+      ]
+    }
+  ]
 };
 ```
 
@@ -313,7 +316,7 @@ Any field can contain child fields. Simply create a `fields` array on the field,
 
 > Note: Field children can recurse infinitely, and also be placed on [Field Options](#field-options).
 
-```javascript
+```js
 {
   id: "parent",
   type: "number",
@@ -356,7 +359,7 @@ Have a look at the [Nested Fields](https://mikechabot.github.io/react-json-form-
 
 Fields of type `boolean` only accept a maximum of **two** options; each of which should contain just a `title` property. The first option is considered the affirmative response:
 
-```
+```js
 {
   id: 'my_bool',
   title: 'How often does it occur?',
@@ -399,7 +402,7 @@ For field types that accept unlimited options (`string`, `array`), you must incl
 
 For field controls that render selectable options, like `<Radio />` or `<Checkboxgroup />`, you can include [Field Children](#field-children) on any of the options:
 
-```javascript
+```js
 {
   id: "field_2",
   type: "string",
@@ -458,24 +461,22 @@ Here's the complete list of props that can be passed to [Field Definitions](#fie
 By default, a `string` field is rendered as `<Text />` (See [Field Type](#field-type)), but with `options` it automatically renders as a `<Select />`.
 
 ```js
-[
-  { 
-    // Renders as <Text />
-    id: 'field_1',
-    type: 'string', 
-    title: 'Text Field'
-  },
-  {             
-    // Renders as <Select />
-    id: 'field_2',
-    type: 'string',
-    title: 'Select Field',
-    options: [
-      { id: "op1", title: "Option 1" },
-      { id: "op2", title: "Option 2" },
-    ]
-  }
-]
+{ 
+  // Renders as <Text />
+  id: 'field_1',
+  type: 'string', 
+  title: 'Text Field'
+},
+{             
+  // Renders as <Select />
+  id: 'field_2',
+  type: 'string',
+  title: 'Select Field',
+  options: [
+    { id: "op1", title: "Option 1" },
+    { id: "op2", title: "Option 2" },
+  ]
+}
 ```
 
 Have a look at the [Strings](https://mikechabot.github.io/react-json-form-engine-storybook/?path=/story/data-types--strings) demo on storybook.
@@ -487,22 +488,20 @@ Have a look at the [Strings](https://mikechabot.github.io/react-json-form-engine
 By default, a `boolean` field is rendered as `<Checkbox />` (See [Field Type](#field-type)), but with `options` it automatically renders as a `<Radio />`.
 
 ```js
-[
-  {
-    id: "field_1",
-    type: "boolean",
-    title: "Checkbox Field"
-  },
-  {
-    id: "field_2",
-    type: "boolean",
-    title: "Radio Field",
-    options: [
-      { title: "Yes" },
-      { title: "No" }
-    ]
-  }
-]
+{
+  id: "field_1",
+  type: "boolean",
+  title: "Checkbox Field"
+},
+{
+  id: "field_2",
+  type: "boolean",
+  title: "Radio Field",
+  options: [
+    { title: "Yes" },
+    { title: "No" }
+  ]
+}
 ```
 
 > A maximum of two (2) options is allowed for `boolean` fields. For unlimited `<Radio />` options, use the `string` type with a `component` of `radio`.
@@ -516,12 +515,12 @@ Have a look at the [Booleans](https://mikechabot.github.io/react-json-form-engin
 Field decorators contain metadata about the fields you've configured in your form definition. Add the `decorators` object to the root of the [Form Definition](#form-definition):
 
 ```js
-  {
-    id: 'my_form'
-    title: 'My Form',
-    sections: [...],
-    decorators: {}
-  }
+{
+  id: 'my_form'
+  title: 'My Form',
+  sections: [...],
+  decorators: {}
+}
 ```
 The `decorators` object will be keyed by [Field ID](#field-id), and can contain the properties `hint` and `component`.
 
@@ -532,6 +531,7 @@ The `decorators` object will be keyed by [Field ID](#field-id), and can contain 
 Add hint text to any field:
 
 ```js
+{
   id: "Form_ID",
   title: "Form Title",
   sections: [{
@@ -562,6 +562,7 @@ Every field `type` renders a Default Control (See [Field Type](#field-type)), ho
 Let's update `field_1` from a `<Select />` to a `<Checkboxgroup />`:
 
 ```js
+{
   id: "Form_ID",
   title: "Form Title",
   sections: [{
@@ -604,11 +605,223 @@ Take a look at a component override in the [Arrays](https://mikechabot.github.io
 
 ## <a id="validation">Validation</a>
 
-Coming soon!
+Three types of validation are supported:
+
+| Type               | Supported Data Types    |
+|--------------------|-------------------------|
+| Required           | All                     |
+| Numeric (min/max)  | `number`                | 
+| Regular Expression | `string`, `number`      |
+
+Take a look at the [Validation](http://localhost:6006/?path=/story/validations--required-validation) demos on storybook.
+
+----
+
+### <a id="required-validation">Required</a>
+
+Add `required: true` to any field definition:
+
+```js
+{
+  id: 'username',
+  type: 'string',
+  title: 'Username',
+  required: true
+},
+{
+  id: 'myOptions',
+  type: 'array',
+  title: 'Option Group',
+  required: true,
+  options: [
+    { id: 'op1', title: 'Option 1' },
+    { id: 'op2', title: 'Option 2' },
+    { id: 'op3', title: 'Option 3' },
+    { id: 'op4', title: 'Option 4' }
+  ]
+}
+```
+> Note: Fields are **only** validated if they are visible in the DOM. For instance, if a field's `showCondition` (See [Conditions](#conditions)) is not met, it will not be displayed to the end-user; conditionally hidden fields are not validated.
+
+Take a look at the [Required Validation](https://mikechabot.github.io/react-json-form-engine-storybook/?path=/story/validations--required-validation) demo in storybook.
+
+----
+
+### <a id="numeric-validation">Numeric</a>
+
+Add `min: <number>` or `max: <number>` or both to any `number` type field:
+
+```js
+{
+  id: 'age',
+  type: 'number',
+  title: 'Age',
+  min: 0,
+  max: 120
+}
+```
+> Note `min`/`max` values are only validated once the field is marked as dirty, that is, the user inputs a value.
+
+Take a look at the [Numeric Validation](https://mikechabot.github.io/react-json-form-engine-storybook/?path=/story/validations--numeric-validation) demo on storybook.
+
+----
+
+### <a id="regex-validation">Regular Expression</a>
+
+Add `pattern: <regex>` to any `string` or `number` field:
+
+```js
+{
+  id: 'myRegEx',
+  type: 'string',
+  title: 'My Field',
+  pattern: '^foobar$',
+}
+```
+
+Take a look at the [Regex Demo](https://mikechabot.github.io/react-json-form-engine-storybook/?path=/story/validations--regex-validation) on storybook.
+
+----
+
+### Multiple Validators
+
+Validators can be combined. The following `number` field will only pass validation if the following conditions are met:
+
+1. The value is not `undefined`, per `required`.
+1. The value is greater-than or equal to zero, per `min`.
+1. The value is less-than or equal to 300, per `max`.
+1. The value starts with the numeral `3`, per `pattern`.
+
+```js
+{
+  id: 'num1',
+  type: 'number',
+  title: 'Number Regex',
+  pattern: '^3',
+  required: true,
+  min: 0,
+  max: 300
+}
+```
+
+----
 
 ## <a id="conditions">Conditions</a>
 
-Coming soon!
+Conditionally show any field by giving it a `showCondition`. Take a look at the [Array Conditions](http://localhost:6006/?path=/story/conditions--array-conditions) demo before moving on.
+
+```js
+{
+  id: 'myString',
+  type: 'string',
+  title: 'Conditional Field',
+  showCondition: {...}
+}
+```
+
+A `showCondition` contains a `type` and one or more `expressions`, which also contain a `type`. Expressions are evaluated against one another, or the form model itself to conditionally show a field (e.g. Show field `Foo` based on the response given in field `Bar`).
+
+#### Condition Types
+
+| Type           | Uses                                                             | 
+|----------------|------------------------------------------------------------------|
+| `BETWEEN`      | Determine if a `FORM_RESPONSE` is between a `CONST` value        |
+| `BLANK`        | Determine if a `FORM_RESPONSE` is blank**                        |
+| `CONTAINS`     | Determine if a `FORM_RESPONSE` contains a `CONST` value          |
+| `EMPTY`        | Determine if a `FORM_RESPONSE` is empty***                       |
+| `EQUAL`        | Determine if a `FORM_RESPONSE` is equal to a `CONST` or `FORM_RESPONSE` value       |
+| `GREATER_THAN` | Determine if a `FORM_RESPONSE` is greater than a `CONST` or `FORM_RESPONSE` value   |
+| `LESS_THAN`    | Determine if a `FORM_RESPONSE` is less than a `CONST` or `FORM_RESPONSE` value         |
+
+> ** Blank is defined as an empty array or string, undefined, or null.
+
+> *** Empty is defined as an empty array or string.
+
+#### Expression Types
+
+| Type            | Uses                                          | 
+|-----------------|-----------------------------------------------|
+| `CONST`         | A constant `value`                            |
+| `FORM_RESPONSE` | References a field `id` in the form instance  |
+
+----
+
+#### Condition Example
+
+The following `checkboxgroup` has three option fields. The **second** option has a child field; if this option is selected, a `string` field is rendered underneath it. 
+
+> Have a look at the field definition below, and then we'll walk through it.
+
+```js
+{
+  id: 'myArray',
+  type: 'array',
+  title: 'Select some options to display the children',
+  options: [
+    {
+      id: 'option1',
+      title: 'Option 1'
+    },
+    {
+      id: 'option2',
+      title: 'Option 2',
+      fields: [
+        {
+          id: 'myString',
+          type: 'string',
+          title: 'Conditional Field',
+          showCondition: {
+            type: 'CONTAINS',
+            expression1: {
+                type: 'CONST',
+                value: 'option2'
+            },
+            expression2: {
+                type: 'FORM_RESPONSE',
+                id: 'myArray'
+            }
+          }
+        }
+      ]
+    },
+    {
+      id: 'option3',
+      title: 'Option 3',
+    }  
+  ]
+}
+```
+
+The `showCondition` on the `myString` field can appear cryptic, but let's pull it out and walk through it.
+
+```js
+showCondition: {
+  type: 'CONTAINS',
+  expression1: {
+      type: 'CONST',
+      value: 'option2'
+  },
+  expression2: {
+      type: 'FORM_RESPONSE',
+      id: 'myArray'
+  }
+}
+```
+
+The condition is of type `CONTAINS`, and contains two expressions: `expression1` and `expression2`.
+
+- `expression1` is of type `CONST`, and contains the value `option2`.
+- `expression2` is of type `FORM_RESPONSE` and references by `id` the field `myArray`. 
+
+At its core, this `showCondition` says *"Show `myString` to the user if the form response for `myArray` contains `option2`."* 
+
+If the user selects all options for `myArray`, its form response value in `instance.getModel()` would be `["option1", "option2", "option3"]`, therefore `myString` would be shown since the `value` in `expression1` is contained within `expression2`. 
+
+The same would be true of if the user only selected `option2`, as the form response value for `myArray` would be `["option2"]`, whichs matches the `CONST` value.
+
+> `showConditions` are evaluated every time the form is updated. 
+
+----
 
 ## <a id="serialize">Serialize</a>
 
