@@ -51,6 +51,9 @@ It also offers a mechanism for serializing all form responses to JSON for persis
   - [Field Decorators](#field-decorators)
 - [Validation](#validation)
 - [Conditions](#conditions)
+  - [Required](#required-validation)
+  - [Numeric](#numeric-validation)
+  - [Regular Expression](#regex-validation)
 - [Serialize](#serialize)
 
 ----
@@ -616,7 +619,7 @@ Take a look at the [Validation](http://localhost:6006/?path=/story/validations--
 
 ----
 
-### Required
+### <a id="required-validation>Required</a>
 
 Add `required: true` to any field definition:
 
@@ -646,7 +649,7 @@ Take a look at the [Required Validation](https://mikechabot.github.io/react-json
 
 ----
 
-### Numeric
+### <a id="numeric-validation">Numeric</a>
 
 Add `min: <number>` or `max: <number>` or both to any `number` type field:
 
@@ -665,7 +668,7 @@ Take a look at the [Numeric Validation](https://mikechabot.github.io/react-json-
 
 ----
 
-### Regular Expression
+### <a id="regex-validation">Regular Expression</a>
 
 Add `pattern: <regex>` to any `string` or `number` field:
 
