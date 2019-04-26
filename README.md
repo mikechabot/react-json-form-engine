@@ -619,7 +619,7 @@ Take a look at the [Validation](http://localhost:6006/?path=/story/validations--
 
 ----
 
-### <a id="required-validation>Required</a>
+### <a id="required-validation">Required</a>
 
 Add `required: true` to any field definition:
 
