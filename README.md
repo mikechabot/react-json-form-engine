@@ -604,7 +604,7 @@ Take a look at a component override in the [Arrays](https://mikechabot.github.io
 
 ## <a id="validation">Validation</a>
 
-Three types of validation are supported.
+Three types of validation are supported:
 
 | Type               | Supported Data Types    |
 |--------------------|-------------------------|
@@ -648,7 +648,7 @@ Take a look at the [Required Validation](https://mikechabot.github.io/react-json
 
 ### Numeric
 
-Add `min: <number>` or `max: <number>` or both to any `number` type field.
+Add `min: <number>` or `max: <number>` or both to any `number` type field:
 
 ```js
 {
@@ -667,7 +667,7 @@ Take a look at the [Numeric Validation](https://mikechabot.github.io/react-json-
 
 ### Regular Expression
 
-Add `pattern: <regex>` to any `string` or `number` field.
+Add `pattern: <regex>` to any `string` or `number` field:
 
 ```js
 {
