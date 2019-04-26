@@ -729,9 +729,9 @@ A `showCondition` contains a `type` and one or more `expressions`, which also co
 | `BLANK`        | Determine if a `FORM_RESPONSE` is blank**                        |
 | `CONTAINS`     | Determine if a `FORM_RESPONSE` contains a `CONST` value          |
 | `EMPTY`        | Determine if a `FORM_RESPONSE` is empty***                       |
-| `EQUAL`        | Determine if a `FORM_RESPONSE` is equal to a `CONST` value       |
-| `GREATER_THAN` | Determine if a `FORM_RESPONSE` is greater than a `CONST` value   |
-| `LESS_THAN`    | Determine if a `FORM_RESPONSE` is less than a `CONST` value         |
+| `EQUAL`        | Determine if a `FORM_RESPONSE` is equal to a `CONST` or `FORM_RESPONSE` value       |
+| `GREATER_THAN` | Determine if a `FORM_RESPONSE` is greater than a `CONST` or `FORM_RESPONSE` value   |
+| `LESS_THAN`    | Determine if a `FORM_RESPONSE` is less than a `CONST` or `FORM_RESPONSE` value         |
 
 > ** Blank is defined as an empty array or string, undefined, or null.
 
