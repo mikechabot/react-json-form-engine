@@ -604,7 +604,94 @@ Take a look at a component override in the [Arrays](https://mikechabot.github.io
 
 ## <a id="validation">Validation</a>
 
-Coming soon!
+Three types of validation are support:
+
+| Type               | Data Types         |
+|--------------------|--------------------|
+| Required           | All                |
+| Numeric (min/max)  | `number`           | 
+| Regular Expression | `string`, `number` |
+
+### Required
+
+Add `required: true` to any field definition:
+
+```js
+{
+    id: 'username',
+    type: 'string',
+    title: 'Username',
+    required: true
+},
+{
+    id: 'myOptions',
+    type: 'array',
+    title: 'Option Group',
+    required: true,
+    options: [
+        { id: 'op1', title: 'Option 1' },
+        { id: 'op2', title: 'Option 2' },
+        { id: 'op3', title: 'Option 3' },
+        { id: 'op4', title: 'Option 4' }
+    ]
+}
+```
+> Note: Fields are **only** validated if they are visible in the DOM. For instance, if a field's `showCondition` (See [Conditions](#conditions)) is not met, it will not be displayed to the end-user; conditionally hidden fields are not validated.
+
+Take a look at the [Required Validation](https://mikechabot.github.io/react-json-form-engine-storybook/?path=/story/validations--required-validation) demo in storybook.
+
+### Numeric
+
+Add `min: <number>` or `max: <number>` or both to any `number` type field.
+
+```js
+{
+    id: 'age',
+    type: 'number',
+    title: 'Age',
+    min: 0,
+    max: 120
+}
+```
+> Note `min`/`max` values are only validated once the field is marked as dirty, that is, the user inputs a value.
+
+Take a look at the [Numeric Validation](https://mikechabot.github.io/react-json-form-engine-storybook/?path=/story/validations--numeric-validation) demo on storybook.
+
+### Regular Expression
+
+Add `pattern: <regex>` to any `string` or `number` field.
+
+```js
+{
+    id: 'myRegEx',
+    type: 'string',
+    title: 'My Field',
+    pattern: '^foobar$',
+}
+```
+
+Take a look at the [Regex Demo](https://mikechabot.github.io/react-json-form-engine-storybook/?path=/story/validations--regex-validation) on storybook.
+
+### Multiple Validators
+
+Conditions can be combined. The following `number` field will only pass validation if the following conditions are met:
+
+1. The value is not `undefined`, per `required`.
+1. The value is greater-than or equal to zero, per `min`.
+1. The value is less-than or equal to 300, per `max`.
+1. The value starts with the numeral `3`, per `pattern`.
+
+```js
+{
+    id: 'num1',
+    type: 'number',
+    title: 'Number Regex',
+    pattern: '^3',
+    required: true,
+    min: 0,
+    max: 300
+}
+```
 
 ## <a id="conditions">Conditions</a>
 
