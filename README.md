@@ -813,7 +813,7 @@ The condition is of type `CONTAINS`, and contains two expressions: `expression1`
 - `expression1` is of type `CONST`, and contains the value `option2`.
 - `expression2` is of type `FORM_RESPONSE` and references by `id` the field `myArray`. 
 
-At its core, this `showCondition` says *"Show `myString` to the user if the form responses for `myArray` contains `option2`."* 
+At its core, this `showCondition` says *"Show `myString` to the user if the form response for `myArray` contains `option2`."* 
 
 If the user selected all options for `myArray`, its form response value in `instance.getModel()` would be `["option1", "option2", "option3"]`, therefore, the `myString` would be shown since the `value` in `expression1` is contained within `expression2`.
 
