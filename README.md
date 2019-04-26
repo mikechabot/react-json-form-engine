@@ -50,10 +50,10 @@ It also offers a mechanism for serializing all form responses to JSON for persis
   - [Field Type Transitions](#field-type-transitions)
   - [Field Decorators](#field-decorators)
 - [Validation](#validation)
-- [Conditions](#conditions)
   - [Required](#required-validation)
   - [Numeric](#numeric-validation)
   - [Regular Expression](#regex-validation)
+- [Conditions](#conditions)
 - [Serialize](#serialize)
 
 ----
