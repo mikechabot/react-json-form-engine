@@ -235,25 +235,25 @@ Form definitions adhere to a strict schema. They must contain at least **one sec
 ```js
 // The most minimal form possible
 export default {
-    id: <string>,
-    title: <string>,
-    sections: [
+  id: <string>,
+  title: <string>,
+  sections: [
+    {
+      id: <string>,
+      title: <string>,
+      subsections: [
         {
-            id: <string>,
-            title: <string>,
-            subsections: [
-                {
-                    id: <string>,
-                    title: <string>,
-                    fields: [
-                        {
-                            ...
-                        }
-                    ]
-                }
-            ]
+          id: <string>,
+          title: <string>,
+          fields: [
+            {
+                ...
+            }
+          ]
         }
-    ]
+      ]
+    }
+  ]
 };
 ```
 
@@ -461,24 +461,22 @@ Here's the complete list of props that can be passed to [Field Definitions](#fie
 By default, a `string` field is rendered as `<Text />` (See [Field Type](#field-type)), but with `options` it automatically renders as a `<Select />`.
 
 ```js
-[
-  { 
-    // Renders as <Text />
-    id: 'field_1',
-    type: 'string', 
-    title: 'Text Field'
-  },
-  {             
-    // Renders as <Select />
-    id: 'field_2',
-    type: 'string',
-    title: 'Select Field',
-    options: [
-      { id: "op1", title: "Option 1" },
-      { id: "op2", title: "Option 2" },
-    ]
-  }
-]
+{ 
+  // Renders as <Text />
+  id: 'field_1',
+  type: 'string', 
+  title: 'Text Field'
+},
+{             
+  // Renders as <Select />
+  id: 'field_2',
+  type: 'string',
+  title: 'Select Field',
+  options: [
+    { id: "op1", title: "Option 1" },
+    { id: "op2", title: "Option 2" },
+  ]
+}
 ```
 
 Have a look at the [Strings](https://mikechabot.github.io/react-json-form-engine-storybook/?path=/story/data-types--strings) demo on storybook.
@@ -490,22 +488,20 @@ Have a look at the [Strings](https://mikechabot.github.io/react-json-form-engine
 By default, a `boolean` field is rendered as `<Checkbox />` (See [Field Type](#field-type)), but with `options` it automatically renders as a `<Radio />`.
 
 ```js
-[
-  {
-    id: "field_1",
-    type: "boolean",
-    title: "Checkbox Field"
-  },
-  {
-    id: "field_2",
-    type: "boolean",
-    title: "Radio Field",
-    options: [
-      { title: "Yes" },
-      { title: "No" }
-    ]
-  }
-]
+{
+  id: "field_1",
+  type: "boolean",
+  title: "Checkbox Field"
+},
+{
+  id: "field_2",
+  type: "boolean",
+  title: "Radio Field",
+  options: [
+    { title: "Yes" },
+    { title: "No" }
+  ]
+}
 ```
 
 > A maximum of two (2) options is allowed for `boolean` fields. For unlimited `<Radio />` options, use the `string` type with a `component` of `radio`.
@@ -519,12 +515,12 @@ Have a look at the [Booleans](https://mikechabot.github.io/react-json-form-engin
 Field decorators contain metadata about the fields you've configured in your form definition. Add the `decorators` object to the root of the [Form Definition](#form-definition):
 
 ```js
-  {
-    id: 'my_form'
-    title: 'My Form',
-    sections: [...],
-    decorators: {}
-  }
+{
+  id: 'my_form'
+  title: 'My Form',
+  sections: [...],
+  decorators: {}
+}
 ```
 The `decorators` object will be keyed by [Field ID](#field-id), and can contain the properties `hint` and `component`.
 
@@ -535,6 +531,7 @@ The `decorators` object will be keyed by [Field ID](#field-id), and can contain 
 Add hint text to any field:
 
 ```js
+{
   id: "Form_ID",
   title: "Form Title",
   sections: [{
@@ -565,6 +562,7 @@ Every field `type` renders a Default Control (See [Field Type](#field-type)), ho
 Let's update `field_1` from a `<Select />` to a `<Checkboxgroup />`:
 
 ```js
+{
   id: "Form_ID",
   title: "Form Title",
   sections: [{
@@ -625,22 +623,22 @@ Add `required: true` to any field definition:
 
 ```js
 {
-    id: 'username',
-    type: 'string',
-    title: 'Username',
-    required: true
+  id: 'username',
+  type: 'string',
+  title: 'Username',
+  required: true
 },
 {
-    id: 'myOptions',
-    type: 'array',
-    title: 'Option Group',
-    required: true,
-    options: [
-        { id: 'op1', title: 'Option 1' },
-        { id: 'op2', title: 'Option 2' },
-        { id: 'op3', title: 'Option 3' },
-        { id: 'op4', title: 'Option 4' }
-    ]
+  id: 'myOptions',
+  type: 'array',
+  title: 'Option Group',
+  required: true,
+  options: [
+    { id: 'op1', title: 'Option 1' },
+    { id: 'op2', title: 'Option 2' },
+    { id: 'op3', title: 'Option 3' },
+    { id: 'op4', title: 'Option 4' }
+  ]
 }
 ```
 > Note: Fields are **only** validated if they are visible in the DOM. For instance, if a field's `showCondition` (See [Conditions](#conditions)) is not met, it will not be displayed to the end-user; conditionally hidden fields are not validated.
@@ -710,7 +708,49 @@ Validators can be combined. The following `number` field will only pass validati
 
 ## <a id="conditions">Conditions</a>
 
-Coming soon!
+Conditionally show any field by giving it a `showCondition`. 
+
+The following `checkboxgroup` has three option fields. The **second** option field has child fields; if this option is selected, a `string` field is rendered underneath it. Take a look at the [Array Conditions](http://localhost:6006/?path=/story/conditions--array-conditions) demo before moving on.
+
+```
+{
+  id: 'arr1',
+  type: 'array',
+  title: 'Select some options to display the children',
+  options: [
+    {
+      id: 'op1',
+      title: 'Option 1'
+    },
+    {
+      id: 'op2',
+      title: 'Option 2',
+      fields: [
+        {
+          id: 'str1',
+          type: 'string',
+          title: 'Conditional Field',
+          showCondition: {
+            type: 'CONTAINS',
+            expression1: {
+                type: 'CONST',
+                value: 'op2'
+            },
+            expression2: {
+                type: 'FORM_RESPONSE',
+                id: 'arr1'
+            }
+          }
+        }
+      ]
+    },
+    {
+      id: 'op3',
+      title: 'Option 3',
+    }  
+  ]
+}
+```
 
 ## <a id="serialize">Serialize</a>
 
