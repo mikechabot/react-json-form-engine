@@ -606,11 +606,11 @@ Take a look at a component override in the [Arrays](https://mikechabot.github.io
 
 Three types of validation are support:
 
-| Type               | Data Types         |
-|--------------------|--------------------|
-| Required           | All                |
-| Numeric (min/max)  | `number`           | 
-| Regular Expression | `string`, `number` |
+| Type               | Supported Data Types    |
+|--------------------|-------------------------|
+| Required           | All                     |
+| Numeric (min/max)  | `number`                | 
+| Regular Expression | `string`, `number`      |
 
 ### Required
 
