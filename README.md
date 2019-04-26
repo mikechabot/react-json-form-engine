@@ -710,7 +710,7 @@ Validators can be combined. The following `number` field will only pass validati
 
 Conditionally show any field by giving it a `showCondition`. Take a look at the [Array Conditions](http://localhost:6006/?path=/story/conditions--array-conditions) demo before moving on.
 
-A `showCondition` contains a `type` and one or more `expressions`, which also contain a `type`. Expressions are evaluated against one another, or the form model itself (e.g. Show field `Foo` based on the response given in field `Bar`).
+A `showCondition` contains a `type` and one or more `expressions`, which also contain a `type`. Expressions are evaluated against one another, or the form model itself to conditionally show a field (e.g. Show field `Foo` based on the response given in field `Bar`).
 
 #### Condition Types
 
@@ -728,74 +728,85 @@ A `showCondition` contains a `type` and one or more `expressions`, which also co
 
 > *** Empty is defined as an empty array or string.
 
-#### Evaluation Types
+#### Expression Types
 
-| Type            | Uses                                                      | 
-|-----------------|-----------------------------------------------------------|
-| `CONST`         | A constant value                                          |
-| `FORM_RESPONSE` | A form response value (i.e. lives in instance.getModel()  |
+| Type            | Uses                                          | 
+|-----------------|-----------------------------------------------|
+| `CONST`         | A constant `value`                            |
+| `FORM_RESPONSE` | References a field `id` in the form instance  |
 
+#### Condition Example
 
+The following `checkboxgroup` has three option fields. The **second** option has child fields; if this option is selected, a `string` field is rendered underneath it. 
 
-The following `checkboxgroup` has three option fields. The **second** option field has child fields; if this option is selected, a `string` field is rendered underneath it. Have a look at the definition below, then we'll walk through it.
+> Have a look at the field definition below, and then we'll walk through it.
 
 ```js
 {
-  id: 'arr1',
+  id: 'myArray',
   type: 'array',
   title: 'Select some options to display the children',
   options: [
     {
-      id: 'op1',
+      id: 'option1',
       title: 'Option 1'
     },
     {
-      id: 'op2',
+      id: 'option2',
       title: 'Option 2',
       fields: [
         {
-          id: 'str1',
+          id: 'myString',
           type: 'string',
           title: 'Conditional Field',
           showCondition: {
             type: 'CONTAINS',
             expression1: {
                 type: 'CONST',
-                value: 'op2'
+                value: 'option2'
             },
             expression2: {
                 type: 'FORM_RESPONSE',
-                id: 'arr1'
+                id: 'myArray'
             }
           }
         }
       ]
     },
     {
-      id: 'op3',
+      id: 'option3',
       title: 'Option 3',
     }  
   ]
 }
 ```
 
-The `showCondition` can appear cryptic at first glance, but let's pull it out and walk through it.
+The `showCondition` on the `myString` field can appear cryptic, but let's pull it out and walk through it.
 
 ```js
 showCondition: {
   type: 'CONTAINS',
   expression1: {
       type: 'CONST',
-      value: 'op2'
+      value: 'option2'
   },
   expression2: {
       type: 'FORM_RESPONSE',
-      id: 'arr1'
+      id: 'myArray'
   }
 }
 ```
 
-The `type` of condition is `CONTAINS`, 
+The condition is of type `CONTAINS`, and contains two expressions: `expression1` and `expression2`.
+
+- `expression1` is of type `CONST`, and contains the value `option2`.
+- `expression2` is of type `FORM_RESPONSE` and references by `id` the field `myArray`. 
+
+At its core, this `showCondition` says *"Show `myString` to the user if the form responses for `myArray` contains `option2`."* 
+
+If the user selected all options for `myString`, its form response value in `instance.getModel()` would be `["option1", "option2", "option3"]`, therefore, the `myString` would be shown since the `value` in `expression1` is contained within `expression2`.
+
+> `showConditions` are evaluated every time the form is updated. 
 
 ----
 
