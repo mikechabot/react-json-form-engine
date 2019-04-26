@@ -684,7 +684,7 @@ Take a look at the [Regex Demo](https://mikechabot.github.io/react-json-form-eng
 
 ### Multiple Validators
 
-Conditions can be combined. The following `number` field will only pass validation if the following conditions are met:
+Validators can be combined. The following `number` field will only pass validation if the following conditions are met:
 
 1. The value is not `undefined`, per `required`.
 1. The value is greater-than or equal to zero, per `min`.
