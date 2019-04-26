@@ -100,7 +100,7 @@ Available at http://localhost:6006/
 
 First, let's import the API:
 
-```javascript
+```js
 import { Form, FormEngine } from 'react-json-form-engine';
 ```
 
@@ -132,7 +132,7 @@ Let's create a simple login form. Either follow along below, or check out the [s
 
 Here's our definition, which is a rather simple one. It consists of just a single section with a single subsection, which houses three fields. Note, we're also using a [Field Decorator](#field-decorators) to ensure `user_pass` renders as a password field:
 
-```javascript
+```js
 const loginForm = {
   id: "login_form",
   title: "Welcome to Foo!",
@@ -316,7 +316,7 @@ Any field can contain child fields. Simply create a `fields` array on the field,
 
 > Note: Field children can recurse infinitely, and also be placed on [Field Options](#field-options).
 
-```javascript
+```js
 {
   id: "parent",
   type: "number",
@@ -359,7 +359,7 @@ Have a look at the [Nested Fields](https://mikechabot.github.io/react-json-form-
 
 Fields of type `boolean` only accept a maximum of **two** options; each of which should contain just a `title` property. The first option is considered the affirmative response:
 
-```
+```js
 {
   id: 'my_bool',
   title: 'How often does it occur?',
@@ -402,7 +402,7 @@ For field types that accept unlimited options (`string`, `array`), you must incl
 
 For field controls that render selectable options, like `<Radio />` or `<Checkboxgroup />`, you can include [Field Children](#field-children) on any of the options:
 
-```javascript
+```js
 {
   id: "field_2",
   type: "string",
@@ -708,11 +708,32 @@ Validators can be combined. The following `number` field will only pass validati
 
 ## <a id="conditions">Conditions</a>
 
-Conditionally show any field by giving it a `showCondition`. 
+Conditionally show any field by giving it a `showCondition`. Take a look at the [Array Conditions](http://localhost:6006/?path=/story/conditions--array-conditions) demo before moving on.
 
-The following `checkboxgroup` has three option fields. The **second** option field has child fields; if this option is selected, a `string` field is rendered underneath it. Take a look at the [Array Conditions](http://localhost:6006/?path=/story/conditions--array-conditions) demo before moving on.
+`showConditions` contain a `type` and one or more `expressions`, which are evaluated against each other, or the form model itself (e.g. Show field `Foo` based on the response given in field `Bar`).
 
-```
+#### Condition Types
+
+| Type           | Uses                                                                                    | 
+|----------------|-----------------------------------------------------------------------------------------|
+| `BETWEEN`      | Determine if a `FORM_RESPONSE` is between a `CONST` value                               |
+| `BLANK`        | Determine if a `FORM_RESPONSE` is blank (i.e. empty array or string, undefined, or null |
+| `CONTAINS`     | Determine if a `FORM_RESPONSE` contains a `CONST` value                                 |
+| `EMPTY`        | Determine if a `FORM_RESPONSE` is empty (i.e. empty array, undefined or null            |
+| `EQUAL`        | Determine if a `FORM_RESPONSE` is equal to a `CONST` value                              |
+| `GREATER_THAN` | Determine if a `FORM_RESPONSE` is greater than a `CONST` value                          |
+| `LESS_THAN`    | Determie if `FORM_RESPONSE` is less than a `CONST` value                                |
+
+The following **evaluation types** are available.
+
+1. `CONST`
+1. `FORM_RESPONSE`
+
+
+
+The following `checkboxgroup` has three option fields. The **second** option field has child fields; if this option is selected, a `string` field is rendered underneath it. Have a look at the definition below, then we'll walk through it.
+
+```js
 {
   id: 'arr1',
   type: 'array',
@@ -751,6 +772,26 @@ The following `checkboxgroup` has three option fields. The **second** option fie
   ]
 }
 ```
+
+The `showCondition` can appear cryptic at first glance, but let's pull it out and walk through it.
+
+```js
+showCondition: {
+  type: 'CONTAINS',
+  expression1: {
+      type: 'CONST',
+      value: 'op2'
+  },
+  expression2: {
+      type: 'FORM_RESPONSE',
+      id: 'arr1'
+  }
+}
+```
+
+The `type` of condition is `CONTAINS`, 
+
+----
 
 ## <a id="serialize">Serialize</a>
 
