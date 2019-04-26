@@ -748,7 +748,7 @@ A `showCondition` contains a `type` and one or more `expressions`, which also co
 
 #### Condition Example
 
-The following `checkboxgroup` has three option fields. The **second** option has child fields; if this option is selected, a `string` field is rendered underneath it. 
+The following `checkboxgroup` has three option fields. The **second** option has a child field; if this option is selected, a `string` field is rendered underneath it. 
 
 > Have a look at the field definition below, and then we'll walk through it.
 
