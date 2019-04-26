@@ -612,6 +612,8 @@ Three types of validation are support:
 | Numeric (min/max)  | `number`                | 
 | Regular Expression | `string`, `number`      |
 
+----
+
 ### Required
 
 Add `required: true` to any field definition:
@@ -640,6 +642,8 @@ Add `required: true` to any field definition:
 
 Take a look at the [Required Validation](https://mikechabot.github.io/react-json-form-engine-storybook/?path=/story/validations--required-validation) demo in storybook.
 
+----
+
 ### Numeric
 
 Add `min: <number>` or `max: <number>` or both to any `number` type field.
@@ -657,6 +661,8 @@ Add `min: <number>` or `max: <number>` or both to any `number` type field.
 
 Take a look at the [Numeric Validation](https://mikechabot.github.io/react-json-form-engine-storybook/?path=/story/validations--numeric-validation) demo on storybook.
 
+----
+
 ### Regular Expression
 
 Add `pattern: <regex>` to any `string` or `number` field.
@@ -671,6 +677,8 @@ Add `pattern: <regex>` to any `string` or `number` field.
 ```
 
 Take a look at the [Regex Demo](https://mikechabot.github.io/react-json-form-engine-storybook/?path=/story/validations--regex-validation) on storybook.
+
+----
 
 ### Multiple Validators
 
@@ -692,6 +700,8 @@ Conditions can be combined. The following `number` field will only pass validati
     max: 300
 }
 ```
+
+----
 
 ## <a id="conditions">Conditions</a>
 
