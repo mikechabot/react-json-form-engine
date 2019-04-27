@@ -772,7 +772,7 @@ A `showCondition` contains a `type` and one or more `expressions`, which also co
 
 ### <a href="condition-examples">Condition Examples</a>
 
-Take a look at the [Conditions](http://localhost:6006/?path=/story/conditions--array-conditions) for live examples.
+Take a look at the [Conditions](http://localhost:6006/?path=/story/conditions--array-conditions) demos for live examples.
 
 ### `CONTAINS` Example
 
