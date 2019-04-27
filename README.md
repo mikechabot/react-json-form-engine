@@ -823,7 +823,7 @@ The condition is of type `CONTAINS`, and contains an array of expressions.
 
 The [expression-service](https://github.com/mikechabot/react-json-form-engine/blob/master/src/form-engine/service/expression-service.js) will pull the value of `myArray` from the instance, and determine if the `CONST` value of `option2` is contained within in. If so, the condition passes, and the `myString` field is displayed.
 
-> At its core, this `showCondition` says *"Show `myString` to the user if the form response for `myArray` contains `option2`."* 
+> At its core, this `showCondition` says *"Show `myString` if the user selected `option2` in the `myArray` field."* 
 
 If the user selects all three options for `myArray`, its form response value in the instance would be `["option1", "option2", "option3"]`, therefore `myString` would be shown since the `value` in the `CONST` expression (`option2`) is contained within the the form response.
 
@@ -889,7 +889,7 @@ The condition is of type `EMPTY`, contains a single expression, and also the `no
 - The `expression` is of type `FORM_RESPONSE` and references by `id` the field `myArray`. 
 - The `not` flag will negate the `EMPTY` condition being evaluated.
 
-The [expression-service](https://github.com/mikechabot/react-json-form-engine/blob/master/src/form-engine/service/expression-service.js) will pull the value of `myArray` from the instance, and determine if it is **not** empty (i.e. options have been selected).
+The [expression-service](https://github.com/mikechabot/react-json-form-engine/blob/master/src/form-engine/service/expression-service.js) will pull the value of `myArray` from the instance, and determine if it is **not** empty.
 
 > At its core, this expression says *"Show `myNumber` if the user selected any of the options in `myArray`"*
 
@@ -926,8 +926,6 @@ Let's take a look at a numeric example, which is viewable on the [Numeric Condit
   ]
 }
 ```
-
-
 
 ----
 
