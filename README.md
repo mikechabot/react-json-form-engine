@@ -774,7 +774,7 @@ A `showCondition` contains a `type` and one or more `expressions`, which also co
 
 Take a look at the [Conditions](http://localhost:6006/?path=/story/conditions--array-conditions) for live examples.
 
-### `CONTAINS` Condition Example
+### `CONTAINS` Example
 
 The following `checkboxgroup` has three option fields. The **second** option has a child field; if this option is selected, a `string` field is rendered underneath it. 
 
@@ -853,7 +853,7 @@ If the user selects all three options for `myArray`, its form response value in 
 
 ----
 
-### `EMPTY` Condition Example
+### `EMPTY` Example
 
 Let's take a look at an `EMPTY` example. We'll use the same `checkboxgroup` field from the condition example above, however in this case, the conditional field (`myNumber`) won't be rendered under an option field, but rather under the entire field itself regardless of which option is selected.
 
@@ -922,7 +922,7 @@ Conversely, if the `not` flag was removed from the condition, the `myNumber` fie
 
 ----
 
-### `GREATER_THAN` Condition Example
+### `GREATER_THAN` Example
 
 Let's take a look at a `GREATER_THAN` example. The `number` field below (`myNumber`) has a single conditional child field, which will be displayed based based on the value input into `myNumber`.
 
