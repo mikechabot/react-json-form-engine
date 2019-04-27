@@ -49,12 +49,12 @@ It also offers a mechanism for serializing all form responses to JSON for persis
   - [Field Props List](#field-props-list)
   - [Field Type Transitions](#field-type-transitions)
   - [Field Decorators](#field-decorators)
+- [Serialize](#serialize)
 - [Validation](#validation)
   - [Required](#required-validation)
   - [Numeric](#numeric-validation)
   - [Regular Expression](#regex-validation)
 - [Conditions](#conditions)
-- [Serialize](#serialize)
 
 ----
 
@@ -603,6 +603,21 @@ Take a look at a component override in the [Arrays](https://mikechabot.github.io
 
 ----
 
+## <a id="serialize">Serialize</a>
+
+Easily serialize the form's responses by calling `serializeModel` on the instance:
+
+```js
+const json = instance.serializeModel();
+```
+To access the model without serialization, use the below:
+```js
+const map = instance.getModel();           // {fooId: 'bar', bazId: 'qux'}
+const array = instance.getModelAsArray();  // [{fooId: 'bar'}, {bazId: 'qux'}]
+```
+
+----
+
 ## <a id="validation">Validation</a>
 
 Three types of validation are supported:
@@ -929,15 +944,4 @@ Let's take a look at a numeric example, which is viewable on the [Numeric Condit
 
 ----
 
-## <a id="serialize">Serialize</a>
 
-Easily serialize the form's responses by calling `serializeModel` on the instance:
-
-```js
-const json = instance.serializeModel();
-```
-To access the model without serialization, use the below:
-```js
-const map = instance.getModel();           // {fooId: 'bar', bazId: 'qux'}
-const array = instance.getModelAsArray();  // [{fooId: 'bar'}, {bazId: 'qux'}]
-```
