@@ -49,13 +49,16 @@ It also offers a mechanism for serializing all form responses to JSON for persis
   - [Field Props List](#field-props-list)
   - [Field Type Transitions](#field-type-transitions)
   - [Field Decorators](#field-decorators)
+- [Serialize](#serialize)
 - [Validation](#validation)
   - [Required](#required-validation)
   - [Numeric](#numeric-validation)
   - [Regular Expression](#regex-validation)
 - [Conditions](#conditions)
-- [Serialize](#serialize)
-
+  - [Condition Types](#condition-types)
+  - [Expression Types](#expression-types)
+  - [Condition Examples](#condition-examples)
+  
 ----
 
 ## <a id="live-demo">Live Demo</a>
@@ -433,24 +436,26 @@ For field controls that render selectable options, like `<Radio />` or `<Checkbo
 
 Here's the complete list of props that can be passed to [Field Definitions](#field-definition):
 
-| Property        | Type      | Required | Description                                                                                 |
-|-----------------|-----------|----------|---------------------------------------------------------------------------------------------|
-| `id`            | `string`  | Yes      | See [Field ID](#field-id)                                                                   |
-| `type`          | `string`  | Yes      | See [Field Type](#field-type)                                                               |
-| `title`         | `string`  | Yes      | Display label for the field                                                                 |
-| `options`       | `array`   | No       | See [Field Options](#field-options)                                                         |
-| `fields`        | `array`   | No       | See [Field Children](#field-children)                                                       |
-| `placeholder`   | `string`  | No       | Placeholder text to display                                                                 |
-| `showCondition` | `object`  | No       | Condition object (See [Conditions](#conditions))                                            |
-| `required`      | `boolean` | No       | Whether the field is required (See [Validation](#validation))                               |
-| `pattern`       | `string`  | No       | Pattern to match during validation (See [Validation](#validation))                          |
-| `min`           | `number`  | Yes*     | Minimum value. (Used for `number` field types)                                              |
-| `max`           | `number`  | Yes*     | Maximum value. (Used for `number` field types)                                              |
-| `hideTime`      | `boolean` | No       | Only show the Date in Date/Time. (Used for `date` field types)                              |
-| `hideCalendar`  | `boolean` | No       | Only show the Time in Data/Time. (Used for `date` field types)                              |
-| `content`  | `string` | No       | Informational content to be displayed to the end-user. Utilizes `dangerouslySetInnerHTML`. (Used for `info` field types)                              |
+| Property        | Type      | Required | Description                                                                                                              |
+|-----------------|-----------|----------|--------------------------------------------------------------------------------------------------------------------------|
+| `id`            | `string`  | Yes      | See [Field ID](#field-id)                                                                                                |
+| `type`          | `string`  | Yes      | See [Field Type](#field-type)                                                                                            |
+| `title`         | `string`  | Yes      | Display label for the field                                                                                              |
+| `options`       | `array`   | No       | See [Field Options](#field-options)                                                                                      |
+| `fields`        | `array`   | No       | See [Field Children](#field-children)                                                                                    |
+| `placeholder`   | `string`  | No       | Placeholder text to display                                                                                              |
+| `showCondition` | `object`  | No       | Condition object (See [Conditions](#conditions))                                                                         |
+| `required`      | `boolean` | No       | Whether the field is required (See [Validation](#validation))                                                            |
+| `pattern`       | `string`  | No       | Pattern to match during validation (See [Validation](#validation))                                                       |
+| `min`           | `number`  | Yes*     | Minimum value. (Used for `number` field types)                                                                           |
+| `max`           | `number`  | Yes*     | Maximum value. (Used for `number` field types)                                                                           |
+| `showTimeSelect`| `boolean` | No       | Only show Date in Date/Time. (Used for `date` field types)                                                               |
+| `hideCalendar`  | `boolean` | No       | Only show Time in Data/Time. (Used for `date` field types)                                                               |
+| `content`       | `string`  | No       | Informational content to be displayed to the end-user. Utilizes `dangerouslySetInnerHTML`. (Used for `info` field types) |
 
 > `min` and `max` are only required for `<Range />` component types.
+
+> `date` field types implement [react-datepicker](https://reactdatepicker.com/). Any prop that can be passed to `react-datepicker` can be added to a `date` field, and it will be passed directly to `<Date />`, such as `timeIntervals`, or `dateFormat`.
 
 ----
 
@@ -603,6 +608,21 @@ Take a look at a component override in the [Arrays](https://mikechabot.github.io
 
 ----
 
+## <a id="serialize">Serialize</a>
+
+Easily serialize the form's responses by calling `serializeModel` on the instance:
+
+```js
+const json = instance.serializeModel();
+```
+To access the model without serialization, use the below:
+```js
+const map = instance.getModel();           // {fooId: 'bar', bazId: 'qux'}
+const array = instance.getModelAsArray();  // [{fooId: 'bar'}, {bazId: 'qux'}]
+```
+
+----
+
 ## <a id="validation">Validation</a>
 
 Three types of validation are supported:
@@ -708,7 +728,7 @@ Validators can be combined. The following `number` field will only pass validati
 
 ## <a id="conditions">Conditions</a>
 
-Conditionally show any field by giving it a `showCondition`. Take a look at the [Array Conditions](http://localhost:6006/?path=/story/conditions--array-conditions) demo before moving on.
+Conditionally show any field by giving it a `showCondition`. Take a look at the [Conditions](http://localhost:6006/?path=/story/conditions--array-conditions) demos before moving on.
 
 ```js
 {
@@ -721,32 +741,40 @@ Conditionally show any field by giving it a `showCondition`. Take a look at the 
 
 A `showCondition` contains a `type` and one or more `expressions`, which also contain a `type`. Expressions are evaluated against one another, or the form model itself to conditionally show a field (e.g. Show field `Foo` based on the response given in field `Bar`).
 
-#### Condition Types
+> Note: `showConditions` also accept a `not` property, and if set to `true`, the condition will be negated.
 
-| Type           | Uses                                                             | 
-|----------------|------------------------------------------------------------------|
-| `BETWEEN`      | Determine if a `FORM_RESPONSE` is between a `CONST` value        |
-| `BLANK`        | Determine if a `FORM_RESPONSE` is blank**                        |
-| `CONTAINS`     | Determine if a `FORM_RESPONSE` contains a `CONST` value          |
-| `EMPTY`        | Determine if a `FORM_RESPONSE` is empty***                       |
-| `EQUAL`        | Determine if a `FORM_RESPONSE` is equal to a `CONST` or `FORM_RESPONSE` value       |
-| `GREATER_THAN` | Determine if a `FORM_RESPONSE` is greater than a `CONST` or `FORM_RESPONSE` value   |
-| `LESS_THAN`    | Determine if a `FORM_RESPONSE` is less than a `CONST` or `FORM_RESPONSE` value         |
+### <a href="condition-types">Condition Types</a>
 
-> ** Blank is defined as an empty array or string, undefined, or null.
+| Type           | Data Types                           | Description                                               | 
+|----------------|--------------------------------------|-----------------------------------------------------------|
+| `BETWEEN`      | `number`                             | Determine if a `FORM_RESPONSE` is between a `CONST` value |
+| `BLANK`        | `string`, `array`, `date`            | Determine if a `FORM_RESPONSE` is blank**                 |
+| `CONTAINS`     | `array`                              | Determine if a `FORM_RESPONSE` contains a `CONST` value   |
+| `EMPTY`        | `string`, `array`, `date`            | Determine if a `FORM_RESPONSE` is empty***                |
+| `EQUAL`        | `string` `number`, `date`, `boolean` | Determine if a `FORM_RESPONSE` is equal to a `CONST`      |
+| `GREATER_THAN` | `number`                             | Determine if a `FORM_RESPONSE` is greater than a `CONST`  |
+| `LESS_THAN`    | `number`                             | Determine if a `FORM_RESPONSE` is less than a `CONST`     |
 
-> *** Empty is defined as an empty array or string.
+> ** `BLANK` is defined as an empty array or string, undefined, or null.
 
-#### Expression Types
+> *** `EMPTY` implements Lodash's [isEmpty](https://lodash.com/docs/4.17.11#isEmpty)
+
+### <a href="expression-types">Expression Types</a>
 
 | Type            | Uses                                          | 
 |-----------------|-----------------------------------------------|
 | `CONST`         | A constant `value`                            |
 | `FORM_RESPONSE` | References a field `id` in the form instance  |
 
+> `showConditions` are evaluated every time the form is updated. 
+
 ----
 
-#### Condition Example
+### <a href="condition-examples">Condition Examples</a>
+
+Take a look at the [Conditions](http://localhost:6006/?path=/story/conditions--array-conditions) demos for live examples.
+
+### `CONTAINS` Example
 
 The following `checkboxgroup` has three option fields. The **second** option has a child field; if this option is selected, a `string` field is rendered underneath it. 
 
@@ -772,14 +800,16 @@ The following `checkboxgroup` has three option fields. The **second** option has
           title: 'Conditional Field',
           showCondition: {
             type: 'CONTAINS',
-            expression1: {
+            expressions: [
+              {
+                  type: 'FORM_RESPONSE',
+                  id: 'myArray'
+              },
+              {
                 type: 'CONST',
                 value: 'option2'
-            },
-            expression2: {
-                type: 'FORM_RESPONSE',
-                id: 'myArray'
-            }
+              }
+            ]
           }
         }
       ]
@@ -792,46 +822,231 @@ The following `checkboxgroup` has three option fields. The **second** option has
 }
 ```
 
-The `showCondition` on the `myString` field can appear cryptic, but let's pull it out and walk through it.
+The `showCondition` on the `myString` field can appear cryptic, but let's take a close look at it:
 
 ```js
 showCondition: {
   type: 'CONTAINS',
-  expression1: {
+  expressions: [
+    {
+        type: 'FORM_RESPONSE',
+        id: 'myArray'
+    },
+    {
       type: 'CONST',
       value: 'option2'
-  },
-  expression2: {
+    }
+  ]
+}
+```
+
+The condition is of type `CONTAINS`, and contains an array of expressions.
+
+- One `expression` is of type `FORM_RESPONSE` and references by `id` the field `myArray`. 
+- One `expression` is of type `CONST`, and contains the value `option2`.
+
+The [expression-service](https://github.com/mikechabot/react-json-form-engine/blob/master/src/form-engine/service/expression-service.js) will pull the value of `myArray` from the instance, and determine if the `CONST` value of `option2` is contained within in. If so, `myString` will be displayed.
+
+> At its core, this `showCondition` says *"Show `myString` if the user selected `option2` in the `myArray` field."* 
+
+If the user selects all three options for `myArray`, its form response value in the instance would be `["option1", "option2", "option3"]`, therefore `myString` would be shown since the `value` in the `CONST` expression (`option2`) is contained within the the form response.
+
+----
+
+### `EMPTY` Example
+
+Let's take a look at an `EMPTY` example. We'll use the same `checkboxgroup` field from the condition example above, however in this case, the conditional field (`myNumber`) won't be rendered under an option field, but rather under the entire field itself regardless of which option is selected.
+
+> Have a look at the field definition below, and then we'll walk through it.
+
+```js
+{
+  id: 'myArray',
+  type: 'array',
+  title: 'Select some options to display the children',
+  options: [
+    {
+      id: 'option1',
+      title: 'Option 1'
+    },
+    {
+      id: 'option2',
+      title: 'Option 2',
+    },
+    {
+      id: 'option3',
+      title: 'Option 3',
+    },
+  ],
+  fields: [
+    {
+      id: 'myNumber',
+      type: 'number',
+      title: 'Number Field',
+      showCondition: {
+        type: 'EMPTY',
+        not: true,
+        expression: {
+            type: 'FORM_RESPONSE',
+            id: 'myArray'
+        }
+      }
+    }
+  ]
+}
+```
+
+Let's pull out the `showCondition` and take a closer look:
+
+```js
+showCondition: {
+  type: 'EMPTY',
+  not: true,
+  expression: {
       type: 'FORM_RESPONSE',
       id: 'myArray'
   }
 }
 ```
 
-The condition is of type `CONTAINS`, and contains two expressions: `expression1` and `expression2`.
+The condition is of type `EMPTY`, contains a single expression, and also the `not` flag for negation.
 
-- `expression1` is of type `CONST`, and contains the value `option2`.
-- `expression2` is of type `FORM_RESPONSE` and references by `id` the field `myArray`. 
+- The `expression` is of type `FORM_RESPONSE` and references by `id` the field `myArray`. 
+- The `not` flag will negate the `EMPTY` condition being evaluated.
 
-At its core, this `showCondition` says *"Show `myString` to the user if the form response for `myArray` contains `option2`."* 
+The [expression-service](https://github.com/mikechabot/react-json-form-engine/blob/master/src/form-engine/service/expression-service.js) will pull the value of `myArray` from the instance, and determine if it is **not** empty. If so, the `myNumber` field will be displayed.
 
-If the user selects all options for `myArray`, its form response value in `instance.getModel()` would be `["option1", "option2", "option3"]`, therefore `myString` would be shown since the `value` in `expression1` is contained within `expression2`. 
+> At its core, this expression says *"Show `myNumber` if the user selected any of the options in `myArray`"*
 
-The same would be true of if the user only selected `option2`, as the form response value for `myArray` would be `["option2"]`, whichs matches the `CONST` value.
-
-> `showConditions` are evaluated every time the form is updated. 
+Conversely, if the `not` flag was removed from the condition, the `myNumber` field would immediately display to the user, but would be conditionally hidden if the user selected any of the options in `myArray`.
 
 ----
 
-## <a id="serialize">Serialize</a>
+### `GREATER_THAN` Example
 
-Easily serialize the form's responses by calling `serializeModel` on the instance:
+Let's take a look at a `GREATER_THAN` example. The `number` field below (`myNumber`) has a single conditional child field, which will be displayed based based on the value input into `myNumber`.
+
+> Have a look at the field definition below, and then we'll walk through it.
 
 ```js
-const json = instance.serializeModel();
+{
+  id: 'myNumber',
+  type: 'number',
+  title: 'Greater-Than (>)',
+  min: 0,
+  max: 10,
+  fields: [
+    {
+      id: 'myString',
+      type: 'string',
+      title: 'Field',
+      showCondition: {
+        type: 'GREATER_THAN',
+        expressions: [
+          {
+            type: 'FORM_RESPONSE',
+            id: 'myNumber'
+          },
+          {
+            type: 'CONST',
+            value: 5
+          }
+        ]
+      }
+    }
+  ]
+}
 ```
-To access the model without serialization, use the below:
+
+Let's pull out the `showCondition` and take a closer look:
+
 ```js
-const map = instance.getModel();           // {fooId: 'bar', bazId: 'qux'}
-const array = instance.getModelAsArray();  // [{fooId: 'bar'}, {bazId: 'qux'}]
+showCondition: {
+  type: 'GREATER_THAN',
+  expressions: [
+    {
+      type: 'FORM_RESPONSE',
+      id: 'myNumber'
+    },
+    {
+      type: 'CONST',
+      value: 5
+    }
+  ]
+}
 ```
+
+The condition is of type `GREATER_THAN`, and contains an array of expressions.
+
+- One `expression` is of type `FORM_RESPONSE` and references by `id` the field `myNumber`. 
+- One `expression` is of type `CONST`, and contains the value `5`.
+
+The [expression-service](https://github.com/mikechabot/react-json-form-engine/blob/master/src/form-engine/service/expression-service.js) will pull the value of `myNumber` from the instance, and determine if it is greater than `5`. If so, the `myString` field will be displayed.
+
+> At its core, this expression says *"Show `myString` if `myNumber` is greater than 5."*
+
+----
+
+### `BETWEEN` Condition Example
+
+Let's take a look at a `BETWEEN` example. The following `range` field (`myNumber`) has a min/max of `0` and `100` respectively, and also contains a single conditional child field, which will be displayed when the value of `myNumber` is between `25` and `75`.
+
+```js
+{
+  id: 'myNumber',
+  type: 'number',
+  title: 'Between 25 and 75',
+  min: 0,
+  max: 100,
+  fields: [
+    {
+      id: 'myString',
+      type: 'string',
+      title: 'Field',
+      showCondition: {
+        type: 'BETWEEN',
+        expressions: [
+          {
+            type: 'FORM_RESPONSE',
+            id: 'myNumber'
+          },
+          {
+            type: 'CONST',
+            value: [25, 75]
+          }
+        ]
+      }
+    }
+  ]
+}
+```
+
+Let's pull out the `showCondition` and take a closer look:
+
+```js
+showCondition: {
+  type: 'BETWEEN',
+  expressions: [
+    {
+      type: 'FORM_RESPONSE',
+      id: 'myNumber'
+    },
+    {
+      type: 'CONST',
+      value: [25, 75]
+    }
+  ]
+}
+```
+
+The condition is of type `BETWEEN`, and contains an array of expressions.
+
+- One `expression` is of type `FORM_RESPONSE` and references by `id` the field `myNumber`. 
+- One `expression` is of type `CONST`, and contains an array of values.
+
+The [expression-service](https://github.com/mikechabot/react-json-form-engine/blob/master/src/form-engine/service/expression-service.js) will pull the value of `myNumber` from the instance, and determine if it is between `25` and `75`. If so, the `myString` field will be displayed.
+
+
+> At its core, this expression says *"Show `myString` if `myNumber` is between 25 and 75."*
+
+Note that the `CONST` array on `BETWEEN` condition types **requires** a length of two (2); the condition will not be evaluted otherwise.
