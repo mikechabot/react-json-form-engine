@@ -723,7 +723,7 @@ Validators can be combined. The following `number` field will only pass validati
 
 ## <a id="conditions">Conditions</a>
 
-Conditionally show any field by giving it a `showCondition`. Take a look at the [Array Conditions](http://localhost:6006/?path=/story/conditions--array-conditions) demo before moving on.
+Conditionally show any field by giving it a `showCondition`. Take a look at the [Conditions](http://localhost:6006/?path=/story/conditions--array-conditions) demos before moving on.
 
 ```js
 {
@@ -740,19 +740,19 @@ A `showCondition` contains a `type` and one or more `expressions`, which also co
 
 #### Condition Types
 
-| Type           | Uses                                                             | 
-|----------------|------------------------------------------------------------------|
-| `BETWEEN`      | Determine if a `FORM_RESPONSE` is between a `CONST` value        |
-| `BLANK`        | Determine if a `FORM_RESPONSE` is blank**                        |
-| `CONTAINS`     | Determine if a `FORM_RESPONSE` contains a `CONST` value          |
-| `EMPTY`        | Determine if a `FORM_RESPONSE` is empty***                       |
-| `EQUAL`        | Determine if a `FORM_RESPONSE` is equal to a `CONST`             |
-| `GREATER_THAN` | Determine if a `FORM_RESPONSE` is greater than a `CONST`         |
-| `LESS_THAN`    | Determine if a `FORM_RESPONSE` is less than a `CONST`            |
+| Type           | Field Data Types          | Description                                | 
+|----------------|------------------------------------------------------------------------|
+| `BETWEEN`      | `number` | Determine if a `FORM_RESPONSE` is between a `CONST` value   |
+| `BLANK`        | `string`, `array`, `date` | Determine if a `FORM_RESPONSE` is blank**  |
+| `CONTAINS`     | `array` | Determine if a `FORM_RESPONSE` contains a `CONST` value      |
+| `EMPTY`        | `string`, `array`, `date` | Determine if a `FORM_RESPONSE` is empty*** |
+| `EQUAL`        | Any | Determine if a `FORM_RESPONSE` is equal to a `CONST`             |
+| `GREATER_THAN` | `number` | Determine if a `FORM_RESPONSE` is greater than a `CONST`    |
+| `LESS_THAN`    | `number` | Determine if a `FORM_RESPONSE` is less than a `CONST`       |
 
 > ** Blank is defined as an empty array or string, undefined, or null.
 
-> *** Empty is defined as an empty array or string.
+> *** `EMPTY` implements Lodash's [isEmpty](https://lodash.com/docs/4.17.11#isEmpty)
 
 #### Expression Types
 
@@ -910,7 +910,9 @@ The [expression-service](https://github.com/mikechabot/react-json-form-engine/bl
 
 Conversely, if the `not` flag was removed from the condition, the `myNumber` field would immediately display to the user, but would be conditionally hidden if the user selected any of the options in `myArray`.
 
-#### Condition Example (`GREATER_THAN`)
+----
+
+#### `GREATER_THAN` Condition Example
 
 Let's take a look at a numeric example, which is viewable on the [Numeric Conditions](https://mikechabot.github.io/react-json-form-engine-storybook/?path=/story/conditions--numeric-conditions) demo.
 
@@ -942,6 +944,36 @@ Let's take a look at a numeric example, which is viewable on the [Numeric Condit
 }
 ```
 
-----
+#### `GREATER_THAN` Condition Example
 
+Let's take a look at a `GREATER_THAN` example. 
 
+```js
+{
+  id: 'myNumber',
+  type: 'number',
+  title: 'Greater-Than (>)',
+  min: 0,
+  max: 10,
+  fields: [
+    {
+      id: 'myString',
+      type: 'string',
+      title: 'Field',
+      showCondition: {
+        type: 'GREATER_THAN',
+        expressions: [
+          {
+            type: 'FORM_RESPONSE',
+            id: 'myNumber'
+          },
+          {
+            type: 'CONST',
+            value: 5
+          }
+        ]
+      }
+    }
+  ]
+}
+```
