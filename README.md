@@ -433,8 +433,8 @@ For field controls that render selectable options, like `<Radio />` or `<Checkbo
 
 Here's the complete list of props that can be passed to [Field Definitions](#field-definition):
 
-|-----------------|-----------|----------|--------------------------------------------------------------------------------------------------------------------------|
 | Property        | Type      | Required | Description                                                                                                              |
+|-----------------|-----------|----------|--------------------------------------------------------------------------------------------------------------------------|
 | `id`            | `string`  | Yes      | See [Field ID](#field-id)                                                                                                |
 | `type`          | `string`  | Yes      | See [Field Type](#field-type)                                                                                            |
 | `title`         | `string`  | Yes      | Display label for the field                                                                                              |
