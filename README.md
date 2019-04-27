@@ -740,17 +740,17 @@ A `showCondition` contains a `type` and one or more `expressions`, which also co
 
 #### Condition Types
 
-| Type           | Field Data Types          | Description                                | 
-|----------------|------------------------------------------------------------------------|
-| `BETWEEN`      | `number` | Determine if a `FORM_RESPONSE` is between a `CONST` value   |
-| `BLANK`        | `string`, `array`, `date` | Determine if a `FORM_RESPONSE` is blank**  |
-| `CONTAINS`     | `array` | Determine if a `FORM_RESPONSE` contains a `CONST` value      |
-| `EMPTY`        | `string`, `array`, `date` | Determine if a `FORM_RESPONSE` is empty*** |
-| `EQUAL`        | Any | Determine if a `FORM_RESPONSE` is equal to a `CONST`             |
-| `GREATER_THAN` | `number` | Determine if a `FORM_RESPONSE` is greater than a `CONST`    |
-| `LESS_THAN`    | `number` | Determine if a `FORM_RESPONSE` is less than a `CONST`       |
+| Type           | Field Data Types                     | Description                                               | 
+|----------------|--------------------------------------|-----------------------------------------------------------|
+| `BETWEEN`      | `number`                             | Determine if a `FORM_RESPONSE` is between a `CONST` value |
+| `BLANK`        | `string`, `array`, `date`            | Determine if a `FORM_RESPONSE` is blank**                 |
+| `CONTAINS`     | `array`                              | Determine if a `FORM_RESPONSE` contains a `CONST` value   |
+| `EMPTY`        | `string`, `array`, `date`            | Determine if a `FORM_RESPONSE` is empty***                |
+| `EQUAL`        | `string` `number`, `date`, `boolean` | Determine if a `FORM_RESPONSE` is equal to a `CONST`      |
+| `GREATER_THAN` | `number`                             | Determine if a `FORM_RESPONSE` is greater than a `CONST`  |
+| `LESS_THAN`    | `number`                             | Determine if a `FORM_RESPONSE` is less than a `CONST`     |
 
-> ** Blank is defined as an empty array or string, undefined, or null.
+> ** `BLANK` is defined as an empty array or string, undefined, or null.
 
 > *** `EMPTY` implements Lodash's [isEmpty](https://lodash.com/docs/4.17.11#isEmpty)
 
