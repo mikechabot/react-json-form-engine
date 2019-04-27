@@ -55,7 +55,10 @@ It also offers a mechanism for serializing all form responses to JSON for persis
   - [Numeric](#numeric-validation)
   - [Regular Expression](#regex-validation)
 - [Conditions](#conditions)
-
+  - [Condition Types](#condition-types)
+  - [Expression Types](#expression-types)
+  - [Condition Examples](#condition-examples)
+  
 ----
 
 ## <a id="live-demo">Live Demo</a>
@@ -740,7 +743,7 @@ A `showCondition` contains a `type` and one or more `expressions`, which also co
 
 > Note: `showConditions` also accept a `not` property, and if set to `true`, the condition will be negated.
 
-#### Condition Types
+### <a href="condition-types">Condition Types</a>
 
 | Type           | Data Types                           | Description                                               | 
 |----------------|--------------------------------------|-----------------------------------------------------------|
@@ -756,7 +759,7 @@ A `showCondition` contains a `type` and one or more `expressions`, which also co
 
 > *** `EMPTY` implements Lodash's [isEmpty](https://lodash.com/docs/4.17.11#isEmpty)
 
-#### Expression Types
+### <a href="expression-types">Expression Types</a>
 
 | Type            | Uses                                          | 
 |-----------------|-----------------------------------------------|
@@ -766,6 +769,10 @@ A `showCondition` contains a `type` and one or more `expressions`, which also co
 > `showConditions` are evaluated every time the form is updated. 
 
 ----
+
+### <a href="condition-examples">Condition Examples</a>
+
+Take a look at the [Conditions](http://localhost:6006/?path=/story/conditions--array-conditions) for live examples.
 
 #### `CONTAINS` Condition Example
 
