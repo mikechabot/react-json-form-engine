@@ -433,8 +433,7 @@ For field controls that render selectable options, like `<Radio />` or `<Checkbo
 
 Here's the complete list of props that can be passed to [Field Definitions](#field-definition):
 
-| Property        | Type      | Required | Description                                                                                 |
-|-----------------|-----------|----------|---------------------------------------------------------------------------------------------|
+| Property        | Type      | Required | Description |-----------------|-----------|----------|---------------------------------------------------------------------------------------------|
 | `id`            | `string`  | Yes      | See [Field ID](#field-id)                                                                   |
 | `type`          | `string`  | Yes      | See [Field Type](#field-type)                                                               |
 | `title`         | `string`  | Yes      | Display label for the field                                                                 |
@@ -446,11 +445,12 @@ Here's the complete list of props that can be passed to [Field Definitions](#fie
 | `pattern`       | `string`  | No       | Pattern to match during validation (See [Validation](#validation))                          |
 | `min`           | `number`  | Yes*     | Minimum value. (Used for `number` field types)                                              |
 | `max`           | `number`  | Yes*     | Maximum value. (Used for `number` field types)                                              |
-| `hideTime`      | `boolean` | No       | Only show the Date in Date/Time. (Used for `date` field types)                              |
-| `hideCalendar`  | `boolean` | No       | Only show the Time in Data/Time. (Used for `date` field types)                              |
+| `showTimeSelect`| `boolean` | No       | Only show Date in Date/Time. (Used for `date` field types)                              |
+| `hideCalendar`  | `boolean` | No       | Only show Time in Data/Time. (Used for `date` field types)                              |
 | `content`  | `string` | No       | Informational content to be displayed to the end-user. Utilizes `dangerouslySetInnerHTML`. (Used for `info` field types)                              |
 
 > `min` and `max` are only required for `<Range />` component types.
+> `date` field types implement [react-datepicker](https://reactdatepicker.com/). Any prop that can be passed to `react-datepicker` can be added to a `date` field, and it will be passed directly to `<Date />`, such as `timeIntervals`, or `dateFormat`.
 
 ----
 
@@ -740,7 +740,7 @@ A `showCondition` contains a `type` and one or more `expressions`, which also co
 
 #### Condition Types
 
-| Type           | Field Data Types                     | Description                                               | 
+| Type           | Data Types                           | Description                                               | 
 |----------------|--------------------------------------|-----------------------------------------------------------|
 | `BETWEEN`      | `number`                             | Determine if a `FORM_RESPONSE` is between a `CONST` value |
 | `BLANK`        | `string`, `array`, `date`            | Determine if a `FORM_RESPONSE` is blank**                 |
