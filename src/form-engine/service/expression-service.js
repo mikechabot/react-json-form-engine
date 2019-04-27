@@ -6,34 +6,51 @@ import filter from 'lodash/filter';
 import forEach from 'lodash/forEach';
 import isNil from 'lodash/isNil';
 
+export const EXPRESSION_TYPE = {
+    ADD: 'ADD',
+    CONST: 'CONST',
+    FORM_RESPONSE: 'FORM_RESPONSE'
+};
+
 function _getConstComparisonCondition(type, val1, val2, orEqualTo) {
     return {
         type: type,
         orEqualTo,
-        expression1: {
-            type: 'CONST',
-            value: val1
-        },
-        expression2: {
-            type: 'CONST',
-            value: val2
-        }
+        expressions: [
+            {
+                type: 'CONST',
+                value: val1
+            },
+            {
+                type: 'CONST',
+                value: val2
+            }
+        ]
     };
+}
+
+function getExpressionMap(expressions) {
+    const map = {};
+    expressions.forEach(expression => {
+        map[expression.type] = expression;
+    });
+    return map;
 }
 
 const conditionEvaluators = {
     BETWEEN: (service, condition, instance) => {
-        const val1 = service.evalExpression(condition.expression1, instance);
-        const val2 = service.evalExpression(condition.expression2, instance);
+        const expressionMap = getExpressionMap(condition.expressions);
+        const formResponse = service.evalExpression(expressionMap[EXPRESSION_TYPE.FORM_RESPONSE], instance);
+        const array = service.evalExpression(expressionMap[EXPRESSION_TYPE.CONST], instance);
 
         let conditionMet = false;
-        if (isArray(val2) && val2.length === 2) {
+        if (isArray(array) && array.length === 2) {
             const isGreaterThan = service.evalCondition(
-                _getConstComparisonCondition('GREATER_THAN', val1, val2[0], true),
+                _getConstComparisonCondition('GREATER_THAN', formResponse, array[0], true),
                 instance
             );
             const isLessThan = service.evalCondition(
-                _getConstComparisonCondition('LESS_THAN', val1, val2[1], true),
+                _getConstComparisonCondition('LESS_THAN', formResponse, array[1], true),
                 instance
             );
             if (isGreaterThan && isLessThan) {
@@ -49,12 +66,14 @@ const conditionEvaluators = {
         return isBlank(value);
     },
     CONTAINS: (service, condition, instance) => {
-        const val1 = service.evalExpression(condition.expression1, instance);
-        const val2 = service.evalExpression(condition.expression2, instance);
+        const expressionMap = getExpressionMap(condition.expressions);
+
+        const responseValue = service.evalExpression(expressionMap[EXPRESSION_TYPE.FORM_RESPONSE], instance);
+        const constValue = service.evalExpression(expressionMap[EXPRESSION_TYPE.CONST], instance);
 
         let conditionMet = false;
-        if (!isNil(val1) && !isNil(val2)) {
-            conditionMet = includes(val2, val1);
+        if (!isNil(constValue) && !isNil(responseValue)) {
+            conditionMet = responseValue.includes(constValue);
         }
 
         return conditionMet;
@@ -65,12 +84,14 @@ const conditionEvaluators = {
         return conditionMet;
     },
     EQUAL: (service, condition, instance) => {
-        const val1 = service.evalExpression(condition.expression1, instance);
-        const val2 = service.evalExpression(condition.expression2, instance);
+        const expressionMap = getExpressionMap(condition.expressions);
+
+        const formResponse = service.evalExpression(expressionMap[EXPRESSION_TYPE.FORM_RESPONSE], instance);
+        const constValue = service.evalExpression(expressionMap[EXPRESSION_TYPE.CONST], instance);
 
         let conditionMet = false;
-        if (!isNil(val1) && !isNil(val2)) {
-            conditionMet = val1 === val2;
+        if (!isNil(formResponse) && !isNil(constValue)) {
+            conditionMet = formResponse === constValue;
         }
 
         return conditionMet;
@@ -92,10 +113,12 @@ const conditionEvaluators = {
 };
 
 function evalNumberCondition(service, condition, instance) {
-    let diff;
-    const val1 = service.evalExpression(condition.expression1, instance);
-    const val2 = service.evalExpression(condition.expression2, instance);
+    const { expressions } = condition;
 
+    const val1 = service.evalExpression(expressions[0], instance);
+    const val2 = service.evalExpression(expressions[1], instance);
+
+    let diff;
     const num1 = parseFloat(val1);
     if (!Number.isNaN(num1)) {
         const num2 = parseFloat(val2);
@@ -108,13 +131,13 @@ function evalNumberCondition(service, condition, instance) {
 }
 
 const expressionEvaluators = {
-    FORM_RESPONSE: (service, expression, instance) => {
+    [EXPRESSION_TYPE.FORM_RESPONSE]: (service, expression, instance) => {
         return instance.getModelValue(expression.id);
     },
-    CONST: (service, expression, instance) => {
+    [EXPRESSION_TYPE.CONST]: (service, expression, instance) => {
         return expression.value;
     },
-    ADD: (service, expression, instance) => {
+    [EXPRESSION_TYPE.ADD]: (service, expression, instance) => {
         let sum = 0;
 
         forEach(expression.expressions, exp => {
@@ -143,7 +166,7 @@ const expressionEvaluators = {
 const ExpressionService = {
     isFormResponseExpression(expression) {
         if (!expression || !expression.type) return false;
-        return expression.type === 'FORM_RESPONSE';
+        return expression.type === EXPRESSION_TYPE.FORM_RESPONSE;
     },
     evalCondition(condition, instance) {
         const evaluator = conditionEvaluators[condition.type];

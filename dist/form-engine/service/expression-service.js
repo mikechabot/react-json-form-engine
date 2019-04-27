@@ -19,7 +19,17 @@ var _forEach = _interopRequireDefault(require("lodash/forEach"));
 
 var _isNil = _interopRequireDefault(require("lodash/isNil"));
 
+var _expressionEvaluators;
+
 function _interopRequireDefault(obj) { return obj && obj.__esModule ? obj : { "default": obj }; }
+
+function _defineProperty(obj, key, value) { if (key in obj) { Object.defineProperty(obj, key, { value: value, enumerable: true, configurable: true, writable: true }); } else { obj[key] = value; } return obj; }
+
+var EXPRESSION_TYPE = {
+  ADD: 'ADD',
+  CONST: 'CONST',
+  FORM_RESPONSE: 'FORM_RESPONSE'
+};
 
 function _getConstComparisonCondition(type, val1, val2, orEqualTo) {
   return {
@@ -36,15 +46,24 @@ function _getConstComparisonCondition(type, val1, val2, orEqualTo) {
   };
 }
 
+function getExpressionMap(expressions) {
+  var map = {};
+  expressions.forEach(function (expression) {
+    map[expression.type] = expression;
+  });
+  return map;
+}
+
 var conditionEvaluators = {
   BETWEEN: function BETWEEN(service, condition, instance) {
-    var val1 = service.evalExpression(condition.expression1, instance);
-    var val2 = service.evalExpression(condition.expression2, instance);
+    var expressionMap = getExpressionMap(condition.expressions);
+    var formResponse = service.evalExpression(expressionMap[EXPRESSION_TYPE.FORM_RESPONSE], instance);
+    var array = service.evalExpression(expressionMap[EXPRESSION_TYPE.CONST], instance);
     var conditionMet = false;
 
-    if ((0, _isArray["default"])(val2) && val2.length === 2) {
-      var isGreaterThan = service.evalCondition(_getConstComparisonCondition('GREATER_THAN', val1, val2[0], true), instance);
-      var isLessThan = service.evalCondition(_getConstComparisonCondition('LESS_THAN', val1, val2[1], true), instance);
+    if ((0, _isArray["default"])(array) && array.length === 2) {
+      var isGreaterThan = service.evalCondition(_getConstComparisonCondition('GREATER_THAN', formResponse, array[0], true), instance);
+      var isLessThan = service.evalCondition(_getConstComparisonCondition('LESS_THAN', formResponse, array[1], true), instance);
 
       if (isGreaterThan && isLessThan) {
         conditionMet = true;
@@ -60,12 +79,13 @@ var conditionEvaluators = {
     return (0, _common.isBlank)(value);
   },
   CONTAINS: function CONTAINS(service, condition, instance) {
-    var val1 = service.evalExpression(condition.expression1, instance);
-    var val2 = service.evalExpression(condition.expression2, instance);
+    var expressionMap = getExpressionMap(condition.expressions);
+    var responseValue = service.evalExpression(expressionMap[EXPRESSION_TYPE.FORM_RESPONSE], instance);
+    var constValue = service.evalExpression(expressionMap[EXPRESSION_TYPE.CONST], instance);
     var conditionMet = false;
 
-    if (!(0, _isNil["default"])(val1) && !(0, _isNil["default"])(val2)) {
-      conditionMet = (0, _includes["default"])(val2, val1);
+    if (!(0, _isNil["default"])(constValue) && !(0, _isNil["default"])(responseValue)) {
+      conditionMet = responseValue.includes(constValue);
     }
 
     return conditionMet;
@@ -76,12 +96,13 @@ var conditionEvaluators = {
     return conditionMet;
   },
   EQUAL: function EQUAL(service, condition, instance) {
-    var val1 = service.evalExpression(condition.expression1, instance);
-    var val2 = service.evalExpression(condition.expression2, instance);
+    var expressionMap = getExpressionMap(condition.expressions);
+    var formResponse = service.evalExpression(expressionMap[EXPRESSION_TYPE.FORM_RESPONSE], instance);
+    var constValue = service.evalExpression(expressionMap[EXPRESSION_TYPE.CONST], instance);
     var conditionMet = false;
 
-    if (!(0, _isNil["default"])(val1) && !(0, _isNil["default"])(val2)) {
-      conditionMet = val1 === val2;
+    if (!(0, _isNil["default"])(formResponse) && !(0, _isNil["default"])(constValue)) {
+      conditionMet = formResponse === constValue;
     }
 
     return conditionMet;
@@ -106,12 +127,13 @@ var conditionEvaluators = {
 
 function evalNumberCondition(service, condition, instance) {
   var diff;
-  var val1 = service.evalExpression(condition.expression1, instance);
-  var val2 = service.evalExpression(condition.expression2, instance);
-  var num1 = parseFloat(val1);
+  var expressionMap = getExpressionMap(condition.expressions);
+  var formResponse = service.evalExpression(expressionMap[EXPRESSION_TYPE.FORM_RESPONSE], instance);
+  var constValue = service.evalExpression(expressionMap[EXPRESSION_TYPE.CONST], instance);
+  var num1 = parseFloat(formResponse);
 
   if (!Number.isNaN(num1)) {
-    var num2 = parseFloat(val2);
+    var num2 = parseFloat(constValue);
 
     if (!Number.isNaN(num2)) {
       diff = num2 - num1;
@@ -121,38 +143,34 @@ function evalNumberCondition(service, condition, instance) {
   return diff;
 }
 
-var expressionEvaluators = {
-  FORM_RESPONSE: function FORM_RESPONSE(service, expression, instance) {
-    return instance.getModelValue(expression.id);
-  },
-  CONST: function CONST(service, expression, instance) {
-    return expression.value;
-  },
-  ADD: function ADD(service, expression, instance) {
-    var sum = 0;
-    (0, _forEach["default"])(expression.expressions, function (exp) {
-      // TODO: Maybe this becomes FORM_RESPONSE_VALUE?
-      var field = instance.getField(exp.id);
-      var formResponses = service.evalExpression(exp, instance);
+var expressionEvaluators = (_expressionEvaluators = {}, _defineProperty(_expressionEvaluators, EXPRESSION_TYPE.FORM_RESPONSE, function (service, expression, instance) {
+  return instance.getModelValue(expression.id);
+}), _defineProperty(_expressionEvaluators, EXPRESSION_TYPE.CONST, function (service, expression, instance) {
+  return expression.value;
+}), _defineProperty(_expressionEvaluators, EXPRESSION_TYPE.ADD, function (service, expression, instance) {
+  var sum = 0;
+  (0, _forEach["default"])(expression.expressions, function (exp) {
+    // TODO: Maybe this becomes FORM_RESPONSE_VALUE?
+    var field = instance.getField(exp.id);
+    var formResponses = service.evalExpression(exp, instance);
 
-      if (!(0, _isEmpty["default"])(formResponses)) {
-        var selections = (0, _filter["default"])(field.options, function (option) {
-          return (0, _includes["default"])(formResponses, option.id);
-        });
-        (0, _forEach["default"])(selections, function (selection) {
-          var valueToAdd = parseInt(selection.value, 10);
+    if (!(0, _isEmpty["default"])(formResponses)) {
+      var selections = (0, _filter["default"])(field.options, function (option) {
+        return (0, _includes["default"])(formResponses, option.id);
+      });
+      (0, _forEach["default"])(selections, function (selection) {
+        var valueToAdd = parseInt(selection.value, 10);
 
-          if (!sum) {
-            sum = valueToAdd;
-          } else {
-            sum += valueToAdd;
-          }
-        });
-      }
-    });
-    return sum;
-  }
-};
+        if (!sum) {
+          sum = valueToAdd;
+        } else {
+          sum += valueToAdd;
+        }
+      });
+    }
+  });
+  return sum;
+}), _expressionEvaluators);
 var ExpressionService = {
   isFormResponseExpression: function isFormResponseExpression(expression) {
     if (!expression || !expression.type) return false;

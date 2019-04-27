@@ -211,24 +211,34 @@ class FormEngine {
     /**
      * Register a field's showCondition with the instance. For any
      * form response expressions within the condition, add the form
-     * response id (the trigger) to the map, along with the show
-     * condition. When given model value is updated in setModelValue(),
-     * we check the trigger map and evaluate any available show conditions.
-     * If the condition evaluates to false, the field is cleared.
+     * response id (the trigger) to the map, along with the field id
+     * that is "watching" the trigger. When given model value is updated
+     * in setModelValue(), we check the trigger map and evaluate any
+     * available show conditions. If the condition evaluates to false,
+     * the field is cleared.
      * @param field
      */
     __registerShowCondition(field) {
-        const { expression, expression1, expression2 } = field.showCondition;
-        [expression, expression1, expression2].forEach(ex => {
-            if (ExpressionService.isFormResponseExpression(ex)) {
-                let list = this.showConditionTriggerMap[ex[FIELD.ID]];
+        const { expression, expressions = [] } = field.showCondition;
+
+        const addExpressionToTriggerMap = exp => {
+            if (ExpressionService.isFormResponseExpression(exp)) {
+                let list = this.showConditionTriggerMap[exp[FIELD.ID]];
                 if (!list) {
                     list = [];
-                    this.showConditionTriggerMap[ex[FIELD.ID]] = list;
+                    this.showConditionTriggerMap[exp[FIELD.ID]] = list;
                 }
                 list.push(field[FIELD.ID]);
             }
-        });
+        };
+
+        addExpressionToTriggerMap(expression);
+
+        if (!isEmpty(expressions)) {
+            expressions.forEach(exp => {
+                addExpressionToTriggerMap(exp);
+            });
+        }
     }
 
     /**
@@ -422,7 +432,8 @@ class FormEngine {
             });
         }
 
-        // Evaluate the show condition of dependent fields if this field is a trigger
+        // Evaluate the show condition of dependent fields if this field is a trigger.
+        // Reset fields that are dependent on the trigger field, but are not direct children.
         if (this.showConditionTriggerMap[id]) {
             this.showConditionTriggerMap[id].forEach(fieldId => {
                 if (this.hasModelValue(fieldId) && !this.isVisible(this.getField(fieldId))) {

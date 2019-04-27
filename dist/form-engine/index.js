@@ -271,34 +271,31 @@ function () {
     /**
      * Register a field's showCondition with the instance. For any
      * form response expressions within the condition, add the form
-     * response id (the trigger) to the map, along with the show
-     * condition. When given model value is updated in setModelValue(),
-     * we check the trigger map and evaluate any available show conditions.
-     * If the condition evaluates to false, the field is cleared.
+     * response id (the trigger) to the map, along with the field id
+     * that is "watching" the trigger. When given model value is updated
+     * in setModelValue(), we check the trigger map and evaluate any
+     * available show conditions. If the condition evaluates to false,
+     * the field is cleared.
      * @param field
      */
 
   }, {
     key: "__registerShowCondition",
     value: function __registerShowCondition(field) {
-      var _this5 = this;
-
-      var _field$showCondition = field.showCondition,
-          expression = _field$showCondition.expression,
-          expression1 = _field$showCondition.expression1,
-          expression2 = _field$showCondition.expression2;
-      [expression, expression1, expression2].forEach(function (ex) {
-        if (_expressionService["default"].isFormResponseExpression(ex)) {
-          var list = _this5.showConditionTriggerMap[ex[FIELD.ID]];
-
-          if (!list) {
-            list = [];
-            _this5.showConditionTriggerMap[ex[FIELD.ID]] = list;
-          }
-
-          list.push(field[FIELD.ID]);
-        }
-      });
+      console.log(field); // const { expressions = [] } = field.showCondition;
+      //
+      // if (console.l)
+      //
+      // expressions.forEach(ex => {
+      //     if (ExpressionService.isFormResponseExpression(ex)) {
+      //         let list = this.showConditionTriggerMap[ex[FIELD.ID]];
+      //         if (!list) {
+      //             list = [];
+      //             this.showConditionTriggerMap[ex[FIELD.ID]] = list;
+      //         }
+      //         list.push(field[FIELD.ID]);
+      //     }
+      // });
     }
     /**
      * Get form title
@@ -318,10 +315,10 @@ function () {
   }, {
     key: "getFormIcon",
     value: function getFormIcon() {
-      var _this6 = this;
+      var _this5 = this;
 
       return _maybeBaby["default"].of(function () {
-        return _this6.definition.faIcon.name;
+        return _this5.definition.faIcon.name;
       }).join();
     }
     /**
@@ -332,10 +329,10 @@ function () {
   }, {
     key: "getFormIconPrefix",
     value: function getFormIconPrefix() {
-      var _this7 = this;
+      var _this6 = this;
 
       return _maybeBaby["default"].of(function () {
-        return _this7.definition.faIcon.prefix;
+        return _this6.definition.faIcon.prefix;
       }).join();
     }
     /**
@@ -385,10 +382,10 @@ function () {
   }, {
     key: "getModelAsArray",
     value: function getModelAsArray() {
-      var _this8 = this;
+      var _this7 = this;
 
       return Object.keys(this.model).map(function (key) {
-        return _defineProperty({}, key, _this8.model[key]);
+        return _defineProperty({}, key, _this7.model[key]);
       });
     }
     /**
@@ -516,7 +513,7 @@ function () {
   }, {
     key: "setModelValue",
     value: function setModelValue(id, value, field) {
-      var _this9 = this;
+      var _this8 = this;
 
       // Set or reset the model value
       if (value === this.getModelValue(id)) return;
@@ -537,17 +534,18 @@ function () {
 
       if (field[FIELD.OPTIONS]) {
         field[FIELD.OPTIONS].forEach(function (option) {
-          if (option[FIELD.FIELDS] && (_this9.isBooleanField(field) && !value || !(0, _includes["default"])(value, option[FIELD.ID]))) {
-            _this9.resetFields(option[FIELD.FIELDS]);
+          if (option[FIELD.FIELDS] && (_this8.isBooleanField(field) && !value || !(0, _includes["default"])(value, option[FIELD.ID]))) {
+            _this8.resetFields(option[FIELD.FIELDS]);
           }
         });
       } // Evaluate the show condition of dependent fields if this field is a trigger
 
 
       if (this.showConditionTriggerMap[id]) {
+        console.log('here');
         this.showConditionTriggerMap[id].forEach(function (fieldId) {
-          if (_this9.hasModelValue(fieldId) && !_this9.isVisible(_this9.getField(fieldId))) {
-            _this9.setModelValue(fieldId, _formConst.NO_VALUE, _this9.getField(fieldId));
+          if (_this8.hasModelValue(fieldId) && !_this8.isVisible(_this8.getField(fieldId))) {
+            _this8.setModelValue(fieldId, _formConst.NO_VALUE, _this8.getField(fieldId));
           }
         });
       }
@@ -560,12 +558,12 @@ function () {
   }, {
     key: "resetFields",
     value: function resetFields(fields) {
-      var _this10 = this;
+      var _this9 = this;
 
       if (fields) {
         fields.forEach(function (field) {
-          if (_this10.hasModelValue(field[FIELD.ID]) && !_this10.isVisible(field)) {
-            _this10.setModelValue(field[FIELD.ID], _formConst.NO_VALUE, field);
+          if (_this9.hasModelValue(field[FIELD.ID]) && !_this9.isVisible(field)) {
+            _this9.setModelValue(field[FIELD.ID], _formConst.NO_VALUE, field);
           }
         });
       }
@@ -673,17 +671,17 @@ function () {
   }, {
     key: "buildObservableValidationMap",
     value: function buildObservableValidationMap() {
-      var _this11 = this;
+      var _this10 = this;
 
       this.validationMap.form = this.validationResults.hasError();
       this.sections.forEach(function (section) {
-        _this11.validationMap.sections[section[SECTION.ID]] = _validationService["default"].isError(_this11.getSectionStatus(section));
+        _this10.validationMap.sections[section[SECTION.ID]] = _validationService["default"].isError(_this10.getSectionStatus(section));
         section.subsections.forEach(function (subsection) {
-          _this11.validationMap.subsections[subsection[SUBSECTION.ID]] = _validationService["default"].isError(_this11.getSubsectionStatus(subsection));
+          _this10.validationMap.subsections[subsection[SUBSECTION.ID]] = _validationService["default"].isError(_this10.getSubsectionStatus(subsection));
         });
       });
       Object.keys(this.fields).forEach(function (id) {
-        _this11.validationMap.fields[id] = _validationService["default"].isError(_this11.getValidationStatusByTag(id));
+        _this10.validationMap.fields[id] = _validationService["default"].isError(_this10.getValidationStatusByTag(id));
       });
     }
     /**

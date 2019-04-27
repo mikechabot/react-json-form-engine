@@ -27,14 +27,16 @@ export default {
                                     title: 'Field',
                                     showCondition: {
                                         type: 'GREATER_THAN',
-                                        expression1: {
-                                            type: 'FORM_RESPONSE',
-                                            id: 'num1'
-                                        },
-                                        expression2: {
-                                            type: 'CONST',
-                                            value: 5
-                                        }
+                                        expressions: [
+                                            {
+                                                type: 'FORM_RESPONSE',
+                                                id: 'num1'
+                                            },
+                                            {
+                                                type: 'CONST',
+                                                value: 5
+                                            }
+                                        ]
                                     }
                                 }
                             ]
@@ -50,14 +52,43 @@ export default {
                                     title: 'Field',
                                     showCondition: {
                                         type: 'LESS_THAN',
-                                        expression1: {
-                                            type: 'FORM_RESPONSE',
-                                            id: 'num2'
-                                        },
-                                        expression2: {
-                                            type: 'CONST',
-                                            value: 5
-                                        }
+                                        expressions: [
+                                            {
+                                                type: 'FORM_RESPONSE',
+                                                id: 'num2'
+                                            },
+                                            {
+                                                type: 'CONST',
+                                                value: 5
+                                            }
+                                        ]
+                                    }
+                                }
+                            ]
+                        },
+                        {
+                            id: 'num3',
+                            type: 'number',
+                            title: 'Between 25 and 75',
+                            min: 0,
+                            max: 100,
+                            fields: [
+                                {
+                                    id: 'str2',
+                                    type: 'string',
+                                    title: 'Field',
+                                    showCondition: {
+                                        type: 'BETWEEN',
+                                        expressions: [
+                                            {
+                                                type: 'FORM_RESPONSE',
+                                                id: 'num3'
+                                            },
+                                            {
+                                                type: 'CONST',
+                                                value: [25, 75]
+                                            }
+                                        ]
                                     }
                                 }
                             ]
@@ -76,6 +107,12 @@ export default {
         },
         num2: {
             hint: 'Enter a number less than 5 to show the child'
+        },
+        num3: {
+            hint: 'Select a number between 25-75 to show the child',
+            component: {
+                type: 'range'
+            }
         }
     }
 };
