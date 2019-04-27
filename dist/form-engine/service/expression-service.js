@@ -3,7 +3,7 @@
 Object.defineProperty(exports, "__esModule", {
   value: true
 });
-exports["default"] = void 0;
+exports["default"] = exports.EXPRESSION_TYPE = void 0;
 
 var _common = require("../../common");
 
@@ -30,19 +30,19 @@ var EXPRESSION_TYPE = {
   CONST: 'CONST',
   FORM_RESPONSE: 'FORM_RESPONSE'
 };
+exports.EXPRESSION_TYPE = EXPRESSION_TYPE;
 
 function _getConstComparisonCondition(type, val1, val2, orEqualTo) {
   return {
     type: type,
     orEqualTo: orEqualTo,
-    expression1: {
+    expressions: [{
       type: 'CONST',
       value: val1
-    },
-    expression2: {
+    }, {
       type: 'CONST',
       value: val2
-    }
+    }]
   };
 }
 
@@ -126,14 +126,14 @@ var conditionEvaluators = {
 };
 
 function evalNumberCondition(service, condition, instance) {
+  var expressions = condition.expressions;
+  var val1 = service.evalExpression(expressions[0], instance);
+  var val2 = service.evalExpression(expressions[1], instance);
   var diff;
-  var expressionMap = getExpressionMap(condition.expressions);
-  var formResponse = service.evalExpression(expressionMap[EXPRESSION_TYPE.FORM_RESPONSE], instance);
-  var constValue = service.evalExpression(expressionMap[EXPRESSION_TYPE.CONST], instance);
-  var num1 = parseFloat(formResponse);
+  var num1 = parseFloat(val1);
 
   if (!Number.isNaN(num1)) {
-    var num2 = parseFloat(constValue);
+    var num2 = parseFloat(val2);
 
     if (!Number.isNaN(num2)) {
       diff = num2 - num1;
@@ -174,7 +174,7 @@ var expressionEvaluators = (_expressionEvaluators = {}, _defineProperty(_express
 var ExpressionService = {
   isFormResponseExpression: function isFormResponseExpression(expression) {
     if (!expression || !expression.type) return false;
-    return expression.type === 'FORM_RESPONSE';
+    return expression.type === EXPRESSION_TYPE.FORM_RESPONSE;
   },
   evalCondition: function evalCondition(condition, instance) {
     var evaluator = conditionEvaluators[condition.type];
