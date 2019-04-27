@@ -815,7 +815,7 @@ The following `checkboxgroup` has three option fields. The **second** option has
 }
 ```
 
-The `showCondition` on the `myString` field can appear cryptic, but let's pull it out and walk through it.
+The `showCondition` on the `myString` field can appear cryptic, but let's take a close look at it:
 
 ```js
 showCondition: {
@@ -838,7 +838,7 @@ The condition is of type `CONTAINS`, and contains an array of expressions.
 - One `expression` is of type `FORM_RESPONSE` and references by `id` the field `myArray`. 
 - One `expression` is of type `CONST`, and contains the value `option2`.
 
-The [expression-service](https://github.com/mikechabot/react-json-form-engine/blob/master/src/form-engine/service/expression-service.js) will pull the value of `myArray` from the instance, and determine if the `CONST` value of `option2` is contained within in. If so, the condition passes, and the `myString` field is displayed.
+The [expression-service](https://github.com/mikechabot/react-json-form-engine/blob/master/src/form-engine/service/expression-service.js) will pull the value of `myArray` from the instance, and determine if the `CONST` value of `option2` is contained within in. If so, `myString` will be displayed.
 
 > At its core, this `showCondition` says *"Show `myString` if the user selected `option2` in the `myArray` field."* 
 
@@ -888,7 +888,8 @@ Let's take a look at an `EMPTY` example. We'll use the same `checkboxgroup` fiel
   ]
 }
 ```
-Let's pull out the condition and walk through it:
+
+Let's pull out the `showCondition` and take a closer look:
 
 ```js
 showCondition: {
@@ -906,7 +907,7 @@ The condition is of type `EMPTY`, contains a single expression, and also the `no
 - The `expression` is of type `FORM_RESPONSE` and references by `id` the field `myArray`. 
 - The `not` flag will negate the `EMPTY` condition being evaluated.
 
-The [expression-service](https://github.com/mikechabot/react-json-form-engine/blob/master/src/form-engine/service/expression-service.js) will pull the value of `myArray` from the instance, and determine if it is **not** empty.
+The [expression-service](https://github.com/mikechabot/react-json-form-engine/blob/master/src/form-engine/service/expression-service.js) will pull the value of `myArray` from the instance, and determine if it is **not** empty. If so, the `myNumber` field will be displayed.
 
 > At its core, this expression says *"Show `myNumber` if the user selected any of the options in `myArray`"*
 
@@ -916,39 +917,9 @@ Conversely, if the `not` flag was removed from the condition, the `myNumber` fie
 
 #### `GREATER_THAN` Condition Example
 
-Let's take a look at a numeric example, which is viewable on the [Numeric Conditions](https://mikechabot.github.io/react-json-form-engine-storybook/?path=/story/conditions--numeric-conditions) demo.
+Let's take a look at a `GREATER_THAN` example. The `number` field below (`myNumber`) has a single conditional child field, which will be displayed based based on the value input into `myNumber`.
 
-```js
-{
-  id: 'num1',
-  type: 'number',
-  title: 'Greater-Than (>)',
-  min: 0,
-  max: 10,
-  fields: [
-    {
-      id: 'str1',
-      type: 'string',
-      title: 'Field',
-      showCondition: {
-        type: 'GREATER_THAN',
-        expression1: {
-          type: 'FORM_RESPONSE',
-          id: 'num1'
-        },
-        expression2: {
-          type: 'CONST',
-          value: 5
-        }
-      }
-    }
-  ]
-}
-```
-
-#### `GREATER_THAN` Condition Example
-
-Let's take a look at a `GREATER_THAN` example. 
+> Have a look at the field definition below, and then we'll walk through it.
 
 ```js
 {
@@ -979,3 +950,96 @@ Let's take a look at a `GREATER_THAN` example.
   ]
 }
 ```
+
+Let's pull out the `showCondition` and take a closer look:
+
+```js
+showCondition: {
+  type: 'GREATER_THAN',
+  expressions: [
+    {
+      type: 'FORM_RESPONSE',
+      id: 'myNumber'
+    },
+    {
+      type: 'CONST',
+      value: 5
+    }
+  ]
+}
+```
+
+The condition is of type `GREATER_THAN`, and contains an array of expressions.
+
+- One `expression` is of type `FORM_RESPONSE` and references by `id` the field `myNumber`. 
+- One `expression` is of type `CONST`, and contains the value `5`.
+
+The [expression-service](https://github.com/mikechabot/react-json-form-engine/blob/master/src/form-engine/service/expression-service.js) will pull the value of `myNumber` from the instance, and determine if it is greater than `5`. If so, the `myString` field will be displayed.
+
+> At its core, this expression says *"Show `myString` if `myNumber` is greater than 5."*
+
+----
+
+##### `BETWEEN` Condition Example
+
+Let's take a look at a `BETWEEN` example. The following `range` field (`myNumber`) has a min/max of `0` and `100` respectively, and also contains a single conditional child field, which will be displayed when the value of `myNumber` is between `25` and `75`.
+
+```js
+{
+  id: 'myNumber',
+  type: 'number',
+  title: 'Between 25 and 75',
+  min: 0,
+  max: 100,
+  fields: [
+    {
+      id: 'myString',
+      type: 'string',
+      title: 'Field',
+      showCondition: {
+        type: 'BETWEEN',
+        expressions: [
+          {
+            type: 'FORM_RESPONSE',
+            id: 'myNumber'
+          },
+          {
+            type: 'CONST',
+            value: [25, 75]
+          }
+        ]
+      }
+    }
+  ]
+}
+```
+
+Let's pull out the `showCondition` and take a closer look:
+
+```js
+showCondition: {
+  type: 'BETWEEN',
+  expressions: [
+    {
+      type: 'FORM_RESPONSE',
+      id: 'myNumber'
+    },
+    {
+      type: 'CONST',
+      value: [25, 75]
+    }
+  ]
+}
+```
+
+The condition is of type `BETWEEN`, and contains an array of expressions.
+
+- One `expression` is of type `FORM_RESPONSE` and references by `id` the field `myNumber`. 
+- One `expression` is of type `CONST`, and contains an array of values.
+
+The [expression-service](https://github.com/mikechabot/react-json-form-engine/blob/master/src/form-engine/service/expression-service.js) will pull the value of `myNumber` from the instance, and determine if it is between `25` and `75`. If so, the `myString` field will be displayed.
+
+
+> At its core, this expression says *"Show `myString` if `myNumber` is between 25 and 75."*
+
+Note that the `CONST` array on `BETWEEN` condition types **requires** a length of two (2); the condition will not be evaluted otherwise.
