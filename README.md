@@ -451,6 +451,7 @@ Here's the complete list of props that can be passed to [Field Definitions](#fie
 | `content`       | `string`  | No       | Informational content to be displayed to the end-user. Utilizes `dangerouslySetInnerHTML`. (Used for `info` field types) |
 
 > `min` and `max` are only required for `<Range />` component types.
+
 > `date` field types implement [react-datepicker](https://reactdatepicker.com/). Any prop that can be passed to `react-datepicker` can be added to a `date` field, and it will be passed directly to `<Date />`, such as `timeIntervals`, or `dateFormat`.
 
 ----
