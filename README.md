@@ -433,21 +433,22 @@ For field controls that render selectable options, like `<Radio />` or `<Checkbo
 
 Here's the complete list of props that can be passed to [Field Definitions](#field-definition):
 
-| Property        | Type      | Required | Description |-----------------|-----------|----------|---------------------------------------------------------------------------------------------|
-| `id`            | `string`  | Yes      | See [Field ID](#field-id)                                                                   |
-| `type`          | `string`  | Yes      | See [Field Type](#field-type)                                                               |
-| `title`         | `string`  | Yes      | Display label for the field                                                                 |
-| `options`       | `array`   | No       | See [Field Options](#field-options)                                                         |
-| `fields`        | `array`   | No       | See [Field Children](#field-children)                                                       |
-| `placeholder`   | `string`  | No       | Placeholder text to display                                                                 |
-| `showCondition` | `object`  | No       | Condition object (See [Conditions](#conditions))                                            |
-| `required`      | `boolean` | No       | Whether the field is required (See [Validation](#validation))                               |
-| `pattern`       | `string`  | No       | Pattern to match during validation (See [Validation](#validation))                          |
-| `min`           | `number`  | Yes*     | Minimum value. (Used for `number` field types)                                              |
-| `max`           | `number`  | Yes*     | Maximum value. (Used for `number` field types)                                              |
-| `showTimeSelect`| `boolean` | No       | Only show Date in Date/Time. (Used for `date` field types)                              |
-| `hideCalendar`  | `boolean` | No       | Only show Time in Data/Time. (Used for `date` field types)                              |
-| `content`  | `string` | No       | Informational content to be displayed to the end-user. Utilizes `dangerouslySetInnerHTML`. (Used for `info` field types)                              |
+|-----------------|-----------|----------|--------------------------------------------------------------------------------------------------------------------------|
+| Property        | Type      | Required | Description                                                                                                              |
+| `id`            | `string`  | Yes      | See [Field ID](#field-id)                                                                                                |
+| `type`          | `string`  | Yes      | See [Field Type](#field-type)                                                                                            |
+| `title`         | `string`  | Yes      | Display label for the field                                                                                              |
+| `options`       | `array`   | No       | See [Field Options](#field-options)                                                                                      |
+| `fields`        | `array`   | No       | See [Field Children](#field-children)                                                                                    |
+| `placeholder`   | `string`  | No       | Placeholder text to display                                                                                              |
+| `showCondition` | `object`  | No       | Condition object (See [Conditions](#conditions))                                                                         |
+| `required`      | `boolean` | No       | Whether the field is required (See [Validation](#validation))                                                            |
+| `pattern`       | `string`  | No       | Pattern to match during validation (See [Validation](#validation))                                                       |
+| `min`           | `number`  | Yes*     | Minimum value. (Used for `number` field types)                                                                           |
+| `max`           | `number`  | Yes*     | Maximum value. (Used for `number` field types)                                                                           |
+| `showTimeSelect`| `boolean` | No       | Only show Date in Date/Time. (Used for `date` field types)                                                               |
+| `hideCalendar`  | `boolean` | No       | Only show Time in Data/Time. (Used for `date` field types)                                                               |
+| `content`       | `string`  | No       | Informational content to be displayed to the end-user. Utilizes `dangerouslySetInnerHTML`. (Used for `info` field types) |
 
 > `min` and `max` are only required for `<Range />` component types.
 > `date` field types implement [react-datepicker](https://reactdatepicker.com/). Any prop that can be passed to `react-datepicker` can be added to a `date` field, and it will be passed directly to `<Date />`, such as `timeIntervals`, or `dateFormat`.
