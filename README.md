@@ -721,6 +721,8 @@ Conditionally show any field by giving it a `showCondition`. Take a look at the 
 
 A `showCondition` contains a `type` and one or more `expressions`, which also contain a `type`. Expressions are evaluated against one another, or the form model itself to conditionally show a field (e.g. Show field `Foo` based on the response given in field `Bar`).
 
+> Note: `showConditions` also accept a `not` property, and if set to `true`, the condition will be negated.
+
 #### Condition Types
 
 | Type           | Uses                                                             | 
@@ -729,9 +731,9 @@ A `showCondition` contains a `type` and one or more `expressions`, which also co
 | `BLANK`        | Determine if a `FORM_RESPONSE` is blank**                        |
 | `CONTAINS`     | Determine if a `FORM_RESPONSE` contains a `CONST` value          |
 | `EMPTY`        | Determine if a `FORM_RESPONSE` is empty***                       |
-| `EQUAL`        | Determine if a `FORM_RESPONSE` is equal to a `CONST` or `FORM_RESPONSE` value       |
-| `GREATER_THAN` | Determine if a `FORM_RESPONSE` is greater than a `CONST` or `FORM_RESPONSE` value   |
-| `LESS_THAN`    | Determine if a `FORM_RESPONSE` is less than a `CONST` or `FORM_RESPONSE` value         |
+| `EQUAL`        | Determine if a `FORM_RESPONSE` is equal to a `CONST`             |
+| `GREATER_THAN` | Determine if a `FORM_RESPONSE` is greater than a `CONST`         |
+| `LESS_THAN`    | Determine if a `FORM_RESPONSE` is less than a `CONST`            |
 
 > ** Blank is defined as an empty array or string, undefined, or null.
 
@@ -744,9 +746,11 @@ A `showCondition` contains a `type` and one or more `expressions`, which also co
 | `CONST`         | A constant `value`                            |
 | `FORM_RESPONSE` | References a field `id` in the form instance  |
 
+> `showConditions` are evaluated every time the form is updated. 
+
 ----
 
-#### Condition Example
+#### `CONTAINS` Condition Example
 
 The following `checkboxgroup` has three option fields. The **second** option has a child field; if this option is selected, a `string` field is rendered underneath it. 
 
@@ -772,14 +776,16 @@ The following `checkboxgroup` has three option fields. The **second** option has
           title: 'Conditional Field',
           showCondition: {
             type: 'CONTAINS',
-            expression1: {
+            expressions: [
+              {
+                  type: 'FORM_RESPONSE',
+                  id: 'myArray'
+              },
+              {
                 type: 'CONST',
                 value: 'option2'
-            },
-            expression2: {
-                type: 'FORM_RESPONSE',
-                id: 'myArray'
-            }
+              }
+            ]
           }
         }
       ]
@@ -797,29 +803,131 @@ The `showCondition` on the `myString` field can appear cryptic, but let's pull i
 ```js
 showCondition: {
   type: 'CONTAINS',
-  expression1: {
+  expressions: [
+    {
+        type: 'FORM_RESPONSE',
+        id: 'myArray'
+    },
+    {
       type: 'CONST',
       value: 'option2'
-  },
-  expression2: {
+    }
+  ]
+}
+```
+
+The condition is of type `CONTAINS`, and contains an array of expressions.
+
+- One `expression` is of type `FORM_RESPONSE` and references by `id` the field `myArray`. 
+- One `expression` is of type `CONST`, and contains the value `option2`.
+
+The [expression-service](https://github.com/mikechabot/react-json-form-engine/blob/master/src/form-engine/service/expression-service.js) will pull the value of `myArray` from the instance, and determine if the `CONST` value of `option2` is contained within in. If so, the condition passes, and the `myString` field is displayed.
+
+> At its core, this `showCondition` says *"Show `myString` to the user if the form response for `myArray` contains `option2`."* 
+
+If the user selects all three options for `myArray`, its form response value in the instance would be `["option1", "option2", "option3"]`, therefore `myString` would be shown since the `value` in the `CONST` expression (`option2`) is contained within the the form response.
+
+----
+
+#### `EMPTY` Condition Example
+
+Let's take a look at an `EMPTY` example. We'll use the same `checkboxgroup` field from the condition example above, however in this case, the conditional field (`myNumber`) won't be rendered under an option field, but rather under the entire field itself regardless of which option is selected.
+
+> Have a look at the field definition below, and then we'll walk through it.
+
+```js
+{
+  id: 'myArray',
+  type: 'array',
+  title: 'Select some options to display the children',
+  options: [
+    {
+      id: 'option1',
+      title: 'Option 1'
+    },
+    {
+      id: 'option2',
+      title: 'Option 2',
+    },
+    {
+      id: 'option3',
+      title: 'Option 3',
+    },
+  ],
+  fields: [
+    {
+      id: 'myNumber',
+      type: 'number',
+      title: 'Number Field',
+      showCondition: {
+        type: 'EMPTY',
+        not: true,
+        expression: {
+            type: 'FORM_RESPONSE',
+            id: 'myArray'
+        }
+      }
+    }
+  ]
+}
+```
+Let's pull out the condition and walk through it:
+
+```js
+showCondition: {
+  type: 'EMPTY',
+  not: true,
+  expression: {
       type: 'FORM_RESPONSE',
       id: 'myArray'
   }
 }
 ```
 
-The condition is of type `CONTAINS`, and contains two expressions: `expression1` and `expression2`.
+The condition is of type `EMPTY`, contains a single expression, and also the `not` flag for negation.
 
-- `expression1` is of type `CONST`, and contains the value `option2`.
-- `expression2` is of type `FORM_RESPONSE` and references by `id` the field `myArray`. 
+- The `expression` is of type `FORM_RESPONSE` and references by `id` the field `myArray`. 
+- The `not` flag will negate the `EMPTY` condition being evaluated.
 
-At its core, this `showCondition` says *"Show `myString` to the user if the form response for `myArray` contains `option2`."* 
+The [expression-service](https://github.com/mikechabot/react-json-form-engine/blob/master/src/form-engine/service/expression-service.js) will pull the value of `myArray` from the instance, and determine if it is **not** empty (i.e. options have been selected).
 
-If the user selects all options for `myArray`, its form response value in `instance.getModel()` would be `["option1", "option2", "option3"]`, therefore `myString` would be shown since the `value` in `expression1` is contained within `expression2`. 
+> At its core, this expression says *"Show `myNumber` if the user selected any of the options in `myArray`"*
 
-The same would be true of if the user only selected `option2`, as the form response value for `myArray` would be `["option2"]`, whichs matches the `CONST` value.
+Conversely, if the `not` flag was removed from the condition, the `myNumber` field would immediately display to the user, but would be conditionally hidden if the user selected any of the options in `myArray`.
 
-> `showConditions` are evaluated every time the form is updated. 
+#### Condition Example (`GREATER_THAN`)
+
+Let's take a look at a numeric example, which is viewable on the [Numeric Conditions](https://mikechabot.github.io/react-json-form-engine-storybook/?path=/story/conditions--numeric-conditions) demo.
+
+```js
+{
+  id: 'num1',
+  type: 'number',
+  title: 'Greater-Than (>)',
+  min: 0,
+  max: 10,
+  fields: [
+    {
+      id: 'str1',
+      type: 'string',
+      title: 'Field',
+      showCondition: {
+        type: 'GREATER_THAN',
+        expression1: {
+          type: 'FORM_RESPONSE',
+          id: 'num1'
+        },
+        expression2: {
+          type: 'CONST',
+          value: 5
+        }
+      }
+    }
+  ]
+}
+```
+
+
 
 ----
 
