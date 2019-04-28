@@ -867,7 +867,7 @@ The following `checkboxgroup` has three option fields. The **second** option has
 }
 ```
 
-The `showCondition` on the `myString` field can appear cryptic, but let's take a close look at it:
+The `showCondition` on the `myString` field can appear cryptic, but let's take a closer look at it:
 
 ```js
 showCondition: {
