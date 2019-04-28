@@ -128,10 +128,8 @@ Then, we just pass the instance to the `<Form />` component, and `react-json-for
 ```jsx
 <Form
   instance={instance}
-  onSubmit={() => {
-    const responses = instance.serializeModel();
-    // Do stuff
-  }}
+  onUpdate={() => {}}
+  onSubmit={() => {}}
 />
 ```
 ----
