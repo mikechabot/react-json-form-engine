@@ -136,7 +136,7 @@ Then, we just pass the instance to the `<Form />` component, and `react-json-for
 
 ### <a id="login-form-example">Login Form Example</a>
 
-Let's create a simple login form. Either follow along below, or check out the [storybook](https://mikechabot.github.io/react-json-form-engine-storybook/?path=/story/examples--login-form).
+Let's create a simple login form. Either follow along below, or check out the [Login](https://mikechabot.github.io/react-json-form-engine-storybook/?path=/story/examples--login-form) demo on storybook.
 
 #### Login Form Definition
 
@@ -144,30 +144,30 @@ Here's our definition, which is a rather simple one. It consists of just a singl
 
 ```js
 const loginForm = {
-  id: "login_form",
+  id: "loginForm",
   title: "Welcome to Foo!",
   sections: [
     {
-      id: "section_1",
+      id: "loginSection",
       title: "Login Section",
       subsections: [
         {
-          id: "subsection_1",
+          id: "loginSubsection",
           title: "Login",
           subtitle: "Please enter your credentials.",
           fields: [
             {
-              id: "user_name",
+              id: "username",
               title: "Username",
               type: "string"
             },
             {
-              id: "user_pass",
+              id: "password",
               title: "Password",
               type: "string"
             },
             {
-              id: "remember_me",
+              id: "rememberMe",
               title: "Remember me",
               type: "boolean"
             }
@@ -177,7 +177,7 @@ const loginForm = {
     }
   ],
   decorators: {
-    "user_pass": {
+    password: {
       component: {
         type: "password"
       }
@@ -254,7 +254,7 @@ const LoginForm = () => (
 
 ### <a id="form-definition">Form Definition</a>
 
-Form definitions adhere to a strict schema. They must contain at least **one section**, which contains at least **one subsection**, which contains at least **one [Field Definition](#field-definition)**. You may find this schema verbose for smaller forms, however it scales well for significantly complex forms.
+Form definitions adhere to a strict schema. They must contain at least **one section**, which contains at least **one subsection**, which contains at least **one [Field Definition](#field-definition)**. You may find this schema verbose for smaller forms, however its purpose is to scale for significantly complex forms.
 
 > View the full schema in the [FormAPIService](https://github.com/mikechabot/react-json-form-engine/blob/master/src/form/service/form-api-service.js#L27)
 
@@ -293,7 +293,7 @@ Have a look the [Simple Form](https://mikechabot.github.io/react-json-form-engin
 
 Don't worry about making mistakes with your definition. If the `FormEngine` is instantiated with a malformed definition, the UI will be notified of the failure location.
 
-In the case below, our definition was completely missing the `sections` array:
+In the case below, our definition was missing the `sections` array:
 
 <div align="center">
 <img src='https://raw.githubusercontent.com/mikechabot/react-json-form-engine-demo/master/src/assets/form-engine-api-check.png' alt='api-check' aria-label='api-check' />
@@ -303,6 +303,21 @@ Have a look at the [Malformed Form](https://mikechabot.github.io/react-json-form
 
 ----
 
+### <a id="form-props">Form Props</a>
+
+| Prop                      | Required? | Type                 | Description
+|---------------------------|-----------|----------------------|-----------------------------------------|
+| `instance`                | Yes       | `object`             | Created by `new FormEngine(definition)` |
+| `onSubmit`                | Yes       | `func`               | Invoked when `Submit` is clicked. Is passed with `hasError`, which is the overall status of the form      |
+| `onUpdate`                | No        | `func`               | Invoked when the user updates the form. Is passed with the `id` and `value` of the field that was updated  |
+| `hideFormTitle`           | No        | `boolean`            | Hide the form's title                   |
+| `hideFormBorder`          | No        | `boolean`            | Hide the form's border                  |
+| `hideSubsectionTitles`    | No        | `boolean`            | Hide subsection titles. Only applies to sections with a single subsection**                |
+| `hideSubsectionSubtitles` | No        | `boolean`            | Hide subsection subtitles               |
+| `width`                   | No        | `number` or `string` | Apply a width to the form               |
+
+> ** Section titles are only used in **multi-section** forms, whereby vertical tabs are shown. In a Section that is **multi-subsection**, horizontal tabs are used, in which case the Subsection title is used as the tab label. However, in the case where a Section contains a single Subsection, the Subsection title is displayed as a heading, therefore `hideSubsectionTitles` is only applicable for Section with a single Subsection. See the [Layout](https://mikechabot.github.io/react-json-form-engine-storybook/?path=/story/layout--multi-section) demo on storbyook, and tinker with the prop knobs to see this behavior in action.
+ 
 ### <a id="field-definition">Field Definition</a>
 
 Field definitions also adhere to a strict schema. At minimum, they must contain an `id`, `type` and `title`:
