@@ -46,9 +46,16 @@ function _getConstComparisonCondition(type, val1, val2, orEqualTo) {
   };
 }
 
-function getExpressionMap(expressions) {
+function getExpressionMap(condition) {
   var map = {};
-  expressions.forEach(function (expression) {
+
+  if (condition && ((0, _isEmpty["default"])(condition.expressions) || !Array.isArray(condition.expressions))) {
+    console.warn('Condition is missing required expressions array');
+    console.warn(condition);
+    return map;
+  }
+
+  condition.expressions.forEach(function (expression) {
     map[expression.type] = expression;
   });
   return map;
@@ -56,7 +63,7 @@ function getExpressionMap(expressions) {
 
 var conditionEvaluators = {
   BETWEEN: function BETWEEN(service, condition, instance) {
-    var expressionMap = getExpressionMap(condition.expressions);
+    var expressionMap = getExpressionMap(condition);
     var formResponse = service.evalExpression(expressionMap[EXPRESSION_TYPE.FORM_RESPONSE], instance);
     var array = service.evalExpression(expressionMap[EXPRESSION_TYPE.CONST], instance);
     var conditionMet = false;
@@ -79,7 +86,7 @@ var conditionEvaluators = {
     return (0, _common.isBlank)(value);
   },
   CONTAINS: function CONTAINS(service, condition, instance) {
-    var expressionMap = getExpressionMap(condition.expressions);
+    var expressionMap = getExpressionMap(condition);
     var responseValue = service.evalExpression(expressionMap[EXPRESSION_TYPE.FORM_RESPONSE], instance);
     var constValue = service.evalExpression(expressionMap[EXPRESSION_TYPE.CONST], instance);
     var conditionMet = false;
@@ -96,7 +103,7 @@ var conditionEvaluators = {
     return conditionMet;
   },
   EQUAL: function EQUAL(service, condition, instance) {
-    var expressionMap = getExpressionMap(condition.expressions);
+    var expressionMap = getExpressionMap(condition);
     var formResponse = service.evalExpression(expressionMap[EXPRESSION_TYPE.FORM_RESPONSE], instance);
     var constValue = service.evalExpression(expressionMap[EXPRESSION_TYPE.CONST], instance);
     var conditionMet = false;

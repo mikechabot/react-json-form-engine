@@ -29,9 +29,14 @@ function _getConstComparisonCondition(type, val1, val2, orEqualTo) {
     };
 }
 
-function getExpressionMap(expressions) {
+function getExpressionMap(condition) {
     const map = {};
-    expressions.forEach(expression => {
+    if (condition && (isEmpty(condition.expressions) || !Array.isArray(condition.expressions))) {
+        console.warn('Condition is missing required expressions array');
+        console.warn(condition);
+        return map;
+    }
+    condition.expressions.forEach(expression => {
         map[expression.type] = expression;
     });
     return map;
@@ -39,7 +44,7 @@ function getExpressionMap(expressions) {
 
 const conditionEvaluators = {
     BETWEEN: (service, condition, instance) => {
-        const expressionMap = getExpressionMap(condition.expressions);
+        const expressionMap = getExpressionMap(condition);
         const formResponse = service.evalExpression(expressionMap[EXPRESSION_TYPE.FORM_RESPONSE], instance);
         const array = service.evalExpression(expressionMap[EXPRESSION_TYPE.CONST], instance);
 
@@ -66,7 +71,7 @@ const conditionEvaluators = {
         return isBlank(value);
     },
     CONTAINS: (service, condition, instance) => {
-        const expressionMap = getExpressionMap(condition.expressions);
+        const expressionMap = getExpressionMap(condition);
 
         const responseValue = service.evalExpression(expressionMap[EXPRESSION_TYPE.FORM_RESPONSE], instance);
         const constValue = service.evalExpression(expressionMap[EXPRESSION_TYPE.CONST], instance);
@@ -84,7 +89,7 @@ const conditionEvaluators = {
         return conditionMet;
     },
     EQUAL: (service, condition, instance) => {
-        const expressionMap = getExpressionMap(condition.expressions);
+        const expressionMap = getExpressionMap(condition);
 
         const formResponse = service.evalExpression(expressionMap[EXPRESSION_TYPE.FORM_RESPONSE], instance);
         const constValue = service.evalExpression(expressionMap[EXPRESSION_TYPE.CONST], instance);
