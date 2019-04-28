@@ -269,6 +269,10 @@ Form definitions adhere to a strict schema. They must contain at least **one sec
 export default {
   id: <string>,
   title: <string>,
+  faIcon: {
+      name: <string>,
+      prefix: <string>
+  },
   sections: [
     {
       id: <string>,
@@ -288,6 +292,7 @@ export default {
   ]
 };
 ```
+> The `faIcon` object is optional on the form definition; it supports [Font Awesome](https://fontawesome.com/icons?d=gallery) icons.
 
 Have a look the [Simple Form](https://mikechabot.github.io/react-json-form-engine-storybook/?path=/story/examples--simple-form) demo on storybook.
 
