@@ -47,7 +47,7 @@ It also offers a mechanism for serializing all form responses to JSON for persis
   - [Field Type](#field-type)
   - [Field Children](#field-children)
   - [Field Options](#field-options)
-  - [Field Props List](#field-props)
+  - [Field Props](#field-props)
   - [Field Type Transitions](#field-type-transitions)
   - [Field Decorators](#field-decorators)
 - [Serialize](#serialize)
