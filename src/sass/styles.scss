@@ -1,9 +1,9 @@
 @charset "utf-8";
 
-$panel-heading-radius: none;
+$panel-heading-radius: 0;
 $panel-heading-size: 1em;
 $panel-heading-weight: 600;
-$control-radius: none;
+$control-radius: 0;
 
 @import "../../node_modules/bulma/sass/utilities/_all.sass";
 @import "../../node_modules/bulma/sass/base/_all.sass";
