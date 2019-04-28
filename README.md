@@ -145,32 +145,34 @@ Here's our definition, which is a rather simple one. It consists of just a singl
 
 ```js
 const loginForm = {
-  id: "loginForm",
-  title: "Welcome to Foo!",
+  id: 'loginForm',
+  title: 'Welcome to Foo!',
   sections: [
     {
-      id: "loginSection",
-      title: "Login Section",
+      id: 'loginSection',
+      title: 'Login Section',
       subsections: [
         {
-          id: "loginSubsection",
-          title: "Login",
-          subtitle: "Please enter your credentials.",
+          id: 'loginSubsection',
+          title: 'Login',
+          subtitle: 'Please enter your credentials.',
           fields: [
             {
-              id: "username",
-              title: "Username",
-              type: "string"
+              id: 'username',
+              title: 'Username',
+              type: 'string',
+              required: true
             },
             {
-              id: "password",
-              title: "Password",
-              type: "string"
+              id: 'password',
+              title: 'Password',
+              type: 'string',
+              required: true
             },
             {
-              id: "rememberMe",
-              title: "Remember me",
-              type: "boolean"
+              id: 'rememberMe',
+              title: 'Remember me',
+              type: 'boolean'
             }
           ]
         }
@@ -180,7 +182,7 @@ const loginForm = {
   decorators: {
     password: {
       component: {
-        type: "password"
+        type: 'password'
       }
     }
   }
@@ -364,26 +366,26 @@ Any field can contain child fields. Simply create a `fields` array on the field,
 
 ```js
 {
-  id: "parent",
-  type: "number",
-  title: "Parent",             
+  id: 'parent',
+  type: 'number',
+  title: 'Parent',             
   fields: [
     {
-      id: "child",
-      type: "string",
-      title: "Child",
+      id: 'child',
+      type: 'string',
+      title: 'Child',
       fields: [
         {
-          id: "grandchild",
-          type: "number",
-          title: "Grandchild"
+          id: 'grandchild',
+          type: 'number',
+          title: 'Grandchild'
         }
       ]
     },
     {
-      id: "child-2",
-      type: "array",
-      title: "Child",
+      id: 'child-2',
+      type: 'array',
+      title: 'Child',
       options: [
         { id: 'op1', title: 'Option 1'},
         { id: 'op2', title: 'Option 2' },
@@ -427,9 +429,9 @@ For field types that accept unlimited options (`string`, `array`), you must incl
   title: 'Pick some',  
   type: 'array',      // Array type allows for multiple selections
   options: [
-    { id: "op1", title: "Option 1" },
-    { id: "op2", title: "Option 2" },
-    { id: "op3", title: "Option 3" },
+    { id: 'op1', title: 'Option 1' },
+    { id: 'op2', title: 'Option 2' },
+    { id: 'op3', title: 'Option 3' },
   ]
 },
 {
@@ -437,37 +439,37 @@ For field types that accept unlimited options (`string`, `array`), you must incl
   title: 'Pick one',
   type: 'string',    // String type allows for single selection
   options: [
-    { id: "op1", title: "Option 1" },
-    { id: "op2", title: "Option 2" },
-    { id: "op3", title: "Option 3" },
+    { id: 'op1', title: 'Option 1' },
+    { id: 'op2', title: 'Option 2' },
+    { id: 'op3', title: 'Option 3' },
   ]
 }
 ```
 
 #### Field Children on Options
 
-For field controls that render selectable options, like `<Radio />` or `<Checkboxgroup />`, you can include [Field Children](#field-children) on any of the options:
+For field controls that render selectable options, like `<Radio />` or `<Checkboxgroup />`, you can include [Field Children](#field-children) on any of the options. Take a look at the [Complex Nesting](https://mikechabot.github.io/react-json-form-engine-storybook/?path=/story/field-nesting--complex-nesting) demo on storybook.
 
 ```js
 {
-  id: "field_2",
-  type: "string",
-  title: "Select One (Field Type: String)",
+  id: 'field_2',
+  type: 'string',
+  title: 'Select One (Field Type: String)',
   options: [
     {
-      id: "op1",
-      title: "Option 1",
-      fields: [{ id: "explain_1", type: "string", title: "Explain" }]
+      id: 'op1',
+      title: 'Option 1',
+      fields: [{ id: 'explain_1', type: 'string', title: 'Explain' }]
     },
     {
-      id: "op2",
-      title: "Option 2",
-      fields: [{ id: "explain_2", type: "string", title: "Explain" }]
+      id: 'op2',
+      title: 'Option 2',
+      fields: [{ id: 'explain_2', type: 'string', title: 'Explain' }]
     },
     {
-      id: "op3",
-      title: "Option 3",
-      fields: [{ id: "explain_3", type: "string", title: "Explain" }]
+      id: 'op3',
+      title: 'Option 3',
+      fields: [{ id: 'explain_3', type: 'string', title: 'Explain' }]
     }
   ]
 }
@@ -845,8 +847,8 @@ The following `checkboxgroup` has three option fields. The **second** option has
             type: 'CONTAINS',
             expressions: [
               {
-                  type: 'FORM_RESPONSE',
-                  id: 'myArray'
+                type: 'FORM_RESPONSE',
+                id: 'myArray'
               },
               {
                 type: 'CONST',
@@ -872,8 +874,8 @@ showCondition: {
   type: 'CONTAINS',
   expressions: [
     {
-        type: 'FORM_RESPONSE',
-        id: 'myArray'
+      type: 'FORM_RESPONSE',
+      id: 'myArray'
     },
     {
       type: 'CONST',
