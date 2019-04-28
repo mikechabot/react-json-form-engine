@@ -12,7 +12,8 @@ import TabbedSections from './FormSection/TabbedSections';
     'hideFormBorder',
     'hideSubsectionTitles',
     'hideSubsectionSubtitles',
-    'submitButtonLabel'
+    'submitButtonLabel',
+    'disableSubmitOnValidationError'
 )
 @observer
 class FormConsumer extends Component {
@@ -38,8 +39,10 @@ class FormConsumer extends Component {
     render() {
         const { instance, hideFormBorder, width } = this.props;
 
+        const style = width ? { width: this.props.width } : {};
+
         return (
-            <div className="__rjfe__ rjfe-form-consumer" style={width ? { width: this.props.width } : {}}>
+            <div className="__rjfe__ rjfe-form-consumer" style={style}>
                 <FormTitle />
                 <div className="form-sections" style={this.getDerivedStyles(hideFormBorder)}>
                     {this.renderSections(instance.getSections())}

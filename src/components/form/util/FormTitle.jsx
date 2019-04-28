@@ -7,7 +7,7 @@ import FormSubmitButton from './FormSubmitButton';
 
 const DEFAULT_THEME = 'is-dark';
 
-@inject('instance', 'hideFormTitle', 'submitButtonLabel')
+@inject('instance', 'hideFormTitle', 'submitButtonLabel', 'disableSubmitOnValidationError')
 @observer
 class FormTitle extends Component {
     static propTypes = {

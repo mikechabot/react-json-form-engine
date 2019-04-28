@@ -496,7 +496,6 @@ class FormEngine {
     /**
      * Evaluate the show condition of the field
      * @param field
-     * @param tag
      * @returns {*}
      */
     isVisible(field) {
@@ -521,7 +520,7 @@ class FormEngine {
     validate(comprehensive = false) {
         this.validationResults = FormValidator.validate(this, this.validationResults, comprehensive);
         this.buildObservableValidationMap();
-        return this.validationResults.hasError();
+        return this.formHasError();
     }
 
     /**
@@ -549,8 +548,16 @@ class FormEngine {
             });
         });
         Object.keys(this.fields).forEach(id => {
-            this.validationMap.fields[id] = ValidationService.isError(this.getValidationStatusByTag(id));
+            this.validationMap.fields[id] = ValidationService.isError(this.getValidationStatusById(id));
         });
+    }
+
+    /**
+     * Get the ValidationResults object
+     * @returns {ValidationResults}
+     */
+    getValidationResults() {
+        return this.validationResults;
     }
 
     /**
@@ -558,7 +565,7 @@ class FormEngine {
      * @param id
      * @returns {{status: (*|string), messages: (*|Array)}}
      */
-    getValidationResultByTag(id) {
+    getValidationResultById(id) {
         return this.validationResults.getResults(id);
     }
 
@@ -567,8 +574,8 @@ class FormEngine {
      * @param id
      * @returns {*|string}
      */
-    getValidationStatusByTag(id) {
-        return this.getValidationResultByTag(id).status;
+    getValidationStatusById(id) {
+        return this.getValidationResultById(id).status;
     }
 
     /**
@@ -577,11 +584,11 @@ class FormEngine {
      * @param id
      * @returns {*|string}
      */
-    getDeepValidationStatusByTag(id) {
-        let status = this.getValidationResultByTag(id).status;
+    getDeepValidationStatusById(id) {
+        let status = this.getValidationResultById(id).status;
         const newStatus = this.findValidationStatus(
             this.getField(id)[FIELD.FIELDS],
-            this.getDeepValidationStatusByTag.bind(this),
+            this.getDeepValidationStatusById.bind(this),
             true
         );
         if (ValidationService.isMoreSevereStatus(newStatus, status)) {
@@ -617,7 +624,7 @@ class FormEngine {
     getSubsectionStatus(subsection) {
         return this.findValidationStatus(
             subsection.fields,
-            this.getDeepValidationStatusByTag.bind(this),
+            this.getDeepValidationStatusById.bind(this),
             true
         );
     }
@@ -656,6 +663,14 @@ class FormEngine {
      */
     sectionHasError(sectionId) {
         return this.validationMap.sections[sectionId] || false;
+    }
+
+    /**
+     * Determine if the form has a validation error
+     * @returns {boolean}
+     */
+    formHasError() {
+        return this.validationMap.form;
     }
 }
 

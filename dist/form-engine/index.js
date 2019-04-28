@@ -631,7 +631,6 @@ function () {
     /**
      * Evaluate the show condition of the field
      * @param field
-     * @param tag
      * @returns {*}
      */
 
@@ -694,8 +693,18 @@ function () {
         });
       });
       Object.keys(this.fields).forEach(function (id) {
-        _this11.validationMap.fields[id] = _validationService["default"].isError(_this11.getValidationStatusByTag(id));
+        _this11.validationMap.fields[id] = _validationService["default"].isError(_this11.getValidationStatusById(id));
       });
+    }
+    /**
+     * Get the ValidationResults object
+     * @returns {ValidationResults}
+     */
+
+  }, {
+    key: "getValidationResults",
+    value: function getValidationResults() {
+      return this.validationResults;
     }
     /**
      * Get validation results by field id
@@ -704,8 +713,8 @@ function () {
      */
 
   }, {
-    key: "getValidationResultByTag",
-    value: function getValidationResultByTag(id) {
+    key: "getValidationResultById",
+    value: function getValidationResultById(id) {
       return this.validationResults.getResults(id);
     }
     /**
@@ -715,9 +724,9 @@ function () {
      */
 
   }, {
-    key: "getValidationStatusByTag",
-    value: function getValidationStatusByTag(id) {
-      return this.getValidationResultByTag(id).status;
+    key: "getValidationStatusById",
+    value: function getValidationStatusById(id) {
+      return this.getValidationResultById(id).status;
     }
     /**
      * Recursively check for validation statuses, and return
@@ -727,10 +736,10 @@ function () {
      */
 
   }, {
-    key: "getDeepValidationStatusByTag",
-    value: function getDeepValidationStatusByTag(id) {
-      var status = this.getValidationResultByTag(id).status;
-      var newStatus = this.findValidationStatus(this.getField(id)[FIELD.FIELDS], this.getDeepValidationStatusByTag.bind(this), true);
+    key: "getDeepValidationStatusById",
+    value: function getDeepValidationStatusById(id) {
+      var status = this.getValidationResultById(id).status;
+      var newStatus = this.findValidationStatus(this.getField(id)[FIELD.FIELDS], this.getDeepValidationStatusById.bind(this), true);
 
       if (_validationService["default"].isMoreSevereStatus(newStatus, status)) {
         status = newStatus;
@@ -772,7 +781,7 @@ function () {
   }, {
     key: "getSubsectionStatus",
     value: function getSubsectionStatus(subsection) {
-      return this.findValidationStatus(subsection.fields, this.getDeepValidationStatusByTag.bind(this), true);
+      return this.findValidationStatus(subsection.fields, this.getDeepValidationStatusById.bind(this), true);
     }
     /**
      * Return the validation status of a section

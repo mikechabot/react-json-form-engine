@@ -9,17 +9,17 @@ export const logInstance = instance => {
 };
 
 export const buildFormComponent = (instance, options = {}) => {
-    const { submitButtonLabel = 'Submit', height, width } = options;
+    const { submitButtonLabel = 'Submit', width } = options;
 
     const buttonLabel = text('submitButtonLabel', submitButtonLabel);
     return (
         <Form
-            {...height && { height }}
             {...width && { width }}
             hideFormTitle={boolean('hideFormTitle', false)}
             hideFormBorder={boolean('hideFormBorder', false)}
             hideSubsectionTitles={boolean('hideSubsectionTitles', false)}
             hideSubsectionSubtitles={boolean('hideSubsectionSubtitles', false)}
+            disableSubmitOnValidationError={boolean('disableSubmitOnValidationError', true)}
             submitButtonLabel={buttonLabel}
             instance={instance}
             onSubmit={logInstance(instance).action(buttonLabel)}

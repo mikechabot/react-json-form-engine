@@ -6,7 +6,7 @@ import FormField from '../FormField/';
 import FormSubsectionTitle from '../util/FormSubsectionTitle';
 import FormSubmitButton from '../util/FormSubmitButton';
 
-@inject('instance', 'hideFormTitle', 'hideSubsectionTitles', 'hideSubsectionSubtitles')
+@inject('instance', 'hideFormTitle', 'hideSubsectionTitles', 'hideSubsectionSubtitles', 'submitButtonLabel')
 @observer
 class FormSubsection extends Component {
     static propTypes = {

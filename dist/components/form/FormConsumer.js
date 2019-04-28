@@ -78,11 +78,12 @@ function (_Component) {
           instance = _this$props.instance,
           hideFormBorder = _this$props.hideFormBorder,
           width = _this$props.width;
+      var style = width ? {
+        width: this.props.width
+      } : {};
       return _react["default"].createElement("div", {
         className: "__rjfe__ rjfe-form-consumer",
-        style: width ? {
-          width: this.props.width
-        } : {}
+        style: style
       }, _react["default"].createElement(_FormTitle["default"], null), _react["default"].createElement("div", {
         className: "form-sections",
         style: this.getDerivedStyles(hideFormBorder)

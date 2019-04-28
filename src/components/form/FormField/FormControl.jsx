@@ -25,7 +25,7 @@ class FormControl extends Component {
 
     renderErrors(id) {
         const { instance } = this.props;
-        const { messages } = instance.getValidationResultByTag(id);
+        const { messages } = instance.getValidationResultById(id);
         return Object.keys(messages).map(key => (
             <FormControlHint key={key} icon="asterisk" className="is-danger" text={messages[key].message} />
         ));

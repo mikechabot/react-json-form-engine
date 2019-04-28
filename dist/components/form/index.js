@@ -145,6 +145,7 @@ Form.propTypes = {
   hideFormBorder: _propTypes["default"].bool,
   hideSubsectionTitles: _propTypes["default"].bool,
   hideSubsectionSubtitles: _propTypes["default"].bool,
+  disableSubmitOnValidationError: _propTypes["default"].bool,
   width: _propTypes["default"].oneOfType([_propTypes["default"].number, _propTypes["default"].string]),
   onSubmit: _propTypes["default"].func.isRequired,
   onUpdate: _propTypes["default"].func

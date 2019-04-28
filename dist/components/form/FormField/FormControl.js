@@ -74,7 +74,7 @@ function (_Component) {
     value: function renderErrors(id) {
       var instance = this.props.instance;
 
-      var _instance$getValidati = instance.getValidationResultByTag(id),
+      var _instance$getValidati = instance.getValidationResultById(id),
           messages = _instance$getValidati.messages;
 
       return Object.keys(messages).map(function (key) {
