@@ -126,6 +126,7 @@ Then, we just pass the instance to the `<Form />` component, and `react-json-for
   }}
 />
 ```
+----
 
 ### <a id="login-form-example">Login Form Example</a>
 
