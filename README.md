@@ -42,11 +42,12 @@ It also offers a mechanism for serializing all form responses to JSON for persis
   - [Login Form Example](#login-form-example)
 - [Form Engine](#form-engine)
   - [Form Definition](#form-definition)
+  - [Form Props](#form-props)
   - [Field Definition](#field-definition)
   - [Field Type](#field-type)
   - [Field Children](#field-children)
   - [Field Options](#field-options)
-  - [Field Props List](#field-props-list)
+  - [Field Props List](#field-props)
   - [Field Type Transitions](#field-type-transitions)
   - [Field Decorators](#field-decorators)
 - [Serialize](#serialize)
@@ -244,11 +245,12 @@ const LoginForm = () => (
 ## <a id="form-engine">Form Engine</a>
 
 - [Form Definition](#form-definition)
+- [Form Props](#form-props)
 - [Field Definition](#field-definition)
 - [Field Type](#field-type)
 - [Field Children](#field-children)
 - [Field Options](#field-options)
-- [Field Props List](#field-props-list)
+- [Field Props](#field-props)
 - [Field Type Transitions](#field-type-transitions)
 - [Field Decorators](#field-decorators)
 
@@ -473,7 +475,7 @@ For field controls that render selectable options, like `<Radio />` or `<Checkbo
 
 ----
 
-### <a id="field-props-list">Field Props List</a>
+### <a id="field-props">Field Props</a>
 
 Here's the complete list of props that can be passed to [Field Definitions](#field-definition):
 
