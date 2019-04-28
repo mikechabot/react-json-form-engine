@@ -358,7 +358,7 @@ Note, the `info` field is the only field type that does not accept input from th
 
 ### <a id="field-children">Field Children</a>
 
-Any field can contain child fields. Simply create a `fields` array on the field, and drop in valid [Field Definitions](#field-definition). Here's an example of some nested fields: 
+Any field can contain child fields. Simply create a `fields` array on the field, and drop in valid [Field Definitions](#field-definition). Here's an example of some nested fields, but take a look at the [Nesting](https://mikechabot.github.io/react-json-form-engine-storybook/?path=/story/field-nesting--simple-nesting) demo on storybook.
 
 > Note: Field children can recurse infinitely, and also be placed on [Field Options](#field-options).
 
