@@ -310,6 +310,7 @@ Have a look at the [Malformed Form](https://mikechabot.github.io/react-json-form
 | `instance`                | Yes       | `object`             | Created by `new FormEngine(definition)` |
 | `onSubmit`                | Yes       | `func`               | Invoked when `Submit` is clicked. Is passed with `hasError`, which is the overall status of the form      |
 | `onUpdate`                | No        | `func`               | Invoked when the user updates the form. Is passed with the `id` and `value` of the field that was updated  |
+| `submitButtonLabel`       | No        | `string`             | Custom label for the "Submit" button.   |
 | `hideFormTitle`           | No        | `boolean`            | Hide the form's title                   |
 | `hideFormBorder`          | No        | `boolean`            | Hide the form's border                  |
 | `hideSubsectionTitles`    | No        | `boolean`            | Hide subsection titles. Only applies to sections with a single subsection**                |
