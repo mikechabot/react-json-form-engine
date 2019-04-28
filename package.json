@@ -81,6 +81,6 @@
     "mobx-react": "^5.4.3",
     "prop-types": "^15.7.2",
     "react-datepicker": "^2.4.0",
-    "react-tabify": "^0.1.24"
+    "react-tabify": "^0.1.25"
   }
 }

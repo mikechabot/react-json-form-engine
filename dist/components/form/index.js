@@ -126,6 +126,7 @@ function (_Component) {
         onUpdate: this.onUpdate,
         hideFormTitle: this.props.hideFormTitle,
         hideFormBorder: this.props.hideFormBorder,
+        disableSubmitOnValidationError: this.props.disableSubmitOnValidationError,
         hideSubsectionTitles: this.props.hideSubsectionTitles,
         hideSubsectionSubtitles: this.props.hideSubsectionSubtitles,
         submitButtonLabel: this.props.submitButtonLabel

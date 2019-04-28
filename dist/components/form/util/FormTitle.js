@@ -40,7 +40,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 
 var DEFAULT_THEME = 'is-dark';
-var FormTitle = (_dec = (0, _mobxReact.inject)('instance', 'hideFormTitle', 'submitButtonLabel'), _dec(_class = (0, _mobxReact.observer)(_class = (_temp = _class2 =
+var FormTitle = (_dec = (0, _mobxReact.inject)('instance', 'hideFormTitle', 'submitButtonLabel', 'disableSubmitOnValidationError'), _dec(_class = (0, _mobxReact.observer)(_class = (_temp = _class2 =
 /*#__PURE__*/
 function (_Component) {
   _inherits(FormTitle, _Component);

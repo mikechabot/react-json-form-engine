@@ -35,7 +35,7 @@ function _inherits(subClass, superClass) { if (typeof superClass !== "function" 
 
 function _setPrototypeOf(o, p) { _setPrototypeOf = Object.setPrototypeOf || function _setPrototypeOf(o, p) { o.__proto__ = p; return o; }; return _setPrototypeOf(o, p); }
 
-var FormSubmitButton = (_dec = (0, _mobxReact.inject)('onSubmit', 'submitButtonLabel'), _dec(_class = (0, _mobxReact.observer)(_class = (_temp = _class2 =
+var FormSubmitButton = (_dec = (0, _mobxReact.inject)('instance', 'onSubmit', 'submitButtonLabel', 'disableSubmitOnValidationError'), _dec(_class = (0, _mobxReact.observer)(_class = (_temp = _class2 =
 /*#__PURE__*/
 function (_Component) {
   _inherits(FormSubmitButton, _Component);
@@ -49,10 +49,17 @@ function (_Component) {
   _createClass(FormSubmitButton, [{
     key: "render",
     value: function render() {
+      var _this$props = this.props,
+          instance = _this$props.instance,
+          submitButtonLabel = _this$props.submitButtonLabel,
+          onSubmit = _this$props.onSubmit,
+          disableSubmitOnValidationError = _this$props.disableSubmitOnValidationError;
+      var disable = disableSubmitOnValidationError && instance.formHasError();
       return _react["default"].createElement("button", {
         className: "button is-link",
-        onClick: this.props.onSubmit
-      }, this.props.submitButtonLabel || 'Submit');
+        onClick: onSubmit,
+        disabled: disable
+      }, submitButtonLabel || 'Submit');
     }
   }]);
 

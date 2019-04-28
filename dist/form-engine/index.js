@@ -663,7 +663,7 @@ function () {
       var comprehensive = arguments.length > 0 && arguments[0] !== undefined ? arguments[0] : false;
       this.validationResults = _formValidator["default"].validate(this, this.validationResults, comprehensive);
       this.buildObservableValidationMap();
-      return this.validationResults.hasError();
+      return this.formHasError();
     }
     /**
      * Validate the form instance during form submission
@@ -826,6 +826,16 @@ function () {
     key: "sectionHasError",
     value: function sectionHasError(sectionId) {
       return this.validationMap.sections[sectionId] || false;
+    }
+    /**
+     * Determine if the form has a validation error
+     * @returns {boolean}
+     */
+
+  }, {
+    key: "formHasError",
+    value: function formHasError() {
+      return this.validationMap.form;
     }
   }]);
 
