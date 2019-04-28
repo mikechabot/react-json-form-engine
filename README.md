@@ -115,6 +115,14 @@ Once we've built our definition, we'll feed it to the `FormEngine`, which return
 const instance = new FormEngine(definition);
 ```
 
+To rehydrate a form instance from a previous state, we'd pass in our model as the second argument.
+
+```javascript
+
+const model = {username: 'mikechabot', city: 'Boston', state: 'MA'};
+const instance = new FormEngine(definition, model);
+```
+
 Then, we just pass the instance to the `<Form />` component, and `react-json-form-engine` takes care of the rest:
 
 ```jsx
