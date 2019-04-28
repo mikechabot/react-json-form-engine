@@ -191,24 +191,42 @@ With the instance in hand, we can pass it our `<Form />` component:
 const LoginForm = () => (
   <Form
     instance={instance}
-    onSubmit={() => {
+    onUpdate={(id, value) => {
+       // Do stuff
+    }}
+    onSubmit={hasError => {
        // Do stuff
     }}
   />
 );
 ```
 
-And once filled out, `onSubmit` will get us the form responses:
+And once filled out, `onSubmit` will get us the form responses, and also pass along the state of the form 
 
 ```jsx
 const LoginForm = () => (
   <Form
-    hideFormTitle
-    submitButtonLabel="Login"
     instance={instance}
-    onSubmit={() => {
-      console.log(instance.getModel());         // Get form responses
-      console.log(instance.serializeModel());   // Serialize form responses
+    onUpdate={(id, value) => {
+       // Log the change set
+       console.log(`FieldId ${id} was changed to ${value}`);
+       
+       // Get the full validation results of the field
+       console.log(instance.getValidationResultById(id);
+       
+       // Get just the validation status of the field (i.e. ERROR, OK)
+       console.log(instance.getValidationStatusById(id);
+    }}
+    onSubmit={hasError => {
+      if (hasError) {
+        // Get form validation results
+        console.log(intance.getValidationResults(id)); 
+      }
+      // Get form responses
+      console.log(instance.getModel());               
+      
+      // Serialize form responses
+      console.log(instance.serializeModel());         
     }}
   />
 );
@@ -233,7 +251,7 @@ Form definitions adhere to a strict schema. They must contain at least **one sec
 
 > View the full schema in the [FormAPIService](https://github.com/mikechabot/react-json-form-engine/blob/master/src/form/service/form-api-service.js#L27)
 
-> In forms with a single section, vertical tabs are not displayed. In sections with a single subsection, horizontal tabs are not displayed.
+> In forms with a single section, vertical tabs are not displayed. In sections with a single subsection, horizontal tabs are not displayed. See the [Layout](https://mikechabot.github.io/react-json-form-engine-storybook/?path=/story/layout--multi-section) demos on storybook.
 
 ```js
 // The most minimal form possible
