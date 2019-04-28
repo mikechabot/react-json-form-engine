@@ -316,7 +316,7 @@ Have a look at the [Malformed Form](https://mikechabot.github.io/react-json-form
 | `hideSubsectionSubtitles` | No        | `boolean`            | Hide subsection subtitles               |
 | `width`                   | No        | `number` or `string` | Apply a width to the form               |
 
-> ** Section titles are only used in **multi-section** forms, whereby vertical tabs are shown. In a Section that is **multi-subsection**, horizontal tabs are used, in which case the Subsection title is used as the tab label. However, in the case where a Section contains a single Subsection, the Subsection title is displayed as a heading, therefore `hideSubsectionTitles` is only applicable for Section with a single Subsection. See the [Layout](https://mikechabot.github.io/react-json-form-engine-storybook/?path=/story/layout--multi-section) demo on storbyook, and tinker with the prop knobs to see this behavior in action.
+> ** Section titles are only used in **multi-section** forms, and are used as the label for vertical tabs. Subsection titles are displayed as a heading in sections that contain a single subsection, and as labels for horizontal tabs in sections that are **multi-subsection**. See the [Layout](https://mikechabot.github.io/react-json-form-engine-storybook/?path=/story/layout--multi-section) demo on storbyook, and tinker with the prop knobs to see this behavior in action.
  
 ### <a id="field-definition">Field Definition</a>
 
