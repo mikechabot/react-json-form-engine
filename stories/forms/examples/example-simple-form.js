@@ -1,6 +1,9 @@
 export default {
     id: 'simpleForm',
     title: 'Simple Form',
+    faIcon: {
+        name: 'align-justify'
+    },
     sections: [
         {
             id: 'simpleSection',

@@ -1,6 +1,9 @@
 export default {
     id: 'rehydratedForm',
     title: 'Rehydrated Form',
+    faIcon: {
+        name: 'tint'
+    },
     sections: [
         {
             id: 'rehydratedSection',

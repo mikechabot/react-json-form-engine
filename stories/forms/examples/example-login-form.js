@@ -1,6 +1,9 @@
 export default {
     id: 'loginForm',
     title: 'Login Form',
+    faIcon: {
+        name: 'sign-in-alt'
+    },
     sections: [
         {
             id: 'loginSection',
