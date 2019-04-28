@@ -128,8 +128,8 @@ Then, we just pass the instance to the `<Form />` component, and `react-json-for
 ```jsx
 <Form
   instance={instance}
-  onUpdate={() => {}}
-  onSubmit={() => {}}
+  onUpdate={(id, value) => {}}
+  onSubmit={(hasError) => {}}
 />
 ```
 ----
