@@ -75,7 +75,7 @@
     "@fortawesome/free-solid-svg-icons": "^5.8.1",
     "@fortawesome/react-fontawesome": "^0.1.4",
     "api-check": "^7.5.5",
-    "lodash": "^4.17.11",
+    "lodash": "^4.17.19",
     "maybe-baby": "^1.1.8",
     "mobx": "^5.9.4",
     "mobx-react": "^5.4.3",
