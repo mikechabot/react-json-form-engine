@@ -61,7 +61,7 @@
     "eslint-plugin-promise": "^4.0.1",
     "eslint-plugin-react": "^7.12.4",
     "eslint-plugin-standard": "^4.0.0",
-    "node-sass": "^4.11.0",
+    "node-sass": "^4.13.1",
     "postcss": "^7.0.14",
     "postcss-prefix-selector": "^1.7.1",
     "postcss-prefixer": "^2.1.1",
