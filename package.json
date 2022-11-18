@@ -47,7 +47,7 @@
     "@storybook/addon-links": "^5.0.5",
     "@storybook/addon-options": "^5.0.5",
     "@storybook/addons": "^5.0.5",
-    "@storybook/react": "^5.0.5",
+    "@storybook/react": "^6.5.13",
     "autoprefixer": "^9.5.1",
     "babel-eslint": "^10.0.1",
     "bulma": "^0.7.4",
